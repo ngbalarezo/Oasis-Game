@@ -27,6 +27,9 @@
     <ClCompile Include="DUMPSTER.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="characters.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="menu.h">
