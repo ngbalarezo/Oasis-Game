@@ -72,9 +72,9 @@ public:
 	/**/
 	int printBattleOptions();
 	/**/
-	void playerAttackTurn(int input, int& damageDone, std::default_random_engine& engine, player& player);
+	int playerAttackTurn(int input, int& damageDone, std::default_random_engine& engine, player& player);
 	/**/
-	void enemyAttackTurn(int& damageDone, std::default_random_engine& engine, player& player);
+	void enemyAttackTurn(int playerDodges, int& damageDone, std::default_random_engine& engine, player& player);
 	/**/
 	void battle(player &player);
 

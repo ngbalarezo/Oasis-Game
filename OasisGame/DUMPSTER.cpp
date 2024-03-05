@@ -55,3 +55,8 @@ void menu() {
         std::cout << "Not an option." << std::endl;
     }
 }
+
+//WORK AREA FOR BATTLE FUNCTION
+
+
+
