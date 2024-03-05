@@ -16,6 +16,11 @@ int main()
     test.print();
     */
 
+    
+    //game generates all world items, npcs, and features
+
+    //game generates player and prompts for name and information
+
     //test battle feature
     std::string playerName = "Khevsureti";
     player player(playerName);

@@ -2,54 +2,69 @@
 #include <iostream>
 #include <random>
 
-//<--------------!-------------->//
-//character class definitions
-/*character class getters*/
+//CHARACTER CLASS DEFINITIONS
+
+//getters
 std::string character::getName() { return name; }
+
 int character::getHp() { return hp; }
-double character::getAtk() { return atk; }
-double character::getDef() { return def; }
-/*character class setters*/
+
+int character::getAtk() { return atk; }
+
+int character::getDef() { return def; }
+
+//setters
 void character::setName(std::string name) { this->name = name; }
+
 void character::setHp(int hp) { this->hp = hp; }
-void character::setAtk(double atk) { this->atk = atk; }
-void character::setDef(double def) { this->def = def; }
 
-//<--------------!-------------->//
-//player class definitions
-/*player class getters*/
-int player::getFp() { return fp; }
-int player::getSp() { return sp; }
+void character::setAtk(int atk) { this->atk = atk; }
 
-/*player class setters*/
-void player::setFp(int fp) { this->fp = fp; }
-void player::setSp(int sp) { this->sp = sp; }
+void character::setDef(int def) { this->def = def; }
 
-/*player class constructor*/
+//PLAYER CLASS DEFINITIONS
+
+//contructor
 player::player(std::string name) {
 	this->name = name;
 	hp = 100;
 	fp = 10;
 	sp = 100;
-	atk = 2;
-	def = 2;
+	atk = 0;
+	def = 0;
+	weight = 0;
 }
 
-//<--------------!-------------->//
-//npc class definitions
+//getters
+int player::getFp() { return fp; }
 
-//<--------------!-------------->//
-//enemy class definitions
-/*enemy class constructor*/
+int player::getSp() { return sp; }
+
+int player::getWeight() { return weight; }
+
+//setters
+void player::setFp(int fp) { this->fp = fp; }
+
+void player::setSp(int sp) { this->sp = sp; }
+
+void player::setWeight(int weight) { this->weight = weight; }
+
+//NPC CLASS DEFINITIONS
+
+//ENEMY CLASS DEFINITIONS
+
+//constructor
 enemy::enemy() {
 	hp = 20;
 	atk = 10;
 	def = 2;
 	flees = false;
 }
-/*enemy class getters*/
+
+//getters
 bool enemy::getFlees() { return flees; }
-/*enemy class setters*/
+
+//setters
 void enemy::setFlees(bool flees) { this->flees = flees; }
 
 /*
