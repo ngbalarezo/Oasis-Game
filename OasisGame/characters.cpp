@@ -152,6 +152,7 @@ int enemy::playerAttackTurn(int input, int &damageDone, std::default_random_engi
 		sentinel = 1;
 	}
 	else {
+		//!FIXME: why do letters break it?
 		system("CLS");
 		std::cout << "This is not an option. Choose again." << std::endl;
 		system("PAUSE");
