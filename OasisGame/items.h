@@ -4,42 +4,112 @@
 
 #include <iostream>
 #include <string>
-//!FIXME: LEFT OFF HERE, ADD IN ALL ITEM BASICS AND FINISH PRINT INVENTORY MENU IN INVENTORY PARENT CLASS...
+
+//PARENT CLASS
+//ITEM CLASS
 class item {
 protected:
 	std::string itemName;
 	int coinValue;
+	int weight;
+	bool isQuestItem;
+
 public:
-	item(std::string itemName, int coinValue) {
-		this->itemName = itemName;
-		this->coinValue = coinValue;
-	}
+	//constructor
+	item(std::string itemName, int coinValue, int weight, bool isQuestItem);
+
+	//getters
+	std::string getName();
+
+	int getCoinValue();
+
+	int getWeight();
+
+	bool getIsQuestItem();
+	//setters
+	void setName(std::string itemName);
+
+	void setCoinValue(int coinValue);
+
+	void setWeight(int weight);
+
+	void setIsQuestItem(bool isQuestItem);
+
 };
 
+//WEAPON CLASS
 class weapon : item {
 private:
 	int atk;
-	int weight;
+	int focus;
 
 public:
-	weapon(std::string itemName, int coinValue, int atk, int weight) {
-		this->itemName = itemName;
-		this->coinValue = coinValue;
-		this->atk = atk;
-		this->weight = weight;
-	}
+	//constructor
+	weapon(std::string itemName, int coinValue, int weight, bool isQuestItem, int atk, int focus);
+
+	//getters
+	int getAtk();
+
+	int getFocus();
+
+	//setters
+	void setAtk(int atk);
+
+	void setFocus(int focus);
 };
 
+//ARMOR CLASS
 class armor : item {
+private:
+	int def;
+
+public:
+	//constructor
+	armor(std::string itemName, int coinValue, int weight, bool isQuestItem, int def);
+
+	//getters
+	int getDef();
+
+	//setters
+	void setDef(int def);
+	
+};
+
+//POTION CLASS
+class potion {
+private:
+	std::string potionName;
+	int healValue;
+	int staminaValue;
+	int focusValue;
+	int coinValue;
+public:
+	//constructor
+	potion(std::string potionName, int healValue, int staminaValue, int focusValue, int coinValue);
+
+	//getters
+	std::string getPotionName();
+	
+	int getHealValue();
+
+	int getStaminaValue();
+
+	int getFocusValue();
+
+	int getCoinValue();
+
+	//setters
+	void setPotionName(std::string potionName);
+
+	void setHealValue(int healValue);
+
+	void setStaminaValue(int staminValue);
+
+	void setFocusValue(int focusValue);
+
+	void setCoinValue(int setCoinValue);
 
 };
 
-class potion : item {
-
-};
-
-class miscItem : item {
-
-};
 
 #endif

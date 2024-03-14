@@ -13,7 +13,7 @@ public:
 	//!FIXME: maybe make this general and applicable to all? LEFT OFF HERE AND IN ITEMS.H
 };
 
-class playerInventory {
+class playerInventory : public inventory{
 private:
 	//each player inventory has 1 weapon slot and 1 armor slot
 	weapon weaponSlot;
@@ -22,34 +22,48 @@ private:
 	potion potionSlot;
 	int potionCount;
 	//each player inventory has 3 miscellaneous item slots
-	miscItem itemSlot1;
-	miscItem itemSlot2;
-	miscItem itemSlot3;
+	item itemSlot1;
+	item itemSlot2;
+	item itemSlot3;
 	//each player inventory has a coin sack with infinite depth
 	int coinCount;
 
 public:
 	//constructor
-	playerInventory();
+	playerInventory(weapon noWeapon, armor noArmor, potion noPotion, item noItem);
+
 	//getters
 	weapon getWeapon();
+
 	armor getArmor();
+
 	potion getPotion();
+
 	int getPotionCount();
-	miscItem getItemSlot1();
-	miscItem getItemSlot2();
-	miscItem getItemSlot3();
+
+	item getItemSlot1();
+
+	item getItemSlot2();
+
+	item getItemSlot3();
 
 	//setters
 	void setWeapon(weapon newWeapon);
+
 	void setArmor(armor newArmor);
+
 	void setPotion(potion newPotion);
+
 	void setPotionCount(int potionCount);
-	void setItem1(miscItem newItem);
-	void setItem2(miscItem newItem);
-	void setItem3(miscItem newItem);
+
+	void setItem1(item newItem);
+
+	void setItem2(item newItem);
+
+	void setItem3(item newItem);
 
 	//methods
+
 };
 
 #endif

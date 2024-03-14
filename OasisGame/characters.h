@@ -8,7 +8,7 @@
 #include "inventory.h"
 #include "items.h"
 
-//parent class
+//PARENT CLASS: character
 class character {
 protected:
 	//members
@@ -30,7 +30,9 @@ public:
 	void setDef(int def);
 };
 
-//base classes
+//CHILD CLASSES
+
+//PLAYER CLASS
 class player : public character {
 private:
 	//player-specific stats
@@ -42,7 +44,7 @@ private:
 
 public:
 	//constructor
-	player(std::string name);
+	player(std::string name, playerInventory playerInventory); //!FIXME LEFT OFF HERE
 	//methods
 	/**/
 	int getFp();
@@ -55,12 +57,14 @@ public:
 
 };
 
+//NPC CLASS
 class npc : public character {
 private:
 
 public:
 };
 
+//ENEMY CLASS
 class enemy : public character {
 private:
 	//members
