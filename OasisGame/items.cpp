@@ -1,9 +1,18 @@
+#include "characters.h"
+#include "inventory.h"
 #include "items.h"
 
 
 //ITEM CLASS DEFINITIONS
 
 //constructor
+item::item() {
+	itemName = "empty";
+	coinValue = 0;
+	weight = 0;
+	isQuestItem = false;
+}
+
 item::item(std::string itemName, int coinValue, int weight, bool isQuestItem) {
 	this->itemName = itemName;
 	this->coinValue = coinValue;
@@ -32,7 +41,16 @@ void item::setIsQuestItem(bool isQuestItem) { this->isQuestItem = isQuestItem; }
 //WEAPON CLASS DEFINITIONS
 
 //constructor
-weapon::weapon(std::string itemName, int coinValue, int weight, bool isQuestItem, int atk, int focus) {
+weapon::weapon() {
+	itemName = "empty";
+	coinValue = 0;
+	weight = 0;
+	isQuestItem = false;
+	atk = 0;
+	focus = 0;
+}
+
+weapon::weapon(int atk, int focus) : item(itemName, coinValue, weight, isQuestItem) {
 	this->itemName = itemName;
 	this->coinValue = coinValue;
 	this->weight = weight;
@@ -54,7 +72,15 @@ void weapon::setFocus(int focus) { this->focus = focus; }
 //ARMOR CLASS DEFINITIONS
 
 //constructor
-armor::armor(std::string itemName, int coinValue, int weight, bool isQuestItem, int def) {
+armor::armor() {
+	itemName = "empty";
+	coinValue = 0;
+	weight = 0;
+	isQuestItem = false;
+	def = 0;
+}
+
+armor::armor(int def) : item(itemName, coinValue, weight, isQuestItem) {
 	this->itemName = itemName;
 	this->coinValue = coinValue;
 	this->weight = weight;
@@ -71,6 +97,13 @@ void armor::setDef(int def) { this->def = def; }
 //POTION CLASS DEFINITIONS
 
 //constructor
+potion::potion() {
+	potionName = "empty";
+	healValue = 0;
+	staminaValue = 0;
+	focusValue = 0;
+}
+
 potion::potion(std::string potionName, int healValue, int staminaValue, int focusValue, int coinValue) {
 	this->potionName = potionName;
 	this->healValue = healValue;

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include "characters.h"
 #include "inventory.h"
 #include "items.h"
 
@@ -8,6 +9,22 @@
 //PLAYER INVENTORY CLASS DEFINITIONS
 
 //constructor
+playerInventory::playerInventory() {
+	//declare variables
+	weapon noWeapon;
+	armor noArmor;
+	potion noPotion;
+	item noItem;
+
+	//set default variables
+	weaponSlot = noWeapon;
+	armorSlot = noArmor;
+	potionSlot = noPotion;
+	itemSlot1 = noItem;
+	itemSlot2 = noItem;
+	itemSlot3 = noItem;
+}
+
 playerInventory::playerInventory(weapon noWeapon, armor noArmor, potion noPotion, item noItem) {
 	weaponSlot = noWeapon;
 	armorSlot = noArmor;

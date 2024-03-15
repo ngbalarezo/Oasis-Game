@@ -40,11 +40,11 @@ private:
 	int sp;
 	int weight;
 	//player inventory
-	playerInventory playerInventory;
+	playerInventory inventory;
 
 public:
 	//constructor
-	player(std::string name, playerInventory playerInventory); //!FIXME LEFT OFF HERE
+	player(std::string name, playerInventory inventory);
 	//methods
 	/**/
 	int getFp();

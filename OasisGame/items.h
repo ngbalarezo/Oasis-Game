@@ -4,6 +4,8 @@
 
 #include <iostream>
 #include <string>
+#include "characters.h"
+#include "inventory.h"
 
 //PARENT CLASS
 //ITEM CLASS
@@ -15,7 +17,9 @@ protected:
 	bool isQuestItem;
 
 public:
-	//constructor
+	//constructors
+	item();
+
 	item(std::string itemName, int coinValue, int weight, bool isQuestItem);
 
 	//getters
@@ -38,14 +42,16 @@ public:
 };
 
 //WEAPON CLASS
-class weapon : item {
+class weapon : public item {
 private:
 	int atk;
 	int focus;
 
 public:
-	//constructor
-	weapon(std::string itemName, int coinValue, int weight, bool isQuestItem, int atk, int focus);
+	//constructors
+	weapon();
+
+	weapon(int atk, int focus);
 
 	//getters
 	int getAtk();
@@ -59,13 +65,15 @@ public:
 };
 
 //ARMOR CLASS
-class armor : item {
+class armor : public item {
 private:
 	int def;
 
 public:
-	//constructor
-	armor(std::string itemName, int coinValue, int weight, bool isQuestItem, int def);
+	//constructors
+	armor();
+
+	armor(int def);
 
 	//getters
 	int getDef();
@@ -83,8 +91,11 @@ private:
 	int staminaValue;
 	int focusValue;
 	int coinValue;
+
 public:
-	//constructor
+	//constructors
+	potion();
+
 	potion(std::string potionName, int healValue, int staminaValue, int focusValue, int coinValue);
 
 	//getters

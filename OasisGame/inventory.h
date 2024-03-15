@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <string>
+#include "characters.h"
 #include "items.h"
 
 class inventory {
@@ -13,7 +14,7 @@ public:
 	//!FIXME: maybe make this general and applicable to all? LEFT OFF HERE AND IN ITEMS.H
 };
 
-class playerInventory : public inventory{
+class playerInventory{
 private:
 	//each player inventory has 1 weapon slot and 1 armor slot
 	weapon weaponSlot;
@@ -30,6 +31,8 @@ private:
 
 public:
 	//constructor
+	playerInventory();
+
 	playerInventory(weapon noWeapon, armor noArmor, potion noPotion, item noItem);
 
 	//getters

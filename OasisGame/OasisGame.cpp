@@ -21,18 +21,15 @@ int main()
     
     //MAIN GAME: game generates all world items, npcs, and features
     
-    //TEST: generate empty inventory items and empty inventory
-    weapon noWeapon("empty", 0, 0, false, 0, 0);
-    armor noArmor("empty", 0, 0, false, 0);
-    potion noPotion("empty", 0, 0, 0, 0);
-    item noItem("empty", 0, 0, false);
-    playerInventory playerInventory(noWeapon, noArmor, noPotion, noItem);
+    //TEST: generate empty inventory
+    playerInventory playerInventory;
 
     //TEST: prompt user for player name, generate empty player
     std::string playerName; //playerName = "Khevsureti";
-    std::cout << "Insert Player Name: " << std::endl;
+    std::cout << "Insert Player Name: ";
     std::cin >> playerName;
-    player player(playerName, );
+    player player(playerName, playerInventory);
+    system("CLS");
 
     //MAIN GAME: game generates player and prompts for name and information
 
@@ -50,5 +47,5 @@ int main()
 * Add in buff/nerf in battle function according to armor and weapons
 * Start menu + music
 * Change the name of focus stat of weapon class to better capture the essence of the stat (difficulty requries more focus, precision?)
-* 
+* Organize header include tags
 */

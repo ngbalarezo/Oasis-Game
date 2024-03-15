@@ -1,8 +1,9 @@
+#include <iostream>
+#include <random>
 #include "characters.h"
 #include "inventory.h"
 #include "items.h"
-#include <iostream>
-#include <random>
+
 
 //CHARACTER CLASS DEFINITIONS
 
@@ -27,7 +28,7 @@ void character::setDef(int def) { this->def = def; }
 //PLAYER CLASS DEFINITIONS
 
 //contructor
-player::player(std::string name, playerInventory playerInventory) {
+player::player(std::string name, playerInventory inventory) {
 	this->name = name;
 	hp = 100;
 	fp = 10;
@@ -35,7 +36,7 @@ player::player(std::string name, playerInventory playerInventory) {
 	atk = 0;
 	def = 0;
 	weight = 0;
-	this->playerInventory = playerInventory;
+	this->inventory = inventory;
 }
 
 //getters
@@ -164,7 +165,10 @@ int enemy::playerAttackTurn(int input, int &damageDone, std::default_random_engi
 	}
 	//inventory
 	else if (input == 3) {
-		//insert inventory functionality
+		//!FIXME: insert inventory functionality
+		
+		//sets playerDodges to 3 as return value to prevent enemy from attacking if user picks inventory
+		playerDodges = 3;
 	}
 	else {
 		//!FIXME: why do letters break it?
