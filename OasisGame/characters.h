@@ -50,10 +50,12 @@ public:
 	int getFp();
 	int getSp();
 	int getWeight();
+	playerInventory getInventory();
 	/**/
 	void setFp(int fp);
 	void setSp(int sp);
 	void setWeight(int weight);
+	void setInventory(playerInventory inventory);
 
 };
 

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <string>
 #include "characters.h"
 #include "inventory.h"
@@ -20,9 +21,11 @@ playerInventory::playerInventory() {
 	weaponSlot = noWeapon;
 	armorSlot = noArmor;
 	potionSlot = noPotion;
+	potionCount = 0;
 	itemSlot1 = noItem;
 	itemSlot2 = noItem;
 	itemSlot3 = noItem;
+	coinCount = 0;
 }
 
 playerInventory::playerInventory(weapon noWeapon, armor noArmor, potion noPotion, item noItem) {
@@ -67,6 +70,20 @@ void playerInventory::setItem2(item newItem) { itemSlot2 = newItem; }
 void playerInventory::setItem3(item newItem) { itemSlot3 = newItem; }
 
 //methods
+void playerInventory::display() {
+	//iomanip stream manipulations
+	std::cout << std::setiosflags(std::ios::right); //left aligns setw()
+	//display spacing header
+	//!FIXME: see if you can middle align titles
+	std::cout << std::setw(8) << "Slot" << "|" << std::setw(8) << "Name" << "|" << std::setw(8) << "Value" << "|" << std::setw(8) << "Weight" << std::endl;
+	//display items in order
+	std::cout << "Weapon Slot: " << weaponSlot.getName() << "  " << weaponSlot.getCoinValue() << "  " << weaponSlot.getWeight() << std::endl;
+	
+	
+	
+}
+
+//!FIXME: add in return type, choice menu, etc, seperate function?
 
 
 

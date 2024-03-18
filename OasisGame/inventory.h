@@ -66,7 +66,7 @@ public:
 	void setItem3(item newItem);
 
 	//methods
-
+	void display();
 };
 
 #endif

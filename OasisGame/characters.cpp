@@ -46,12 +46,15 @@ int player::getSp() { return sp; }
 
 int player::getWeight() { return weight; }
 
+playerInventory player::getInventory() { return inventory; }
 //setters
 void player::setFp(int fp) { this->fp = fp; }
 
 void player::setSp(int sp) { this->sp = sp; }
 
 void player::setWeight(int weight) { this->weight = weight; }
+
+void player::setInventory(playerInventory inventory) { this->inventory = inventory; }
 
 //NPC CLASS DEFINITIONS
 
@@ -165,8 +168,11 @@ int enemy::playerAttackTurn(int input, int &damageDone, std::default_random_engi
 	}
 	//inventory
 	else if (input == 3) {
-		//!FIXME: insert inventory functionality
-		
+		//display player inventory
+		player.getInventory().display();
+		//pauses and clears console
+		system("PAUSE");
+		system("CLS");
 		//sets playerDodges to 3 as return value to prevent enemy from attacking if user picks inventory
 		playerDodges = 3;
 	}

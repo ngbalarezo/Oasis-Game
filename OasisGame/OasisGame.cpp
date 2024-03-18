@@ -10,30 +10,29 @@
 #include "inventory.h"
 #include "items.h"
 
-int main()
-{
+int main() {
     //game begins, main menu prints 
     /*
     mainMenu test;
     test.print();
     */
 
-    
+    //MAIN GAME: start menu, prompts user to choose base settings
+
     //MAIN GAME: game generates all world items, npcs, and features
     
     //TEST: generate empty inventory
     playerInventory playerInventory;
 
     //TEST: prompt user for player name, generate empty player
-    std::string playerName; //playerName = "Khevsureti";
-    std::cout << "Insert Player Name: ";
-    std::cin >> playerName;
+    std::string playerName; 
+    playerName = "Khevsureti";
+    /*std::cout << "Insert Player Name: ";
+    std::cin >> playerName;*/
     player player(playerName, playerInventory);
     system("CLS");
 
     //MAIN GAME: game generates player and prompts for name and information
-
-    //MAIN GAME: start menu, prompts user to choose base settings
 
     //TEST: battle feature
     enemy zombie;
