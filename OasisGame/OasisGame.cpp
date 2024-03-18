@@ -11,20 +11,16 @@
 #include "items.h"
 
 int main() {
-    //game begins, main menu prints 
-    /*
-    mainMenu test;
-    test.print();
-    */
+    //MAIN GAME: game generates all world items, npcs, and features
 
     //MAIN GAME: start menu, prompts user to choose base settings
 
-    //MAIN GAME: game generates all world items, npcs, and features
-    
-    //TEST: generate empty inventory
-    playerInventory playerInventory;
+    //MAIN GAME: game generates player and prompts for name and information
 
-    //TEST: prompt user for player name, generate empty player
+    /*TESTING BELOW*/
+    
+    //TEST: generate empty inventory, prompt user for player name, generate empty player
+    playerInventory playerInventory;
     std::string playerName; 
     playerName = "Khevsureti";
     //std::cout << "Insert Player Name: ";
@@ -32,11 +28,25 @@ int main() {
     player player(playerName, playerInventory);
     system("CLS");
 
-    //MAIN GAME: game generates player and prompts for name and information
+    //TEST: Main menu to test features
+    int userChoice;
+    mainMenu test;
+    std::cout << "TEST MENU: " << std::endl;
+    test.print();
+    std::cin >> userChoice;
+    if (userChoice == 1) { //NULL
 
-    //TEST: battle feature
-    enemy zombie;
-    zombie.battle(player);
+    }
+    else if (userChoice == 2) { //BATTLE TEST
+        system("CLS");
+        enemy zombie;
+        zombie.battle(player);
+    }
+    else if (userChoice == 3){ //STANDARD INVENTORY DISPLAY
+        system("CLS");
+        player.getInventory().display();
+        system("PAUSE");
+    }
 
     return 0;
 }
@@ -48,6 +58,6 @@ int main() {
 * Change the name of focus stat of weapon class to better capture the essence of the stat (difficulty requries more focus, precision?)
 * Organize header include tags
 * Quest item cannot drop item, quest item feature
-* 
+* Clean up system clears and pauses ("CLS") and ("PAUSEle")
 * 
 */
