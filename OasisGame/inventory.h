@@ -44,11 +44,15 @@ public:
 
 	int getPotionCount();
 
+	std::string getPotionDisplayString();
+
 	item getItemSlot1();
 
 	item getItemSlot2();
 
 	item getItemSlot3();
+
+	int getCointCount();
 
 	//setters
 	void setWeapon(weapon newWeapon);
@@ -65,8 +69,12 @@ public:
 
 	void setItem3(item newItem);
 
+	void setCoinCount(int coinCount);
+
 	//methods
 	void display();
+
+	void battleDisplay();
 };
 
 #endif

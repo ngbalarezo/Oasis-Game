@@ -109,6 +109,7 @@ public:
 
 	int getCoinValue();
 
+
 	//setters
 	void setPotionName(std::string potionName);
 

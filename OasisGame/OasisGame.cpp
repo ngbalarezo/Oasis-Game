@@ -27,8 +27,8 @@ int main() {
     //TEST: prompt user for player name, generate empty player
     std::string playerName; 
     playerName = "Khevsureti";
-    /*std::cout << "Insert Player Name: ";
-    std::cin >> playerName;*/
+    //std::cout << "Insert Player Name: ";
+    //std::cin >> playerName;
     player player(playerName, playerInventory);
     system("CLS");
 
@@ -47,4 +47,7 @@ int main() {
 * Start menu + music
 * Change the name of focus stat of weapon class to better capture the essence of the stat (difficulty requries more focus, precision?)
 * Organize header include tags
+* Quest item cannot drop item, quest item feature
+* 
+* 
 */

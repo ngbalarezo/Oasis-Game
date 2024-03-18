@@ -102,6 +102,7 @@ potion::potion() {
 	healValue = 0;
 	staminaValue = 0;
 	focusValue = 0;
+	coinValue = 0;
 }
 
 potion::potion(std::string potionName, int healValue, int staminaValue, int focusValue, int coinValue) {

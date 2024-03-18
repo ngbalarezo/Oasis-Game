@@ -48,11 +48,21 @@ potion playerInventory::getPotion() { return potionSlot; }
 
 int playerInventory::getPotionCount() { return potionCount; }
 
+std::string playerInventory::getPotionDisplayString() { 
+	return potionSlot.getPotionName() + " x" + std::to_string(potionCount);
+	/*std::string potionDisplayString = potionSlot.getPotionName();
+	potionDisplayString.append(" x");
+	potionDisplayString.append(std::to_string(potionCount));
+	return potionDisplayString;*/
+}
+
 item playerInventory::getItemSlot1() { return itemSlot1; }
 
 item playerInventory::getItemSlot2() { return itemSlot2; }
 
 item playerInventory::getItemSlot3() { return itemSlot3; }
+
+int playerInventory::getCointCount() { return coinCount; }
 
 //setters
 void playerInventory::setWeapon(weapon newWeapon) { weaponSlot = newWeapon; }
@@ -69,18 +79,42 @@ void playerInventory::setItem2(item newItem) { itemSlot2 = newItem; }
 
 void playerInventory::setItem3(item newItem) { itemSlot3 = newItem; }
 
+void playerInventory::setCoinCount(int coinCount) { this->coinCount = coinCount; }
+
 //methods
 void playerInventory::display() {
 	//iomanip stream manipulations
-	std::cout << std::setiosflags(std::ios::right); //left aligns setw()
+	std::cout << std::setiosflags(std::ios::left); //left aligns setw()
 	//display spacing header
 	//!FIXME: see if you can middle align titles
-	std::cout << std::setw(8) << "Slot" << "|" << std::setw(8) << "Name" << "|" << std::setw(8) << "Value" << "|" << std::setw(8) << "Weight" << std::endl;
+	std::cout << std::setw(20) << "Slot" << "|" << std::setw(20) << "Name" << "|" << std::setw(20) << "Value" << "|" << std::setw(20) << "Weight" << std::endl;
 	//display items in order
-	std::cout << "Weapon Slot: " << weaponSlot.getName() << "  " << weaponSlot.getCoinValue() << "  " << weaponSlot.getWeight() << std::endl;
-	
-	
-	
+	std::cout << std::setw(20) << "Weapon Slot: " << std::setw(20) << weaponSlot.getName() << "  " << std::setw(20) << weaponSlot.getCoinValue() << "  " << std::setw(20) << weaponSlot.getWeight() << std::endl;
+	std::cout << std::setw(20) << "Armor Slot: " << armorSlot.getName() << "  " << armorSlot.getCoinValue() << "  " << armorSlot.getWeight() << std::endl;
+	std::cout << std::setw(20) << "Potion Slot: " << potionSlot.getPotionName() << " x" << this->getPotionCount() << "  " << potionSlot.getCoinValue() << "  n/a" << std::endl;
+	std::cout << std::setw(20) << "Item Slot 1: " << itemSlot1.getName() << "  " << itemSlot1.getCoinValue() << "  " << itemSlot1.getWeight() << std::endl;
+	std::cout << std::setw(20) << "Item Slot 2: " << itemSlot2.getName() << "  " << itemSlot2.getCoinValue() << "  " << itemSlot2.getWeight() << std::endl;
+	std::cout << std::setw(20) << "Item Slot 3: " << itemSlot3.getName() << "  " << itemSlot3.getCoinValue() << "  " << itemSlot3.getWeight() << std::endl;
+}
+
+void playerInventory::battleDisplay() {
+	//iomanip stream manipulations
+	std::cout << std::setiosflags(std::ios::left); //left aligns setw()
+	//display spacing header
+	//!FIXME: see if you can middle align titles
+	std::cout << std::setw(15) << "Slot" << std::setw(15) << "Name" << std::setw(15) << "Value" << std::setw(15) << "Weight" << std::endl;
+	std::cout << std::setw(60) << "============================================================" << std::endl << std::endl;
+	//display items in order
+	std::cout << std::setw(15) << "Weapon Slot: " << std::setw(15) << weaponSlot.getName() << std::setw(15) << weaponSlot.getCoinValue() << std::setw(15) << weaponSlot.getWeight() << std::endl << std::endl;
+	std::cout << std::setw(15) << "Armor Slot: " << std::setw(15) << armorSlot.getName() << std::setw(15) << armorSlot.getCoinValue() << std::setw(15) << armorSlot.getWeight() << std::endl << std::endl;
+	std::cout << std::setw(15) << "Potion Slot: " << std::setw(15) << getPotionDisplayString() << std::setw(15) << potionSlot.getCoinValue() << std::setw(15) << "n/a" << std::endl << std::endl;
+	std::cout << std::setw(15) << "Item Slot 1: " << std::setw(15) << itemSlot1.getName() << std::setw(15) << itemSlot1.getCoinValue() << std::setw(15) << itemSlot1.getWeight() << std::endl << std::endl;
+	std::cout << std::setw(15) << "Item Slot 2: " << std::setw(15) << itemSlot2.getName() << std::setw(15) << itemSlot2.getCoinValue() << std::setw(15) << itemSlot2.getWeight() << std::endl << std::endl;
+	std::cout << std::setw(15) << "Item Slot 3: " << std::setw(15) << itemSlot3.getName() << std::setw(15) << itemSlot3.getCoinValue() << std::setw(15) << itemSlot3.getWeight() << std::endl << std::endl;
+	std::cout << std::setw(60) << "============================================================" << std::endl << std::endl;
+	std::cout << std::endl;
+
+
 }
 
 //!FIXME: add in return type, choice menu, etc, seperate function?

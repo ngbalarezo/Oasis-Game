@@ -169,7 +169,7 @@ int enemy::playerAttackTurn(int input, int &damageDone, std::default_random_engi
 	//inventory
 	else if (input == 3) {
 		//display player inventory
-		player.getInventory().display();
+		player.getInventory().battleDisplay();
 		//pauses and clears console
 		system("PAUSE");
 		system("CLS");
