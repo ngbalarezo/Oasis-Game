@@ -70,12 +70,15 @@ int main() {
 
 /*
 * !FIXME LIST:
+* -------------------------------------------------------------------------------------------------------------------------------------------
 * Add in buff/nerf in battle function according to armor and weapons
 * Music
 * Fix documentation, make the game easier to understand with comments
+* Make the battle screen look nicer!!!
 * Change the name of focus stat of weapon class to better capture the essence of the stat (difficulty requries more focus, precision?)
 * Organize header include tags
 * Quest item cannot drop item, quest item feature
 * Clean up system clears and pauses ("CLS") and ("PAUSE")
 * 
+* -------------------------------------------------------------------------------------------------------------------------------------------
 */
