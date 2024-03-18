@@ -1,55 +1,77 @@
-#include "characters.h"
 #include <iostream>
 #include <random>
+#include "characters.h"
+#include "inventory.h"
+#include "items.h"
 
-//<--------------!-------------->//
-//character class definitions
-/*character class getters*/
+
+//CHARACTER CLASS DEFINITIONS
+
+//getters
 std::string character::getName() { return name; }
+
 int character::getHp() { return hp; }
-double character::getAtk() { return atk; }
-double character::getDef() { return def; }
-/*character class setters*/
+
+int character::getAtk() { return atk; }
+
+int character::getDef() { return def; }
+
+//setters
 void character::setName(std::string name) { this->name = name; }
+
 void character::setHp(int hp) { this->hp = hp; }
-void character::setAtk(double atk) { this->atk = atk; }
-void character::setDef(double def) { this->def = def; }
 
-//<--------------!-------------->//
-//player class definitions
-/*player class getters*/
-int player::getFp() { return fp; }
-int player::getSp() { return sp; }
+void character::setAtk(int atk) { this->atk = atk; }
 
-/*player class setters*/
-void player::setFp(int fp) { this->fp = fp; }
-void player::setSp(int sp) { this->sp = sp; }
+void character::setDef(int def) { this->def = def; }
 
-/*player class constructor*/
-player::player(std::string name) {
+//PLAYER CLASS DEFINITIONS
+
+//contructor
+player::player(std::string name, playerInventory inventory) {
 	this->name = name;
 	hp = 100;
 	fp = 10;
 	sp = 100;
-	atk = 2;
-	def = 2;
+	atk = 0;
+	def = 0;
+	weight = 0;
+	this->inventory = inventory;
 }
 
-//<--------------!-------------->//
-//npc class definitions
+//getters
+int player::getFp() { return fp; }
 
-//<--------------!-------------->//
-//enemy class definitions
-/*enemy class constructor*/
+int player::getSp() { return sp; }
+
+int player::getWeight() { return weight; }
+
+playerInventory player::getInventory() { return inventory; }
+//setters
+void player::setFp(int fp) { this->fp = fp; }
+
+void player::setSp(int sp) { this->sp = sp; }
+
+void player::setWeight(int weight) { this->weight = weight; }
+
+void player::setInventory(playerInventory inventory) { this->inventory = inventory; }
+
+//NPC CLASS DEFINITIONS
+
+//ENEMY CLASS DEFINITIONS
+
+//constructor
 enemy::enemy() {
 	hp = 20;
 	atk = 10;
 	def = 2;
 	flees = false;
 }
-/*enemy class getters*/
+
+//getters
 bool enemy::getFlees() { return flees; }
-/*enemy class setters*/
+
+//setters
 void enemy::setFlees(bool flees) { this->flees = flees; }
 
 /*
@@ -92,7 +114,6 @@ int enemy::printBattleOptions() {
 */
 int enemy::playerAttackTurn(int input, int &damageDone, std::default_random_engine &engine, player &player) {
 	//declare variables
-	int sentinel = 0;
 	std::uniform_int_distribution<unsigned int> enemyDodgeChance{ 1,7 };
 	std::uniform_int_distribution<unsigned int> playerHeavyAttackRange{ 7,12 };
 	std::uniform_int_distribution<unsigned int> playerLightAttackRange{ 4,6 };
@@ -144,12 +165,16 @@ int enemy::playerAttackTurn(int input, int &damageDone, std::default_random_engi
 				system("CLS");
 			}
 		}
-		sentinel = 1;
 	}
 	//inventory
 	else if (input == 3) {
-		//insert inventory functionality
-		sentinel = 1;
+		//display player inventory
+		player.getInventory().battleDisplay();
+		//pauses and clears console
+		system("PAUSE");
+		system("CLS");
+		//sets playerDodges to 3 as return value to prevent enemy from attacking if user picks inventory
+		playerDodges = 3;
 	}
 	else {
 		//!FIXME: why do letters break it?

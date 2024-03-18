@@ -5,54 +5,68 @@
 #include <iostream>
 #include <string>
 #include <random>
+#include "inventory.h"
+#include "items.h"
 
-//parent class
+//PARENT CLASS: character
 class character {
 protected:
 	//members
 	std::string name;
 	int hp;
-	double atk;
-	double def;
+	int atk;
+	int def;
 public:
 	//constructor
 	//methods
 	std::string getName();//getters
 	int getHp();
-	double getAtk();
-	double getDef();
+	int getAtk();
+	int getDef();
 
 	void setName(std::string name);//setters
 	void setHp(int hp);
-	void setAtk(double atk);
-	void setDef(double def);
+	void setAtk(int atk);
+	void setDef(int def);
 };
 
-//base classes
+//CHILD CLASSES
+
+//PLAYER CLASS
 class player : public character {
 private:
-	//members
+	//player-specific stats
 	int fp;
 	int sp;
+	int weight;
+	//player inventory
+	playerInventory inventory;
+
 public:
 	//constructor
-	player(std::string name);
+	player(std::string name, playerInventory inventory);
 	//methods
 	/**/
 	int getFp();
 	int getSp();
+	int getWeight();
+	playerInventory getInventory();
 	/**/
 	void setFp(int fp);
 	void setSp(int sp);
+	void setWeight(int weight);
+	void setInventory(playerInventory inventory);
 
 };
 
+//NPC CLASS
 class npc : public character {
 private:
 
 public:
 };
 
+//ENEMY CLASS
 class enemy : public character {
 private:
 	//members

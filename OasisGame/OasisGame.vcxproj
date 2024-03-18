@@ -129,6 +129,8 @@
   <ItemGroup>
     <ClCompile Include="characters.cpp" />
     <ClCompile Include="DUMPSTER.cpp" />
+    <ClCompile Include="inventory.cpp" />
+    <ClCompile Include="items.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="OasisGame.cpp" />
   </ItemGroup>
