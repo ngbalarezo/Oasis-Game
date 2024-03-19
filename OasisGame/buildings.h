@@ -5,6 +5,10 @@
 #include <iostream>
 #include <string>
 
+#include "characters.h"
+#include "inventory.h"
+#include "items.h"
+
 
 
 #endif

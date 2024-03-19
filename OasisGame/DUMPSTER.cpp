@@ -58,5 +58,50 @@ void menu() {
 
 //WORK AREA FOR BATTLE FUNCTION
 
+//BUILDINGS FILES
+    //class shop {
+    //private:
+    //    //each shop will sell 3 weapons, 1 armor, and 1 potion, 
+    //    weapon weaponSlot1;
+    //    weapon weaponSlot2;
+    //    weapon weaponSlot3;
+    //    armor armorSlot;
+    //    potion potionSlot;
+    //    //!FIXME: add in scroll/book item + functionality
+
+    //public:
+    //    //constructors
+    //    shop();
+
+    //    shop(weapon weaponSlot1, weapon weaponSlot2, weapon weaponSlot3, armor armorSlot, potion potionSlot);
+
+    //    //getters
+
+    //    //setters
+
+    //    //methods
+
+    //};
+
+//shop::shop() {
+//	//create null item objects
+//	weapon noWeapon;
+//	armor noArmor;
+//	potion noPotion;
+//	//set defaults to null objects
+//	weaponSlot1 = noWeapon;
+//	weaponSlot2 = noWeapon;
+//	weaponSlot3 = noWeapon;
+//	armorSlot = noArmor;
+//	potionSlot = noPotion;
+//}
+//
+//shop::shop(weapon weaponSlot1, weapon weaponSlot2, weapon weaponSlot3, armor armorSlot, potion potionSlot) {
+//	this->weaponSlot1 = weaponSlot1;
+//	this->weaponSlot2 = weaponSlot2;
+//	this->weaponSlot3 = weaponSlot3;
+//	this->armorSlot = armorSlot;
+//	this->potionSlot = potionSlot;
+//}
 
 

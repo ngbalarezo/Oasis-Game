@@ -9,6 +9,7 @@
 #include "characters.h"
 #include "inventory.h"
 #include "items.h"
+#include "buildings.h"
 
 int main() {
     //MAIN GAME: game generates all world items, npcs, and features
@@ -18,7 +19,7 @@ int main() {
     //MAIN GAME: game generates player and prompts for name and information
 
     /*TESTING BELOW*/
-    
+
     //TEST: Initial require game settings, generates empty inventory, prompts user for player name, generates empty player
     playerInventory playerInventory;
     std::string playerName; 

@@ -135,7 +135,6 @@
     <ClCompile Include="OasisGame.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="buildings.h" />
     <ClInclude Include="characters.h" />
     <ClInclude Include="inventory.h" />
     <ClInclude Include="items.h" />
