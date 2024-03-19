@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="buildings.cpp" />
     <ClCompile Include="characters.cpp" />
     <ClCompile Include="DUMPSTER.cpp" />
     <ClCompile Include="inventory.cpp" />
