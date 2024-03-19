@@ -11,20 +11,20 @@ shop::shop() {
 	armor noArmor;
 	potion noPotion;
 	//set defaults to null objects
-	sWeaponSlot1 = noWeapon;
-	sWeaponSlot2 = noWeapon;
-	sWeaponSlot3 = noWeapon;
-	sArmorSlot = noArmor;
-	sPotionSlot = noPotion;
+	shopWeaponSlot1 = noWeapon;
+	shopWeaponSlot2 = noWeapon;
+	shopWeaponSlot3 = noWeapon;
+	shopArmorSlot = noArmor;
+	shopPotionSlot = noPotion;
 	isEmpty = true;
 	shopLevel = 0;
 }
 
-shop::shop(weapon sWeaponSlot1, weapon sWeaponSlot2, weapon sWeaponSlot3, armor sArmorSlot, potion sPotionSlot, bool isEmpty, int shopLevel) {
-	this->sWeaponSlot1 = sWeaponSlot1;
-	this->sWeaponSlot2 = sWeaponSlot2;
-	this->sWeaponSlot3 = sWeaponSlot3;
-	this->sArmorSlot = sArmorSlot;
-	this->sPotionSlot = sPotionSlot;
+shop::shop(weapon shopWeaponSlot1, weapon shopWeaponSlot2, weapon shopWeaponSlot3, armor shopArmorSlot, potion shopPotionSlot, bool isEmpty, int shopLevel) {
+	this->shopWeaponSlot1 = shopWeaponSlot1;
+	this->shopWeaponSlot2 = shopWeaponSlot2;
+	this->shopWeaponSlot3 = shopWeaponSlot3;
+	this->shopArmorSlot = shopArmorSlot;
+	this->shopPotionSlot = shopPotionSlot;
 	this->shopLevel = shopLevel;
 }
