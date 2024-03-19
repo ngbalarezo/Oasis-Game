@@ -50,7 +50,7 @@ weapon::weapon() {
 	focus = 0;
 }
 
-weapon::weapon(int atk, int focus) : item(itemName, coinValue, weight, isQuestItem) {
+weapon::weapon(std::string itemName, int coinValue, int weight, bool isQuestItem, int atk, int focus) {
 	this->itemName = itemName;
 	this->coinValue = coinValue;
 	this->weight = weight;
@@ -80,7 +80,7 @@ armor::armor() {
 	def = 0;
 }
 
-armor::armor(int def) : item(itemName, coinValue, weight, isQuestItem) {
+armor::armor(std::string itemName, int coinValue, int weight, bool isQuestItem, int def) {
 	this->itemName = itemName;
 	this->coinValue = coinValue;
 	this->weight = weight;

@@ -50,10 +50,6 @@ int playerInventory::getPotionCount() { return potionCount; }
 
 std::string playerInventory::getPotionDisplayString() { 
 	return potionSlot.getPotionName() + " x" + std::to_string(potionCount);
-	/*std::string potionDisplayString = potionSlot.getPotionName();
-	potionDisplayString.append(" x");
-	potionDisplayString.append(std::to_string(potionCount));
-	return potionDisplayString;*/
 }
 
 item playerInventory::getItemSlot1() { return itemSlot1; }
