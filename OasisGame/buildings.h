@@ -1,8 +1,10 @@
 #pragma once
-#ifndef SHOP_H
-#define SHOP_H
+#ifndef BUILDINGS_H
+#define BUILDINGS_H
 
 #include <iostream>
 #include <string>
+
+
 
 #endif

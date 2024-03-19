@@ -79,6 +79,7 @@ int main() {
 * Organize header include tags
 * Quest item cannot drop item, quest item feature
 * Clean up system clears and pauses ("CLS") and ("PAUSE")
-* 
+* NPC = dialogue tree, canSell bool, inventory or 1 item to sell??
+* Add scrolls
 * -------------------------------------------------------------------------------------------------------------------------------------------
 */

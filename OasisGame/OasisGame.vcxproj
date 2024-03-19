@@ -135,11 +135,11 @@
     <ClCompile Include="OasisGame.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="buildings.h" />
     <ClInclude Include="characters.h" />
     <ClInclude Include="inventory.h" />
     <ClInclude Include="items.h" />
     <ClInclude Include="menu.h" />
-    <ClInclude Include="shop.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
