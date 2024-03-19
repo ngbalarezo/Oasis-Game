@@ -9,6 +9,7 @@
 #include "characters.h"
 #include "inventory.h"
 #include "items.h"
+#include "buildings.h"
 
 int main() {
     //MAIN GAME: game generates all world items, npcs, and features
