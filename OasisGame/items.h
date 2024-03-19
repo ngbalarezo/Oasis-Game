@@ -53,6 +53,8 @@ public:
 
 	weapon(int atk, int focus);
 
+	weapon(std::string itemName, int coinValue, int weight, bool isQuestItem, int atk, int focus);
+
 	//getters
 	int getAtk();
 
@@ -73,7 +75,7 @@ public:
 	//constructors
 	armor();
 
-	armor(int def);
+	armor(std::string itemName, int coinValue, int weight, bool isQuestItem, int def);
 
 	//getters
 	int getDef();
