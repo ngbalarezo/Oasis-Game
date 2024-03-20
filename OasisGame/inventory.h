@@ -30,7 +30,7 @@ private:
 	int coinCount;
 
 public:
-	//constructor
+	//constructors
 	playerInventory();
 
 	playerInventory(weapon noWeapon, armor noArmor, potion noPotion, item noItem);
