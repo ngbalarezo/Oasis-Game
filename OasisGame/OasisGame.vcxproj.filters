@@ -16,6 +16,9 @@
     <Filter Include="Resource Files\images">
       <UniqueIdentifier>{bf09c378-a7a8-4cd7-b748-8ca6cc3769bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\music">
+      <UniqueIdentifier>{635cdd3c-abf3-4f89-8649-143e49f89f41}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="OasisGame.cpp">
@@ -30,12 +33,18 @@
     <ClCompile Include="characters.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="buildings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="inventory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="items.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="menu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="shop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inventory.h">
@@ -47,5 +56,18 @@
     <ClInclude Include="items.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="buildings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="music.resx">
+      <Filter>Resource Files\music</Filter>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\..\..\MUSIC\URSS-track20.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>
