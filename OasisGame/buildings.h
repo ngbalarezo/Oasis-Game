@@ -14,6 +14,7 @@
 class shop {
 private:
     //each shop will sell 3 weapons, 1 armor, and 1 potion, 
+    std::string shopName;
     weapon shopWeaponSlot1;
     weapon shopWeaponSlot2;
     weapon shopWeaponSlot3;
@@ -27,7 +28,7 @@ public:
     //constructors
     shop();
 
-    shop(weapon shopWeaponSlot1, weapon shopWeaponSlot2, weapon shopWeaponSlot3, armor shopArmorSlot, potion shopPotionSlot, bool isEmpty, int shopLevel);
+    shop(std::string shopName, weapon shopWeaponSlot1, weapon shopWeaponSlot2, weapon shopWeaponSlot3, armor shopArmorSlot, potion shopPotionSlot, bool isEmpty, int shopLevel);
 
     //getters
 

@@ -12,6 +12,7 @@ shop::shop() {
     armor noArmor;
     potion noPotion;
     //set defaults to null objects
+    shopName = "null";
     shopWeaponSlot1 = noWeapon;
     shopWeaponSlot2 = noWeapon;
     shopWeaponSlot3 = noWeapon;
@@ -21,7 +22,8 @@ shop::shop() {
     shopLevel = 0;
 }
 
-shop::shop(weapon shopWeaponSlot1, weapon shopWeaponSlot2, weapon shopWeaponSlot3, armor shopArmorSlot, potion shopPotionSlot, bool isEmpty, int shopLevel) {
+shop::shop(std::string shopName, weapon shopWeaponSlot1, weapon shopWeaponSlot2, weapon shopWeaponSlot3, armor shopArmorSlot, potion shopPotionSlot, bool isEmpty, int shopLevel) {
+    this->shopName = shopName;
     this->shopWeaponSlot1 = shopWeaponSlot1;
     this->shopWeaponSlot2 = shopWeaponSlot2;
     this->shopWeaponSlot3 = shopWeaponSlot3;
