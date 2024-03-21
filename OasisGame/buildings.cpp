@@ -20,9 +20,10 @@ shop::shop() {
     shopPotionSlot = noPotion;
     isEmpty = true;
     shopLevel = 0;
+    wasVisited = false;
 }
 
-shop::shop(std::string shopName, weapon shopWeaponSlot1, weapon shopWeaponSlot2, weapon shopWeaponSlot3, armor shopArmorSlot, potion shopPotionSlot, bool isEmpty, int shopLevel) {
+shop::shop(std::string shopName, weapon shopWeaponSlot1, weapon shopWeaponSlot2, weapon shopWeaponSlot3, armor shopArmorSlot, potion shopPotionSlot, bool isEmpty, int shopLevel, bool wasVisited) {
     this->shopName = shopName;
     this->shopWeaponSlot1 = shopWeaponSlot1;
     this->shopWeaponSlot2 = shopWeaponSlot2;
@@ -31,6 +32,7 @@ shop::shop(std::string shopName, weapon shopWeaponSlot1, weapon shopWeaponSlot2,
     this->shopPotionSlot = shopPotionSlot;
     this->isEmpty = isEmpty;
     this->shopLevel = shopLevel;
+    this->wasVisited = wasVisited;
 }
 
 //getters
@@ -48,6 +50,8 @@ bool shop::getIsEmpty() { return isEmpty; }
 
 int shop::getShopLevel() { return shopLevel; }
 
+bool shop::getWasVisited() { return wasVisited; }
+
 //setters
 void shop::setShopWeaponSlot1(weapon shopWeaponSlot1) { this->shopWeaponSlot1 = shopWeaponSlot1; }
 
@@ -62,3 +66,8 @@ void shop::setShopPotionSlot(potion shopPotionSlot) { this->shopPotionSlot = sho
 void shop::setIsEmpty(bool isEmpty) { this->isEmpty = isEmpty; }
 
 void shop::setShopLevel(int setShopLevel) { this->shopLevel = shopLevel; }
+
+void shop::setWasVisited(bool wasVisited) { this->wasVisited = wasVisited; }
+
+//methods
+

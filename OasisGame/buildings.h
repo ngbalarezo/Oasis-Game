@@ -22,13 +22,14 @@ private:
     potion shopPotionSlot;
     bool isEmpty;
     int shopLevel;
+    bool wasVisited;
     //!FIXME: add in scroll/book item + functionality
 
 public:
     //constructors
     shop();
 
-    shop(std::string shopName, weapon shopWeaponSlot1, weapon shopWeaponSlot2, weapon shopWeaponSlot3, armor shopArmorSlot, potion shopPotionSlot, bool isEmpty, int shopLevel);
+    shop(std::string shopName, weapon shopWeaponSlot1, weapon shopWeaponSlot2, weapon shopWeaponSlot3, armor shopArmorSlot, potion shopPotionSlot, bool isEmpty, int shopLevel, bool wasVisted);
 
     //getters
     weapon getShopWeaponSlot1();
@@ -45,6 +46,10 @@ public:
 
     int getShopLevel();
 
+    bool getWasVisited();
+
+
+
     //setters
     void setShopWeaponSlot1(weapon shopWeaponSlot1);
 
@@ -60,15 +65,10 @@ public:
 
     void setShopLevel(int setShopLevel);
 
-    
-
-
-
-
-
-
+    void setWasVisited(bool wasVisited);
 
     //methods
+   
 
 };
 
