@@ -71,3 +71,5 @@ void shop::setWasVisited(bool wasVisited) { this->wasVisited = wasVisited; }
 
 //methods
 
+
+

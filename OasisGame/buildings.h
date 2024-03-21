@@ -48,8 +48,6 @@ public:
 
     bool getWasVisited();
 
-
-
     //setters
     void setShopWeaponSlot1(weapon shopWeaponSlot1);
 
