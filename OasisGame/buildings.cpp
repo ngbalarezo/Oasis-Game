@@ -29,5 +29,36 @@ shop::shop(std::string shopName, weapon shopWeaponSlot1, weapon shopWeaponSlot2,
     this->shopWeaponSlot3 = shopWeaponSlot3;
     this->shopArmorSlot = shopArmorSlot;
     this->shopPotionSlot = shopPotionSlot;
+    this->isEmpty = isEmpty;
     this->shopLevel = shopLevel;
 }
+
+//getters
+weapon shop::getShopWeaponSlot1() { return shopWeaponSlot1; }
+
+weapon shop::getShopWeaponSlot2() { return shopWeaponSlot2; }
+
+weapon shop::getShopWeaponSlot3() { return shopWeaponSlot3; }
+
+armor shop::getShopArmorSlot() { return shopArmorSlot; }
+
+potion shop::getShopPotionSlot() { return shopPotionSlot; }
+
+bool shop::getIsEmpty() { return isEmpty; }
+
+int shop::getShopLevel() { return shopLevel; }
+
+//setters
+void shop::setShopWeaponSlot1(weapon shopWeaponSlot1) { this->shopWeaponSlot1 = shopWeaponSlot1; }
+
+void shop::setShopWeaponSlot2(weapon shopWeaponSlot2) { this->shopWeaponSlot2 = shopWeaponSlot2; }
+
+void shop::setShopWeaponSlot3(weapon shopWeaponSlot3) { this->shopWeaponSlot3 = shopWeaponSlot3; }
+
+void shop::setShopArmorSlot(armor shopArmorSlot) { this->shopArmorSlot = shopArmorSlot; }
+
+void shop::setShopPotionSlot(potion shopPotionSlot) { this->shopPotionSlot = shopPotionSlot; }
+
+void shop::setIsEmpty(bool isEmpty) { this->isEmpty = isEmpty; }
+
+void shop::setShopLevel(int setShopLevel) { this->shopLevel = shopLevel; }

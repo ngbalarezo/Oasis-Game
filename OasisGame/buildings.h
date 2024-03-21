@@ -31,8 +31,42 @@ public:
     shop(std::string shopName, weapon shopWeaponSlot1, weapon shopWeaponSlot2, weapon shopWeaponSlot3, armor shopArmorSlot, potion shopPotionSlot, bool isEmpty, int shopLevel);
 
     //getters
+    weapon getShopWeaponSlot1();
+
+    weapon getShopWeaponSlot2();
+
+    weapon getShopWeaponSlot3();
+
+    armor getShopArmorSlot();
+
+    potion getShopPotionSlot();
+
+    bool getIsEmpty();
+
+    int getShopLevel();
 
     //setters
+    void setShopWeaponSlot1(weapon shopWeaponSlot1);
+
+    void setShopWeaponSlot2(weapon shopWeaponSlot2);
+
+    void setShopWeaponSlot3(weapon shopWeaponSlot3);
+
+    void setShopArmorSlot(armor shopArmorSlot);
+
+    void setShopPotionSlot(potion shopPotionSlot);
+
+    void setIsEmpty(bool setIsEmpty);
+
+    void setShopLevel(int setShopLevel);
+
+    
+
+
+
+
+
+
 
     //methods
 
