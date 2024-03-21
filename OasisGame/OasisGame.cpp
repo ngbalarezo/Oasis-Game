@@ -5,11 +5,15 @@
 #include <array>
 #include <vector>
 #include <string>
+#include <windows.h>
+#include "resource.h"
 #include "menu.h"
 #include "characters.h"
 #include "inventory.h"
 #include "items.h"
 #include "buildings.h"
+
+//#pragma comment(lib, "winmm.lib")
 
 int main() {
     //MAIN GAME: game generates all world items, npcs, and features
@@ -19,6 +23,7 @@ int main() {
     //MAIN GAME: game generates player and prompts for name and information
 
     /*TESTING BELOW*/
+    bool played;
 
     //TEST: Initial require game settings, generates empty inventory, prompts user for player name, generates empty player
     playerInventory playerInventory;
@@ -34,6 +39,7 @@ int main() {
     mainMenu test;
     std::cout << "TEST MENU: " << std::endl;
     test.print();
+    played = PlaySound(MAKEINTRESOURCE(START_MENU_MUSIC), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
     std::cin >> userChoice;
     if (userChoice == 1) { //NULL
         system("CLS");
@@ -41,6 +47,8 @@ int main() {
     }
     else if (userChoice == 2) { //BATTLE TEST
         system("CLS");
+        //played = PlaySound(NULL, GetModuleHandle(NULL), NULL); STOPS ASYNCHRONOUS MUSIC
+        played = PlaySound(MAKEINTRESOURCE(BATTLE_MENU_MUSIC), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
         enemy zombie;
         zombie.battle(player);
     }

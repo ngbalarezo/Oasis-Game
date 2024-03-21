@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Resource Files\images">
-      <UniqueIdentifier>{bf09c378-a7a8-4cd7-b748-8ca6cc3769bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\music">
-      <UniqueIdentifier>{635cdd3c-abf3-4f89-8649-143e49f89f41}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="OasisGame.cpp">
@@ -59,14 +53,20 @@
     <ClInclude Include="buildings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="music.resx">
-      <Filter>Resource Files\music</Filter>
-    </EmbeddedResource>
+    <ResourceCompile Include="OasisGame.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Media Include="..\..\..\MUSIC\URSS-track20.wav">
+    <Media Include="Music\URSS-track20.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Music\IEROD1909764-panduri-2-1909764-320.wav">
       <Filter>Resource Files</Filter>
     </Media>
   </ItemGroup>
