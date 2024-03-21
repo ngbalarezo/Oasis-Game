@@ -25,6 +25,13 @@ int main() {
     /*TESTING BELOW*/
     bool played;
 
+    //TEST: generate items
+    weapon woodenSword("Wooden Sword", 150, 5, false, 10, 1);
+    armor chainmailArmor("Chainmail", 300, 25, false, 15);
+    potion noPotion;
+    //TEST: generate shop
+    shop market(woodenSword, woodenSword, woodenSword, chainmailArmor, noPotion);
+
     //TEST: Initial require game settings, generates empty inventory, prompts user for player name, generates empty player
     playerInventory playerInventory;
     std::string playerName; 
@@ -59,7 +66,8 @@ int main() {
     }
     else if (userChoice == 4) { //NULL
         system("CLS");
-        std::cout << "null" << std::endl;
+        market.displayShopItems();
+        system("PAUSE");
     }
     else if (userChoice == 5) { //NULL
         system("CLS");
