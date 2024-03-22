@@ -60,12 +60,12 @@ int main() {
     }
     else if (userChoice == 3){ //STANDARD INVENTORY DISPLAY
         system("CLS");
-        played = PlaySound(MAKEINTRESOURCE(SHOP_MENU_MUSIC), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
         player.getInventory().display();
         system("PAUSE");
     }
     else if (userChoice == 4) { //NULL
         system("CLS");
+        played = PlaySound(MAKEINTRESOURCE(SHOP_MENU_MUSIC), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
         market.displayShopItems();
         system("PAUSE");
     }
