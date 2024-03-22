@@ -54,13 +54,13 @@ int main() {
     }
     else if (userChoice == 2) { //BATTLE TEST
         system("CLS");
-        //played = PlaySound(NULL, GetModuleHandle(NULL), NULL); STOPS ASYNCHRONOUS MUSIC
-        played = PlaySound(MAKEINTRESOURCE(BATTLE_MENU_MUSIC), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
+        played = PlaySound(NULL, GetModuleHandle(NULL), NULL); //STOPS ASYNCHRONOUS MUSIC
         enemy zombie;
         zombie.battle(player);
     }
     else if (userChoice == 3){ //STANDARD INVENTORY DISPLAY
         system("CLS");
+        played = PlaySound(MAKEINTRESOURCE(SHOP_MENU_MUSIC), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
         player.getInventory().display();
         system("PAUSE");
     }

@@ -3,7 +3,7 @@
 // Used by OasisGame.rc
 //
 #define START_MENU_MUSIC                       101
-#define BATTLE_MENU_MUSIC						102
+#define SHOP_MENU_MUSIC						102
 
 
 // Next default values for new objects
