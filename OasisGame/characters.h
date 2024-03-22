@@ -44,17 +44,26 @@ private:
 
 public:
 	//constructor
+	player();
+
 	player(std::string name, playerInventory inventory);
-	//methods
-	/**/
+
+	//getters
 	int getFp();
+
 	int getSp();
+
 	int getWeight();
+
 	playerInventory getInventory();
-	/**/
+
+	//setters
 	void setFp(int fp);
+
 	void setSp(int sp);
+
 	void setWeight(int weight);
+
 	void setInventory(playerInventory inventory);
 
 };
@@ -62,8 +71,21 @@ public:
 //NPC CLASS
 class npc : public character {
 private:
+	std::string npcName;
+	//dialogueTree dialogue;
 
 public:
+	//constructors
+	npc();
+
+	npc(std::string npcName);
+
+	//getters
+	std::string getNpcName();
+
+	//setters
+	void setNpcName(std::string npcName);
+
 };
 
 //ENEMY CLASS
@@ -76,20 +98,21 @@ public:
 	//constructors
 	enemy();
 
-	//methods
-	/**/
+	//getters
 	bool getFlees();
-	/**/
+
+	//setters
 	void setFlees(bool flees);
-	/**/
+
+	//methods
 	void printBattleStats(player &player);
-	/**/
+	
 	int printBattleOptions();
-	/**/
+	
 	int playerAttackTurn(int input, int& damageDone, std::default_random_engine& engine, player& player);
-	/**/
+	
 	void enemyAttackTurn(int playerDodges, int& damageDone, std::default_random_engine& engine, player& player);
-	/**/
+	
 	void battle(player &player);
 
 };

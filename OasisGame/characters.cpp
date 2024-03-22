@@ -28,6 +28,18 @@ void character::setDef(int def) { this->def = def; }
 //PLAYER CLASS DEFINITIONS
 
 //contructor
+player::player() {
+	playerInventory emptyInventory;
+	name = "null";
+	hp = 100;
+	fp = 0;
+	sp = 100;
+	atk = 0;
+	def = 0;
+	weight = 0;
+	inventory = emptyInventory;
+}
+
 player::player(std::string name, playerInventory inventory) {
 	this->name = name;
 	hp = 100;
@@ -58,6 +70,23 @@ void player::setInventory(playerInventory inventory) { this->inventory = invento
 
 //NPC CLASS DEFINITIONS
 
+//constructors
+npc::npc() {
+	npcName = "null";
+}
+
+npc::npc(std::string npcName) {
+	this->npcName = npcName;
+}
+
+//getters
+std::string npc::getNpcName() { return npcName; }
+
+//setters
+void npc::setNpcName(std::string npcName) { this->npcName = npcName; }
+
+//methods
+
 //ENEMY CLASS DEFINITIONS
 
 //constructor
@@ -73,6 +102,8 @@ bool enemy::getFlees() { return flees; }
 
 //setters
 void enemy::setFlees(bool flees) { this->flees = flees; }
+
+//methods
 
 /*
 *name: printBattleStats()
