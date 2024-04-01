@@ -27,10 +27,12 @@ int main() {
 
     //TEST: generate items
     weapon woodenSword("Wooden Sword", 150, 5, false, 10, 1);
+    weapon woodenAxe("Wooden Axe", 200, 5, false, 15, 1);
     armor chainmailArmor("Chainmail", 300, 25, false, 15);
     potion noPotion;
+    item noItem;
     //TEST: generate shop
-    shop market(woodenSword, woodenSword, woodenSword, chainmailArmor, noPotion);
+    shop market(woodenSword, woodenAxe, chainmailArmor, noPotion, noItem);
 
     //TEST: Initial require game settings, generates empty inventory, prompts user for player name, generates empty player
     playerInventory playerInventory;
@@ -66,7 +68,7 @@ int main() {
     else if (userChoice == 4) { //NULL
         system("CLS");
         played = PlaySound(MAKEINTRESOURCE(SHOP_MENU_MUSIC), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
-        market.displayShopItems();
+        market.enterShop();
         system("PAUSE");
     }
     else if (userChoice == 5) { //NULL
@@ -98,5 +100,7 @@ int main() {
 * Clean up system clears and pauses ("CLS") and ("PAUSE")
 * NPC = dialogue tree, canSell bool, inventory or 1 item to sell??
 * Add scrolls
+* Go through and check for items that could be passed by reference
+* Add in pause/fade in for area music
 * -------------------------------------------------------------------------------------------------------------------------------------------
 */

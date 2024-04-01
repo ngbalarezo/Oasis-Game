@@ -101,7 +101,7 @@ public:
 	potion(std::string potionName, int healValue, int staminaValue, int focusValue, int coinValue);
 
 	//getters
-	std::string getPotionName();
+	std::string getName();
 	
 	int getHealValue();
 
@@ -113,7 +113,7 @@ public:
 
 
 	//setters
-	void setPotionName(std::string potionName);
+	void setName(std::string potionName);
 
 	void setHealValue(int healValue);
 

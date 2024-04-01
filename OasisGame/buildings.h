@@ -19,9 +19,9 @@ private:
     npc shopKeeper;
     weapon shopWeaponSlot1;
     weapon shopWeaponSlot2;
-    weapon shopWeaponSlot3;
     armor shopArmorSlot;
     potion shopPotionSlot;
+    item shopItemSlot;
     bool isEmpty;
     int shopLevel;
     bool wasVisited;
@@ -31,9 +31,9 @@ public:
     //constructors
     shop();
 
-    shop(weapon shopWeaponSlot1, weapon shopWeaponSlot2, weapon shopWeaponSlot3, armor shopArmorSlot, potion shopPotionSlot);
+    shop(weapon shopWeaponSlot1, weapon shopWeaponSlot2, armor shopArmorSlot, potion shopPotionSlot, item shopItemSlot);
 
-    shop(std::string shopName, npc shopKeeper, weapon shopWeaponSlot1, weapon shopWeaponSlot2, weapon shopWeaponSlot3, armor shopArmorSlot, potion shopPotionSlot, bool isEmpty, int shopLevel, bool wasVisited);
+    shop(std::string shopName, npc shopKeeper, weapon shopWeaponSlot1, weapon shopWeaponSlot2, armor shopArmorSlot, potion shopPotionSlot, item shopItemSlot, bool isEmpty, int shopLevel, bool wasVisited);
 
     //getters
     std::string getShopName();
@@ -44,11 +44,11 @@ public:
 
     weapon getShopWeaponSlot2();
 
-    weapon getShopWeaponSlot3();
-
     armor getShopArmorSlot();
 
     potion getShopPotionSlot();
+
+    item getShopItemSlot();
 
     bool getIsEmpty();
 
@@ -65,11 +65,11 @@ public:
 
     void setShopWeaponSlot2(weapon shopWeaponSlot2);
 
-    void setShopWeaponSlot3(weapon shopWeaponSlot3);
-
     void setShopArmorSlot(armor shopArmorSlot);
 
     void setShopPotionSlot(potion shopPotionSlot);
+
+    void setShopItemSlot(item shopItemSlot);
 
     void setIsEmpty(bool setIsEmpty);
 
@@ -81,6 +81,10 @@ public:
     void enterShop();
 
     void displayShopItems();
+
+    int displayBuyOptions();
+
+    void sellTo(player &player);
 
 
 };

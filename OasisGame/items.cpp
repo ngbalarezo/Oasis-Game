@@ -50,6 +50,15 @@ weapon::weapon() {
 	focus = 0;
 }
 
+weapon::weapon(int atk, int focus) {
+	itemName = "empty";
+	coinValue = 0;
+	weight = 0;
+	isQuestItem = false;
+	this->atk = atk;
+	this->focus = focus;
+}
+
 weapon::weapon(std::string itemName, int coinValue, int weight, bool isQuestItem, int atk, int focus) {
 	this->itemName = itemName;
 	this->coinValue = coinValue;
@@ -114,7 +123,7 @@ potion::potion(std::string potionName, int healValue, int staminaValue, int focu
 }
 
 //getters
-std::string potion::getPotionName() { return potionName; }
+std::string potion::getName() { return potionName; }
 
 int potion::getHealValue() { return healValue; }
 
@@ -125,7 +134,7 @@ int potion::getFocusValue() { return focusValue; }
 int potion::getCoinValue() { return coinValue; }
 
 //setters
-void potion::setPotionName(std::string potionName) { this->potionName = potionName; }
+void potion::setName(std::string potionName) { this->potionName = potionName; }
 
 void potion::setHealValue(int healValue) { this->healValue = healValue; }
 
