@@ -86,7 +86,6 @@ public:
 
     void sellTo(player &player, int playerChoice);
 
-
 };
 
 #endif

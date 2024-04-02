@@ -18,6 +18,8 @@ protected:
 	int def;
 public:
 	//constructor
+	character();
+
 	//methods
 	std::string getName();//getters
 	int getHp();

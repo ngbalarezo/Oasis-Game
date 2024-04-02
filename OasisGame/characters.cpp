@@ -7,6 +7,14 @@
 
 //CHARACTER CLASS DEFINITIONS
 
+//constructors
+character::character() {
+	name = "null";
+	hp = 100;
+	atk = 0;
+	def = 0;
+}
+
 //getters
 std::string character::getName() { return name; }
 

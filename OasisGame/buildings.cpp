@@ -111,13 +111,13 @@ void shop::enterShop(player &player) {
     
     //add buy/sell options for npc dialogue tree
 
-    //displays shop items
+    //display shop items
     displayShopItems();
 
-    //displays choice options so that the player can buy, etc.
+    //display choice options so that the player can buy, etc.
     playerChoice = displayBuyOptions();
 
-    //displays sellTo(player &player) menu
+    //run sellTo menu
     sellTo(player, playerChoice);
 }
 
@@ -232,26 +232,28 @@ int shop::displayBuyOptions() {
             std::cout << "This is not an option!" << std::endl;
             break;
         }
+        
+        //prevents menu from printing again after use buys item, menu displays only if sentinel is not 1 yet
         system("PAUSE");
         system("CLS");
-        //prevents menu from printing again after use buys item, menu displays only if sentinel is not 1 yet
         if (sentinel == 0) {
             displayShopItems();
-        }  
+        }
     }
     //returns user choice
     return playerChoice;
 }
 
-void shop::sellTo(player& player, int playerChoice) {
+void shop::sellTo(player &player, int playerChoice) {
     //!FIXME: potentially create empty weapons to switch out shop weapons
 
     if (playerChoice == 1) {
+        std::cout << "TEST: entered sellTo function" << std::endl;
         //subtracts gold according to weapon price from player inventory
         player.getInventory().setCoinCount(player.getInventory().getCointCount() - shopWeaponSlot1.getCoinValue());
         //replace players weapon with shop weapon of choice
         player.getInventory().setWeapon(shopWeaponSlot1);
-        //defaults shop weapon using 
+        //defaults shop weapon using destructor
         shopWeaponSlot1.~weapon();
     }
 }

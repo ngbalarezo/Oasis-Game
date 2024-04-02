@@ -35,12 +35,13 @@ int main() {
     weapon woodenSword("Wooden Sword", 150, 5, false, 10, 1);
     weapon woodenAxe("Wooden Axe", 200, 5, false, 15, 1);
     armor chainmailArmor("Chainmail", 300, 25, false, 15);
-    
+    potion smallHealPotion("Small Heal Potion", 50, 0, 0, 100);
+
     //TEST: generate shop
     shop market(woodenSword, woodenAxe, chainmailArmor, noPotion, noItem);
 
     //TEST: Initial require game settings, generates empty inventory, prompts user for player name, generates empty player
-    playerInventory playerInventory;
+    playerInventory playerInventory(woodenAxe, noArmor, smallHealPotion, 5, noItem, noItem, noItem, 500);
     std::string playerName; 
     playerName = "Khevsureti";
     //std::cout << "Insert Player Name: ";
@@ -71,12 +72,12 @@ int main() {
             system("CLS");
             player.getInventory().display();
             system("PAUSE");
+            system("CLS");
         }
         else if (userChoice == 4) { //NULL
             system("CLS");
             played = PlaySound(MAKEINTRESOURCE(SHOP_MENU_MUSIC), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
             market.enterShop(player);
-            system("PAUSE");
         }
         else if (userChoice == 5) { //NULL
             system("CLS");

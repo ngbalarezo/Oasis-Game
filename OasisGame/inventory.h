@@ -33,7 +33,7 @@ public:
 	//constructors
 	playerInventory();
 
-	playerInventory(weapon noWeapon, armor noArmor, potion noPotion, item noItem);
+	playerInventory(weapon weaponSlot, armor armorSlot, potion potionSlot, int potionCount, item itemSlot1, item itemSlot2, item itemSlot3, int coinCount);
 
 	//getters
 	weapon getWeapon();
@@ -55,19 +55,19 @@ public:
 	int getCointCount();
 
 	//setters
-	void setWeapon(weapon newWeapon);
+	void setWeapon(weapon &newWeapon);
 
-	void setArmor(armor newArmor);
+	void setArmor(armor &newArmor);
 
-	void setPotion(potion newPotion);
+	void setPotion(potion &newPotion);
 
 	void setPotionCount(int potionCount);
 
-	void setItem1(item newItem);
+	void setItem1(item &newItem);
 
-	void setItem2(item newItem);
+	void setItem2(item &newItem);
 
-	void setItem3(item newItem);
+	void setItem3(item &newItem);
 
 	void setCoinCount(int coinCount);
 
