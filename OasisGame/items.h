@@ -59,7 +59,7 @@ public:
 	weapon(std::string itemName, int coinValue, int weight, bool isQuestItem, int atk, int focus);
 
 	//destructor
-	~weapon() = default;
+	virtual ~weapon();
 
 	//getters
 	int getAtk();

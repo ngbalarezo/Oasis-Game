@@ -82,7 +82,7 @@ public:
 
     void displayShopItems();
 
-    int displayBuyOptions();
+    int displayBuyOptions(player &player);
 
     void sellTo(player &player, int playerChoice);
 
