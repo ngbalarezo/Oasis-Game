@@ -24,6 +24,7 @@ int main() {
 
     /*TESTING BELOW*/
     bool played;
+    int sentinel = 0;
 
     //TEST: generate items
     weapon noWeapon;
@@ -50,44 +51,47 @@ int main() {
     //TEST: Main menu to test features, generates mainMenu object and prints it, takes userChoice and runs game feature accordingly
     int userChoice;
     mainMenu test;
-    std::cout << "TEST MENU: " << std::endl;
-    test.print();
-    played = PlaySound(MAKEINTRESOURCE(START_MENU_MUSIC), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
-    std::cin >> userChoice;
-    if (userChoice == 1) { //NULL
-        system("CLS");
-        std::cout << "null" << std::endl;
+    //loops test start menu
+    while (sentinel != 1) {
+        std::cout << "TEST MENU: " << std::endl;
+        test.print();
+        played = PlaySound(MAKEINTRESOURCE(START_MENU_MUSIC), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
+        std::cin >> userChoice;
+        if (userChoice == 1) { //NULL
+            system("CLS");
+            std::cout << "null" << std::endl;
+        }
+        else if (userChoice == 2) { //BATTLE TEST
+            system("CLS");
+            played = PlaySound(NULL, GetModuleHandle(NULL), NULL); //STOPS ASYNCHRONOUS MUSIC
+            enemy zombie;
+            zombie.battle(player);
+        }
+        else if (userChoice == 3) { //STANDARD INVENTORY DISPLAY
+            system("CLS");
+            player.getInventory().display();
+            system("PAUSE");
+        }
+        else if (userChoice == 4) { //NULL
+            system("CLS");
+            played = PlaySound(MAKEINTRESOURCE(SHOP_MENU_MUSIC), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
+            market.enterShop(player);
+            system("PAUSE");
+        }
+        else if (userChoice == 5) { //NULL
+            system("CLS");
+            std::cout << "null" << std::endl;
+        }
+        else if (userChoice == 6) { //NULL
+            system("CLS");
+            std::cout << "null" << std::endl;
+        }
+        else { //NULL
+            system("CLS");
+            std::cout << "null" << std::endl;
+        }
     }
-    else if (userChoice == 2) { //BATTLE TEST
-        system("CLS");
-        played = PlaySound(NULL, GetModuleHandle(NULL), NULL); //STOPS ASYNCHRONOUS MUSIC
-        enemy zombie;
-        zombie.battle(player);
-    }
-    else if (userChoice == 3){ //STANDARD INVENTORY DISPLAY
-        system("CLS");
-        player.getInventory().display();
-        system("PAUSE");
-    }
-    else if (userChoice == 4) { //NULL
-        system("CLS");
-        played = PlaySound(MAKEINTRESOURCE(SHOP_MENU_MUSIC), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
-        market.enterShop();
-        system("PAUSE");
-    }
-    else if (userChoice == 5) { //NULL
-        system("CLS");
-        std::cout << "null" << std::endl;
-    }
-    else if (userChoice == 6) { //NULL
-        system("CLS");
-        std::cout << "null" << std::endl;
-    }
-    else { //NULL
-        system("CLS");
-        std::cout << "null" << std::endl;
-    }
-
+    
     return 0;
 }
 

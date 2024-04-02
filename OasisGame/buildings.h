@@ -78,13 +78,13 @@ public:
     void setWasVisited(bool wasVisited);
 
     //methods
-    void enterShop();
+    void enterShop(player &player);
 
     void displayShopItems();
 
     int displayBuyOptions();
 
-    void sellTo(player &player);
+    void sellTo(player &player, int playerChoice);
 
 
 };
