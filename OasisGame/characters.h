@@ -18,6 +18,8 @@ protected:
 	int def;
 public:
 	//constructor
+	character();
+
 	//methods
 	std::string getName();//getters
 	int getHp();
@@ -55,7 +57,7 @@ public:
 
 	int getWeight();
 
-	playerInventory getInventory();
+	playerInventory* getInventory();
 
 	//setters
 	void setFp(int fp);

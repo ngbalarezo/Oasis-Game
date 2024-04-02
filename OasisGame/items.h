@@ -22,6 +22,9 @@ public:
 
 	item(std::string itemName, int coinValue, int weight, bool isQuestItem);
 
+	//destructor
+	~item() = default;
+
 	//getters
 	std::string getName();
 
@@ -55,6 +58,9 @@ public:
 
 	weapon(std::string itemName, int coinValue, int weight, bool isQuestItem, int atk, int focus);
 
+	//destructor
+	~weapon() = default;
+
 	//getters
 	int getAtk();
 
@@ -76,6 +82,9 @@ public:
 	armor();
 
 	armor(std::string itemName, int coinValue, int weight, bool isQuestItem, int def);
+
+	//destructor
+	~armor() = default;
 
 	//getters
 	int getDef();
@@ -99,6 +108,9 @@ public:
 	potion();
 
 	potion(std::string potionName, int healValue, int staminaValue, int focusValue, int coinValue);
+
+	//destructor
+	~potion() = default;
 
 	//getters
 	std::string getName();
