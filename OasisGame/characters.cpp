@@ -66,7 +66,7 @@ int player::getSp() { return sp; }
 
 int player::getWeight() { return weight; }
 
-playerInventory player::getInventory() { return inventory; }
+playerInventory* player::getInventory() { return &inventory; }
 //setters
 void player::setFp(int fp) { this->fp = fp; }
 
@@ -208,7 +208,7 @@ int enemy::playerAttackTurn(int input, int &damageDone, std::default_random_engi
 	//inventory
 	else if (input == 3) {
 		//display player inventory
-		player.getInventory().battleDisplay();
+		player.getInventory()->battleDisplay();
 		//pauses and clears console
 		system("PAUSE");
 		system("CLS");

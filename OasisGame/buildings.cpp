@@ -250,9 +250,9 @@ void shop::sellTo(player &player, int playerChoice) {
     if (playerChoice == 1) {
         std::cout << "TEST: entered sellTo function" << std::endl;
         //subtracts gold according to weapon price from player inventory
-        player.getInventory().setCoinCount(player.getInventory().getCointCount() - shopWeaponSlot1.getCoinValue());
+        player.getInventory()->setCoinCount(player.getInventory()->getCointCount() - shopWeaponSlot1.getCoinValue());
         //replace players weapon with shop weapon of choice
-        player.getInventory().setWeapon(shopWeaponSlot1);
+        player.getInventory()->setWeapon(shopWeaponSlot1);
         //defaults shop weapon using destructor
         shopWeaponSlot1.~weapon();
     }

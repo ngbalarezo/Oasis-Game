@@ -41,7 +41,7 @@ int main() {
     shop market(woodenSword, woodenAxe, chainmailArmor, noPotion, noItem);
 
     //TEST: Initial require game settings, generates empty inventory, prompts user for player name, generates empty player
-    playerInventory playerInventory(woodenAxe, noArmor, smallHealPotion, 5, noItem, noItem, noItem, 500);
+    playerInventory playerInventory(noWeapon, noArmor, noPotion, 0, noItem, noItem, noItem, 500);
     std::string playerName; 
     playerName = "Khevsureti";
     //std::cout << "Insert Player Name: ";
@@ -70,7 +70,7 @@ int main() {
         }
         else if (userChoice == 3) { //STANDARD INVENTORY DISPLAY
             system("CLS");
-            player.getInventory().display();
+            player.getInventory()->display();
             system("PAUSE");
             system("CLS");
         }

@@ -57,7 +57,7 @@ public:
 
 	int getWeight();
 
-	playerInventory getInventory();
+	playerInventory* getInventory();
 
 	//setters
 	void setFp(int fp);
