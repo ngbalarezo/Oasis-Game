@@ -68,6 +68,16 @@ weapon::weapon(std::string itemName, int coinValue, int weight, bool isQuestItem
 	this->focus = focus;
 }
 
+//destructor
+weapon::~weapon() {
+	/*itemName = "empty";
+	coinValue = 0;
+	weight = 0;
+	isQuestItem = false;
+	atk = 0;
+	focus = 0;*/
+}
+
 //getters
 int weapon::getAtk() { return atk; }
 

@@ -34,11 +34,15 @@ int main() {
 
     weapon woodenSword("Wooden Sword", 150, 5, false, 10, 1);
     weapon woodenAxe("Wooden Axe", 200, 5, false, 15, 1);
+
     armor chainmailArmor("Chainmail", 300, 25, false, 15);
+
     potion smallHealPotion("Small Heal Potion", 50, 0, 0, 100);
 
+    item ruby("Ruby", 300, 0, false);
+
     //TEST: generate shop
-    shop market(woodenSword, woodenAxe, chainmailArmor, noPotion, noItem);
+    shop market(woodenSword, woodenAxe, chainmailArmor, smallHealPotion, ruby);
 
     //TEST: Initial require game settings, generates empty inventory, prompts user for player name, generates empty player
     playerInventory playerInventory(noWeapon, noArmor, noPotion, 0, noItem, noItem, noItem, 500);
