@@ -49,7 +49,7 @@ potion playerInventory::getPotion() { return potionSlot; }
 int playerInventory::getPotionCount() { return potionCount; }
 
 std::string playerInventory::getPotionDisplayString() { 
-	return potionSlot.getPotionName() + " x" + std::to_string(potionCount);
+	return potionSlot.getName() + " x" + std::to_string(potionCount);
 }
 
 item playerInventory::getItemSlot1() { return itemSlot1; }

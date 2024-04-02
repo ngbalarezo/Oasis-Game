@@ -26,11 +26,15 @@ int main() {
     bool played;
 
     //TEST: generate items
+    weapon noWeapon;
+    armor noArmor;
+    potion noPotion;
+    item noItem;
+
     weapon woodenSword("Wooden Sword", 150, 5, false, 10, 1);
     weapon woodenAxe("Wooden Axe", 200, 5, false, 15, 1);
     armor chainmailArmor("Chainmail", 300, 25, false, 15);
-    potion noPotion;
-    item noItem;
+    
     //TEST: generate shop
     shop market(woodenSword, woodenAxe, chainmailArmor, noPotion, noItem);
 

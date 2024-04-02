@@ -128,7 +128,7 @@ void shop::displayShopItems() {
     std::cout << std::setw(15) << "Weapon 1: " << std::setw(15) << shopWeaponSlot1.getName() << std::setw(15) << shopWeaponSlot1.getWeight() << std::setw(15) << shopWeaponSlot1.getCoinValue() << std::endl << std::endl;
     std::cout << std::setw(15) << "Weapon 2: " << std::setw(15) << shopWeaponSlot2.getName() << std::setw(15) << shopWeaponSlot2.getWeight() << std::setw(15) << shopWeaponSlot2.getCoinValue() << std::endl << std::endl;
     std::cout << std::setw(15) << "Armor: " << std::setw(15) << shopArmorSlot.getName() << std::setw(15) << shopArmorSlot.getWeight() << std::setw(15) << shopArmorSlot.getCoinValue() << std::endl << std::endl;
-    std::cout << std::setw(15) << "Potion: " << std::setw(15) << shopPotionSlot.getPotionName() << std::setw(15) << "n/a" << std::setw(15) << shopPotionSlot.getCoinValue() << std::endl << std::endl;
+    std::cout << std::setw(15) << "Potion: " << std::setw(15) << shopPotionSlot.getName() << std::setw(15) << "n/a" << std::setw(15) << shopPotionSlot.getCoinValue() << std::endl << std::endl;
     std::cout << std::setw(15) << "Item: " << std::setw(15) << shopItemSlot.getName() << std::setw(15) << shopItemSlot.getWeight() << std::setw(15) << shopItemSlot.getCoinValue() << std::endl << std::endl;
     std::cout << std::setw(64) << "================================================================" << std::endl << std::endl;
     std::cout << std::endl;
@@ -140,8 +140,10 @@ int shop::displayBuyOptions() {
     std::cout << "[1] " << shopWeaponSlot1.getName() << std::endl;
     std::cout << "[2] " << shopWeaponSlot2.getName() << std::endl;
     std::cout << "[3] " << shopArmorSlot.getName() << std::endl;
-    std::cout << "[4] " << shopPotionSlot.getPotionName() << std::endl;
+    std::cout << "[4] " << shopPotionSlot.getName() << std::endl;
     std::cout << "[5] " << shopItemSlot.getName() << std::endl;
+    std::cout << "[6] I'm done shopping." << std::endl;
+
     std::cin >> playerChoice;
 
     return playerChoice;
