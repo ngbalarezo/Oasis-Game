@@ -68,6 +68,9 @@ public:
 
 	void setInventory(playerInventory inventory);
 
+	//methods
+	void printStats();
+
 };
 
 //NPC CLASS

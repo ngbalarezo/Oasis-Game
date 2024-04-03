@@ -95,25 +95,16 @@ void playerInventory::display() {
 	//iomanip stream manipulations
 	std::cout << std::setiosflags(std::ios::left); //left aligns setw()
 	//display spacing header for inventory
-	std::cout << std::setw(15) << "Slot" << std::setw(25) << "Item Name" << std::setw(15) << "Coin Value" << std::setw(6) << "Weight";
-	std::cout << std::setw(10) << "          " << "Insert Name " << "[Coin: " << coinCount << "]" << std::endl;
-	std::cout << std::setw(51) << "=============================================================";
-	std::cout << std::setw(10) << "          " << std::setw(25) << "=========================" << std::endl << std::endl;
+	std::cout << std::setw(15) << "Slot" << std::setw(25) << "Item Name" << std::setw(15) << "Coin Value" << std::setw(6) << "Weight" << std::endl;
+	std::cout << "================================================================" << std::endl << std::endl;
 	//display inventory items in order
-	std::cout << std::setw(15) << "Weapon Slot: " << std::setw(25) << weaponSlot.getName() << std::setw(15) << weaponSlot.getCoinValue() << std::setw(6) << weaponSlot.getWeight();
-	std::cout << std::setw(10) << "          " << std::setw(25) << "HP: " << std::endl << std::endl;
-	std::cout << std::setw(15) << "Armor Slot: " << std::setw(25) << armorSlot.getName() << std::setw(15) << armorSlot.getCoinValue() << std::setw(6) << armorSlot.getWeight();
-	std::cout << std::setw(10) << "          " << std::setw(25) << "SP: " << std::endl << std::endl;
-	std::cout << std::setw(15) << "Potion Slot: " << std::setw(25) << getPotionDisplayString() << std::setw(15) << potionSlot.getCoinValue() << std::setw(6) << "n/a";
-	std::cout << std::setw(10) << "          " << std::setw(25) << "FP: " << std::endl << std::endl;
-	std::cout << std::setw(15) << "Item Slot 1: " << std::setw(25) << itemSlot1.getName() << std::setw(15) << itemSlot1.getCoinValue() << std::setw(6) << itemSlot1.getWeight();
-	std::cout << std::setw(10) << "          " << std::setw(25) << "Atk: " << std::endl << std::endl;
-	std::cout << std::setw(15) << "Item Slot 2: " << std::setw(25) << itemSlot2.getName() << std::setw(15) << itemSlot2.getCoinValue() << std::setw(6) << itemSlot2.getWeight();
-	std::cout << std::setw(10) << "          " << std::setw(25) << "Def: " << std::endl << std::endl;
-	std::cout << std::setw(15) << "Item Slot 3: " << std::setw(25) << itemSlot3.getName() << std::setw(15) << itemSlot3.getCoinValue() << std::setw(6) << itemSlot3.getWeight();
-	std::cout << std::setw(10) << "          " << std::setw(25) << "Weight: " << std::endl << std::endl;
-	std::cout << std::setw(51) << "=============================================================";
-	std::cout << std::setw(10) << "          " << std::setw(25) << "=========================" << std::endl << std::endl;
+	std::cout << std::setw(15) << "Weapon Slot: " << std::setw(25) << weaponSlot.getName() << std::setw(15) << weaponSlot.getCoinValue() << std::setw(6) << weaponSlot.getWeight() << std::endl << std::endl;
+	std::cout << std::setw(15) << "Armor Slot: " << std::setw(25) << armorSlot.getName() << std::setw(15) << armorSlot.getCoinValue() << std::setw(6) << armorSlot.getWeight() << std::endl << std::endl;
+	std::cout << std::setw(15) << "Potion Slot: " << std::setw(25) << getPotionDisplayString() << std::setw(15) << potionSlot.getCoinValue() << std::setw(6) << "n/a" << std::endl << std::endl;
+	std::cout << std::setw(15) << "Item Slot 1: " << std::setw(25) << itemSlot1.getName() << std::setw(15) << itemSlot1.getCoinValue() << std::setw(6) << itemSlot1.getWeight() << std::endl << std::endl;
+	std::cout << std::setw(15) << "Item Slot 2: " << std::setw(25) << itemSlot2.getName() << std::setw(15) << itemSlot2.getCoinValue() << std::setw(6) << itemSlot2.getWeight() << std::endl << std::endl;
+	std::cout << std::setw(15) << "Item Slot 3: " << std::setw(25) << itemSlot3.getName() << std::setw(15) << itemSlot3.getCoinValue() << std::setw(6) << itemSlot3.getWeight() << std::endl << std::endl;
+	std::cout << "================================================================" << std::endl << std::endl;
 	std::cout << std::endl;
 }
 
