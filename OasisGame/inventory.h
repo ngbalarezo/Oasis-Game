@@ -38,13 +38,19 @@ public:
 	//getters
 	weapon getWeapon();
 
+	std::string getWeaponAttackString();
+
 	armor getArmor();
+
+	std::string getArmorDefenseString();
 
 	potion getPotion();
 
 	int getPotionCount();
 
 	std::string getPotionDisplayString();
+
+	std::string getPotionStatString();
 
 	item getItemSlot1();
 

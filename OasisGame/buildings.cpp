@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include "buildings.h"
+#include "characters.h"
 #include "items.h"
 
 //SHOP CLASS DEFINITIONS
@@ -125,16 +126,19 @@ void shop::displayShopItems() {
     //iomanip stream manipulations
     std::cout << std::setiosflags(std::ios::left); //left aligns setw()
     //display spacing header
-    std::cout << std::setw(15) << "Item Type" << std::setw(25) << "Name" << std::setw(15) << "Weight" << std::setw(15) << "Price" << std::endl;
-    std::cout << std::setw(51) << "================================================================" << std::endl << std::endl;
+    std::cout << std::setw(15) << "Item Type" << std::setw(25) << "Item Name" << std::setw(15) << "Weight" << std::setw(15) << "Price" << std::setw(15) << "Stats" << std::endl;
+    std::cout << std::setw(51) << "====================================================================================" << std::endl << std::endl;
     //display items in order
-    std::cout << std::setw(15) << "Weapon 1: " << std::setw(25) << shopWeaponSlot1.getName() << std::setw(15) << shopWeaponSlot1.getWeight() << std::setw(15) << shopWeaponSlot1.getCoinValue() << std::endl << std::endl;
-    std::cout << std::setw(15) << "Weapon 2: " << std::setw(25) << shopWeaponSlot2.getName() << std::setw(15) << shopWeaponSlot2.getWeight() << std::setw(15) << shopWeaponSlot2.getCoinValue() << std::endl << std::endl;
-    std::cout << std::setw(15) << "Armor: " << std::setw(25) << shopArmorSlot.getName() << std::setw(15) << shopArmorSlot.getWeight() << std::setw(15) << shopArmorSlot.getCoinValue() << std::endl << std::endl;
-    std::cout << std::setw(15) << "Potion: " << std::setw(25) << shopPotionSlot.getName() << std::setw(15) << "n/a" << std::setw(15) << shopPotionSlot.getCoinValue() << std::endl << std::endl;
+    std::cout << std::setw(15) << "Weapon 1: " << std::setw(25) << shopWeaponSlot1.getName() << std::setw(15) << shopWeaponSlot1.getWeight() << std::setw(15) << shopWeaponSlot1.getCoinValue();
+    std::cout << "Atk: " << shopWeaponSlot1.getAtk() << std::endl << std::endl;
+    std::cout << std::setw(15) << "Weapon 2: " << std::setw(25) << shopWeaponSlot2.getName() << std::setw(15) << shopWeaponSlot2.getWeight() << std::setw(15) << shopWeaponSlot2.getCoinValue();
+    std::cout << "Atk: " << shopWeaponSlot2.getAtk() << std::endl << std::endl;
+    std::cout << std::setw(15) << "Armor: " << std::setw(25) << shopArmorSlot.getName() << std::setw(15) << shopArmorSlot.getWeight() << std::setw(15) << shopArmorSlot.getCoinValue();
+    std::cout << "Def: " << shopArmorSlot.getDef() << std::endl << std::endl;
+    std::cout << std::setw(15) << "Potion: " << std::setw(25) << shopPotionSlot.getName() << std::setw(15) << "n/a" << std::setw(15) << shopPotionSlot.getCoinValue();
+    std::cout << "HP +" << shopPotionSlot.getHealValue() << "/SP +" << shopPotionSlot.getStaminaValue() << std::endl << std::endl;
     std::cout << std::setw(15) << "Item: " << std::setw(25) << shopItemSlot.getName() << std::setw(15) << shopItemSlot.getWeight() << std::setw(15) << shopItemSlot.getCoinValue() << std::endl << std::endl;
-    std::cout << std::setw(64) << "================================================================" << std::endl << std::endl;
-    std::cout << std::endl;
+    std::cout << std::setw(64) << "====================================================================================" << std::endl << std::endl;
 }
 
 int shop::displayBuyOptions(player &player) {
@@ -144,14 +148,15 @@ int shop::displayBuyOptions(player &player) {
     //while loop prevents erroneous choice
     while (sentinel != 1) {
         //print options and prompt user for input
-        std::cout << "You have " << player.getInventory()->getCointCount() << " coins! " << "What would you like to buy?" << std::endl;
+        std::cout << "You have " << player.getInventory()->getCointCount() << " coins! " << "What would you like to buy?" << std::endl << std::endl;
+        std::cout << std::setw(64) << "====================================================================================" << std::endl << std::endl;
         std::cout << "[1] " << shopWeaponSlot1.getName() << std::endl;
         std::cout << "[2] " << shopWeaponSlot2.getName() << std::endl;
         std::cout << "[3] " << shopArmorSlot.getName() << std::endl;
         std::cout << "[4] " << shopPotionSlot.getName() << std::endl;
         std::cout << "[5] " << shopItemSlot.getName() << std::endl;
         std::cout << "[6] Let me check my inventory." << std::endl;
-        std::cout << "[7] I'm done shopping." << std::endl;
+        std::cout << "[7] I'm done shopping." << std::endl << std::endl;
         std::cout << "Choice: ";
         std::cin >> playerChoice;
         //switch handles error proofing for empty slots and non-menu choices, maintains menu screen until user picks a valid option.
@@ -241,7 +246,6 @@ int shop::displayBuyOptions(player &player) {
             std::cout << "This is not an option!" << std::endl;
             break;
         }
-        
         //prevents menu from printing again after use buys item, menu displays only if sentinel is not 1 yet
         system("PAUSE");
         system("CLS");
