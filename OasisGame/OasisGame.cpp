@@ -60,7 +60,7 @@ int main() {
     while (sentinel != 1) {
         std::cout << "TEST MENU: " << std::endl;
         test.print();
-        played = PlaySound(MAKEINTRESOURCE(START_MENU_MUSIC), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
+        //played = PlaySound(MAKEINTRESOURCE(START_MENU_MUSIC), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
         std::cin >> userChoice;
         if (userChoice == 1) { //NULL
             system("CLS");
@@ -68,7 +68,7 @@ int main() {
         }
         else if (userChoice == 2) { //BATTLE TEST
             system("CLS");
-            played = PlaySound(NULL, GetModuleHandle(NULL), NULL); //STOPS ASYNCHRONOUS MUSIC
+            //played = PlaySound(NULL, GetModuleHandle(NULL), NULL); //STOPS ASYNCHRONOUS MUSIC
             enemy zombie;
             zombie.battle(player);
         }
@@ -80,7 +80,7 @@ int main() {
         }
         else if (userChoice == 4) { //NULL
             system("CLS");
-            played = PlaySound(MAKEINTRESOURCE(SHOP_MENU_MUSIC), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
+            //played = PlaySound(MAKEINTRESOURCE(SHOP_MENU_MUSIC), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
             market.enterShop(player);
         }
         else if (userChoice == 5) { //NULL
