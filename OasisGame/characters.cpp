@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <random>
 #include "characters.h"
 #include "inventory.h"
@@ -67,6 +68,7 @@ int player::getSp() { return sp; }
 int player::getWeight() { return weight; }
 
 playerInventory* player::getInventory() { return &inventory; }
+
 //setters
 void player::setFp(int fp) { this->fp = fp; }
 
@@ -75,6 +77,20 @@ void player::setSp(int sp) { this->sp = sp; }
 void player::setWeight(int weight) { this->weight = weight; }
 
 void player::setInventory(playerInventory inventory) { this->inventory = inventory; }
+
+//methods
+void player::printStats() {
+	std::cout << name << " Stats: " << std::endl;
+	std::cout << "====================" << std::endl;
+	std::cout<<"HP: "<< hp << std::endl;
+	std::cout << "SP: " << sp << std::endl;
+	std::cout << "FP: " << fp << std::endl;
+	std::cout << "Atk: " << atk << std::endl;
+	std::cout << "Def: " << def << std::endl;
+	std::cout << "Weight: " << weight << std::endl;
+	std::cout << "Coin: " << inventory.getCointCount() << std::endl;
+	std::cout << "====================" << std::endl <<std::endl;
+}
 
 //NPC CLASS DEFINITIONS
 

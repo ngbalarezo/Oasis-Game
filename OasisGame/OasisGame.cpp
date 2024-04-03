@@ -14,6 +14,7 @@
 #include "buildings.h"
 
 //#pragma comment(lib, "winmm.lib")
+void accessInventory(player &player);
 
 int main() {
     //MAIN GAME: game generates all world items, npcs, and features
@@ -74,9 +75,7 @@ int main() {
         }
         else if (userChoice == 3) { //STANDARD INVENTORY DISPLAY
             system("CLS");
-            player.getInventory()->display();
-            system("PAUSE");
-            system("CLS");
+            accessInventory(player);
         }
         else if (userChoice == 4) { //NULL
             system("CLS");
@@ -98,6 +97,38 @@ int main() {
     }
     
     return 0;
+}
+
+void accessInventory(player &player) {
+    int sentinel = 0;
+    while (sentinel != 3) {
+        std::cout << "[1] Inventory" << std::endl;
+        std::cout << "[2] Player Stats" << std::endl;
+        std::cout << "[3] Exit" << std::endl;
+        std::cout << "Choice: ";
+        std::cin >> sentinel;
+        if (sentinel == 1) {
+            system("CLS");
+            player.getInventory()->display();
+            system("PAUSE");
+            system("CLS");
+        }
+        else if (sentinel == 2) {
+            system("CLS");
+            player.printStats();
+            system("PAUSE");
+            system("CLS");
+        }
+        else if (sentinel == 3) {
+            system("CLS");
+        }
+        else {
+            system("CLS");
+            std::cout << "This is not an option!" << std::endl << std::endl;
+            system("PAUSE");
+            system("CLS");
+        }
+    }
 }
 
 /*
