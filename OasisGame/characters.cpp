@@ -106,8 +106,12 @@ npc::npc(std::string npcName) {
 //getters
 std::string npc::getNpcName() { return npcName; }
 
+dialogueTree* npc::getDialogueTree() { return &dialogue; }
+
 //setters
 void npc::setNpcName(std::string npcName) { this->npcName = npcName; }
+
+void npc::setDialogueTree(dialogueTree dialogue) { dialogue = dialogue; }
 
 //methods
 

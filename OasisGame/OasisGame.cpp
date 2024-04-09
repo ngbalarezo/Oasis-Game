@@ -85,6 +85,8 @@ int main() {
         }
         else if (userChoice == 5) { //NULL
             system("CLS");
+            //npc shopKeeper;
+            //shopKeeper.getDialogueTree()->initiateDialogue();
             std::cout << "null" << std::endl;
         }
         else if (userChoice == 6) { //NULL

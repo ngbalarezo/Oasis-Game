@@ -78,7 +78,7 @@ public:
 class npc : public character {
 private:
 	std::string npcName;
-	//dialogueTree dialogue;
+	dialogueTree dialogue;
 
 public:
 	//constructors
@@ -89,8 +89,12 @@ public:
 	//getters
 	std::string getNpcName();
 
+	dialogueTree* getDialogueTree();
+
 	//setters
 	void setNpcName(std::string npcName);
+
+	void setDialogueTree(dialogueTree dialogue);
 
 };
 
