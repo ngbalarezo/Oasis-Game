@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClCompile Include="buildings.cpp" />
     <ClCompile Include="characters.cpp" />
+    <ClCompile Include="DialogueTree.cpp" />
     <ClCompile Include="DUMPSTER.cpp" />
     <ClCompile Include="inventory.cpp" />
     <ClCompile Include="items.cpp" />
@@ -139,6 +140,7 @@
   <ItemGroup>
     <ClInclude Include="buildings.h" />
     <ClInclude Include="characters.h" />
+    <ClInclude Include="DialogueTree.h" />
     <ClInclude Include="inventory.h" />
     <ClInclude Include="items.h" />
     <ClInclude Include="menu.h" />
