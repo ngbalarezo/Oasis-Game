@@ -104,6 +104,8 @@ public:
 	//constructors
 	enemy();
 
+	enemy(std::string inputName, int inputHp, int inputAtk, int inputDef, bool inputflees);
+
 	//getters
 	bool getFlees();
 

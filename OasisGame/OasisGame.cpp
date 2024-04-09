@@ -34,20 +34,29 @@ int main() {
     potion noPotion;
     item noItem;
 
+    // BUILD WEAPONS
+    
+    weapon codedSword("Coded Sword", 1, 10, false, 300, 0);
     weapon woodenSword("Wooden Sword", 150, 5, false, 10, 1);
     weapon woodenAxe("Wooden Axe", 200, 5, false, 15, 1);
 
+    //BUILD ARMOR
     armor chainmailArmor("Chainmail", 300, 25, false, 15);
 
+    //BUILD ENEMYS
+    enemy bandit("Bandit", 100, 40, 20, false);
+
+    //BUILD POTIONS
     potion smallHealPotion("Small Heal Potion", 50, 0, 0, 100);
 
+    //BUILD ITEMS
     item ruby("Ruby", 300, 0, false);
 
     //TEST: generate shop
     shop market(woodenSword, woodenAxe, chainmailArmor, smallHealPotion, ruby);
 
     //TEST: Initial require game settings, generates empty inventory, prompts user for player name, generates empty player
-    playerInventory playerInventory(noWeapon, noArmor, noPotion, 0, noItem, noItem, noItem, 500);
+    playerInventory playerInventory(codedSword, noArmor, noPotion, 0, noItem, noItem, noItem, 500);
     std::string playerName; 
     playerName = "Khevsureti";
     //std::cout << "Insert Player Name: ";
@@ -71,8 +80,7 @@ int main() {
         else if (userChoice == 2) { //BATTLE TEST
             system("CLS");
             played = PlaySound(NULL, GetModuleHandle(NULL), NULL); //STOPS ASYNCHRONOUS MUSIC
-            enemy zombie;
-            zombie.battle(player);
+            bandit.battle(player);
         }
         else if (userChoice == 3) { //STANDARD INVENTORY DISPLAY
             system("CLS");

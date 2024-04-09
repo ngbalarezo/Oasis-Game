@@ -46,7 +46,7 @@ weapon::weapon() {
 	coinValue = 0;
 	weight = 0;
 	isQuestItem = false;
-	atk = 0;
+	atk = 1;
 	focus = 0;
 }
 
@@ -83,6 +83,8 @@ int weapon::getAtk() { return atk; }
 
 int weapon::getFocus() { return focus; }
 
+int weapon::getBuffPercent() { return (1 + (atk / 100)); }
+
 //setters
 void weapon::setAtk(int atk) { this->atk = atk; }
 
@@ -110,8 +112,11 @@ armor::armor(std::string itemName, int coinValue, int weight, bool isQuestItem, 
 //getters
 int armor::getDef() { return def; }
 
+
+
 //setters
 void armor::setDef(int def) { this->def = def; }
+
 
 //POTION CLASS DEFINITIONS
 

@@ -121,6 +121,14 @@ enemy::enemy() {
 	flees = false;
 }
 
+enemy::enemy(std::string inputName, int inputHp, int inputAtk, int inputDef, bool inputflees) {
+	name = inputName;
+	hp = inputHp;
+	atk = inputAtk;
+	def = inputDef;
+	flees = inputflees;
+}
+
 //getters
 bool enemy::getFlees() { return flees; }
 
@@ -138,7 +146,7 @@ void enemy::setFlees(bool flees) { this->flees = flees; }
 void enemy::printBattleStats(player& player) {
 	//print battle stats screen
 	std::cout << "*****************************" << std::endl;
-	std::cout << "Enemy: " << "[Insert enemy name]" << std::endl;//!FIXME: insert enemy name
+	std::cout << "Enemy: " << name << std::endl;
 	std::cout << "HP: " << this->getHp() << std::endl;
 	std::cout << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl;
@@ -191,9 +199,9 @@ int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engi
 				//calculates random damage amount
 				damageDone = playerHeavyAttackRange(engine);
 				//!FIXME: ADD IN, calculates according to buff/nerf
-				totalDamageDone = damageDone * (1 + ((player.getInventory()->getWeapon().getAtk()) / 100));
-				//subtracts stamina points
-				player.setSp(player.getSp() - 30);
+				totalDamageDone = damageDone * player.getInventory()->getWeapon().getBuffPercent();
+				//subtracts stamina points NOTE: WEIGHT = AMMOUT IT TAKES OFF FROM SP!!!
+				player.setSp(player.getSp() - player.getInventory()->getWeapon().getWeight());
 				//sets new enemy hp by subtracting damageDone from current enemy hp
 				this->setHp(this->getHp() - totalDamageDone);
 				//attack landed text, pauses on this screen and then resets screen back to stats menu
@@ -209,14 +217,14 @@ int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engi
 				//calculates random damage amount
 				damageDone = playerLightAttackRange(engine);
 				//!FIXME: ADD IN, calculates according to buff/nerf
-
-				//subtracts stamina points
-				player.setSp(player.getSp() - 15);
+				totalDamageDone = damageDone * player.getInventory()->getWeapon().getBuffPercent();
+				//subtracts stamina points NOTE: WEIGHT = HALF THE AMMOUT IT TAKES OFF FROM SP!!!
+				player.setSp(player.getSp() - ((player.getInventory()->getWeapon().getWeight()) + ((player.getInventory()->getWeapon().getWeight()) / 2)));
 				//sets new enemy hp by subtracting damageDone from current enemy hp
-				this->setHp(this->getHp() - damageDone);
+				this->setHp(this->getHp() - totalDamageDone);
 				//attack landed text, pauses on this screen and then resets screen back to stats menu
 				system("CLS");
-				std::cout << "You strike with a heavy blow! " << damageDone << " damage done!" << std::endl;
+				std::cout << "You strike with a heavy blow! " << totalDamageDone << " damage done!" << std::endl;
 				system("PAUSE");
 				system("CLS");
 			}
@@ -248,7 +256,8 @@ int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engi
 */
 void enemy::enemyAttackTurn(int playerDodges, int& damageDone, std::default_random_engine& engine, player& player) {
 	//declare variables
-	std::uniform_int_distribution<unsigned int> enemyAttackRange{ 10,20 };
+	unsigned int atkUnsigned = atk;
+	std::uniform_int_distribution<unsigned int> enemyAttackRange{ (atkUnsigned - 20), atkUnsigned };
 	std::uniform_int_distribution<unsigned int> enemyMissChance{ 1,12 };
 	//enemy is still alive after your attack
 	if (this->getHp() > 0) {
