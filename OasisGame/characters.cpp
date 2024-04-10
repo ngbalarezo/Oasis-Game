@@ -82,14 +82,14 @@ void player::setInventory(playerInventory inventory) { this->inventory = invento
 void player::printStats() {
 	std::cout << name << " Stats: " << std::endl;
 	std::cout << "====================" << std::endl;
-	std::cout<<"HP: "<< hp << std::endl;
+	std::cout << "HP: " << hp << std::endl;
 	std::cout << "SP: " << sp << std::endl;
 	std::cout << "FP: " << fp << std::endl;
 	std::cout << "Atk: " << atk << std::endl;
 	std::cout << "Def: " << def << std::endl;
 	std::cout << "Weight: " << weight << std::endl;
 	std::cout << "Coin: " << inventory.getCointCount() << std::endl;
-	std::cout << "====================" << std::endl <<std::endl;
+	std::cout << "====================" << std::endl << std::endl;
 }
 
 //NPC CLASS DEFINITIONS
@@ -125,6 +125,14 @@ enemy::enemy() {
 	flees = false;
 }
 
+enemy::enemy(std::string inputName, int inputHp, int inputAtk, int inputDef, bool inputflees) {
+	name = inputName;
+	hp = inputHp;
+	atk = inputAtk;
+	def = inputDef;
+	flees = inputflees;
+}
+
 //getters
 bool enemy::getFlees() { return flees; }
 
@@ -139,10 +147,10 @@ void enemy::setFlees(bool flees) { this->flees = flees; }
 *return: n/a
 *description:
 */
-void enemy::printBattleStats(player &player) {
+void enemy::printBattleStats(player& player) {
 	//print battle stats screen
 	std::cout << "*****************************" << std::endl;
-	std::cout << "Enemy: " << "[Insert enemy name]" << std::endl;//!FIXME: insert enemy name
+	std::cout << "Enemy: " << name << std::endl;
 	std::cout << "HP: " << this->getHp() << std::endl;
 	std::cout << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl;
@@ -171,7 +179,7 @@ int enemy::printBattleOptions() {
 }
 /*
 */
-int enemy::playerAttackTurn(int input, int &damageDone, std::default_random_engine &engine, player &player) {
+int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engine& engine, player& player) {
 	//declare variables
 	std::uniform_int_distribution<unsigned int> enemyDodgeChance{ 1,7 };
 	std::uniform_int_distribution<unsigned int> playerHeavyAttackRange{ 7,12 };
@@ -190,18 +198,19 @@ int enemy::playerAttackTurn(int input, int &damageDone, std::default_random_engi
 		}
 		else if (enemyDodgeChance(engine) != 6) {
 			//heavy attack: uses 30 sp, does 7-12 base damage
+			int totalDamageDone = 0; //the total amount of damage done (damage after the percentBuff)
 			if (input == 1) {
 				//calculates random damage amount
 				damageDone = playerHeavyAttackRange(engine);
 				//!FIXME: ADD IN, calculates according to buff/nerf
-
-				//subtracts stamina points
-				player.setSp(player.getSp() - 30);
+				totalDamageDone = damageDone * player.getInventory()->getWeapon().getBuffPercent();
+				//subtracts stamina points NOTE: WEIGHT = AMMOUT IT TAKES OFF FROM SP!!!
+				player.setSp(player.getSp() - player.getInventory()->getWeapon().getWeight());
 				//sets new enemy hp by subtracting damageDone from current enemy hp
-				this->setHp(this->getHp() - damageDone);
+				this->setHp(this->getHp() - totalDamageDone);
 				//attack landed text, pauses on this screen and then resets screen back to stats menu
 				system("CLS");
-				std::cout << "You strike with a heavy blow! " << damageDone << " damage done!" << std::endl;
+				std::cout << "You strike with a heavy blow! " << totalDamageDone << " damage done!" << std::endl;
 				system("PAUSE");
 				system("CLS");
 			}
@@ -212,14 +221,14 @@ int enemy::playerAttackTurn(int input, int &damageDone, std::default_random_engi
 				//calculates random damage amount
 				damageDone = playerLightAttackRange(engine);
 				//!FIXME: ADD IN, calculates according to buff/nerf
-
-				//subtracts stamina points
-				player.setSp(player.getSp() - 15);
+				totalDamageDone = damageDone * player.getInventory()->getWeapon().getBuffPercent();
+				//subtracts stamina points NOTE: WEIGHT = HALF THE AMMOUT IT TAKES OFF FROM SP!!!
+				player.setSp(player.getSp() - ((player.getInventory()->getWeapon().getWeight()) + ((player.getInventory()->getWeapon().getWeight()) / 2)));
 				//sets new enemy hp by subtracting damageDone from current enemy hp
-				this->setHp(this->getHp() - damageDone);
+				this->setHp(this->getHp() - totalDamageDone);
 				//attack landed text, pauses on this screen and then resets screen back to stats menu
 				system("CLS");
-				std::cout << "You strike with a heavy blow! " << damageDone << " damage done!" << std::endl;
+				std::cout << "You strike with a heavy blow! " << totalDamageDone << " damage done!" << std::endl;
 				system("PAUSE");
 				system("CLS");
 			}
@@ -249,9 +258,10 @@ int enemy::playerAttackTurn(int input, int &damageDone, std::default_random_engi
 
 /*
 */
-void enemy::enemyAttackTurn(int playerDodges, int &damageDone, std::default_random_engine& engine, player& player) {
+void enemy::enemyAttackTurn(int playerDodges, int& damageDone, std::default_random_engine& engine, player& player) {
 	//declare variables
-	std::uniform_int_distribution<unsigned int> enemyAttackRange{ 10,20 };
+	unsigned int atkUnsigned = atk;
+	std::uniform_int_distribution<unsigned int> enemyAttackRange{ (atkUnsigned - 20), atkUnsigned };
 	std::uniform_int_distribution<unsigned int> enemyMissChance{ 1,12 };
 	//enemy is still alive after your attack
 	if (this->getHp() > 0) {
@@ -299,7 +309,7 @@ void enemy::enemyAttackTurn(int playerDodges, int &damageDone, std::default_rand
 *return: n/a
 *description:
 */
-void enemy::battle(player &player) {
+void enemy::battle(player& player) {
 	//declare variables
 	int input;
 	int damageDone;
@@ -322,7 +332,7 @@ void enemy::battle(player &player) {
 			enemyAttackTurn(playerDodges, damageDone, engine, player);
 		}
 	}
-	if(player.getHp() == 0) {
+	if (player.getHp() == 0) {
 		system("CLS");
 		std::cout << "You have been slain..." << std::endl;
 		system("PAUSE");

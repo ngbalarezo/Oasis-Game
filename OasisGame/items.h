@@ -66,6 +66,8 @@ public:
 
 	int getFocus();
 
+	int getBuffPercent();
+
 	//setters
 	void setAtk(int atk);
 
@@ -89,8 +91,11 @@ public:
 	//getters
 	int getDef();
 
+	
+
 	//setters
 	void setDef(int def);
+
 	
 };
 
