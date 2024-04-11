@@ -91,7 +91,7 @@ public:
 	//getters
 	int getDef();
 
-	
+	int getDefPercent();
 
 	//setters
 	void setDef(int def);

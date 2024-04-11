@@ -112,7 +112,7 @@ armor::armor(std::string itemName, int coinValue, int weight, bool isQuestItem, 
 //getters
 int armor::getDef() { return def; }
 
-
+int armor::getDefPercent() { return (1 + ( def / 100)); }
 
 //setters
 void armor::setDef(int def) { this->def = def; }

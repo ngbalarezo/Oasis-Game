@@ -284,11 +284,13 @@ void enemy::enemyAttackTurn(int playerDodges, int& damageDone, std::default_rand
 				system("CLS");
 			}
 			else if (enemyMissChance(engine) != 6) {
+				int totalEnemyDamage;
 				damageDone = enemyAttackRange(engine);
+				totalEnemyDamage = damageDone - player.getInventory()->getArmor().getDefPercent();
 				player.setHp(player.getHp() - damageDone);
 				//enemy attack landed text, pauses on this screen and then resets screen back to stats menu
 				system("CLS");
-				std::cout << "[Insert enemy name] " << "slashes you with sharp claws! " << damageDone << " damage done!" << std::endl;
+				std::cout << "[Insert enemy name] " << "slashes you with sharp claws! " << totalEnemyDamage << " damage done!" << std::endl;
 				system("PAUSE");
 				system("CLS");
 			}
