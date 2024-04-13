@@ -79,7 +79,8 @@ int main() {
         }
         else if (userChoice == 2) { //BATTLE TEST
             system("CLS");
-            played = PlaySound(NULL, GetModuleHandle(NULL), NULL); //STOPS ASYNCHRONOUS MUSIC
+            played = PlaySound(MAKEINTRESOURCE(VILLAGE_MUSIC_1), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
+            //played = PlaySound(NULL, GetModuleHandle(NULL), NULL); //STOPS ASYNCHRONOUS MUSIC
             bandit.battle(player);
         }
         else if (userChoice == 3) { //STANDARD INVENTORY DISPLAY
@@ -88,7 +89,7 @@ int main() {
         }
         else if (userChoice == 4) { //NULL
             system("CLS");
-            played = PlaySound(MAKEINTRESOURCE(SHOP_MENU_MUSIC), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
+            //played = PlaySound(MAKEINTRESOURCE(MISC_MUSIC_1), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
             market.enterShop(player);
         }
         else if (userChoice == 5) { //NULL

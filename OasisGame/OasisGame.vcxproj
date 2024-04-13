@@ -150,8 +150,15 @@
     <ResourceCompile Include="OasisGame.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Media Include="Music\IEROD1909764-panduri-2-1909764-320.wav" />
-    <Media Include="Music\URSS-track20.wav" />
+    <Media Include="Music\1_Start_MenuURSS-track20.wav" />
+    <Media Include="Music\Battle1_Panduri_PL2.wav" />
+    <Media Include="Music\Battle2_Dombra_PL5.wav" />
+    <Media Include="Music\Storyline1_Vocal_Panduri_PL3.wav" />
+    <Media Include="Music\Storyline2_Or_Outro_Panduri_Vocals_PL6.wav" />
+    <Media Include="Music\Village1_Panduri_PL1.wav" />
+    <Media Include="Music\Village2_Ensemble_PL4.wav" />
+    <Media Include="Music\Village3_Duo_Boys_PL7.wav" />
+    <Media Include="Music\ZERO_MISC_PANDURI.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
