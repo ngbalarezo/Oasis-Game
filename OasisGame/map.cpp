@@ -9,11 +9,64 @@
 //!FIXME: TRANSFER MAP DEFINITIONS TO THIS FILE
 
 //MAPNODE CLASS DEFINITIONS
-//constructors
+	//default constructor
+mapNode::mapNode() {
+	upMapNode = nullptr;
+	leftMapNode = nullptr;
+	downMapNode = nullptr;
+	rightMapNode = nullptr;
+}
+
+//village specialized constructor
+mapNode::mapNode(village nodeVillage, mapNode& upMapNode, mapNode& leftMapNode, mapNode& downMapNode, mapNode& rightMapNode) {
+	this->nodeVillage = nodeVillage;
+	isVillage = true;
+	isWilderness = false;
+	this->upMapNode = &upMapNode;
+	this->leftMapNode = &leftMapNode;
+	this->downMapNode = &downMapNode;
+	this->rightMapNode = &rightMapNode;
+}
+
+//wilderness specialized constructor
+mapNode::mapNode(wilderness nodeWilderness, mapNode& upMapNode, mapNode& leftMapNode, mapNode& downMapNode, mapNode& rightMapNode) {
+	this->nodeWilderness = nodeWilderness;
+	isVillage = false;
+	isWilderness = true;
+	this->upMapNode = &upMapNode;
+	this->leftMapNode = &leftMapNode;
+	this->downMapNode = &downMapNode;
+	this->rightMapNode = &rightMapNode;
+}
 
 //getters
 
+//!FIXME: GETTERS FOR VILLAGE AND WILDERNESS + BOOLS
+
+mapNode* mapNode::getUpMapNode() { return upMapNode; }
+
+mapNode* mapNode::getLeftMapNode() { return leftMapNode; }
+
+mapNode* mapNode::getDownMapNode() { return downMapNode; }
+
+mapNode* mapNode::getRightMapNode() { return rightMapNode; }
+
 //setters
+
+//!FIXME: SETTERS FOR VILLAGE AND WILDERNESS + BOOLS
+
+void mapNode::setUpMapNode(mapNode& upMapNode) { this->upMapNode = &upMapNode; }
+
+void mapNode::setLeftMapNode(mapNode& leftMapNode) { this->leftMapNode = &leftMapNode; }
+
+void mapNode::setDownMapNode(mapNode& downMapNode) { this->downMapNode = &downMapNode; }
+
+void mapNode::setRightMapNode(mapNode& rightMapNode) { this->rightMapNode = &rightMapNode; }
+
+//methods
+
+
+
 
 //MAP CLASS DEFINITIONS
 	//constructors
