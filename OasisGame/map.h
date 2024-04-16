@@ -29,52 +29,38 @@ public:
 	mapNode();
 
 	//village specialized constructor
-	mapNode(village nodeVillage, mapNode& upMapNode, mapNode& leftMapNode, mapNode& downMapNode, mapNode& rightMapNode) {
-		this->nodeVillage = nodeVillage;
-		isVillage = true;
-		isWilderness = false;
-		this->upMapNode = &upMapNode;
-		this->leftMapNode = &leftMapNode;
-		this->downMapNode = &downMapNode;
-		this->rightMapNode = &rightMapNode;
-	}
+	mapNode(village nodeVillage, mapNode& upMapNode, mapNode& leftMapNode, mapNode& downMapNode, mapNode& rightMapNode);
 
 	//wilderness specialized constructor
-	mapNode(wilderness nodeWilderness, mapNode& upMapNode, mapNode& leftMapNode, mapNode& downMapNode, mapNode& rightMapNode) {
-		this->nodeWilderness = nodeWilderness;
-		isVillage = false;
-		isWilderness = true;
-		this->upMapNode = &upMapNode;
-		this->leftMapNode = &leftMapNode;
-		this->downMapNode = &downMapNode;
-		this->rightMapNode = &rightMapNode;
-	}
+	mapNode(wilderness nodeWilderness, mapNode& upMapNode, mapNode& leftMapNode, mapNode& downMapNode, mapNode& rightMapNode);
+
 
 	//getters
 
 	//!FIXME: GETTERS FOR VILLAGE AND WILDERNESS + BOOLS
 
-	mapNode* getUpMapNode() { return upMapNode; }
+	mapNode* getUpMapNode();
 
-	mapNode* getLeftMapNode() { return leftMapNode; }
+	mapNode* getLeftMapNode();
 
-	mapNode* getDownMapNode() { return downMapNode; }
+	mapNode* getDownMapNode();
 
-	mapNode* getRightMapNode() { return rightMapNode; }
+	mapNode* getRightMapNode();
 
 	//setters
-	
+
 	//!FIXME: SETTERS FOR VILLAGE AND WILDERNESS + BOOLS
 
-	void setUpMapNode(mapNode& upMapNode) { this->upMapNode = &upMapNode; }
+	void setUpMapNode(mapNode& upMapNode);
 
-	void setLeftMapNode(mapNode& leftMapNode) { this->leftMapNode = &leftMapNode; }
+	void setLeftMapNode(mapNode& leftMapNode);
 
-	void setDownMapNode(mapNode& downMapNode) { this->downMapNode = &downMapNode; }
+	void setDownMapNode(mapNode& downMapNode);
 
-	void setRightMapNode(mapNode& rightMapNode) { this->rightMapNode = &rightMapNode; }
+	void setRightMapNode(mapNode& rightMapNode);
 
 	//methods
+
 
 };
 
@@ -101,18 +87,18 @@ public:
 	}
 
 	//getters
-	mapNode* getStartingMapNode() { return startingMapNode; }
+	mapNode* getStartingMapNode();
 
-	mapNode* getCurrentMapNode() { return currentMapNode; }
+	mapNode* getCurrentMapNode();
 
-	mapNode* getPrevMapNodeVisited() { return prevMapNodeVisited; }
+	mapNode* getPrevMapNodeVisited();
 
 	//setters
-	void setStartingMapNode(mapNode& startingMapNode) { this->startingMapNode = &startingMapNode; }
+	void setStartingMapNode(mapNode& startingMapNode);
 
-	void setCurrentMapNode(mapNode& currentMapNode) { this->currentMapNode = &currentMapNode; }
+	void setCurrentMapNode(mapNode& currentMapNode);
 
-	void setPrevMapNodeVisited(mapNode& prevMapNodeVisited) { this->prevMapNodeVisited = &prevMapNodeVisited; }
+	void setPrevMapNodeVisited(mapNode& prevMapNodeVisited);
 
 	//methods
 
