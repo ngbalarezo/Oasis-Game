@@ -23,7 +23,12 @@ private:
 public:
 	//constructors
 	//!FIXME: REFACTOR CONSTRUCTORS AND CLASSES
-	location() {} //default constructor
+	location() { //default constructor
+		upLocation = nullptr;
+		leftLocation = nullptr;
+		downLocation = nullptr;
+		rightLocation = nullptr;
+	}
 
 	location(shop localShop, npc localNpc1, npc localNpc2,
 		enemy localEnemy1, enemy localEnemy2, enemy localBoss,
