@@ -106,18 +106,18 @@ public:
 	}
 
 	//getters
-	mapNode* getStartingMapNode() { return startingMapNode; }
+	mapNode* getStartingMapNode();
 
-	mapNode* getCurrentMapNode() { return currentMapNode; }
+	mapNode* getCurrentMapNode();
 
-	mapNode* getPrevMapNodeVisited() { return prevMapNodeVisited; }
+	mapNode* getPrevMapNodeVisited();
 
 	//setters
-	void setStartingMapNode(mapNode& startingMapNode) { this->startingMapNode = &startingMapNode; }
+	void setStartingMapNode();
 
-	void setCurrentMapNode(mapNode& currentMapNode) { this->currentMapNode = &currentMapNode; }
+	void setCurrentMapNode();
 
-	void setPrevMapNodeVisited(mapNode& prevMapNodeVisited) { this->prevMapNodeVisited = &prevMapNodeVisited; }
+	void setPrevMapNodeVisited();
 
 	//methods
 
