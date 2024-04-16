@@ -26,12 +26,7 @@ public:
 	//constructors
 	//!FIXME: REFACTOR CONSTRUCTORS AND CLASSES
 	//default constructor
-	mapNode() {
-		upMapNode = nullptr;
-		leftMapNode = nullptr;
-		downMapNode = nullptr;
-		rightMapNode = nullptr;
-	}
+	mapNode();
 
 	//village specialized constructor
 	mapNode(village nodeVillage, mapNode& upMapNode, mapNode& leftMapNode, mapNode& downMapNode, mapNode& rightMapNode) {
