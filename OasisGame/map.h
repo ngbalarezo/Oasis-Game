@@ -3,117 +3,81 @@
 #define MAP_H
 
 #include <iostream>
+#include "locations.h"
 #include "buildings.h"
 #include "characters.h"
 #include "items.h"
 
-class location {
+class mapNode {
 private:
-	shop localShop;
-	npc localNpc1;
-	npc localNpc2;
-	enemy localEnemy1;
-	enemy localEnemy2;
-	enemy localBoss;
-	location* upLocation;
-	location* leftLocation;
-	location* downLocation;
-	location* rightLocation;
+	//location contained in mapNode
+	village nodeVillage;
+	wilderness nodeWilderness;
+	//bool to distinguish what location is in the node
+	bool isVillage;
+	bool isWilderness;
+	//node pointers to create map options
+	mapNode* upMapNode;
+	mapNode* leftMapNode;
+	mapNode* downMapNode;
+	mapNode* rightMapNode;
 
 public:
 	//constructors
 	//!FIXME: REFACTOR CONSTRUCTORS AND CLASSES
-	location() { //default constructor
-		upLocation = nullptr;
-		leftLocation = nullptr;
-		downLocation = nullptr;
-		rightLocation = nullptr;
+	//default constructor
+	mapNode() {
+		upMapNode = nullptr;
+		leftMapNode = nullptr;
+		downMapNode = nullptr;
+		rightMapNode = nullptr;
 	}
 
-	location(shop localShop, npc localNpc1, npc localNpc2,
-		enemy localEnemy1, enemy localEnemy2, enemy localBoss,
-		location& upLocation, location& leftLocation,
-		location& downLocation, location& rightLocation) { //full info location constructor
-		this->localShop = localShop;
-		this->localNpc1 = localNpc1;
-		this->localNpc2 = localNpc2;
-		this->localEnemy1 = localEnemy1;
-		this->localEnemy2 = localEnemy2;
-		this->localBoss = localBoss;
-		this->upLocation = &upLocation;
-		this->leftLocation = &leftLocation;
-		this->downLocation = &downLocation;
-		this->rightLocation = &rightLocation;
+	//village specialized constructor
+	mapNode(village nodeVillage, mapNode& upMapNode, mapNode& leftMapNode, mapNode& downMapNode, mapNode& rightMapNode) {
+		this->nodeVillage = nodeVillage;
+		isVillage = true;
+		isWilderness = false;
+		this->upMapNode = &upMapNode;
+		this->leftMapNode = &leftMapNode;
+		this->downMapNode = &downMapNode;
+		this->rightMapNode = &rightMapNode;
 	}
 
-	location(shop localShop, npc localNpc1, npc localNpc2, 
-			 location& upLocation, location& leftLocation,
-			 location& downLocation, location& rightLocation) { //village constructor, !FIXME: CREATE OTHER BUILDINGS
-		this->localShop = localShop;
-		this->localNpc1 = localNpc1;
-		this->localNpc2 = localNpc2;
-		this->upLocation = &upLocation;
-		this->leftLocation = &leftLocation;
-		this->downLocation = &downLocation;
-		this->rightLocation = &rightLocation;
-	}
-
-	location(npc localNpc1, enemy localEnemy1, 
-			 enemy localEnemy2, enemy localBoss,
-			 location& upLocation, location& leftLocation,
-			 location& downLocation, location& rightLocation) { //wilderness constructor
-		this->localNpc1 = localNpc1;
-		this->localNpc2 = localNpc2;
-		this->localEnemy1 = localEnemy1;
-		this->localEnemy2 = localEnemy2;
-		this->localBoss = localBoss;
-		this->upLocation = &upLocation;
-		this->leftLocation = &leftLocation;
-		this->downLocation = &downLocation;
-		this->rightLocation = &rightLocation;
+	//wilderness specialized constructor
+	mapNode(wilderness nodeWilderness, mapNode& upMapNode, mapNode& leftMapNode, mapNode& downMapNode, mapNode& rightMapNode) {
+		this->nodeWilderness = nodeWilderness;
+		isVillage = false;
+		isWilderness = true;
+		this->upMapNode = &upMapNode;
+		this->leftMapNode = &leftMapNode;
+		this->downMapNode = &downMapNode;
+		this->rightMapNode = &rightMapNode;
 	}
 
 	//getters
-	shop getLocalShop() { return localShop; }
 
-	npc getLocalNpc1() { return localNpc1; }
+	//!FIXME: GETTERS FOR VILLAGE AND WILDERNESS + BOOLS
 
-	npc getLocalNpc2() { return localNpc2; }
+	mapNode* getUpMapNode() { return upMapNode; }
 
-	enemy getLocalEnemy1() { return localEnemy1; }
+	mapNode* getLeftMapNode() { return leftMapNode; }
 
-	enemy getLocalEnemy2() { return localEnemy2; }
+	mapNode* getDownMapNode() { return downMapNode; }
 
-	enemy getLocalBoss() { return localBoss; }
-
-	location* getUpLocation() { return upLocation; }
-
-	location* getLeftLocation() { return leftLocation; }
-
-	location* getDownLocation() { return downLocation; }
-
-	location* getRightLocation() { return rightLocation; }
+	mapNode* getRightMapNode() { return rightMapNode; }
 
 	//setters
-	void setLocalShop(shop& localShop) { this->localShop = localShop; }
+	
+	//!FIXME: SETTERS FOR VILLAGE AND WILDERNESS + BOOLS
 
-	void setLocalNpc1(npc& localNpc1) { this->localNpc1 = localNpc1; }
+	void setUpMapNode(mapNode& upMapNode) { this->upMapNode = &upMapNode; }
 
-	void setLocalNpc2(npc& localNpc2) { this->localNpc2 = localNpc2; }
+	void setLeftMapNode(mapNode& leftMapNode) { this->leftMapNode = &leftMapNode; }
 
-	void setLocalEnemy1(enemy& localEnemy1) { this->localEnemy1 = localEnemy1; }
+	void setDownMapNode(mapNode& downMapNode) { this->downMapNode = &downMapNode; }
 
-	void setLocalEnemy2(enemy& localEnemy2) { this->localEnemy2 = localEnemy2; }
-
-	void setLocalBoss(enemy& localBoss) { this->localBoss = localBoss; }
-
-	void setUpLocation(location& upLocation) { this->upLocation = &upLocation; }
-
-	void setLeftLocation(location& leftLocation) { this->leftLocation = &leftLocation; }
-
-	void setDownLocation(location& downLocation) { this->downLocation = &downLocation; }
-
-	void setRightLocation(location& rightLocation) { this->rightLocation = &rightLocation; }
+	void setRightMapNode(mapNode& rightMapNode) { this->rightMapNode = &rightMapNode; }
 
 	//methods
 
@@ -123,37 +87,37 @@ public:
 
 class map {
 private:
-	location* startingLocation;
-	location* currentLocation;
-	location* prevLocationVisited;
+	mapNode* startingMapNode;
+	mapNode* currentMapNode;
+	mapNode* prevMapNodeVisited;
 
 public:
 	//constructors
 	map() {
-		startingLocation = nullptr;
-		currentLocation = nullptr;
-		prevLocationVisited = nullptr;
+		startingMapNode = nullptr;
+		currentMapNode = nullptr;
+		prevMapNodeVisited = nullptr;
 	}
 
-	map(location* startingLocation, location* currentLocation, location* prevLocationVisited) {
-		this->startingLocation = startingLocation;
-		this->currentLocation = currentLocation;
-		this->prevLocationVisited = prevLocationVisited;
+	map(mapNode* startingMapNode, mapNode* currentMapNode, mapNode* prevMapNodeVisited) {
+		this->startingMapNode = startingMapNode;
+		this->currentMapNode = currentMapNode;
+		this->prevMapNodeVisited = prevMapNodeVisited;
 	}
 
 	//getters
-	location* getStartingLocation() { return startingLocation; }
+	mapNode* getStartingMapNode() { return startingMapNode; }
 
-	location* getCurrentLocation() { return currentLocation; }
+	mapNode* getCurrentMapNode() { return currentMapNode; }
 
-	location* getPrevLocationVisited() { return prevLocationVisited; }
+	mapNode* getPrevMapNodeVisited() { return prevMapNodeVisited; }
 
 	//setters
-	void setStartingLocation(location& startingLocation) { this->startingLocation = &startingLocation; }
+	void setStartingMapNode(mapNode& startingMapNode) { this->startingMapNode = &startingMapNode; }
 
-	void setCurrentLocation(location& currentLocation) { this->currentLocation = &currentLocation; }
+	void setCurrentMapNode(mapNode& currentMapNode) { this->currentMapNode = &currentMapNode; }
 
-	void setPrevLocationVisited(location& prevLocationVisited) { this->prevLocationVisited = &prevLocationVisited; }
+	void setPrevMapNodeVisited(mapNode& prevMapNodeVisited) { this->prevMapNodeVisited = &prevMapNodeVisited; }
 
 	//methods
 

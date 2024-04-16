@@ -104,12 +104,12 @@ void shop::setShopLevel(int setShopLevel) { this->shopLevel = shopLevel; }
 void shop::setWasVisited(bool wasVisited) { this->wasVisited = wasVisited; }
 
 //methods
-void shop::enterShop(player &player) {
+void shop::enterShop(player& player) {
     //declare variables
     int playerChoice;
 
     //!FIXME: add in dialogue tree and display shop items if player chooses to take a look at the shelves "I would like to take a look at your shelves."
-    
+
     //add buy/sell options for npc dialogue tree
 
     //display shop items
@@ -141,7 +141,7 @@ void shop::displayShopItems() {
     std::cout << std::setw(64) << "====================================================================================" << std::endl << std::endl;
 }
 
-int shop::displayBuyOptions(player &player) {
+int shop::displayBuyOptions(player& player) {
     //declare/intialize variables
     int playerChoice;
     int sentinel = 0;
@@ -162,7 +162,7 @@ int shop::displayBuyOptions(player &player) {
         //switch handles error proofing for empty slots and non-menu choices, maintains menu screen until user picks a valid option.
         switch (playerChoice)
         {
-        //Weapon Slot 1 
+            //Weapon Slot 1 
         case 1:
             if (shopWeaponSlot1.getName() == "empty") {
                 system("CLS");
@@ -175,7 +175,7 @@ int shop::displayBuyOptions(player &player) {
                 sentinel = 1;
             }
             break;
-        //Weapon Slot 2 
+            //Weapon Slot 2 
         case 2:
             if (shopWeaponSlot2.getName() == "empty") {
                 system("CLS");
@@ -188,7 +188,7 @@ int shop::displayBuyOptions(player &player) {
                 sentinel = 1;
             }
             break;
-        //Armor Slot
+            //Armor Slot
         case 3:
             if (shopArmorSlot.getName() == "empty") {
                 system("CLS");
@@ -201,7 +201,7 @@ int shop::displayBuyOptions(player &player) {
                 sentinel = 1;
             }
             break;
-        //Potion Slot
+            //Potion Slot
         case 4:
             if (shopPotionSlot.getName() == "empty") {
                 system("CLS");
@@ -214,7 +214,7 @@ int shop::displayBuyOptions(player &player) {
                 sentinel = 1;
             }
             break;
-        //Item Slot
+            //Item Slot
         case 5:
             if (shopItemSlot.getName() == "empty") {
                 system("CLS");
@@ -227,7 +227,7 @@ int shop::displayBuyOptions(player &player) {
                 sentinel = 1;
             }
             break;
-        //Check inventory
+            //Check inventory
         case 6:
             system("CLS");
             player.getInventory()->display();
@@ -236,10 +236,10 @@ int shop::displayBuyOptions(player &player) {
             displayShopItems();
             break;
         case 7:
-                system("CLS");
-                std::cout << "Dusty shelves beat angry Elves I suppose..." << std::endl;
-                sentinel = 1;
-                break;
+            system("CLS");
+            std::cout << "Dusty shelves beat angry Elves I suppose..." << std::endl;
+            sentinel = 1;
+            break;
         default:
             system("CLS");
             displayShopItems();
@@ -257,7 +257,7 @@ int shop::displayBuyOptions(player &player) {
     return playerChoice;
 }
 
-void shop::sellTo(player &player, int playerChoice) {
+void shop::sellTo(player& player, int playerChoice) {
     //!FIXME: potentially create empty weapons to switch out shop weapons
     weapon noWeapon;
     armor noArmor;
@@ -308,7 +308,7 @@ void shop::sellTo(player &player, int playerChoice) {
         player.getInventory()->setCoinCount(player.getInventory()->getCointCount() - shopItemSlot.getCoinValue());
         //replace players weapon with shop weapon of choice
         //ask user which item slot they would like to use to store item
-        while (sentinel != 1){
+        while (sentinel != 1) {
             std::cout << "Choose an item slot to store this item." << std::endl;
             std::cout << "[1] Item Slot 1" << std::endl;
             std::cout << "[2] Item Slot 2" << std::endl;
@@ -322,7 +322,7 @@ void shop::sellTo(player &player, int playerChoice) {
                 system("PAUSE");
                 system("CLS");
             }
-            else if ((playerChoice >=1 ) && (playerChoice <= 3)){
+            else if ((playerChoice >= 1) && (playerChoice <= 3)) {
                 sentinel = 1;
             }
         }
@@ -345,3 +345,6 @@ void shop::sellTo(player &player, int playerChoice) {
     }
 }
 
+//CHURCH CLASS DEFINITIONS
+
+//RECCENTER CLASS DEFINITIONS

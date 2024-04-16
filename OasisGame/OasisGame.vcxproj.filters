@@ -27,7 +27,7 @@
     <ClCompile Include="characters.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="buildings.cpp">
+    <ClCompile Include="locations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="inventory.cpp">
@@ -40,6 +40,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="buildings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,7 +59,7 @@
     <ClInclude Include="items.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="buildings.h">
+    <ClInclude Include="locations.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DialogueTree.h">
@@ -66,6 +69,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="buildings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

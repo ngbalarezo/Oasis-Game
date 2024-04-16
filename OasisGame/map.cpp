@@ -1,0 +1,23 @@
+#include <iostream>
+#include <iomanip>
+#include "locations.h"
+#include "buildings.h"
+#include "characters.h"
+#include "items.h"
+
+//!FIXME: TRANSFER MAP DEFINITIONS TO THIS FILE
+
+//MAPNODE CLASS DEFINITIONS
+//constructors
+
+//getters
+
+//setters
+
+//MAP CLASS DEFINITIONS
+//constructors
+
+//getters
+
+//setters
+
