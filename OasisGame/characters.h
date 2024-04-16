@@ -5,6 +5,8 @@
 #include <iostream>
 #include <string>
 #include <random>
+#include "locations.h"
+#include "buildings.h"
 #include "inventory.h"
 #include "items.h"
 #include "DialogueTree.h"

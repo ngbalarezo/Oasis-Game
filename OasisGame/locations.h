@@ -12,31 +12,80 @@
 #include "inventory.h"
 #include "items.h"
 
-
 class wilderness {
 private:
+    npc localNpc1;
     enemy localEnemy1;
     enemy localEnemy2;
     enemy localBoss;
+    bool isBossBattleLocation;
+
 public:
     //constructors
-    wilderness(){} //default constructor
+    wilderness(); //default constructor
 
-    wilderness(npc localNpc1, enemy localEnemy1,
-        enemy localEnemy2, enemy localBoss,
-        location& upLocation, location& leftLocation,
-        location& downLocation, location& rightLocation) { //wilderness constructor
-        this->localNpc1 = localNpc1;
-        this->localNpc2 = localNpc2;
-        this->localEnemy1 = localEnemy1;
-        this->localEnemy2 = localEnemy2;
-        this->localBoss = localBoss;
-        this->upLocation = &upLocation;
-        this->leftLocation = &leftLocation;
-        this->downLocation = &downLocation;
-        this->rightLocation = &rightLocation;
+    //initialize wilderness with custom members, non-boss location
+    wilderness(npc localNpc1, enemy localEnemy1, enemy localEnemy2);
 
-    }
+    //initialize wilderness with custom members, boss battle location
+    wilderness(npc localNpc1, enemy localEnemy1, enemy localEnemy2, enemy localBoss, bool isBossBattleLocation);
+    
+    //getters
+    npc getLocalNpc1();
+
+    enemy getLocalEnemy1();
+
+    enemy getLocalEnemy2();
+
+    enemy getLocalBoss();
+
+    //setters
+    void setLocalNpc1(npc& localNpc1);
+
+    void setLocalEnemy1(enemy& localEnemy1);
+
+    void setLocalEnemy2(enemy& localEnemy2);
+
+    void setLocalBoss(enemy& localBoss);
+
+    //methods
+};
+
+class village {
+private:
+    shop localShop;
+    Church localChurch;
+    npc localNpc1;
+    npc localNpc2;
+
+public:
+    //constructors
+    //default constructor
+    village();
+
+    //initialize village with custom members
+    village(shop localShop, Church localChurch, npc localNpc1, npc localNpc2);
+
+    //getters
+    shop getLocalShop();
+
+    Church getLocalChurch();
+
+    npc getLocalNpc1();
+
+    npc getLocalNpc2();
+
+    //setters
+    void setLocalShop(shop& localShop);
+
+    void setLocalChurch(Church& localChurch);
+
+    void setLocalNpc1(npc& localNpc1);
+
+    void setLocalNpc2(npc& localNpc2);
+
+    //methods
+
 };
 
 
