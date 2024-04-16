@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include "map.h"
 #include "locations.h"
 #include "buildings.h"
 #include "characters.h"
@@ -9,6 +10,13 @@
 
 //MAPNODE CLASS DEFINITIONS
 //constructors
+mapNode::mapNode() {
+	upMapNode = nullptr;
+	leftMapNode = nullptr;
+	downMapNode = nullptr;
+	rightMapNode = nullptr;
+}
+
 
 //getters
 
