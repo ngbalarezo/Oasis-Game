@@ -129,6 +129,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="buildings.cpp" />
+    <ClCompile Include="locations.cpp" />
     <ClCompile Include="characters.cpp" />
     <ClCompile Include="DialogueTree.cpp" />
     <ClCompile Include="DUMPSTER.cpp" />
@@ -140,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="buildings.h" />
+    <ClInclude Include="locations.h" />
     <ClInclude Include="characters.h" />
     <ClInclude Include="DialogueTree.h" />
     <ClInclude Include="inventory.h" />

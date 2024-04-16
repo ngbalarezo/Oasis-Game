@@ -11,6 +11,7 @@
 #include "characters.h"
 #include "inventory.h"
 #include "items.h"
+#include "locations.h"
 #include "buildings.h"
 #include "DialogueTree.h"
 

@@ -33,7 +33,8 @@ public:
 
     shop(weapon shopWeaponSlot1, weapon shopWeaponSlot2, armor shopArmorSlot, potion shopPotionSlot, item shopItemSlot);
 
-    shop(std::string shopName, npc shopKeeper, weapon shopWeaponSlot1, weapon shopWeaponSlot2, armor shopArmorSlot, potion shopPotionSlot, item shopItemSlot, bool isEmpty, int shopLevel, bool wasVisited);
+    shop(std::string shopName, npc shopKeeper, weapon shopWeaponSlot1, weapon shopWeaponSlot2, armor shopArmorSlot,
+        potion shopPotionSlot, item shopItemSlot, bool isEmpty, int shopLevel, bool wasVisited);
 
     //getters
     std::string getShopName();
@@ -60,7 +61,7 @@ public:
     void setShopName(std::string shopName);
 
     void setShopKeeper(npc shopKeeper);
-    
+
     void setShopWeaponSlot1(weapon shopWeaponSlot1);
 
     void setShopWeaponSlot2(weapon shopWeaponSlot2);
@@ -78,13 +79,21 @@ public:
     void setWasVisited(bool wasVisited);
 
     //methods
-    void enterShop(player &player);
+    void enterShop(player& player);
 
     void displayShopItems();
 
-    int displayBuyOptions(player &player);
+    int displayBuyOptions(player& player);
 
-    void sellTo(player &player, int playerChoice);
+    void sellTo(player& player, int playerChoice);
+
+};
+
+class Church {
+
+};
+
+class recCenter {
 
 };
 

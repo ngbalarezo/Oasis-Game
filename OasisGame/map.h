@@ -3,6 +3,7 @@
 #define MAP_H
 
 #include <iostream>
+#include "locations.h"
 #include "buildings.h"
 #include "characters.h"
 #include "items.h"
@@ -30,10 +31,7 @@ public:
 		rightLocation = nullptr;
 	}
 
-	location(shop localShop, npc localNpc1, npc localNpc2,
-		enemy localEnemy1, enemy localEnemy2, enemy localBoss,
-		location& upLocation, location& leftLocation,
-		location& downLocation, location& rightLocation) { //full info location constructor
+	location(shop localShop, npc localNpc1, npc localNpc2, enemy localEnemy1, enemy localEnemy2, enemy localBoss, location& upLocation, location& leftLocation, location& downLocation, location& rightLocation) { //full info location constructor
 		this->localShop = localShop;
 		this->localNpc1 = localNpc1;
 		this->localNpc2 = localNpc2;
@@ -58,10 +56,10 @@ public:
 		this->rightLocation = &rightLocation;
 	}
 
-	location(npc localNpc1, enemy localEnemy1, 
-			 enemy localEnemy2, enemy localBoss,
-			 location& upLocation, location& leftLocation,
-			 location& downLocation, location& rightLocation) { //wilderness constructor
+	wilderness(npc localNpc1, enemy localEnemy1,
+		enemy localEnemy2, enemy localBoss,
+		location& upLocation, location& leftLocation,
+		location& downLocation, location& rightLocation) { //wilderness constructor
 		this->localNpc1 = localNpc1;
 		this->localNpc2 = localNpc2;
 		this->localEnemy1 = localEnemy1;
@@ -71,6 +69,7 @@ public:
 		this->leftLocation = &leftLocation;
 		this->downLocation = &downLocation;
 		this->rightLocation = &rightLocation;
+
 	}
 
 	//getters
