@@ -43,6 +43,7 @@ int main() {
 
     //BUILD ARMOR
     armor chainmailArmor("Chainmail", 300, 25, false, 15);
+    armor RiotGear("Riot Gear", 9000, 50, false, 400);
 
     //BUILD ENEMYS
     enemy bandit("Bandit", 100, 40, 20, false);
@@ -57,7 +58,7 @@ int main() {
     shop market(woodenSword, woodenAxe, chainmailArmor, smallHealPotion, ruby);
 
     //TEST: Initial require game settings, generates empty inventory, prompts user for player name, generates empty player
-    playerInventory playerInventory(codedSword, noArmor, noPotion, 0, noItem, noItem, noItem, 500);
+    playerInventory playerInventory(codedSword, RiotGear, noPotion, 0, noItem, noItem, noItem, 500);
     std::string playerName; 
     playerName = "Khevsureti";
     //std::cout << "Insert Player Name: ";
