@@ -111,6 +111,7 @@ int main() {
     return 0;
 }
 
+//!FIXME: move this to player.h and leave the name as is
 void accessInventory(player &player) {
     int sentinel = 0;
     while (sentinel != 3) {
@@ -146,8 +147,6 @@ void accessInventory(player &player) {
 /*
 * !FIXME LIST:
 * -------------------------------------------------------------------------------------------------------------------------------------------
-* Add in buff/nerf in battle function according to armor and weapons
-* Music
 * Fix documentation, make the game easier to understand with comments
 * Make the battle screen look nicer!!!
 * Change the name of focus stat of weapon class to better capture the essence of the stat (difficulty requries more focus, precision?)
@@ -158,5 +157,6 @@ void accessInventory(player &player) {
 * Add scrolls
 * Go through and check for items that could be passed by reference
 * Add in pause/fade in for area music
+* Edit every audio clip and fade them in for quality effect
 * -------------------------------------------------------------------------------------------------------------------------------------------
 */

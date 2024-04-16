@@ -134,6 +134,7 @@
     <ClCompile Include="DUMPSTER.cpp" />
     <ClCompile Include="inventory.cpp" />
     <ClCompile Include="items.cpp" />
+    <ClCompile Include="map.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="OasisGame.cpp" />
   </ItemGroup>
@@ -143,6 +144,7 @@
     <ClInclude Include="DialogueTree.h" />
     <ClInclude Include="inventory.h" />
     <ClInclude Include="items.h" />
+    <ClInclude Include="map.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
