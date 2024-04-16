@@ -49,14 +49,28 @@ public:
 	location(shop localShop, npc localNpc1, npc localNpc2, 
 			 location& upLocation, location& leftLocation,
 			 location& downLocation, location& rightLocation) { //village constructor, !FIXME: CREATE OTHER BUILDINGS
-
+		this->localShop = localShop;
+		this->localNpc1 = localNpc1;
+		this->localNpc2 = localNpc2;
+		this->upLocation = &upLocation;
+		this->leftLocation = &leftLocation;
+		this->downLocation = &downLocation;
+		this->rightLocation = &rightLocation;
 	}
 
 	location(npc localNpc1, enemy localEnemy1, 
 			 enemy localEnemy2, enemy localBoss,
 			 location& upLocation, location& leftLocation,
-			 location& downLocation, location& rightLocation) { //outer area constructor
-		
+			 location& downLocation, location& rightLocation) { //wilderness constructor
+		this->localNpc1 = localNpc1;
+		this->localNpc2 = localNpc2;
+		this->localEnemy1 = localEnemy1;
+		this->localEnemy2 = localEnemy2;
+		this->localBoss = localBoss;
+		this->upLocation = &upLocation;
+		this->leftLocation = &leftLocation;
+		this->downLocation = &downLocation;
+		this->rightLocation = &rightLocation;
 	}
 
 	//getters
@@ -104,6 +118,8 @@ public:
 	//methods
 
 };
+
+//!FIXME: potentially add village and wilderness inherited classes
 
 class map {
 private:
