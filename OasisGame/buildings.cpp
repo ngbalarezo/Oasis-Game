@@ -7,7 +7,6 @@
 //SHOP CLASS DEFINITIONS
 
 //constructors
-
 shop::shop() {
     //create null item objects
     npc noShopKeeper;

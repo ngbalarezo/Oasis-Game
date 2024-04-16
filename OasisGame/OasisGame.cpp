@@ -149,8 +149,10 @@ void accessInventory(player &player) {
 /*
 * !FIXME LIST:
 * -------------------------------------------------------------------------------------------------------------------------------------------
+* POTIONS FUNCTIONALITY/TRANSFER POTIONCOUNT TO POTION CLASS RATHER THAN INVENTORY
 * ASK TYLER IF IT WOULD BE BETTER TO MAKE EVERYTHING PASSED BY REFERENCE AND POINTERS INSTEAD OF EQUALITIES
 * CHECK DEFAULT CONSTRUCTORS, MAY NOT HAVE TO INITALIZE WEAPONS IN INVENTORY... THEY DEFUALT TO EMPTY!
+* GRAPHICS DISPLAY FOR ENTERING A NEW VILLAGE OR WILDERNESS
 * Fix documentation, make the game easier to understand with comments
 * Make the battle screen look nicer!!!
 * Change the name of focus stat of weapon class to better capture the essence of the stat (difficulty requries more focus, precision?)
