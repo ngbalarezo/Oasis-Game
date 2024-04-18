@@ -12,32 +12,22 @@
 //MAPNODE CLASS DEFINITIONS
 //constructors
 mapNode::mapNode() {
-	upMapNode = nullptr;
-	leftMapNode = nullptr;
-	downMapNode = nullptr;
-	rightMapNode = nullptr;
+	isVillage = false;
+	isWilderness = false;
 }
 
 //village specialized constructor
-mapNode::mapNode(village nodeVillage, mapNode& upMapNode, mapNode& leftMapNode, mapNode& downMapNode, mapNode& rightMapNode) {
+mapNode::mapNode(village nodeVillage) {
 	this->nodeVillage = nodeVillage;
 	isVillage = true;
 	isWilderness = false;
-	this->upMapNode = &upMapNode;
-	this->leftMapNode = &leftMapNode;
-	this->downMapNode = &downMapNode;
-	this->rightMapNode = &rightMapNode;
 }
 
 //wilderness specialized constructor
-mapNode::mapNode(wilderness nodeWilderness, mapNode& upMapNode, mapNode& leftMapNode, mapNode& downMapNode, mapNode& rightMapNode) {
+mapNode::mapNode(wilderness nodeWilderness) {
 	this->nodeWilderness = nodeWilderness;
 	isVillage = false;
 	isWilderness = true;
-	this->upMapNode = &upMapNode;
-	this->leftMapNode = &leftMapNode;
-	this->downMapNode = &downMapNode;
-	this->rightMapNode = &rightMapNode;
 }
 
 //getters
@@ -49,14 +39,6 @@ bool mapNode::getIsVillage() { return isVillage; }
 
 bool mapNode::getIsWilderness() { return isWilderness; }
 
-mapNode* mapNode::getUpMapNode() { return upMapNode; }
-
-mapNode* mapNode::getLeftMapNode() { return leftMapNode; }
-
-mapNode* mapNode::getDownMapNode() { return downMapNode; }
-
-mapNode* mapNode::getRightMapNode() { return rightMapNode; }
-
 //setters
 void mapNode::setNodeVillage(village& nodeVillage) { this->nodeVillage = nodeVillage; }
 
@@ -65,22 +47,6 @@ void mapNode::setNodeWilderness(wilderness& nodeWilderness) { this->nodeWilderne
 void mapNode::setIsVillage(bool& isVillage) { this->isVillage = isVillage; }
 
 void mapNode::setIsWilderness(bool& isWilderness) { this->isWilderness = isWilderness; }
-
-void mapNode::setUpMapNode(mapNode& upMapNode) { this->upMapNode = &upMapNode; }
-
-void mapNode::setUpMapNode(mapNode* upMapNode) { this->upMapNode = upMapNode; }
-
-void mapNode::setLeftMapNode(mapNode& leftMapNode) { this->leftMapNode = &leftMapNode; }
-
-void mapNode::setLeftMapNode(mapNode* leftMapNode) { this->leftMapNode = leftMapNode; }
-
-void mapNode::setDownMapNode(mapNode& downMapNode) { this->downMapNode = &downMapNode; }
-
-void mapNode::setDownMapNode(mapNode* downMapNode) { this->downMapNode = downMapNode; }
-
-void mapNode::setRightMapNode(mapNode& rightMapNode) { this->rightMapNode = &rightMapNode; }
-
-void mapNode::setRightMapNode(mapNode* rightMapNode) { this->rightMapNode = rightMapNode; }
 
 //methods
 
@@ -92,21 +58,15 @@ map::map() {
 	prevMapNodeVisited = nullptr;
 }
 
-//starting node initalized, current set to start, prev node set to nullptr
-map::map(mapNode& startingMapNode) {
-	this->startingMapNode = &startingMapNode;
-	currentMapNode = nullptr;
-	prevMapNodeVisited = nullptr;
-}
-
-//!FIXME: might remove, unneccesary total initialization 
-map::map(mapNode& startingMapNode, mapNode& currentMapNode, mapNode& prevMapNodeVisited) {
-	this->startingMapNode = &startingMapNode;
-	this->currentMapNode = &currentMapNode;
-	this->prevMapNodeVisited = &prevMapNodeVisited;
+map::map(int gridSize) {
+	std::vector<std::vector<mapNode>> mapGrid(gridSize);
+	this->mapGrid = mapGrid;
+	this->gridSize = gridSize;
 }
 
 //getters
+std::vector<std::vector<mapNode>> map::getMapGrid() { return mapGrid; }
+
 mapNode* map::getStartingMapNode() { return startingMapNode; }
 
 mapNode* map::getCurrentMapNode() { return currentMapNode; }
@@ -114,6 +74,8 @@ mapNode* map::getCurrentMapNode() { return currentMapNode; }
 mapNode* map::getPrevMapNodeVisited() { return prevMapNodeVisited; }
 
 //setters
+void map::setMapGrid(std::vector<std::vector<mapNode>> mapGrid) { this->mapGrid = mapGrid; }
+
 void map::setStartingMapNode(mapNode& startingMapNode) { this->startingMapNode = &startingMapNode; }
 
 void map::setStartingMapNode(mapNode* startingMapNode) { this->startingMapNode = startingMapNode; }
@@ -127,9 +89,13 @@ void map::setPrevMapNodeVisited(mapNode& prevMapNodeVisited) { this->prevMapNode
 void map::setPrevMapNodeVisited(mapNode* prevMapNodeVisited) { this->prevMapNodeVisited = prevMapNodeVisited; }
 
 //methods
-void map::generateGrid(int n) {
-	
+void map::generateMap() {
+	//generate map from two arrays of pregenerated villages and wilderness locations
 }
+
+//!FIXME: NOTES
+//! WALK FUNCTIONALITY IN VILLAGE MENU CLASS
+//! CONSIDER WHERE TO STORE PREVIOUSLY VISITED CHURCH NODE
 
 
 

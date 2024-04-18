@@ -21,11 +21,6 @@ private:
 	//bool to distinguish what location is in the node
 	bool isVillage;
 	bool isWilderness;
-	//node pointers to create map options
-	mapNode* upMapNode;
-	mapNode* leftMapNode;
-	mapNode* downMapNode;
-	mapNode* rightMapNode;
 
 public:
 	//constructors
@@ -33,10 +28,10 @@ public:
 	mapNode();
 
 	//village specialized constructor
-	mapNode(village nodeVillage, mapNode& upMapNode, mapNode& leftMapNode, mapNode& downMapNode, mapNode& rightMapNode);
+	mapNode(village nodeVillage);
 
 	//wilderness specialized constructor
-	mapNode(wilderness nodeWilderness, mapNode& upMapNode, mapNode& leftMapNode, mapNode& downMapNode, mapNode& rightMapNode);
+	mapNode(wilderness nodeWilderness);
 
 	//getters
 	village getNodeVillage();
@@ -47,14 +42,6 @@ public:
 
 	bool getIsWilderness();
 
-	mapNode* getUpMapNode();
-
-	mapNode* getLeftMapNode();
-
-	mapNode* getDownMapNode();
-
-	mapNode* getRightMapNode();
-
 	//setters 
 	void setNodeVillage(village& nodeVillage);
 
@@ -64,55 +51,43 @@ public:
 
 	void setIsWilderness(bool& isWilderness);
 
-	//map node setters are overwritten to support pointer and object passing
-	void setUpMapNode(mapNode& upMapNode);
-
-	void setUpMapNode(mapNode* upMapNode);
-
-	void setLeftMapNode(mapNode& leftMapNode);
-
-	void setLeftMapNode(mapNode* leftMapNode);
-
-	void setDownMapNode(mapNode& downMapNode);
-
-	void setDownMapNode(mapNode* downMapNode);
-
-	void setRightMapNode(mapNode& rightMapNode);
-
-	void setRightMapNode(mapNode* rightMapNode);
-
 	//methods
 
 };
 
-//!FIXME: potentially add village and wilderness inherited classes
-
 class map {
 private:
+	int gridSize;
+	std::vector<std::vector<mapNode>> mapGrid;
 	mapNode* startingMapNode;
 	mapNode* currentMapNode;
 	mapNode* prevMapNodeVisited;
 
 public:
-	//constructors
+//constructors
 //default constructor
 	map();
-
-	//starting node initalized, current set to start, prev node set to nullptr
-	map(mapNode& startingMapNode);
 
 	//!FIXME: might remove, unneccesary total initialization 
 	map(mapNode& startingMapNode, mapNode& currentMapNode, mapNode& prevMapNodeVisited);
 
+	//constructor to initialize vector with grid size
+	map(int gridSize);
 
 	//getters
+	std::vector<std::vector<mapNode>> getMapGrid();
+
 	mapNode* getStartingMapNode();
 
 	mapNode* getCurrentMapNode();
 
 	mapNode* getPrevMapNodeVisited();
 
+	mapNode* getCornerNode();
+
 	//setters
+	void setMapGrid(std::vector<std::vector<mapNode>> mapGrid);
+	
 	void setStartingMapNode(mapNode& startingMapNode);
 
 	void setStartingMapNode(mapNode* startingMapNode);
@@ -125,9 +100,13 @@ public:
 
 	void setPrevMapNodeVisited(mapNode* prevMapNodeVisited);
 
+	void setCornerNode(mapNode& cornerNode);
+
+	void setCornerNode(mapNode* cornerNode);
+
 	//methods
 	//generates a grid of mapNodes of size nxn
-	void generateGrid(int n);
+	void generateMap();
 
 	//void generateMap(); PARAMETERS TO CREATE GRID, STORE THESE VILLAGES AND WILDERNESS IN ARRAY, RANDOMLY GENERATE MAP
 };
