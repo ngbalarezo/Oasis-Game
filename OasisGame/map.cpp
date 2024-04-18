@@ -69,17 +69,26 @@ void mapNode::setRightMapNode(mapNode& rightMapNode) { this->rightMapNode = &rig
 //methods
 
 //MAP CLASS DEFINITIONS
-// //constructors
+//constructors
+//default constructor
 map::map() {
 	startingMapNode = nullptr;
 	currentMapNode = nullptr;
 	prevMapNodeVisited = nullptr;
 }
 
+//starting node initalized, current set to start, prev node set to nullptr
+map::map(mapNode* startingMapNode) {
+	this->startingMapNode = startingMapNode;
+	currentMapNode = startingMapNode;
+	prevMapNodeVisited = nullptr;
+}
+
+//!FIXME: might remove, unneccesary total initialization 
 map::map(mapNode* startingMapNode, mapNode* currentMapNode, mapNode* prevMapNodeVisited) {
 	this->startingMapNode = startingMapNode;
 	this->currentMapNode = currentMapNode;
-	this->prevMapNodeVisited = prevMapNodeVisited;
+	prevMapNodeVisited = nullptr;
 }
 
 //getters

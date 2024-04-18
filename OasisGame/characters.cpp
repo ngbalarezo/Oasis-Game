@@ -294,7 +294,7 @@ void enemy::enemyAttackTurn(int playerDodges, int& damageDone, std::default_rand
 				player.setHp(player.getHp() - damageDone);
 				//enemy attack landed text, pauses on this screen and then resets screen back to stats menu
 				system("CLS");
-				std::cout << "[Insert enemy name] " << "slashes you with sharp claws! " << totalEnemyDamage << " damage done!" << std::endl;
+				std::cout << name << "slashes you with sharp claws! " << totalEnemyDamage << " damage done!" << std::endl;
 				system("PAUSE");
 				system("CLS");
 			}

@@ -79,17 +79,14 @@ private:
 
 public:
 	//constructors
-	map() {
-		startingMapNode = nullptr;
-		currentMapNode = nullptr;
-		prevMapNodeVisited = nullptr;
-	}
+	//default constructor
+	map();
 
-	map(mapNode* startingMapNode, mapNode* currentMapNode, mapNode* prevMapNodeVisited) {
-		this->startingMapNode = startingMapNode;
-		this->currentMapNode = currentMapNode;
-		this->prevMapNodeVisited = prevMapNodeVisited;
-	}
+	//starting node initalized, current set to start, prev node set to nullptr
+	map(mapNode* startingMapNode);
+
+	//!FIXME: might remove, unneccesary total initialization 
+	map(mapNode* startingMapNode, mapNode* currentMapNode, mapNode* prevMapNodeVisited);
 
 	//getters
 	mapNode* getStartingMapNode();
