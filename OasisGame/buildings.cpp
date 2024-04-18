@@ -355,6 +355,7 @@ void shop::sellTo(player& player, int playerChoice) {
 Church::Church() {
     churchName = "";
     hpToHeal = 0;
+    //!FIXME: ADD NPC PRIEST AND OPTIONS TO SPEAK WITH PRIEST, OFFER SACRIFICE ON THE ALTAR, ETC.
 }
 
 //initialize object with all custom parameters
@@ -377,12 +378,15 @@ void Church::setHpToHeal(int hpToHeal) { this->hpToHeal = hpToHeal; }
 //methods
 void Church::churchWelcome(player& player) {
     int choice = 0;
-    std::cout << "Welcome to the " << churchName << ". You feel the presance of grace." << std::endl;
+    std::cout << "Welcome to the " << churchName << ". You feel the presence of grace." << std::endl;
     std::cout << "[1] Pray" << std::endl;
     std::cout << "[2] Leave" << std::endl;
     std::cin >> choice;
     if (choice == 1) {
         pray(player);
+    }
+    else if (choice==2) {
+        //!FIXME: ADD CONTENT
     }
 
 }

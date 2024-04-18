@@ -94,7 +94,6 @@ public:
 };
 
 class Church {
-
 private:
     std::string churchName;
     int hpToHeal;
@@ -123,10 +122,6 @@ public:
 
     void pray(player& player);
 
-
-};
-
-class recCenter {
 
 };
 
