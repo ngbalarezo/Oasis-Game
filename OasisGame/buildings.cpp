@@ -350,5 +350,48 @@ void shop::sellTo(player& player, int playerChoice) {
 }
 
 //CHURCH CLASS DEFINITIONS
+//constructers
+//default constructor
+Church::Church() {
+    churchName = "";
+    hpToHeal = 0;
+}
+
+//initialize object with all custom parameters
+Church::Church(std::string churchName, int hpToHeal) {
+    this->churchName = churchName;
+    this->hpToHeal = hpToHeal;
+}
+
+//getters
+std::string Church::getChurchName() { return churchName; }
+
+int Church::getHpToHeal() { return hpToHeal; }
+
+
+//setters
+void Church::setChurchName(std::string churchName) { this->churchName = churchName; }
+
+void Church::setHpToHeal(int hpToHeal) { this->hpToHeal = hpToHeal; }
+
+//methods
+void Church::churchWelcome(player& player) {
+    int choice = 0;
+    std::cout << "Welcome to the " << churchName << ". You feel the presance of grace." << std::endl;
+    std::cout << "[1] Pray" << std::endl;
+    std::cout << "[2] Leave" << std::endl;
+    std::cin >> choice;
+    if (choice == 1) {
+        pray(player);
+    }
+
+}
+
+void Church::pray(player& player) {
+    system("CLS");
+    std::cout << "Your prayers have been answered and you feel at peace with the help of grace." << std::endl;
+    std::cout << hpToHeal << " has been added. HP: " << player.getHp() + hpToHeal;
+    player.setHp(player.getHp() + hpToHeal);
+}
 
 //RECCENTER CLASS DEFINITIONS
