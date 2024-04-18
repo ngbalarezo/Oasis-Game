@@ -1,10 +1,14 @@
 #include <iostream>
 #include <iomanip>
 #include <random>
+#include "menu.h"
+#include "map.h"
+#include "locations.h"
+#include "buildings.h"
 #include "characters.h"
 #include "inventory.h"
 #include "items.h"
-
+#include "DialogueTree.h"
 
 //CHARACTER CLASS DEFINITIONS
 
@@ -290,7 +294,7 @@ void enemy::enemyAttackTurn(int playerDodges, int& damageDone, std::default_rand
 				player.setHp(player.getHp() - damageDone);
 				//enemy attack landed text, pauses on this screen and then resets screen back to stats menu
 				system("CLS");
-				std::cout << "[Insert enemy name] " << "slashes you with sharp claws! " << totalEnemyDamage << " damage done!" << std::endl;
+				std::cout << name << "slashes you with sharp claws! " << totalEnemyDamage << " damage done!" << std::endl;
 				system("PAUSE");
 				system("CLS");
 			}

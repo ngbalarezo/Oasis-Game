@@ -8,11 +8,12 @@
 #include <windows.h>
 #include "resource.h"
 #include "menu.h"
+#include "map.h"
+#include "locations.h"
+#include "buildings.h"
 #include "characters.h"
 #include "inventory.h"
 #include "items.h"
-#include "locations.h"
-#include "buildings.h"
 #include "DialogueTree.h"
 
 //#pragma comment(lib, "winmm.lib")
@@ -81,7 +82,7 @@ int main() {
         }
         else if (userChoice == 2) { //BATTLE TEST
             system("CLS");
-            played = PlaySound(MAKEINTRESOURCE(VILLAGE_MUSIC_1), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
+            played = PlaySound(MAKEINTRESOURCE(BATTLE_MUSIC_1), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
             //played = PlaySound(NULL, GetModuleHandle(NULL), NULL); //STOPS ASYNCHRONOUS MUSIC
             bandit.battle(player);
         }
