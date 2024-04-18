@@ -1,15 +1,15 @@
 #include <iostream>
 #include <iomanip>
+#include "map.h"
 #include "locations.h"
 #include "buildings.h"
 #include "characters.h"
 #include "items.h"
-#include "map.h"
 
 //!FIXME: TRANSFER MAP DEFINITIONS TO THIS FILE
 
 //MAPNODE CLASS DEFINITIONS
-//default constructor
+//constructors
 mapNode::mapNode() {
 	upMapNode = nullptr;
 	leftMapNode = nullptr;
@@ -40,8 +40,13 @@ mapNode::mapNode(wilderness nodeWilderness, mapNode& upMapNode, mapNode& leftMap
 }
 
 //getters
+village mapNode::getNodeVillage() { return nodeVillage; }
 
-//!FIXME: GETTERS FOR VILLAGE AND WILDERNESS + BOOLS
+wilderness mapNode::getNodeWilderness() { return nodeWilderness; }
+
+bool mapNode::getIsVillage() { return isVillage; }
+
+bool mapNode::getIsWilderness() { return isWilderness; }
 
 mapNode* mapNode::getUpMapNode() { return upMapNode; }
 
@@ -52,8 +57,13 @@ mapNode* mapNode::getDownMapNode() { return downMapNode; }
 mapNode* mapNode::getRightMapNode() { return rightMapNode; }
 
 //setters
+void mapNode::setNodeVillage(village& nodeVillage) { this->nodeVillage = nodeVillage; }
 
-//!FIXME: SETTERS FOR VILLAGE AND WILDERNESS + BOOLS
+void mapNode::setNodeWilderness(wilderness& nodeWilderness) { this->nodeWilderness = nodeWilderness; }
+
+void mapNode::setIsVillage(bool& isVillage) { this->isVillage = isVillage; }
+
+void mapNode::setIsWilderness(bool& isWilderness) { this->isWilderness = isWilderness; }
 
 void mapNode::setUpMapNode(mapNode& upMapNode) { this->upMapNode = &upMapNode; }
 
@@ -66,17 +76,17 @@ void mapNode::setRightMapNode(mapNode& rightMapNode) { this->rightMapNode = &rig
 //methods
 
 //MAP CLASS DEFINITIONS
-// //constructors
+//constructors
 map::map() {
 	startingMapNode = nullptr;
 	currentMapNode = nullptr;
 	prevMapNodeVisited = nullptr;
 }
 
-map::map(mapNode* startingMapNode, mapNode* currentMapNode, mapNode* prevMapNodeVisited) {
+map::map(mapNode* startingMapNode, mapNode* currentMapNode) {
 	this->startingMapNode = startingMapNode;
 	this->currentMapNode = currentMapNode;
-	this->prevMapNodeVisited = prevMapNodeVisited;
+	prevMapNodeVisited = nullptr;
 }
 
 //getters
@@ -92,7 +102,4 @@ void map::setStartingMapNode(mapNode& startingMapNode) { this->startingMapNode =
 void map::setCurrentMapNode(mapNode& currentMapNode) { this->currentMapNode = &currentMapNode; }
 
 void map::setPrevMapNodeVisited(mapNode& prevMapNodeVisited) { this->prevMapNodeVisited = &prevMapNodeVisited; }
-
-//methods
-
 

@@ -24,7 +24,6 @@ private:
 
 public:
 	//constructors
-	//!FIXME: REFACTOR CONSTRUCTORS AND CLASSES
 	//default constructor
 	mapNode();
 
@@ -34,10 +33,14 @@ public:
 	//wilderness specialized constructor
 	mapNode(wilderness nodeWilderness, mapNode& upMapNode, mapNode& leftMapNode, mapNode& downMapNode, mapNode& rightMapNode);
 
-
 	//getters
+	village getNodeVillage();
 
-	//!FIXME: GETTERS FOR VILLAGE AND WILDERNESS + BOOLS
+	wilderness getNodeWilderness();
+
+	bool getIsVillage();
+
+	bool getIsWilderness();
 
 	mapNode* getUpMapNode();
 
@@ -48,8 +51,13 @@ public:
 	mapNode* getRightMapNode();
 
 	//setters
+	void setNodeVillage(village& nodeVillage);
 
-	//!FIXME: SETTERS FOR VILLAGE AND WILDERNESS + BOOLS
+	void setNodeWilderness(wilderness& nodeWilderness);
+
+	void setIsVillage(bool& isVillage);
+
+	void setIsWilderness(bool& isWilderness);
 
 	void setUpMapNode(mapNode& upMapNode);
 
@@ -60,7 +68,6 @@ public:
 	void setRightMapNode(mapNode& rightMapNode);
 
 	//methods
-
 
 };
 
@@ -74,17 +81,9 @@ private:
 
 public:
 	//constructors
-	map() {
-		startingMapNode = nullptr;
-		currentMapNode = nullptr;
-		prevMapNodeVisited = nullptr;
-	}
+	map();
 
-	map(mapNode* startingMapNode, mapNode* currentMapNode, mapNode* prevMapNodeVisited) {
-		this->startingMapNode = startingMapNode;
-		this->currentMapNode = currentMapNode;
-		this->prevMapNodeVisited = prevMapNodeVisited;
-	}
+	map(mapNode* startingMapNode, mapNode* currentMapNode);
 
 	//getters
 	mapNode* getStartingMapNode();
@@ -103,6 +102,5 @@ public:
 	//methods
 
 };
-
 
 #endif
