@@ -8,11 +8,12 @@
 #include <windows.h>
 #include "resource.h"
 #include "menu.h"
+#include "map.h"
+#include "locations.h"
+#include "buildings.h"
 #include "characters.h"
 #include "inventory.h"
 #include "items.h"
-#include "locations.h"
-#include "buildings.h"
 #include "DialogueTree.h"
 
 //#pragma comment(lib, "winmm.lib")
