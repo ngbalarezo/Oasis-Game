@@ -8,6 +8,7 @@
 #include <vector>
 #include <string>
 #include "menu.h"
+#include "buildings.h"
 #include "characters.h"
 #include "inventory.h"
 #include "items.h"

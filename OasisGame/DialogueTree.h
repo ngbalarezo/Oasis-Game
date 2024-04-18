@@ -6,44 +6,26 @@
 #include <iomanip>
 #include <vector>
 #include <string>
-/*
-class dialogue {
-	std::string content;
-	std::string option1;
-	std::string response1;
-	std::string option2;
-	std::string response2;
-	std::string option3;
-	std::string response3;
-	dialogue* left;
-	dialogue* right;
-	
-};
 
 class dialogueTree {
 private:
-	dialogue* greeting;
-	dialogue* current;
+	std::vector<std::vector<std::string>> dialogueVector;
 
 public:
 	//constructors
 	dialogueTree();
 
-	dialogueTree(dialogue& greeting, dialogue& current);
+	dialogueTree(std::vector<std::vector<std::string>> dialogueVector);
 
 	//getters
-	dialogue* getGreeting();
-
-	dialogue* getCurrentDialogue();
+	std::vector<std::vector<std::string>> getDialogueVector();
 
 	//setters
-	void setGreeting(dialogue& greeting);
-
-	void setCurrentDialogue(dialogue& current);
+	void setDialogueVector(std::vector<std::vector<std::string>> dialogueVector);
 
 	//methods
 	void printDialogue();
 
 };
-*/
+
 #endif
