@@ -12,6 +12,7 @@
 #include "characters.h"
 #include "inventory.h"
 #include "items.h"
+#include "DialogueTree.h"
 
 //PARENT CLASS: character
 class character {

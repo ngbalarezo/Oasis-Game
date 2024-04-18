@@ -5,6 +5,7 @@
 #include "characters.h"
 #include "inventory.h"
 #include "items.h"
+#include "DialogueTree.h"
 
 //menu definitions
 

@@ -7,6 +7,7 @@
 #include "characters.h"
 #include "inventory.h"
 #include "items.h"
+#include "DialogueTree.h"
 
 //!FIXME: TRANSFER MAP DEFINITIONS TO THIS FILE
 
