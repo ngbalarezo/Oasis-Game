@@ -68,11 +68,19 @@ void mapNode::setIsWilderness(bool& isWilderness) { this->isWilderness = isWilde
 
 void mapNode::setUpMapNode(mapNode& upMapNode) { this->upMapNode = &upMapNode; }
 
+void mapNode::setUpMapNode(mapNode* upMapNode) { this->upMapNode = upMapNode; }
+
 void mapNode::setLeftMapNode(mapNode& leftMapNode) { this->leftMapNode = &leftMapNode; }
+
+void mapNode::setLeftMapNode(mapNode* leftMapNode) { this->leftMapNode = leftMapNode; }
 
 void mapNode::setDownMapNode(mapNode& downMapNode) { this->downMapNode = &downMapNode; }
 
+void mapNode::setDownMapNode(mapNode* downMapNode) { this->downMapNode = downMapNode; }
+
 void mapNode::setRightMapNode(mapNode& rightMapNode) { this->rightMapNode = &rightMapNode; }
+
+void mapNode::setRightMapNode(mapNode* rightMapNode) { this->rightMapNode = rightMapNode; }
 
 //methods
 
@@ -108,8 +116,20 @@ mapNode* map::getPrevMapNodeVisited() { return prevMapNodeVisited; }
 //setters
 void map::setStartingMapNode(mapNode& startingMapNode) { this->startingMapNode = &startingMapNode; }
 
+void map::setStartingMapNode(mapNode* startingMapNode) { this->startingMapNode = startingMapNode; }
+
 void map::setCurrentMapNode(mapNode& currentMapNode) { this->currentMapNode = &currentMapNode; }
 
+void map::setCurrentMapNode(mapNode* currentMapNode) { this->currentMapNode = currentMapNode; }
+
 void map::setPrevMapNodeVisited(mapNode& prevMapNodeVisited) { this->prevMapNodeVisited = &prevMapNodeVisited; }
+
+void map::setPrevMapNodeVisited(mapNode* prevMapNodeVisited) { this->prevMapNodeVisited = prevMapNodeVisited; }
+
+//methods
+void map::generateGrid(int n) {
+	
+}
+
 
 

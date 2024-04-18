@@ -29,7 +29,6 @@ private:
 
 public:
 	//constructors
-	//!FIXME: REFACTOR CONSTRUCTORS AND CLASSES
 	//default constructor
 	mapNode();
 
@@ -56,7 +55,7 @@ public:
 
 	mapNode* getRightMapNode();
 
-	//setters
+	//setters 
 	void setNodeVillage(village& nodeVillage);
 
 	void setNodeWilderness(wilderness& nodeWilderness);
@@ -65,13 +64,22 @@ public:
 
 	void setIsWilderness(bool& isWilderness);
 
+	//map node setters are overwritten to support pointer and object passing
 	void setUpMapNode(mapNode& upMapNode);
+
+	void setUpMapNode(mapNode* upMapNode);
 
 	void setLeftMapNode(mapNode& leftMapNode);
 
+	void setLeftMapNode(mapNode* leftMapNode);
+
 	void setDownMapNode(mapNode& downMapNode);
 
+	void setDownMapNode(mapNode* downMapNode);
+
 	void setRightMapNode(mapNode& rightMapNode);
+
+	void setRightMapNode(mapNode* rightMapNode);
 
 	//methods
 
@@ -107,12 +115,21 @@ public:
 	//setters
 	void setStartingMapNode(mapNode& startingMapNode);
 
+	void setStartingMapNode(mapNode* startingMapNode);
+
 	void setCurrentMapNode(mapNode& currentMapNode);
+
+	void setCurrentMapNode(mapNode* currentMapNode);
 
 	void setPrevMapNodeVisited(mapNode& prevMapNodeVisited);
 
-	//methods
+	void setPrevMapNodeVisited(mapNode* prevMapNodeVisited);
 
+	//methods
+	//generates a grid of mapNodes of size nxn
+	void generateGrid(int n);
+
+	//void generateMap(); PARAMETERS TO CREATE GRID, STORE THESE VILLAGES AND WILDERNESS IN ARRAY, RANDOMLY GENERATE MAP
 };
 
 
