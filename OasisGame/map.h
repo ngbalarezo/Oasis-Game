@@ -29,50 +29,44 @@ public:
 	mapNode();
 
 	//village specialized constructor
-	mapNode(village nodeVillage, mapNode& upMapNode, mapNode& leftMapNode, mapNode& downMapNode, mapNode& rightMapNode) {
-		this->nodeVillage = nodeVillage;
-		isVillage = true;
-		isWilderness = false;
-		this->upMapNode = &upMapNode;
-		this->leftMapNode = &leftMapNode;
-		this->downMapNode = &downMapNode;
-		this->rightMapNode = &rightMapNode;
-	}
+	mapNode(village nodeVillage, mapNode& upMapNode, mapNode& leftMapNode, mapNode& downMapNode, mapNode& rightMapNode);
 
 	//wilderness specialized constructor
-	mapNode(wilderness nodeWilderness, mapNode& upMapNode, mapNode& leftMapNode, mapNode& downMapNode, mapNode& rightMapNode) {
-		this->nodeWilderness = nodeWilderness;
-		isVillage = false;
-		isWilderness = true;
-		this->upMapNode = &upMapNode;
-		this->leftMapNode = &leftMapNode;
-		this->downMapNode = &downMapNode;
-		this->rightMapNode = &rightMapNode;
-	}
+	mapNode(wilderness nodeWilderness, mapNode& upMapNode, mapNode& leftMapNode, mapNode& downMapNode, mapNode& rightMapNode);
 
 	//getters
+	village getNodeVillage();
 
-	//!FIXME: GETTERS FOR VILLAGE AND WILDERNESS + BOOLS
+	wilderness getNodeWilderness();
 
-	mapNode* getUpMapNode() { return upMapNode; }
+	bool getIsVillage();
 
-	mapNode* getLeftMapNode() { return leftMapNode; }
+	bool getIsWilderness();
 
-	mapNode* getDownMapNode() { return downMapNode; }
+	mapNode* getUpMapNode();
 
-	mapNode* getRightMapNode() { return rightMapNode; }
+	mapNode* getLeftMapNode();
+
+	mapNode* getDownMapNode();
+
+	mapNode* getRightMapNode();
 
 	//setters
-	
-	//!FIXME: SETTERS FOR VILLAGE AND WILDERNESS + BOOLS
+	void setNodeVillage(village& nodeVillage);
 
-	void setUpMapNode(mapNode& upMapNode) { this->upMapNode = &upMapNode; }
+	void setNodeWilderness(wilderness& nodeWilderness);
 
-	void setLeftMapNode(mapNode& leftMapNode) { this->leftMapNode = &leftMapNode; }
+	void setIsVillage(bool& isVillage);
 
-	void setDownMapNode(mapNode& downMapNode) { this->downMapNode = &downMapNode; }
+	void setIsWilderness(bool& isWilderness);
 
-	void setRightMapNode(mapNode& rightMapNode) { this->rightMapNode = &rightMapNode; }
+	void setUpMapNode(mapNode& upMapNode);
+
+	void setLeftMapNode(mapNode& leftMapNode);
+
+	void setDownMapNode(mapNode& downMapNode);
+
+	void setRightMapNode(mapNode& rightMapNode);
 
 	//methods
 
@@ -88,31 +82,23 @@ private:
 
 public:
 	//constructors
-	map() {
-		startingMapNode = nullptr;
-		currentMapNode = nullptr;
-		prevMapNodeVisited = nullptr;
-	}
+	map();
 
-	map(mapNode* startingMapNode, mapNode* currentMapNode, mapNode* prevMapNodeVisited) {
-		this->startingMapNode = startingMapNode;
-		this->currentMapNode = currentMapNode;
-		this->prevMapNodeVisited = prevMapNodeVisited;
-	}
+	map(mapNode* startingMapNode, mapNode* currentMapNode);
 
 	//getters
-	mapNode* getStartingMapNode() { return startingMapNode; }
+	mapNode* getStartingMapNode();
 
-	mapNode* getCurrentMapNode() { return currentMapNode; }
+	mapNode* getCurrentMapNode();
 
-	mapNode* getPrevMapNodeVisited() { return prevMapNodeVisited; }
+	mapNode* getPrevMapNodeVisited();
 
 	//setters
-	void setStartingMapNode(mapNode& startingMapNode) { this->startingMapNode = &startingMapNode; }
+	void setStartingMapNode(mapNode& startingMapNode);
 
-	void setCurrentMapNode(mapNode& currentMapNode) { this->currentMapNode = &currentMapNode; }
+	void setCurrentMapNode(mapNode& currentMapNode);
 
-	void setPrevMapNodeVisited(mapNode& prevMapNodeVisited) { this->prevMapNodeVisited = &prevMapNodeVisited; }
+	void setPrevMapNodeVisited(mapNode& prevMapNodeVisited);
 
 	//methods
 
