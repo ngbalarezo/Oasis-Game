@@ -3,10 +3,15 @@
 #define MAP_H
 
 #include <iostream>
+#include <iomanip>
+#include "menu.h"
+#include "map.h"
 #include "locations.h"
 #include "buildings.h"
 #include "characters.h"
+#include "inventory.h"
 #include "items.h"
+#include "DialogueTree.h"
 
 class mapNode {
 private:
@@ -24,6 +29,7 @@ private:
 
 public:
 	//constructors
+	//!FIXME: REFACTOR CONSTRUCTORS AND CLASSES
 	//default constructor
 	mapNode();
 
@@ -33,14 +39,10 @@ public:
 	//wilderness specialized constructor
 	mapNode(wilderness nodeWilderness, mapNode& upMapNode, mapNode& leftMapNode, mapNode& downMapNode, mapNode& rightMapNode);
 
+
 	//getters
-	village getNodeVillage();
 
-	wilderness getNodeWilderness();
-
-	bool getIsVillage();
-
-	bool getIsWilderness();
+	//!FIXME: GETTERS FOR VILLAGE AND WILDERNESS + BOOLS
 
 	mapNode* getUpMapNode();
 
@@ -51,13 +53,8 @@ public:
 	mapNode* getRightMapNode();
 
 	//setters
-	void setNodeVillage(village& nodeVillage);
 
-	void setNodeWilderness(wilderness& nodeWilderness);
-
-	void setIsVillage(bool& isVillage);
-
-	void setIsWilderness(bool& isWilderness);
+	//!FIXME: SETTERS FOR VILLAGE AND WILDERNESS + BOOLS
 
 	void setUpMapNode(mapNode& upMapNode);
 
@@ -68,6 +65,7 @@ public:
 	void setRightMapNode(mapNode& rightMapNode);
 
 	//methods
+
 
 };
 
@@ -81,9 +79,14 @@ private:
 
 public:
 	//constructors
+	//default constructor
 	map();
 
-	map(mapNode* startingMapNode, mapNode* currentMapNode);
+	//starting node initalized, current set to start, prev node set to nullptr
+	map(mapNode* startingMapNode);
+
+	//!FIXME: might remove, unneccesary total initialization 
+	map(mapNode* startingMapNode, mapNode* currentMapNode, mapNode* prevMapNodeVisited);
 
 	//getters
 	mapNode* getStartingMapNode();
@@ -103,4 +106,6 @@ public:
 
 };
 
+
 #endif
+
