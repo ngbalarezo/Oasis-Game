@@ -87,9 +87,15 @@ private:
 
 public:
 	//constructors
+//default constructor
 	map();
 
-	map(mapNode* startingMapNode, mapNode* currentMapNode);
+	//starting node initalized, current set to start, prev node set to nullptr
+	map(mapNode& startingMapNode);
+
+	//!FIXME: might remove, unneccesary total initialization 
+	map(mapNode& startingMapNode, mapNode& currentMapNode, mapNode& prevMapNodeVisited);
+
 
 	//getters
 	mapNode* getStartingMapNode();

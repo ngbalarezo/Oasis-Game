@@ -9,8 +9,6 @@
 #include "items.h"
 #include "DialogueTree.h"
 
-//!FIXME: TRANSFER MAP DEFINITIONS TO THIS FILE
-
 //MAPNODE CLASS DEFINITIONS
 //default constructor
 mapNode::mapNode() {
@@ -183,10 +181,16 @@ map::map() {
 	prevMapNodeVisited = nullptr;
 }
 
-map::map(mapNode* startingMapNode, mapNode* currentMapNode) {
-	this->startingMapNode = startingMapNode;
-	this->currentMapNode = currentMapNode;
-	prevMapNodeVisited = nullptr;
+//starting node initalized, current set to start, prev node set to nullptr
+map::map(mapNode& startingMapNode) {
+	this->startingMapNode = &startingMapNode;
+}
+
+//!FIXME: might remove, unneccesary total initialization 
+map::map(mapNode& startingMapNode, mapNode& currentMapNode, mapNode& prevMapNodeVisited) {
+	this->startingMapNode = &startingMapNode;
+	this->currentMapNode = &currentMapNode;
+	this->prevMapNodeVisited = &prevMapNodeVisited;
 }
 
 //getters
