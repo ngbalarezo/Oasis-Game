@@ -95,6 +95,39 @@ public:
 
 class Church {
 
+private:
+    std::string churchName;
+    int hpToHeal;
+
+public:
+
+    //constructers
+    Church();
+
+    Church(std::string churchName, int hpToHeal);
+
+    //getters
+    std::string getChurchName();
+
+    int getHpToHeal();
+
+
+    //setters
+    void setChurchName(std::string churchName);
+
+    void setHpToHeal(int hpToHeal);
+
+
+    //methods
+    void churchWelcome(player& player);
+
+    void pray(player& player);
+
+
+};
+
+class recCenter {
+
 };
 
 class recCenter {
