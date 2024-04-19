@@ -44,12 +44,13 @@ void testMenu::print() {//!FIXME: change main menu options
     std::cout << "3. Manage Inventory" << std::endl;
     std::cout << "4. Enter Shop" << std::endl;
     std::cout << "5. Talk to Someone" << std::endl;
-    std::cout << "6. Print map" << std::endl;
-    std::cout << "7. Quit Game" << std::endl;
+    std::cout << "6. Move location" << std::endl;
+    std::cout << "7. Print map" << std::endl;
+    std::cout << "9. Quit Game" << std::endl;
     //!FIXME: insert feature to choose option using cin and functions referencing other .h files
 }
 
-void testMenu::testLoop(int initialChoice, player& player, map& gameMenu) {
+void testMenu::testLoop(int initialChoice, player& player, map& testMenu) {
     PlaySound(MAKEINTRESOURCE(MISC_MUSIC_1), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
     //clear console
     system("CLS");
@@ -98,10 +99,13 @@ void testMenu::testLoop(int initialChoice, player& player, map& gameMenu) {
             //shopKeeper.getDialogueTree()->initiateDialogue();
             std::cout << "null" << std::endl;
         }
-        else if (userChoice == 6) { //PRINT MAP
-            gameMenu.display();
+        else if (userChoice == 6) {
+            testMenu.moveLocation(player);
         }
-        else if (userChoice == 7) {
+        else if (userChoice == 7) { //PRINT MAP
+            testMenu.display();
+        }
+        else if (userChoice == 9) {
             system("CLS");
             std::cout << "GOODBYE." << std::endl;
             sentinel = 1;

@@ -65,7 +65,7 @@ int main() {
     shop farm("Farm", noNpc, noWeapon, noWeapon, noArmor, noPotion, noItem);
     shop armory("Town Armory", noNpc, noWeapon, noWeapon, noArmor, noPotion, noItem);
     shop apothecary("Apprentice Wizard's Apothecary", apprenticeWizard, noWeapon, noWeapon, noArmor, noPotion, noItem);
-    shop SHOPS[15] = {};
+    shop SHOPS[5] = {};
 
     //Churches
     Church CHURCHES[15] = {};
@@ -89,11 +89,6 @@ int main() {
     village village4;
     village village5;
     village VILLAGES[5] = {village1, village2, village3, village4, village5};
-
-    //MAIN GAME: GENERATE MAP
-    map gameMap(5);
-    gameMap.generateMap(WILDERNESS, VILLAGES);
-
 
     //MAIN GAME: GENERATE MENUS
     startMenu startScreen;
@@ -127,7 +122,9 @@ int main() {
             testMenu test;
             playerInventory testInventory(noWeapon, noArmor, noPotion, 0, noItem, noItem, noItem, 100);
             player testPlayer("Dev", testInventory);
-            test.testLoop(userChoice, testPlayer, gameMap);
+            map testMap(8);
+            testMap.generateMap(WILDERNESS, VILLAGES, testPlayer);
+            test.testLoop(userChoice, testPlayer, testMap);
         }
         //EXIT GAME FROM START MENU: 
         else if (userChoice == 4) {
@@ -149,6 +146,10 @@ int main() {
     //MAIN GAME: GENERATE PLAYER AND INVENTORY
     playerInventory playerInventory(noWeapon, noArmor, noPotion, 0, noItem, noItem, noItem, 100);
     player player(playerName, playerInventory);
+
+    //MAIN GAME: GENERATE MAP
+    map gameMap(5);
+    gameMap.generateMap(WILDERNESS, VILLAGES, player);
 
     //MAIN GAME: INITIATE INTRO SEQUENCE AND MONOLOGUE
 

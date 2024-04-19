@@ -49,6 +49,9 @@ private:
 	int weight;
 	//player inventory
 	playerInventory inventory;
+	//coordinates
+	int coordinateX;
+	int coordinateY;
 
 public:
 	//constructor
@@ -65,6 +68,10 @@ public:
 
 	playerInventory* getInventory();
 
+	int getCoordinateX();
+
+	int getCoordinateY();
+
 	//setters
 	void setFp(int fp);
 
@@ -73,6 +80,10 @@ public:
 	void setWeight(int weight);
 
 	void setInventory(playerInventory inventory);
+
+	void setCoordinateX(int coordinateX);
+
+	void setCoordinateY(int coordinateY);
 
 	//methods
 	void printStats();

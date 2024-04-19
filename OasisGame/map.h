@@ -110,9 +110,11 @@ public:
 
 	//methods
 	//generates a grid of mapNodes of size nxn
-	void generateMap(wilderness WILDERNESS[5], village VILLAGES[5]);
+	void generateMap(wilderness WILDERNESS[5], village VILLAGES[5], player& player);
 
 	void display();
+
+	void moveLocation(player& player);
 
 };
 
