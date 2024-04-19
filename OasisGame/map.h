@@ -20,8 +20,8 @@
 class mapNode {
 private:
 	//location contained in mapNode
-	village nodeVillage;
-	wilderness nodeWilderness;
+	village* nodeVillage;
+	wilderness* nodeWilderness;
 	//bool to distinguish what location is in the node
 	bool isVillage;
 	bool isWilderness;
@@ -110,7 +110,7 @@ public:
 
 	//methods
 	//generates a grid of mapNodes of size nxn
-	void generateMap(wilderness* WILDERNESS[5], village* VILLAGES[5]);
+	void generateMap(wilderness WILDERNESS[5], village VILLAGES[5]);
 
 	void display();
 

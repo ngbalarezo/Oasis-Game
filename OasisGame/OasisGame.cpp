@@ -90,46 +90,69 @@ int main() {
     village VILLAGES[5] = {village1, village2, village3, village4, village5};
 
     //MAIN GAME: GENERATE MAP
-    //map gameMap;
-    //gameMap.generateMap();
+    map gameMap(5);
+    gameMap.generateMap(WILDERNESS, VILLAGES);
+
 
     //MAIN GAME: GENERATE MENUS
     startMenu startScreen;
 
     //MAIN GAME: GENERATE MISC. VARIABLES
+    int sentinel = 0;
 
-    //MAIN GAME: START MENU
-    int userChoice = startScreen.print();
+    //MAIN GAME: START MENU LOOP
+    //start menu music
+    PlaySound(MAKEINTRESOURCE(START_MENU_MUSIC), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
+    //loop to prevent erroneous choice
+    while (sentinel != 1) {
+        //print start screen
+        int userChoice = startScreen.print();
 
-    //MAIN GAME: START GAME
-    if (userChoice == 1) {
-        //MAIN GAME: PROMPT USER FOR PLAYER NAME AND BASE SETTINGS
-        std::string playerName = startScreen.promptPlayerName();
-
-        //MAIN GAME: GENERATE PLAYER AND INVENTORY
-        playerInventory playerInventory(noWeapon, noArmor, noPotion, 0, noItem, noItem, noItem, 100);
-        player player(playerName, playerInventory);
-
-        //MAIN GAME: INITIATE INTRO SEQUENCE AND MONOLOGUE
-
-        //MAIN GAME: MAIN GAME LOOP
-        //!FIXME: LEFT OFF HERE
-        
+        //MAIN GAME: exits start menu loop and begins game
+        if (userChoice == 1) { 
+            sentinel = 1; 
+        }
+        //INFO SECTION: tbd
+        else if (userChoice == 2) { 
+            system("CLS");
+            std::cout << "Info: null" << std::endl << std::endl;
+            system("PAUSE");
+            
+        }
+        //DEV TESTING: Main menu to test features, generates mainMenu object and prints it, takes userChoice and runs game feature accordingly
+        //!FIXME: LEFT OFF ON COORDINATE SYSTEM IN MAP FUNCTION
+        else if (userChoice == 3) {
+            //generate test menu and test player
+            testMenu test;
+            playerInventory testInventory(noWeapon, noArmor, noPotion, 0, noItem, noItem, noItem, 100);
+            player testPlayer("Dev", testInventory);
+            test.testLoop(userChoice, testPlayer, gameMap);
+        }
+        //EXIT GAME FROM START MENU: 
+        else if (userChoice == 4) {
+            system("CLS");
+            std::cout << "GOODBYE." << std::endl;
+            sentinel = 1;
+        }
+        //ERRONEOUS CHOICE:
+        else {
+            system("CLS");
+            std::cout << "This is not an option." << std::endl << std::endl;
+            system("PAUSE");
+        }
     }
 
-    //INFO SECTION: tbd
-    else if (userChoice == 2) {
+    //MAIN GAME: GAME BEGINS, PROMPT USER FOR PLAYER NAME AND BASE SETTINGS
+    std::string playerName = startScreen.promptPlayerName();
 
-    }
+    //MAIN GAME: GENERATE PLAYER AND INVENTORY
+    playerInventory playerInventory(noWeapon, noArmor, noPotion, 0, noItem, noItem, noItem, 100);
+    player player(playerName, playerInventory);
 
-    //DEV TESTING: Main menu to test features, generates mainMenu object and prints it, takes userChoice and runs game feature accordingly
-    else if (userChoice == 3) {
-        testMenu test;
-        playerInventory testInventory(noWeapon, noArmor, noPotion, 0, noItem, noItem, noItem, 100);
-        player testPlayer("Dev", testInventory);
-        test.testLoop(userChoice, testPlayer);
-    }
+    //MAIN GAME: INITIATE INTRO SEQUENCE AND MONOLOGUE
 
+    //MAIN GAME: MAIN GAME LOOP
+    
     return 0;
 }
 

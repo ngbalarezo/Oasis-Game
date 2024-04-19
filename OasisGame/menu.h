@@ -35,7 +35,7 @@ public:
 	//methods
 	void print();
 
-	void testLoop(int initialChoice, player& player);
+	void testLoop(int initialChoice, player& player, map& gameMenu);
 };
 
 class pauseMenu {

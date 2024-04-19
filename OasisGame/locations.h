@@ -18,6 +18,7 @@
 
 class wilderness {
 private:
+    std::string name;
     npc localNpc1;
     enemy localEnemy1;
     enemy localEnemy2;
@@ -29,7 +30,7 @@ public:
     wilderness(); //default constructor
 
     //initialize wilderness with custom members, non-boss location
-    wilderness(npc localNpc1, enemy localEnemy1, enemy localEnemy2);
+    wilderness(std::string name, npc localNpc1, enemy localEnemy1, enemy localEnemy2);
 
     //initialize wilderness with custom members, boss battle location
     wilderness(npc localNpc1, enemy localEnemy1, enemy localEnemy2, enemy localBoss, bool isBossBattleLocation);
@@ -69,7 +70,7 @@ public:
     village();
 
     //initialize village with custom members
-    village(shop localShop, Church localChurch, npc localNpc1, npc localNpc2);
+    village(std::string name, shop localShop, Church localChurch, npc localNpc1, npc localNpc2);
 
     //getters
     shop getLocalShop();
