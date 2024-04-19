@@ -57,6 +57,7 @@ public:
 
 class village {
 private:
+    std::string name;
     shop localShop;
     Church localChurch;
     npc localNpc1;

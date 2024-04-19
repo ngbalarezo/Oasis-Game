@@ -35,7 +35,7 @@ public:
     //constructors
     shop();
 
-    shop(weapon shopWeaponSlot1, weapon shopWeaponSlot2, armor shopArmorSlot, potion shopPotionSlot, item shopItemSlot);
+    shop(std::string shopName, npc shopKeeper, weapon shopWeaponSlot1, weapon shopWeaponSlot2, armor shopArmorSlot, potion shopPotionSlot, item shopItemSlot);
 
     shop(std::string shopName, npc shopKeeper, weapon shopWeaponSlot1, weapon shopWeaponSlot2, armor shopArmorSlot,
         potion shopPotionSlot, item shopItemSlot, bool isEmpty, int shopLevel, bool wasVisited);

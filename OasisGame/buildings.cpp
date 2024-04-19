@@ -32,15 +32,14 @@ shop::shop() {
     wasVisited = false;
 }
 
-shop::shop(weapon shopWeaponSlot1, weapon shopWeaponSlot2, armor shopArmorSlot, potion shopPotionSlot, item shopItemSlot) {
+shop::shop(std::string shopName, npc shopKeeper, weapon shopWeaponSlot1, weapon shopWeaponSlot2, armor shopArmorSlot, potion shopPotionSlot, item shopItemSlot) {
     //create null item objects
-    npc noShopKeeper;
     weapon noWeapon;
     armor noArmor;
     potion noPotion;
     //set defaults
-    shopName = "null";
-    shopKeeper = noShopKeeper;
+    this->shopName = shopName;
+    this->shopKeeper = shopKeeper;
     this->shopWeaponSlot1 = shopWeaponSlot1;
     this->shopWeaponSlot2 = shopWeaponSlot2;
     this->shopArmorSlot = shopArmorSlot;

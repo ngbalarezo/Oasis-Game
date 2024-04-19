@@ -63,7 +63,7 @@ void testMenu::testLoop(int initialChoice, player& player) {
     armor chainmailArmor("Chainmail", 300, 25, false, 15);
     potion smallHealPotion("Small Heal Potion", 50, 0, 0, 100);
     item ruby("Ruby", 300, 0, false);
-    shop testShop(woodenSword, woodenAxe, chainmailArmor, smallHealPotion, ruby);
+    shop testShop("Test Shop", woodenSword, woodenAxe, chainmailArmor, smallHealPotion, ruby);
 
     //loops test start menu
     while (sentinel != 1) {

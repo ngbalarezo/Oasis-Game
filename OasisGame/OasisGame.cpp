@@ -28,11 +28,14 @@ int main() {
     weapon noWeapon;
     weapon woodenSword("Wooden Sword", 150, 5, false, 10, 1);
     weapon woodenAxe("Wooden Axe", 200, 5, false, 15, 1);
+    weapon ironSword("Iron Sword", 500, 8, false, 22, 1);
+    weapon ironAxe("Iron Axe", 550, 11, false, 25, 1);
     weapon codedSword("Coded Sword", 1, 10, false, 300, 0);
     weapon WEAPONS[10] = {};
     //armor
     armor noArmor;
     armor chainmailArmor("Chainmail", 300, 25, false, 15);
+    armor ironArmor("Iron Armor", 800, 35, false, 20);
     armor RiotGear("Riot Gear", 9000, 50, false, 400);
     armor ARMOR[10] = {};
     //potions
@@ -40,8 +43,13 @@ int main() {
     potion smallHealPotion("Small Heal Potion", 50, 0, 0, 100);
     potion POTION[10] = {};
 
+    //MAIN GAME: GENERATE DIALOGUES
+
     //MAIN GAME: GENERATE CHARACTERS
     //npcs
+    npc noNpc;
+    npc shopKeeper("Shop Keeper Milo");
+    npc apprenticeWizard("Apprentice Wizard");
     npc NPCS[12] = {};
     //enemies
     enemy bandit("Bandit", 100, 40, 20, false);
@@ -51,7 +59,11 @@ int main() {
 
     //MAIN GAME: GENERATE BUILDINGS
     //shops
-    shop market(woodenSword, woodenAxe, chainmailArmor, smallHealPotion, ruby);
+    shop market("Local Market", noNpc, woodenSword, woodenAxe, chainmailArmor, smallHealPotion, ruby);
+    shop smithy("Local Smithy", noNpc, noWeapon, noWeapon, noArmor, noPotion, noItem);
+    shop farm("Farm", noNpc, noWeapon, noWeapon, noArmor, noPotion, noItem);
+    shop armory("Town Armory", noNpc, noWeapon, noWeapon, noArmor, noPotion, noItem);
+    shop apothecary("Apprentice Wizard's Apothecary", apprenticeWizard, noWeapon, noWeapon, noArmor, noPotion, noItem);
     shop SHOPS[15] = {};
 
     //Churches
@@ -62,10 +74,20 @@ int main() {
 
     //MAIN GAME: GENERATE LOCATIONS
     //wilderness
-    wilderness WILDERNESS[20] = {};
+    wilderness forest;
+    wilderness desert;
+    wilderness valley;
+    wilderness iceland;
+    wilderness jungle;
+    wilderness WILDERNESS[5] = {forest, desert, valley, iceland, jungle};
 
     //villages
-    village VILLAGES[10] = {};
+    village village1;
+    village village2;
+    village village3;
+    village village4;
+    village village5;
+    village VILLAGES[5] = {village1, village2, village3, village4, village5};
 
     //MAIN GAME: GENERATE MAP
     //map gameMap;
@@ -91,7 +113,7 @@ int main() {
         //MAIN GAME: INITIATE INTRO SEQUENCE AND MONOLOGUE
 
         //MAIN GAME: MAIN GAME LOOP
-        //!FIXME: LEFT OFF HERE, MOVE ACCESSINVENTORY FUNCTION AND CONTINUE MAKING MENU NICER:
+        //!FIXME: LEFT OFF HERE
         
     }
 
