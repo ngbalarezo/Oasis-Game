@@ -11,10 +11,15 @@
 
 //WILDERNESS CLASS DEFINITIONS
 //constructors
-wilderness::wilderness() {  } //default constructor
+//default constructor
+wilderness::wilderness() { 
+    name = "null area";
+    isBossBattleLocation = false;
+} 
 
 //initialize wilderness with custom members, non-boss location
-wilderness::wilderness(npc localNpc1, enemy localEnemy1, enemy localEnemy2) {
+wilderness::wilderness(std::string name, npc localNpc1, enemy localEnemy1, enemy localEnemy2) {
+    this->name = name;
     this->localNpc1 = localNpc1;
     this->localEnemy1 = localEnemy1;
     this->localEnemy2 = localEnemy2;
@@ -52,10 +57,14 @@ void wilderness::setLocalBoss(enemy& localBoss) { this->localBoss = localBoss; }
 
 //VILLAGE CLASS DEFINITIONS
 //constructors
-village::village() {  } //default constructor
+//default constructor
+village::village() {
+    name = "null village";
+} 
 
 //initialize village with custom members
-village::village(shop localShop, Church localChurch, npc localNpc1, npc localNpc2) {
+village::village(std::string name, shop localShop, Church localChurch, npc localNpc1, npc localNpc2) {
+    this->name = name;
     this->localShop = localShop;
     this->localChurch = localChurch;
     this->localNpc1 = localNpc1;

@@ -16,7 +16,7 @@
 //START MENU DEFINITIONS
 int startMenu::print() {
     int userChoice;
-    PlaySound(MAKEINTRESOURCE(START_MENU_MUSIC), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
+    std::cout << "OASIS" << std::endl << std::endl;
     std::cout << "[1] Start Game" << std::endl;
     std::cout << "[2] Info" << std::endl;
     std::cout << "[3] Dev Testing" << std::endl;
@@ -31,23 +31,25 @@ std::string startMenu::promptPlayerName() {
     //clear screen
     system("CLS");
     //prompt user for player name and return as string
-    std::cout << "Input player name: " << std::endl;
+    std::cout << "Input player name: ";
     std::cin >> playerName;
     return playerName;
 }
 
 //TEST MENU DEFINITIONS
 void testMenu::print() {//!FIXME: change main menu options
+    system("CLS");
     std::cout << "1. Return to Game" << std::endl;
     std::cout << "2. Enter Battle" << std::endl;
     std::cout << "3. Manage Inventory" << std::endl;
     std::cout << "4. Enter Shop" << std::endl;
     std::cout << "5. Talk to Someone" << std::endl;
-    std::cout << "6. Quit Game" << std::endl;
+    std::cout << "6. Print map" << std::endl;
+    std::cout << "7. Quit Game" << std::endl;
     //!FIXME: insert feature to choose option using cin and functions referencing other .h files
 }
 
-void testMenu::testLoop(int initialChoice, player& player) {
+void testMenu::testLoop(int initialChoice, player& player, map& gameMenu) {
     PlaySound(MAKEINTRESOURCE(MISC_MUSIC_1), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
     //clear console
     system("CLS");
@@ -57,13 +59,14 @@ void testMenu::testLoop(int initialChoice, player& player) {
     int userChoice = initialChoice;
 
     //generate test items
+    npc testNpc("Test Shop Keeper");
     enemy testEnemy("Test Zombie", 100, 40, 20, false);
     weapon woodenSword("Wooden Sword", 150, 5, false, 10, 1);
     weapon woodenAxe("Wooden Axe", 200, 5, false, 15, 1);
     armor chainmailArmor("Chainmail", 300, 25, false, 15);
     potion smallHealPotion("Small Heal Potion", 50, 0, 0, 100);
     item ruby("Ruby", 300, 0, false);
-    shop testShop("Test Shop", woodenSword, woodenAxe, chainmailArmor, smallHealPotion, ruby);
+    shop testShop("Test Shop", testNpc, woodenSword, woodenAxe, chainmailArmor, smallHealPotion, ruby);
 
     //loops test start menu
     while (sentinel != 1) {
@@ -95,9 +98,13 @@ void testMenu::testLoop(int initialChoice, player& player) {
             //shopKeeper.getDialogueTree()->initiateDialogue();
             std::cout << "null" << std::endl;
         }
-        else if (userChoice == 6) { //NULL
+        else if (userChoice == 6) { //PRINT MAP
+            gameMenu.display();
+        }
+        else if (userChoice == 7) {
             system("CLS");
-            std::cout << "null" << std::endl;
+            std::cout << "GOODBYE." << std::endl;
+            sentinel = 1;
         }
         else { //NULL
             system("CLS");
