@@ -104,31 +104,31 @@ void map::generateMap(wilderness WILDERNESS[5], village VILLAGES[5]) {
 	std::uniform_int_distribution<unsigned int> randomArrayChoice{ 0,5 };
 	int locationTypeChoice;
 	int	randomArrayIndex;
-	int coordinateI;
-	int coordinateJ;
+	int coordinateY;
+	int coordinateX;
 	//generate map from two arrays of pregenerated villages and wilderness locations
 	//outer for loop for rows
-	for (int i = 0; i < gridSize; i++) {
+	for (int y = 0; y < gridSize; y++) {
 		//inner for loop for columns
-		for (int j = 0; j < gridSize; j++) {
+		for (int x = 0; x < gridSize; x++) {
 			//store random values
 			locationTypeChoice = randomLocation(engine);
 			randomArrayIndex = randomArrayChoice(engine);
 			//30% chance village is generated
 			if (locationTypeChoice < 4) {
-				mapGrid[i][j].setNodeVillage(VILLAGES[randomArrayIndex]);
-				mapGrid[i][j].setIsVillage(true);
+				mapGrid[y][x].setNodeVillage(VILLAGES[randomArrayIndex]);
+				mapGrid[y][x].setIsVillage(true);
 				//sets startingMapNode to current village, making the farthest village the starting village.
-				startingMapNode = &mapGrid[i][j];
+				startingMapNode = &mapGrid[y][x];
 				currentMapNode = startingMapNode;
 				//!FIXME LEFT OFF HERE: MAKE PLAYER COORDINATE INT AND STORE THEM EITHER IN PLAYER OR INVENTORY CLASS
-				coordinateI = i;
-				coordinateJ = j;
+				coordinateY = y;
+				coordinateX = x;
 			}
 			//70% chance wilderness is generate
 			else if (locationTypeChoice >= 4) {
-				mapGrid[i][j].setNodeWilderness(WILDERNESS[randomArrayIndex]);
-				mapGrid[i][j].setIsWilderness(true);
+				mapGrid[y][x].setNodeWilderness(WILDERNESS[randomArrayIndex]);
+				mapGrid[y][x].setIsWilderness(true);
 			}
 		}
 	}
@@ -139,15 +139,15 @@ void map::display() {
 	system("CLS");
 	std::cout << "MAP:" << std::endl << std::endl;
 	//outer for loop for rows
-	for (int i = 0; i < gridSize; i++) {
+	for (int y = 0; y < gridSize; y++) {
 		//inner for loop for columns
-		for (int j = 0; j < gridSize; j++) {
+		for (int x = 0; x < gridSize; x++) {
 			//prints V if current node is village
-			if (mapGrid[i][j].getIsVillage() == true) {
+			if (mapGrid[y][x].getIsVillage() == true) {
 				//if village to be printed is current location
-				if (&mapGrid[i][j] == currentMapNode) {
+				if (&mapGrid[y][x] == currentMapNode) {
 					//if node is at edge of map
-					if (j == gridSize - 1) {
+					if (x == gridSize - 1) {
 						std::cout << "\033[1;31mV" << std::endl;
 					}
 					//else node is not at edge of map
@@ -156,9 +156,9 @@ void map::display() {
 					}
 				}
 				//if village to be printed is not current location
-				else if (&mapGrid[i][j] != currentMapNode) {
+				else if (&mapGrid[y][x] != currentMapNode) {
 					//if node is at edge of map
-					if (j == gridSize - 1) {
+					if (x == gridSize - 1) {
 						std::cout << "\033[1;34mV" << std::endl;
 					}
 					//else node is not at edge of map
@@ -168,11 +168,11 @@ void map::display() {
 				}
 			}
 			//prints W if current node is wilderness
-			else if (mapGrid[i][j].getIsWilderness() == true) {
+			else if (mapGrid[y][x].getIsWilderness() == true) {
 				//if wilderness to be printed is current location
-				if (&mapGrid[i][j] == currentMapNode) {
+				if (&mapGrid[y][x] == currentMapNode) {
 					//if node is at edge of map
-					if (j == gridSize - 1) {
+					if (x == gridSize - 1) {
 						std::cout << "\033[0;31mW" << std::endl;
 					}
 					//else node is not at edge of map
@@ -181,9 +181,9 @@ void map::display() {
 					}
 				}
 				//if wilderness to be printed is not current location
-				else if (&mapGrid[i][j] != currentMapNode) {
+				else if (&mapGrid[y][x] != currentMapNode) {
 					//if node is at edge of map
-					if (j == gridSize - 1) {
+					if (x == gridSize - 1) {
 						std::cout << "\033[0;32mW" << std::endl;
 					}
 					//else node is not at edge of map
@@ -194,11 +194,11 @@ void map::display() {
 			}
 		}
 		//prevent downward lines from printing below the map
-		if (i != gridSize - 1) {
+		if (y != gridSize - 1) {
 			//prints downward grid lines
-			for (int k = 0; k < gridSize; k++) {
+			for (int i = 0; i < gridSize; i++) {
 				//if grid line is at edge of map
-				if (k == gridSize - 1) {
+				if (i == gridSize - 1) {
 					std::cout << "\033[0;37m|" << std::endl;
 				}
 				//else grid line is not at edge of map

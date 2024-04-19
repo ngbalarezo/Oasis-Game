@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <windows.h>
+#include <stdlib.h>
 #include "menu.h"
 #include "map.h"
 #include "locations.h"
@@ -132,7 +133,7 @@ int main() {
         else if (userChoice == 4) {
             system("CLS");
             std::cout << "GOODBYE." << std::endl;
-            sentinel = 1;
+            exit(3);
         }
         //ERRONEOUS CHOICE:
         else {
