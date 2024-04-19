@@ -87,6 +87,8 @@ public:
 	void display();
 
 	void battleDisplay();
+
+	void churchDisplay();
 };
 
 #endif

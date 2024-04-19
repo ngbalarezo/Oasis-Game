@@ -122,6 +122,8 @@ public:
 
     void pray(player& player);
 
+    void offerWeapon(player& player);
+
 
 };
 
