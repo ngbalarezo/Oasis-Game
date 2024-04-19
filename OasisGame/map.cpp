@@ -1,5 +1,8 @@
 #include <iostream>
-#include <iomanip>
+#include <array>
+#include <vector>
+#include <string>
+#include <windows.h>
 #include "menu.h"
 #include "map.h"
 #include "locations.h"
@@ -8,6 +11,7 @@
 #include "inventory.h"
 #include "items.h"
 #include "DialogueTree.h"
+#include "resource.h"
 
 //MAPNODE CLASS DEFINITIONS
 //constructors
@@ -44,9 +48,9 @@ void mapNode::setNodeVillage(village& nodeVillage) { this->nodeVillage = nodeVil
 
 void mapNode::setNodeWilderness(wilderness& nodeWilderness) { this->nodeWilderness = nodeWilderness; }
 
-void mapNode::setIsVillage(bool& isVillage) { this->isVillage = isVillage; }
+void mapNode::setIsVillage(bool isVillage) { this->isVillage = isVillage; }
 
-void mapNode::setIsWilderness(bool& isWilderness) { this->isWilderness = isWilderness; }
+void mapNode::setIsWilderness(bool isWilderness) { this->isWilderness = isWilderness; }
 
 //methods
 
@@ -59,7 +63,7 @@ map::map() {
 }
 
 map::map(int gridSize) {
-	std::vector<std::vector<mapNode>> mapGrid(gridSize);
+	std::vector<std::vector<mapNode>> mapGrid(gridSize, std::vector<mapNode>(gridSize));
 	this->mapGrid = mapGrid;
 	this->gridSize = gridSize;
 }
@@ -89,8 +93,37 @@ void map::setPrevMapNodeVisited(mapNode& prevMapNodeVisited) { this->prevMapNode
 void map::setPrevMapNodeVisited(mapNode* prevMapNodeVisited) { this->prevMapNodeVisited = prevMapNodeVisited; }
 
 //methods
-void map::generateMap(wilderness WILDERNESS[5], village VILLAGES[5]) {
+void map::generateMap(wilderness* WILDERNESS[5], village* VILLAGES[5]) {
+	//declare variables
+	std::default_random_engine engine{ static_cast<unsigned int>(time(0)) };
+	std::uniform_int_distribution<unsigned int> randomLocation{ 1,10 };
+	std::uniform_int_distribution<unsigned int> randomArrayChoice{ 0,5 };
+	int locationTypeChoice;
+	int	randomArrayIndex;
 	//generate map from two arrays of pregenerated villages and wilderness locations
+	//outer for loop for rows
+	for (int i = 0; i < gridSize; i++) {
+		//inner for loop for columns
+		for (int j = 0; j < gridSize; j++) {
+			//store random values
+			locationTypeChoice = randomLocation(engine);
+			randomArrayIndex = randomArrayChoice(engine);
+			//30% chance village is generated
+			if ((locationTypeChoice < 4)) {
+				mapGrid[j][i].setNodeVillage(*VILLAGES[randomArrayIndex]);
+				mapGrid[j][i].setIsVillage(true);
+			}
+			//70% chance wilderness is generate
+			else if (locationTypeChoice >= 4) {
+				mapGrid[j][i].setNodeWilderness(*WILDERNESS[randomArrayIndex]);
+				mapGrid[j][i].setIsWilderness(true);
+			}
+		}
+	}
+}
+
+void map::display() {
+
 }
 
 //!FIXME: NOTES

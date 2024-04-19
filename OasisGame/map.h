@@ -3,7 +3,10 @@
 #define MAP_H
 
 #include <iostream>
-#include <iomanip>
+#include <array>
+#include <vector>
+#include <string>
+#include <windows.h>
 #include "menu.h"
 #include "map.h"
 #include "locations.h"
@@ -12,6 +15,7 @@
 #include "inventory.h"
 #include "items.h"
 #include "DialogueTree.h"
+#include "resource.h"
 
 class mapNode {
 private:
@@ -47,9 +51,9 @@ public:
 
 	void setNodeWilderness(wilderness& nodeWilderness);
 
-	void setIsVillage(bool& isVillage);
+	void setIsVillage(bool isVillage);
 
-	void setIsWilderness(bool& isWilderness);
+	void setIsWilderness(bool isWilderness);
 
 	//methods
 
@@ -106,7 +110,9 @@ public:
 
 	//methods
 	//generates a grid of mapNodes of size nxn
-	void generateMap();
+	void generateMap(wilderness* WILDERNESS[5], village* VILLAGES[5]);
+
+	void display();
 
 };
 
