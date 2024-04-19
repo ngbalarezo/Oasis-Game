@@ -96,6 +96,38 @@ void player::printStats() {
 	std::cout << "====================" << std::endl << std::endl;
 }
 
+void player::accessInventory(){
+	int sentinel = 0;
+	while (sentinel != 3) {
+		std::cout << "[1] Inventory" << std::endl;
+		std::cout << "[2] Player Stats" << std::endl;
+		std::cout << "[3] Exit" << std::endl;
+		std::cout << "Choice: ";
+		std::cin >> sentinel;
+		if (sentinel == 1) {
+			system("CLS");
+			inventory.display();
+			system("PAUSE");
+			system("CLS");
+		}
+		else if (sentinel == 2) {
+			system("CLS");
+			printStats();
+			system("PAUSE");
+			system("CLS");
+		}
+		else if (sentinel == 3) {
+			system("CLS");
+		}
+		else {
+			system("CLS");
+			std::cout << "This is not an option!" << std::endl << std::endl;
+			system("PAUSE");
+			system("CLS");
+		}
+	}
+}
+
 //NPC CLASS DEFINITIONS
 
 //constructors

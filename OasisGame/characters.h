@@ -77,6 +77,8 @@ public:
 	//methods
 	void printStats();
 
+	void accessInventory();
+
 };
 
 //NPC CLASS

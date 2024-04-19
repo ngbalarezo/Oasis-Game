@@ -3,7 +3,10 @@
 #define MENU_H
 
 #include <iostream>
+#include <array>
+#include <vector>
 #include <string>
+#include <windows.h>
 #include "menu.h"
 #include "map.h"
 #include "locations.h"
@@ -12,14 +15,18 @@
 #include "inventory.h"
 #include "items.h"
 #include "DialogueTree.h"
+#include "resource.h"
 
-//base class
-class menu {
+class startMenu {
+private:
 
+public:
+	int print();
+
+	std::string promptPlayerName();
 };
 
-//derived classes
-class mainMenu : public menu {
+class testMenu {
 private:
 
 public:
@@ -27,10 +34,15 @@ public:
 	
 	//methods
 	void print();
+
+	void testLoop(int initialChoice, player& player);
 };
 
-class pauseMenu : public menu {
+class pauseMenu {
+private:
 
+public:
+	void print();
 };
 
 

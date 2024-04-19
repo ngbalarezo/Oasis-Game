@@ -398,4 +398,4 @@ void Church::pray(player& player) {
     player.setHp(player.getHp() + hpToHeal);
 }
 
-//RECCENTER CLASS DEFINITIONS
+//LOUNGE CLASS DEFINITIONS

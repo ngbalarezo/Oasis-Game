@@ -125,7 +125,7 @@ public:
 
 };
 
-class recCenter {
+class lounge {
 
 };
 

@@ -108,7 +108,6 @@ public:
 	//generates a grid of mapNodes of size nxn
 	void generateMap();
 
-	//void generateMap(); PARAMETERS TO CREATE GRID, STORE THESE VILLAGES AND WILDERNESS IN ARRAY, RANDOMLY GENERATE MAP
 };
 
 
