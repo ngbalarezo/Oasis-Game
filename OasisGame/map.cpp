@@ -89,7 +89,7 @@ void map::setPrevMapNodeVisited(mapNode& prevMapNodeVisited) { this->prevMapNode
 void map::setPrevMapNodeVisited(mapNode* prevMapNodeVisited) { this->prevMapNodeVisited = prevMapNodeVisited; }
 
 //methods
-void map::generateMap() {
+void map::generateMap(wilderness WILDERNESS[5], village VILLAGES[5]) {
 	//generate map from two arrays of pregenerated villages and wilderness locations
 }
 
