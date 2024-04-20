@@ -169,6 +169,7 @@ int main() {
 * ASK TYLER IF IT WOULD BE BETTER TO MAKE EVERYTHING PASSED BY REFERENCE AND POINTERS INSTEAD OF EQUALITIES
 * CHECK DEFAULT CONSTRUCTORS, MAY NOT HAVE TO INITALIZE WEAPONS IN INVENTORY... THEY DEFUALT TO EMPTY!
 * GRAPHICS DISPLAY FOR ENTERING A NEW VILLAGE OR WILDERNESS
+* REVAMP BATTLE SEQUENCE TO LOOK MORE APPEALING, SEE IF YOU CAN ADD SOUND EFFECTS
 * Fix documentation, make the game easier to understand with comments
 * Make the battle screen look nicer!!!
 * Change the name of focus stat of weapon class to better capture the essence of the stat (difficulty requries more focus, precision?)

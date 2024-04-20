@@ -220,7 +220,7 @@ int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engi
 		if (enemyDodgeChance(engine) == 6) {
 			//print enemy dodged your attack menu
 			system("CLS");
-			std::cout << "You lunge forward but the enemy dodges... " << std::endl;
+			std::cout << "You lunge forward but the enemy dodges... " << std::endl << std::endl;
 			system("PAUSE");
 			system("CLS");
 		}
@@ -230,7 +230,7 @@ int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engi
 			if (input == 1) {
 				//calculates random damage amount
 				damageDone = playerHeavyAttackRange(engine);
-				//!FIXME: ADD IN, calculates according to buff/nerf
+				//calculate damage buff using weapon atk stat
 				totalDamageDone = damageDone * player.getInventory()->getWeapon().getBuffPercent();
 				//subtracts stamina points NOTE: WEIGHT = AMOUNT IT TAKES OFF FROM SP!!!
 				player.setSp(player.getSp() - player.getInventory()->getWeapon().getWeight() - 15);
@@ -238,7 +238,7 @@ int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engi
 				this->setHp(this->getHp() - totalDamageDone);
 				//attack landed text, pauses on this screen and then resets screen back to stats menu
 				system("CLS");
-				std::cout << "You strike with a heavy blow! " << totalDamageDone << " damage done!" << std::endl;
+				std::cout << "You strike with a heavy blow! " << totalDamageDone << " damage done!" << std::endl << std::endl;
 				system("PAUSE");
 				system("CLS");
 			}
@@ -248,7 +248,7 @@ int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engi
 				playerDodges = playerLightAttackDodgeChance(engine);
 				//calculates random damage amount
 				damageDone = playerLightAttackRange(engine);
-				//!FIXME: ADD IN, calculates according to buff/nerf
+				//calculate damage buff according to weapon atk stat
 				totalDamageDone = damageDone * player.getInventory()->getWeapon().getBuffPercent();
 				//subtracts stamina points NOTE: WEIGHT = HALF THE AMOUNT IT TAKES OFF FROM SP!!!
 				player.setSp(player.getSp() - ((player.getInventory()->getWeapon().getWeight()) + ((player.getInventory()->getWeapon().getWeight()) / 2)) - 10);
@@ -256,7 +256,7 @@ int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engi
 				this->setHp(this->getHp() - totalDamageDone);
 				//attack landed text, pauses on this screen and then resets screen back to stats menu
 				system("CLS");
-				std::cout << "You strike with a heavy blow! " << totalDamageDone << " damage done!" << std::endl;
+				std::cout << "You lunge forward quickly and fiercly. You pierce the enemy like lightning. " << totalDamageDone << " damage done!" << std::endl << std::endl;
 				system("PAUSE");
 				system("CLS");
 			}
@@ -273,9 +273,8 @@ int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engi
 		playerDodges = 3;
 	}
 	else {
-		//!FIXME: why do letters break it?
 		system("CLS");
-		std::cout << "This is not an option. Choose again." << std::endl;
+		std::cout << "This is not an option. Choose again." << std::endl << std::endl;
 		system("PAUSE");
 		system("CLS");
 		//sets playerDodges to 3 as return value to prevent enemy from attacking if user picks null option
@@ -297,7 +296,7 @@ void enemy::enemyAttackTurn(int playerDodges, int& damageDone, std::default_rand
 		//player dodges
 		if (playerDodges == 1) {
 			system("CLS");
-			std::cout << "Swiftly you dodge the enemy!" << std::endl;
+			std::cout << "Your light attack is quick and the enemy is stunned! Swiftly, you dodge their attack." << std::endl << std::endl;
 			system("PAUSE");
 			system("CLS");
 		}
@@ -306,8 +305,7 @@ void enemy::enemyAttackTurn(int playerDodges, int& damageDone, std::default_rand
 			//determines if the enemy attack misses or not
 			if (enemyMissChance(engine) == 6) {
 				system("CLS");
-				//!FIXME: ENEMY NAME FEATURE
-				std::cout << "[Insert enemy name] " << " slashes wildly and misses its attack!" << std::endl;
+				std::cout << name << " slashes wildly and misses its attack!" << std::endl << std::endl;
 				system("PAUSE");
 				system("CLS");
 			}
@@ -318,7 +316,7 @@ void enemy::enemyAttackTurn(int playerDodges, int& damageDone, std::default_rand
 				player.setHp(player.getHp() - damageDone);
 				//enemy attack landed text, pauses on this screen and then resets screen back to stats menu
 				system("CLS");
-				std::cout << name << "slashes you with sharp claws! " << totalEnemyDamage << " damage done!" << std::endl;
+				std::cout << name << " slashes you with sharp claws! " << totalEnemyDamage << " damage done!" << std::endl << std::endl;
 				system("PAUSE");
 				system("CLS");
 			}
@@ -327,7 +325,7 @@ void enemy::enemyAttackTurn(int playerDodges, int& damageDone, std::default_rand
 	//enemy dies after your attack
 	else {
 		system("CLS");
-		std::cout << "[Insert enemy name] " << "has been slain!" << std::endl;
+		std::cout << name << "has been slain!" << std::endl << std::endl;
 		system("PAUSE");
 		system("CLS");
 	}
@@ -348,14 +346,22 @@ void enemy::battle(player& player) {
 	//while loop ends battle if enemy dies, player dies, or enemy flees
 	while ((player.getHp() > 0) && (this->getHp() > 0) && (this->getFlees() != true)) {
 		playerDodges = 0;
-		//print enemy and player battle stats respectively
-		printBattleStats(player);
-		//print battle options
-		input = printBattleOptions();
-		//player's turn executes based on user's choice
-		playerDodges = playerAttackTurn(input, damageDone, engine, player);
+		if (player.getSp() > 0) {
+			//print enemy and player battle stats respectively
+			printBattleStats(player);
+			//print battle options
+			input = printBattleOptions();
+			//player's turn executes based on user's choice
+			playerDodges = playerAttackTurn(input, damageDone, engine, player);
+		}
+		else if (player.getSp() <= 0) {
+			std::cout << "You are too tired to attack! You must skip a turn to catch your breath!" << std::endl;
+			system("PAUSE");
+			player.setSp(50);
+		}
+		
 		//enemy attack turn executes based on predefined enemy stats, but only if enemy is not already dead
-		if (playerDodges == 3) {
+		if ((playerDodges == 3) && (player.getSp() > 0)) {
 			continue;
 		}
 		else {
