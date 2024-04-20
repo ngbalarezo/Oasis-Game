@@ -127,7 +127,7 @@ int main() {
             player testPlayer("Dev", testInventory);
             map testMap(8);
             testMap.generateMap(WILDERNESS, VILLAGES, testPlayer);
-            test.testLoop(userChoice, testPlayer, testMap, playerMenu);
+            test.testLoop(userChoice, testPlayer, testMap);
         }
         //EXIT GAME FROM START MENU: 
         else if (userChoice == 4) {
@@ -155,7 +155,7 @@ int main() {
     gameMap.generateMap(WILDERNESS, VILLAGES, player);
 
     //MAIN GAME: INITIATE INTRO SEQUENCE AND MONOLOGUE
-    gameMap.execLocation(player, playerMenu, gameMap);
+    gameMap.execLocation(player);
 
     //MAIN GAME: MAIN GAME LOOP
     

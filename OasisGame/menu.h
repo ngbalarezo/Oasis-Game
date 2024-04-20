@@ -27,6 +27,14 @@ public:
 	std::string promptPlayerName();
 };
 
+//PLAYER MENU CLASS
+class playerMenu {
+private:
+
+public:
+	int print(player& player);
+};
+
 //TEST MENU CLASS
 class testMenu {
 private:
@@ -37,16 +45,11 @@ public:
 	//methods
 	void print();
 
-	void testLoop(int initialChoice, player& player, map& gameMenu, playerMenu& playerMenu);
+	void testLoop(int initialChoice, player& player, map& testMap);
+
 };
 
-//PLAYER MENU CLASS
-class playerMenu {
-private:
 
-public:
-	int print(player& player);
-};
 
 
 #endif

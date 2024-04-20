@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 #include <windows.h>
+#include <stdlib.h>
 #include "menu.h"
 #include "map.h"
 #include "locations.h"
@@ -119,11 +120,11 @@ public:
 
 	void display();
 
-	void execLocation(player& player, playerMenu& playerMenu);
+	void execLocation(player& player);
 
 	int execLocationDisplay();
 
-	void execChoice(int userChoice, player& player, playerMenu& playerMenu);
+	void execChoice(int userChoice, player& player);
 
 	void moveLocation(player& player);
 

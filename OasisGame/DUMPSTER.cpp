@@ -7,9 +7,54 @@
 #include "inventory.h"
 #include "items.h"
 #include "DialogueTree.h"
-
-
-
+/*
+//if current location is village
+if (currentMapNode->getIsVillage() == true) {
+	if (userChoice == 1) {
+		currentMapNode->getNodeVillage().getLocalShop().enterShop(player);
+	}
+	else if (userChoice == 2) {
+		currentMapNode->getNodeVillage().getLocalChurch().enterChurch();
+	}
+	else if (userChoice == 3) {
+		//!FIXME: ADD IN LOUNGE
+		//currentMapNode->getNodeVillage().getLocalLounge().enterLounge();
+	}
+}
+//if current location is wilderness
+else if (currentMapNode->getIsWilderness() == true) {
+	//if the wilderness location is a boss location
+	if (currentMapNode->getNodeWilderness().getIsBossBattleLocation() == true) {
+		//!FIXME: LEFT OFF HERE, ADD IN BOSS BATTLE FUNCTIONALITY
+	}
+	//if the wilderness location is not a boss location
+	else if (currentMapNode->getNodeWilderness().getIsBossBattleLocation() == false) {
+		if (userChoice == 1) {
+			currentMapNode->getNodeWilderness().getLocalNpc1().initiateDialogue();
+		}
+		else if (userChoice == 2) {
+			currentMapNode->getNodeWilderness().getLocalEnemy1().battle(player);
+		}
+		else if (userChoice == 3) {
+			currentMapNode->getNodeWilderness().getLocalEnemy2().battle(player);
+		}
+	}
+}
+//execute playerMenu
+if (userChoice == 4) {
+	//print player menu, returns 1 if user chooses to print menu
+	userChoice = playerMenu.print(player);
+	//display map if user chose this option
+	if (userChoice == 1) {
+		display();
+	}
+}
+//execute move location function
+else if (userChoice == 5) {
+	moveLocation(player);
+}
+*/
+//=================================
 /*
 //menu options
 void returnToOverworld() {

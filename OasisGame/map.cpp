@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <windows.h>
+#include <stdlib.h>
 #include "menu.h"
 #include "map.h"
 #include "locations.h"
@@ -222,7 +223,7 @@ void map::display() {
 	system("PAUSE");
 }
 
-void map::execLocation(player& player, playerMenu& playerMenu) {
+void map::execLocation(player& player) {
 	int userChoice = 0;
 	//loop
 	
@@ -230,7 +231,7 @@ void map::execLocation(player& player, playerMenu& playerMenu) {
 	userChoice = execLocationDisplay();
 
 	//execute user choice
-	execChoice(userChoice, player, playerMenu);
+	//execChoice(userChoice, player, playerMenu);
 
 }
 
@@ -261,16 +262,16 @@ int map::execLocationDisplay() {
 			//prints different message if you are in the starting node for the first time
 			if ((currentMapNode->getWasVisited() == false) && (currentMapNode == startingMapNode)) {
 				std::cout << "======= START VILLAGE =======" << std::endl;
-				std::cout << "You begin in the " << currentMapNode->getNodeVillage().getName() << std::endl;
+				std::cout << "You begin in the " << currentMapNode->getNodeVillage().getName() << "." << std::endl<<std::endl;
 				
 			}
 			else {
 				std::cout << "========== VILLAGE ==========" << std::endl;
-				std::cout << "You enter the " << currentMapNode->getNodeVillage().getName() << std::endl;
+				std::cout << "You enter the " << currentMapNode->getNodeVillage().getName() << "." << std::endl << std::endl;
 			}
-			std::cout << "Before you is " << prefix << currentMapNode->getNodeVillage().getLocalShop().getShopType() << ", " << std::endl;
+			std::cout << "Before you is " << prefix << currentMapNode->getNodeVillage().getLocalShop().getShopType() << ", ";
 
-			std::cout << "the local " << currentMapNode->getNodeVillage().getLocalChurch().getChurchType() << ", " << std::endl;
+			std::cout << "the local " << currentMapNode->getNodeVillage().getLocalChurch().getChurchType() << ", ";
 			//sets prefix properly if it is a vowel for styling purposes
 			
 			//!FIXME: ADD IN LOUNGES
@@ -326,7 +327,7 @@ int map::execLocationDisplay() {
 				else {
 					prefix = "a ";
 				}
-				std::cout << "There is " << prefix << currentMapNode->getNodeWilderness().getLocalNpc1().getName() << ", " << std::endl;
+				std::cout << "Before you there is " << prefix << currentMapNode->getNodeWilderness().getLocalNpc1().getName() << ", ";
 				//ENEMY 1
 				firstChar = currentMapNode->getNodeWilderness().getLocalEnemy1().getName().at(0);
 				if ((firstChar == 'a') || (firstChar == 'e') || (firstChar == 'i') || (firstChar == 'o') || (firstChar == 'u')) {
@@ -335,7 +336,7 @@ int map::execLocationDisplay() {
 				else {
 					prefix = "a ";
 				}
-				std::cout << prefix << currentMapNode->getNodeWilderness().getLocalEnemy2().getName() << ", " << std::endl;
+				std::cout << prefix << currentMapNode->getNodeWilderness().getLocalEnemy2().getName() << ", ";
 				//ENEMY 2
 				firstChar = currentMapNode->getNodeWilderness().getLocalEnemy2().getName().at(0);
 				if ((firstChar == 'a') || (firstChar == 'e') || (firstChar == 'i') || (firstChar == 'o') || (firstChar == 'u')) {
@@ -344,7 +345,7 @@ int map::execLocationDisplay() {
 				else {
 					prefix = "a ";
 				}
-				std::cout << prefix << currentMapNode->getNodeWilderness().getLocalEnemy2().getName() << ", " << std::endl;
+				std::cout << "and " << prefix << currentMapNode->getNodeWilderness().getLocalEnemy2().getName() << "." << std::endl;
 			}
 
 			//std::cout << "There is" << prefix << currentMapNode->getNodeVillage().getLocalShop().getShopType() << ", " << std::endl; !FIXME: ADD IN LOUNGES
@@ -366,52 +367,8 @@ int map::execLocationDisplay() {
 	return userChoice;
 }
 
-void map::execChoice(int userChoice, player& player, playerMenu& playerMenu) {
-	//if current location is village
-	if (currentMapNode->getIsVillage() == true) {
-		if (userChoice == 1) {
-			currentMapNode->getNodeVillage().getLocalShop().enterShop(player);
-		}
-		else if (userChoice == 2) {
-			currentMapNode->getNodeVillage().getLocalChurch().enterChurch();
-		}
-		else if (userChoice == 3) {
-			//!FIXME: ADD IN LOUNGE
-			//currentMapNode->getNodeVillage().getLocalLounge().enterLounge();
-		}
-	}
-	//if current location is wilderness
-	else if (currentMapNode->getIsWilderness() == true) {
-		//if the wilderness location is a boss location
-		if (currentMapNode->getNodeWilderness().getIsBossBattleLocation() == true) {
-			//!FIXME: LEFT OFF HERE, ADD IN BOSS BATTLE FUNCTIONALITY
-		}
-		//if the wilderness location is not a boss location
-		else if (currentMapNode->getNodeWilderness().getIsBossBattleLocation() == false) {
-			if (userChoice == 1) {
-				currentMapNode->getNodeWilderness().getLocalNpc1().initiateDialogue();
-			}
-			else if (userChoice == 2) {
-				currentMapNode->getNodeWilderness().getLocalEnemy1().battle(player);
-			}
-			else if (userChoice == 3) {
-				currentMapNode->getNodeWilderness().getLocalEnemy2().battle(player);
-			}
-		}
-	}
-	//execute playerMenu
-	if (userChoice == 4) {
-		//print player menu, returns 1 if user chooses to print menu
-		userChoice = playerMenu.print(player);
-		//display map if user chose this option
-		if (userChoice == 1) {
-			display();
-		}
-	}
-	//execute move location function
-	else if (userChoice == 5) {
-		moveLocation(player);
-	}
+void map::execChoice(int userChoice, player& player) {
+	//FIXME: LEFT OFF HERE
 }
 
 //!FIXME: EXECLOCATION FUNCTION PRINTS WILDERNESS/VILLAGE DISPLAY AND MENU OPTION FUNCTIONS
