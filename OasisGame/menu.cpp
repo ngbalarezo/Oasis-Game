@@ -46,7 +46,7 @@ void testMenu::print() {//!FIXME: change main menu options
     std::cout << "5. Talk to Someone" << std::endl;
     std::cout << "6. Move location" << std::endl;
     std::cout << "7. Print map" << std::endl;
-    std::cout << "9. Quit Game" << std::endl;
+    std::cout << "9. Exit Dev Testing" << std::endl;
     //!FIXME: insert feature to choose option using cin and functions referencing other .h files
 }
 
@@ -67,7 +67,7 @@ void testMenu::testLoop(int initialChoice, player& player, map& testMenu) {
     armor chainmailArmor("Chainmail", 300, 25, false, 15);
     potion smallHealPotion("Small Heal Potion", 50, 0, 0, 100);
     item ruby("Ruby", 300, 0, false);
-    shop testShop("Test Shop", testNpc, woodenSword, woodenAxe, chainmailArmor, smallHealPotion, ruby);
+    shop testShop("Test Shop", "test shop", testNpc, woodenSword, woodenAxe, chainmailArmor, smallHealPotion, ruby);
 
     //loops test start menu
     while (sentinel != 1) {
@@ -106,8 +106,7 @@ void testMenu::testLoop(int initialChoice, player& player, map& testMenu) {
             testMenu.display();
         }
         else if (userChoice == 9) {
-            system("CLS");
-            std::cout << "GOODBYE." << std::endl;
+            //system("CLS");
             sentinel = 1;
         }
         else { //NULL

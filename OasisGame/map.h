@@ -25,6 +25,7 @@ private:
 	//bool to distinguish what location is in the node
 	bool isVillage;
 	bool isWilderness;
+	bool wasVisited;
 
 public:
 	//constructors
@@ -46,6 +47,8 @@ public:
 
 	bool getIsWilderness();
 
+	bool getWasVisited();
+
 	//setters 
 	void setNodeVillage(village& nodeVillage);
 
@@ -54,6 +57,8 @@ public:
 	void setIsVillage(bool isVillage);
 
 	void setIsWilderness(bool isWilderness);
+
+	void setWasVisited(bool wasVisited);
 
 	//methods
 
@@ -113,6 +118,8 @@ public:
 	void generateMap(wilderness WILDERNESS[5], village VILLAGES[5], player& player);
 
 	void display();
+
+	int execLocationDisplay();
 
 	void moveLocation(player& player);
 
