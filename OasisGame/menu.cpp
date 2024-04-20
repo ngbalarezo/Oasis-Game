@@ -116,5 +116,43 @@ void testMenu::testLoop(int initialChoice, player& player, map& testMenu) {
     }
 }
 
-//PAUSE MENU DEFINITIONS
+//PLAYER MENU DEFINITIONS
+void playerMenu::print(player& player, map& gameMap) {
+    int sentinel = 0;
+    while (sentinel != 4) {
+        std::cout << "[1] Inventory" << std::endl;
+        std::cout << "[2] Player Stats" << std::endl;
+        std::cout << "[3] Check Map" << std::endl;
+        std::cout << "[4] Exit" << std::endl;
+        std::cout << "Choice: ";
+        std::cin >> sentinel;
+        if (sentinel == 1) {
+            system("CLS");
+            inventory.display();
+            system("PAUSE");
+            system("CLS");
+        }
+        else if (sentinel == 2) {
+            system("CLS");
+            player.printStats();
+            system("PAUSE");
+            system("CLS");
+        }
+        else if (sentinel == 3) {
+            system("CLS");
+            gameMap.display();
+            system("PAUSE");
+            system("CLS");
+        }
+        else if (sentinel == 4) {
+            system("CLS");
+        }
+        else {
+            system("CLS");
+            std::cout << "This is not an option!" << std::endl << std::endl;
+            system("PAUSE");
+            system("CLS");
+        }
+    }
+}
 
