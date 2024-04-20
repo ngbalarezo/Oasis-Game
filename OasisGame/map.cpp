@@ -18,6 +18,7 @@
 mapNode::mapNode() {
 	isVillage = false;
 	isWilderness = false;
+	wasVisited = 0;
 }
 
 //village specialized constructor
@@ -25,6 +26,7 @@ mapNode::mapNode(village nodeVillage) {
 	this->nodeVillage = &nodeVillage;
 	isVillage = true;
 	isWilderness = false;
+	wasVisited = 0;
 }
 
 //wilderness specialized constructor
@@ -32,6 +34,7 @@ mapNode::mapNode(wilderness nodeWilderness) {
 	this->nodeWilderness = &nodeWilderness;
 	isVillage = false;
 	isWilderness = true;
+	wasVisited = 0;
 }
 
 //getters
@@ -43,15 +46,18 @@ bool mapNode::getIsVillage() { return isVillage; }
 
 bool mapNode::getIsWilderness() { return isWilderness; }
 
+bool mapNode::getWasVisited() { return wasVisited; }
+
 //setters
 void mapNode::setNodeVillage(village& nodeVillage) { this->nodeVillage = &nodeVillage; }
 
 void mapNode::setNodeWilderness(wilderness& nodeWilderness) { this->nodeWilderness = &nodeWilderness; }
 
-
 void mapNode::setIsVillage(bool isVillage) { this->isVillage = isVillage; }
 
 void mapNode::setIsWilderness(bool isWilderness) { this->isWilderness = isWilderness; }
+
+void mapNode::setWasVisited(bool wasVisited) { this->wasVisited = wasVisited; }
 
 //methods
 
@@ -97,15 +103,15 @@ void map::setPrevMapNodeVisited(mapNode& prevMapNodeVisited) { this->prevMapNode
 void map::setPrevMapNodeVisited(mapNode* prevMapNodeVisited) { this->prevMapNodeVisited = prevMapNodeVisited; }
 
 //methods
-void map::generateMap(wilderness WILDERNESS[5], village VILLAGES[5]) {
+void map::generateMap(wilderness WILDERNESS[5], village VILLAGES[5], player& player) {
 	//declare variables
 	std::default_random_engine engine{ static_cast<unsigned int>(time(0)) };
 	std::uniform_int_distribution<unsigned int> randomLocation{ 1,10 };
 	std::uniform_int_distribution<unsigned int> randomArrayChoice{ 0,5 };
 	int locationTypeChoice;
 	int	randomArrayIndex;
-	int coordinateY;
-	int coordinateX;
+	int coordinateY = 0;
+	int coordinateX = 0;
 	//generate map from two arrays of pregenerated villages and wilderness locations
 	//outer for loop for rows
 	for (int y = 0; y < gridSize; y++) {
@@ -121,7 +127,6 @@ void map::generateMap(wilderness WILDERNESS[5], village VILLAGES[5]) {
 				//sets startingMapNode to current village, making the farthest village the starting village.
 				startingMapNode = &mapGrid[y][x];
 				currentMapNode = startingMapNode;
-				//!FIXME LEFT OFF HERE: MAKE PLAYER COORDINATE INT AND STORE THEM EITHER IN PLAYER OR INVENTORY CLASS
 				coordinateY = y;
 				coordinateX = x;
 			}
@@ -132,6 +137,9 @@ void map::generateMap(wilderness WILDERNESS[5], village VILLAGES[5]) {
 			}
 		}
 	}
+	//set player coordinates to current coordinates
+	player.setCoordinateY(coordinateY);
+	player.setCoordinateX(coordinateX);
 }
 
 void map::display() {
@@ -211,6 +219,246 @@ void map::display() {
 	std::cout << std::endl;
 	std::cout << "\033[0;31mRed" << "\033[0;37m = current location." << std::endl << std::endl;
 	system("PAUSE");
+}
+
+//!FIXME: ADD PRINT CURRENT LOCATION FUNCTION
+int map::execLocationDisplay() {
+	//generate misc. variables
+	int userChoice;
+	int sentinel = 0;
+	char firstChar;
+	std::string prefix = "";
+
+	//loop for error proofing
+	while (sentinel != 1) {
+		system("CLS");
+		std::cout << std::setiosflags(std::ios::left);
+		//if current location is a village
+		if (currentMapNode->getIsVillage() == true) {
+			//sets prefix properly if it is a vowel for styling purposes
+			firstChar = currentMapNode->getNodeVillage().getLocalShop().getShopType().at(0);
+			if ((firstChar == 'a') || (firstChar == 'e') || (firstChar == 'i') || (firstChar == 'o') || (firstChar == 'u')) {
+				prefix = "an ";
+			}
+			else {
+				prefix = "a ";
+			}
+			//print village menu
+			//!FIXME: GENERATE RANDOMIZED VILLAGE ENTRY MESSAGE
+			
+			//prints different message if you are in the starting node for the first time
+			if ((currentMapNode->getWasVisited() == false) && (currentMapNode == startingMapNode)) {
+				std::cout << "======= START VILLAGE =======" << std::endl;
+				std::cout << "You begin in the " << currentMapNode->getNodeVillage().getName() << std::endl;
+				
+			}
+			else {
+				std::cout << "========== VILLAGE ==========" << std::endl;
+				std::cout << "You enter the " << currentMapNode->getNodeVillage().getName() << std::endl;
+			}
+			std::cout << "Before you is " << prefix << currentMapNode->getNodeVillage().getLocalShop().getShopType() << ", " << std::endl;
+
+			std::cout << "the local " << currentMapNode->getNodeVillage().getLocalChurch().getChurchType() << ", " << std::endl;
+			//sets prefix properly if it is a vowel for styling purposes
+			
+			//!FIXME: ADD IN LOUNGES
+			/*firstChar = currentMapNode->getNodeVillage().getLocalLounge().getShopType().at(0);
+			if ((firstChar == 'a') || (firstChar == 'e') || (firstChar == 'i') || (firstChar == 'o') || (firstChar == 'u')) {
+				prefix = "an ";
+			}
+			else {
+				prefix = "a ";
+			}
+			std::cout << "There is" << prefix << currentMapNode->getNodeVillage().getLocalLounge().getLoungeType() << ", " << std::endl;*/
+			std::cout << "and a [INSERT LOUNGE]." << std::endl;//!FIXME: FILLER LINE
+			if ((currentMapNode->getWasVisited() == false) && (currentMapNode == startingMapNode)) {
+				std::cout << "=============================" << std::endl << std::endl;
+				//sets start node to wasVisited so message never prints again
+				startingMapNode->setWasVisited(true);
+			}
+			else {
+				std::cout << "==============================" << std::endl << std::endl;
+			}
+
+			//choice options
+			std::cout << "What would you like to do?" << std::endl;
+			//enter shop, church, or lounge
+			std::cout << "[1] Enter " << currentMapNode->getNodeVillage().getLocalShop().getShopType() << std::endl; 
+			std::cout << "[2] Enter " << currentMapNode->getNodeVillage().getLocalChurch().getChurchType() << std::endl;
+			std::cout << "[3] Enter " << "[INSERT LOUNGE]" << std::endl;
+			//player menu contains inventory, player stats, and map display
+			std::cout << "[4] Player Menu" << std::endl;
+			//executes moveLocation function
+			std::cout << "[5] Leave Village" << std::endl;
+			std::cout << "Choice: ";
+			std::cin >> userChoice;
+		}
+
+		//if current location is wilderness
+		else if (currentMapNode->getIsWilderness() == true) {
+			//print wilderness menu
+			//!FIXME: GENERATE RANDOMIZED WILDERNESS ENTRY MESSAGE
+			std::cout << "========= WILDERNESS =========" << std::endl;
+			std::cout << "You enter the " << currentMapNode->getNodeWilderness().getName() << std::endl;
+			//if the wilderness area is a boss battle location
+			if (currentMapNode->getNodeWilderness().getIsBossBattleLocation() == true) {
+
+			}
+			//if the wilderness area is not a boss battle location
+			else if (currentMapNode->getNodeWilderness().getIsBossBattleLocation() == false) {
+				//NPC 1
+				firstChar = currentMapNode->getNodeWilderness().getLocalNpc1().getName().at(0);
+				if ((firstChar == 'a') || (firstChar == 'e') || (firstChar == 'i') || (firstChar == 'o') || (firstChar == 'u')) {
+					prefix = "an ";
+				}
+				else {
+					prefix = "a ";
+				}
+				std::cout << "There is " << prefix << currentMapNode->getNodeWilderness().getLocalNpc1().getName() << ", " << std::endl;
+				//ENEMY 1
+				firstChar = currentMapNode->getNodeWilderness().getLocalEnemy1().getName().at(0);
+				if ((firstChar == 'a') || (firstChar == 'e') || (firstChar == 'i') || (firstChar == 'o') || (firstChar == 'u')) {
+					prefix = "an ";
+				}
+				else {
+					prefix = "a ";
+				}
+				std::cout << prefix << currentMapNode->getNodeWilderness().getLocalEnemy2().getName() << ", " << std::endl;
+				//ENEMY 2
+				firstChar = currentMapNode->getNodeWilderness().getLocalEnemy2().getName().at(0);
+				if ((firstChar == 'a') || (firstChar == 'e') || (firstChar == 'i') || (firstChar == 'o') || (firstChar == 'u')) {
+					prefix = "an ";
+				}
+				else {
+					prefix = "a ";
+				}
+				std::cout << prefix << currentMapNode->getNodeWilderness().getLocalEnemy2().getName() << ", " << std::endl;
+			}
+
+			//std::cout << "There is" << prefix << currentMapNode->getNodeVillage().getLocalShop().getShopType() << ", " << std::endl; !FIXME: ADD IN LOUNGES
+			std::cout << "===============================" << std::endl << std::endl;
+			//choice options
+			std::cout << "What would you like to do?" << std::endl;
+			//speak with npc, or battle enemies
+			std::cout << "[1] Speak with " << currentMapNode->getNodeVillage().getLocalShop().getShopType() << std::endl;
+			std::cout << "[2] Battle " << currentMapNode->getNodeWilderness().getLocalEnemy1().getName() << std::endl;
+			std::cout << "[3] Battle " << currentMapNode->getNodeWilderness().getLocalEnemy1().getName() << std::endl;
+			//player menu contains inventory, player stats, and map display
+			std::cout << "[4] Player Menu" << std::endl;
+			//executes moveLocation function
+			std::cout << "[5] Leave Village" << std::endl; 
+			std::cout << "Choice: ";
+			std::cin >> userChoice;
+		}
+	}
+	return userChoice;
+}
+
+//!FIXME: EXECLOCATION FUNCTION PRINTS WILDERNESS/VILLAGE DISPLAY AND MENU OPTION FUNCTIONS
+//!FIXME: ADD IN RANDOMLY GENERATED SHOPS AND RANDOMLY GENERATED WILDERNESS AREAS OF HARD DIFFICULTIES ON TOP TO EASIER ON BOTTOM
+//!FIXME: ADD IN LOUNGE AND LOUNGE TYPE
+//!FIXME: ERROR PROOF CHURCH AND ADD NEW FUNCTION(S)
+
+//Moves player to a new node in the map. Player can travel North, East, South, and West
+void map::moveLocation(player& player) {
+	//declare variables
+	int userChoice;
+	int sentinel = 0;
+	int newY = 0;
+	int newX = 0;
+	//loop for error proofing
+	while (sentinel != 1) {
+		//clear console
+		system("CLS");
+		//print direction menu
+		std::cout << "Which way would you like to go?" << std::endl;
+		std::cout << "[1] North" << std::endl;
+		std::cout << "[2] East" << std::endl;
+		std::cout << "[3] South" << std::endl;
+		std::cout << "[4] West" << std::endl;
+		std::cout << "[5] Exit" << std::endl;
+		std::cout << "Choice: ";
+		std::cin >> userChoice;
+		//store current x and y coordinates
+		int y = player.getCoordinateY();
+		int x = player.getCoordinateX();
+
+		//if player moves north
+		if (userChoice == 1) {
+			newY = y - 1;
+			//if up movement doesn't walk off map
+			if (newY >= 0) {
+				currentMapNode = &mapGrid[newY][x];
+				player.setCoordinateY(newY);
+			}
+			//if up movement does walk off map
+			else if (newY < 0) {
+				system("CLS");
+				std::cout << "You are at the edge of the map!" << std::endl << std::endl;
+				system("PAUSE");
+
+			}
+		}
+		//if player moves east
+		else if (userChoice == 2) {
+			newX = x - 1;
+			//if up movement doesn't walk off map
+			if (newY >= 0) {
+				currentMapNode = &mapGrid[y][newX];
+				player.setCoordinateX(newX);
+			}
+			//if up movement does walk off map
+			else if (newX < 0) {
+				system("CLS");
+				std::cout << "You are at the edge of the map!" << std::endl << std::endl;
+				system("PAUSE");
+			}
+		}
+		//if player moves south
+		else if (userChoice == 3) {
+			newY = y + 1;
+			//if up movement doesn't walk off map
+			if (newY <= (gridSize - 1)) {
+				currentMapNode = &mapGrid[newY][x];
+				player.setCoordinateY(newY);
+			}
+			//if up movement does walk off map
+			else if (newY > (gridSize - 1)) {
+				system("CLS");
+				std::cout << "You are at the edge of the map!" << std::endl << std::endl;
+				system("PAUSE");
+			}
+		}
+		//if user moves west
+		else if (userChoice == 4) {
+			newX = x + 1;
+			//if up movement doesn't walk off map
+			if (newX <= (gridSize - 1)) {
+				currentMapNode = &mapGrid[y][newX];
+				player.setCoordinateX(newX);
+				sentinel = 1;
+			}
+			//if up movement does walk off map
+			else if (newX > (gridSize - 1)) {
+				system("CLS");
+				std::cout << "You are at the edge of the map!" << std::endl << std::endl;
+				system("PAUSE");
+			}
+		}
+		//exit menu
+		else if (userChoice == 5) {
+			system("CLS");
+			std::cout << "GOODBYE." << std::endl << std::endl;
+			system("PAUSE");
+			sentinel = 1;
+		}
+		else {
+			system("CLS");
+			std::cout << "This is not an option." << std::endl << std::endl;
+			system("PAUSE");
+
+		}
+	}
 }
 
 //!FIXME: NOTES

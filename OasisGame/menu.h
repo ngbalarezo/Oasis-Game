@@ -38,6 +38,13 @@ public:
 	void testLoop(int initialChoice, player& player, map& gameMenu);
 };
 
+class playerMenu {
+private:
+
+public:
+	void print(player& player);
+};
+
 class pauseMenu {
 private:
 

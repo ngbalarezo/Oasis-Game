@@ -51,6 +51,8 @@ player::player() {
 	def = 0;
 	weight = 0;
 	inventory = emptyInventory;
+	coordinateX = 0;
+	coordinateY = 0;
 }
 
 player::player(std::string name, playerInventory inventory) {
@@ -62,6 +64,8 @@ player::player(std::string name, playerInventory inventory) {
 	def = 0;
 	weight = 0;
 	this->inventory = inventory;
+	coordinateX = 0;
+	coordinateY = 0;
 }
 
 //getters
@@ -73,6 +77,10 @@ int player::getWeight() { return weight; }
 
 playerInventory* player::getInventory() { return &inventory; }
 
+int player::getCoordinateX() { return coordinateX; }
+
+int player::getCoordinateY() { return coordinateY; }
+
 //setters
 void player::setFp(int fp) { this->fp = fp; }
 
@@ -81,6 +89,10 @@ void player::setSp(int sp) { this->sp = sp; }
 void player::setWeight(int weight) { this->weight = weight; }
 
 void player::setInventory(playerInventory inventory) { this->inventory = inventory; }
+
+void player::setCoordinateX(int coordinateX) { this->coordinateX = coordinateX; }
+
+void player::setCoordinateY(int coordinateY) { this->coordinateY = coordinateY; }
 
 //methods
 void player::printStats() {
@@ -96,36 +108,8 @@ void player::printStats() {
 	std::cout << "====================" << std::endl << std::endl;
 }
 
-void player::accessInventory(){
-	int sentinel = 0;
-	while (sentinel != 3) {
-		std::cout << "[1] Inventory" << std::endl;
-		std::cout << "[2] Player Stats" << std::endl;
-		std::cout << "[3] Exit" << std::endl;
-		std::cout << "Choice: ";
-		std::cin >> sentinel;
-		if (sentinel == 1) {
-			system("CLS");
-			inventory.display();
-			system("PAUSE");
-			system("CLS");
-		}
-		else if (sentinel == 2) {
-			system("CLS");
-			printStats();
-			system("PAUSE");
-			system("CLS");
-		}
-		else if (sentinel == 3) {
-			system("CLS");
-		}
-		else {
-			system("CLS");
-			std::cout << "This is not an option!" << std::endl << std::endl;
-			system("PAUSE");
-			system("CLS");
-		}
-	}
+void player::accessPlayerMenu(){
+	
 }
 
 //NPC CLASS DEFINITIONS
@@ -241,7 +225,7 @@ int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engi
 				//!FIXME: ADD IN, calculates according to buff/nerf
 				totalDamageDone = damageDone * player.getInventory()->getWeapon().getBuffPercent();
 				//subtracts stamina points NOTE: WEIGHT = AMMOUT IT TAKES OFF FROM SP!!!
-				player.setSp(player.getSp() - player.getInventory()->getWeapon().getWeight());
+				player.setSp(player.getSp() - player.getInventory()->getWeapon().getWeight() - 10);
 				//sets new enemy hp by subtracting damageDone from current enemy hp
 				this->setHp(this->getHp() - totalDamageDone);
 				//attack landed text, pauses on this screen and then resets screen back to stats menu
@@ -259,7 +243,7 @@ int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engi
 				//!FIXME: ADD IN, calculates according to buff/nerf
 				totalDamageDone = damageDone * player.getInventory()->getWeapon().getBuffPercent();
 				//subtracts stamina points NOTE: WEIGHT = HALF THE AMMOUT IT TAKES OFF FROM SP!!!
-				player.setSp(player.getSp() - ((player.getInventory()->getWeapon().getWeight()) + ((player.getInventory()->getWeapon().getWeight()) / 2)));
+				player.setSp(player.getSp() - ((player.getInventory()->getWeapon().getWeight()) + ((player.getInventory()->getWeapon().getWeight()) / 2)) - 7);
 				//sets new enemy hp by subtracting damageDone from current enemy hp
 				this->setHp(this->getHp() - totalDamageDone);
 				//attack landed text, pauses on this screen and then resets screen back to stats menu

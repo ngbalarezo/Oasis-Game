@@ -60,12 +60,12 @@ int main() {
 
     //MAIN GAME: GENERATE BUILDINGS
     //shops
-    shop market("Local Market", noNpc, woodenSword, woodenAxe, chainmailArmor, smallHealPotion, ruby);
-    shop smithy("Local Smithy", noNpc, noWeapon, noWeapon, noArmor, noPotion, noItem);
-    shop farm("Farm", noNpc, noWeapon, noWeapon, noArmor, noPotion, noItem);
-    shop armory("Town Armory", noNpc, noWeapon, noWeapon, noArmor, noPotion, noItem);
-    shop apothecary("Apprentice Wizard's Apothecary", apprenticeWizard, noWeapon, noWeapon, noArmor, noPotion, noItem);
-    shop SHOPS[15] = {};
+    shop market("Local Market", "market", noNpc, woodenSword, woodenAxe, chainmailArmor, smallHealPotion, ruby);
+    shop smithy("Local Smithy", "smithy", noNpc, noWeapon, noWeapon, noArmor, noPotion, noItem);
+    shop farm("Farm", "farm", noNpc, noWeapon, noWeapon, noArmor, noPotion, noItem);
+    shop armory("Town Armory", "armory", noNpc, noWeapon, noWeapon, noArmor, noPotion, noItem);
+    shop apothecary("Apprentice Wizard's Apothecary", "apothecary", apprenticeWizard, noWeapon, noWeapon, noArmor, noPotion, noItem);
+    shop SHOPS[5] = {};
 
     //Churches
     Church CHURCHES[15] = {};
@@ -90,11 +90,6 @@ int main() {
     village village5;
     village VILLAGES[5] = {village1, village2, village3, village4, village5};
 
-    //MAIN GAME: GENERATE MAP
-    map gameMap(5);
-    gameMap.generateMap(WILDERNESS, VILLAGES);
-
-
     //MAIN GAME: GENERATE MENUS
     startMenu startScreen;
 
@@ -102,13 +97,15 @@ int main() {
     int sentinel = 0;
 
     //MAIN GAME: START MENU LOOP
-    //start menu music
-    PlaySound(MAKEINTRESOURCE(START_MENU_MUSIC), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
+    
     //loop to prevent erroneous choice
     while (sentinel != 1) {
+        //start menu music
+        PlaySound(MAKEINTRESOURCE(START_MENU_MUSIC), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
+        //clear console
+        system("CLS");
         //print start screen
         int userChoice = startScreen.print();
-
         //MAIN GAME: exits start menu loop and begins game
         if (userChoice == 1) { 
             sentinel = 1; 
@@ -127,7 +124,9 @@ int main() {
             testMenu test;
             playerInventory testInventory(noWeapon, noArmor, noPotion, 0, noItem, noItem, noItem, 100);
             player testPlayer("Dev", testInventory);
-            test.testLoop(userChoice, testPlayer, gameMap);
+            map testMap(8);
+            testMap.generateMap(WILDERNESS, VILLAGES, testPlayer);
+            test.testLoop(userChoice, testPlayer, testMap);
         }
         //EXIT GAME FROM START MENU: 
         else if (userChoice == 4) {
@@ -150,7 +149,12 @@ int main() {
     playerInventory playerInventory(noWeapon, noArmor, noPotion, 0, noItem, noItem, noItem, 100);
     player player(playerName, playerInventory);
 
+    //MAIN GAME: GENERATE MAP
+    map gameMap(5);
+    gameMap.generateMap(WILDERNESS, VILLAGES, player);
+
     //MAIN GAME: INITIATE INTRO SEQUENCE AND MONOLOGUE
+    gameMap.execLocationDisplay();
 
     //MAIN GAME: MAIN GAME LOOP
     

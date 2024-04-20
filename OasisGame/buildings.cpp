@@ -20,7 +20,8 @@ shop::shop() {
     potion noPotion;
     item noItem;
     //set defaults to null objects
-    shopName = "null";
+    shopName = "Null Shop";
+    shopType = "null shop";
     shopKeeper = noShopKeeper;
     shopWeaponSlot1 = noWeapon;
     shopWeaponSlot2 = noWeapon;
@@ -32,13 +33,14 @@ shop::shop() {
     wasVisited = false;
 }
 
-shop::shop(std::string shopName, npc shopKeeper, weapon shopWeaponSlot1, weapon shopWeaponSlot2, armor shopArmorSlot, potion shopPotionSlot, item shopItemSlot) {
+shop::shop(std::string shopName, std::string shopType, npc shopKeeper, weapon shopWeaponSlot1, weapon shopWeaponSlot2, armor shopArmorSlot, potion shopPotionSlot, item shopItemSlot) {
     //create null item objects
     weapon noWeapon;
     armor noArmor;
     potion noPotion;
     //set defaults
     this->shopName = shopName;
+    this->shopType = shopType;
     this->shopKeeper = shopKeeper;
     this->shopWeaponSlot1 = shopWeaponSlot1;
     this->shopWeaponSlot2 = shopWeaponSlot2;
@@ -51,8 +53,9 @@ shop::shop(std::string shopName, npc shopKeeper, weapon shopWeaponSlot1, weapon 
     wasVisited = false;
 }
 
-shop::shop(std::string shopName, npc shopKeeper, weapon shopWeaponSlot1, weapon shopWeaponSlot2, armor shopArmorSlot, potion shopPotionSlot, item shopItemSlot, bool isEmpty, int shopLevel, bool wasVisited) {
+shop::shop(std::string shopName, std::string shopType, npc shopKeeper, weapon shopWeaponSlot1, weapon shopWeaponSlot2, armor shopArmorSlot, potion shopPotionSlot, item shopItemSlot, bool isEmpty, int shopLevel, bool wasVisited) {
     this->shopName = shopName;
+    this->shopType = shopType;
     this->shopKeeper = shopKeeper;
     this->shopWeaponSlot1 = shopWeaponSlot1;
     this->shopWeaponSlot2 = shopWeaponSlot2;
@@ -66,6 +69,8 @@ shop::shop(std::string shopName, npc shopKeeper, weapon shopWeaponSlot1, weapon 
 
 //getters
 std::string shop::getShopName() { return shopName; }
+
+std::string shop::getShopType() { return shopType; }
 
 npc shop::getShopKeeper() { return shopKeeper; }
 
@@ -87,6 +92,8 @@ bool shop::getWasVisited() { return wasVisited; }
 
 //setters
 void shop::setShopName(std::string shopName) { this->shopName = shopName; }
+
+void shop::setShopType(std::string shopName) { this->shopType = shopType; }
 
 void shop::setShopKeeper(npc shopKeeper) { this->shopKeeper = shopKeeper; }
 
@@ -352,25 +359,31 @@ void shop::sellTo(player& player, int playerChoice) {
 //constructers
 //default constructor
 Church::Church() {
-    churchName = "";
+    churchName = "Null Church";
+    churchType = "Null Church";
     hpToHeal = 0;
     //!FIXME: ADD NPC PRIEST AND OPTIONS TO SPEAK WITH PRIEST, OFFER SACRIFICE ON THE ALTAR, ETC.
 }
 
 //initialize object with all custom parameters
-Church::Church(std::string churchName, int hpToHeal) {
+Church::Church(std::string churchName, std::string churchType,int hpToHeal) {
     this->churchName = churchName;
+    this->churchType = churchType;
     this->hpToHeal = hpToHeal;
 }
 
 //getters
 std::string Church::getChurchName() { return churchName; }
 
+std::string Church::getChurchType() { return churchType; }
+
 int Church::getHpToHeal() { return hpToHeal; }
 
 
 //setters
 void Church::setChurchName(std::string churchName) { this->churchName = churchName; }
+
+void Church::setChurchType(std::string churchType) { this->churchName = churchType; }
 
 void Church::setHpToHeal(int hpToHeal) { this->hpToHeal = hpToHeal; }
 

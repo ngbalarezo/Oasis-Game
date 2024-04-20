@@ -30,12 +30,14 @@ public:
     wilderness(); //default constructor
 
     //initialize wilderness with custom members, non-boss location
-    wilderness(std::string name, npc localNpc1, enemy localEnemy1, enemy localEnemy2);
+    wilderness(std::string name, npc& localNpc1, enemy& localEnemy1, enemy& localEnemy2);
 
     //initialize wilderness with custom members, boss battle location
-    wilderness(npc localNpc1, enemy localEnemy1, enemy localEnemy2, enemy localBoss, bool isBossBattleLocation);
+    wilderness(enemy& localBoss, bool isBossBattleLocation);
     
     //getters
+    std::string getName();
+
     npc getLocalNpc1();
 
     enemy getLocalEnemy1();
@@ -44,7 +46,11 @@ public:
 
     enemy getLocalBoss();
 
+    bool getIsBossBattleLocation();
+
     //setters
+    void setName(std::string name);
+    
     void setLocalNpc1(npc& localNpc1);
 
     void setLocalEnemy1(enemy& localEnemy1);
@@ -52,6 +58,8 @@ public:
     void setLocalEnemy2(enemy& localEnemy2);
 
     void setLocalBoss(enemy& localBoss);
+
+    void setIsBossBattleLocation(bool isBossBattleLocation);
 
     //methods
 };
@@ -73,6 +81,8 @@ public:
     village(std::string name, shop localShop, Church localChurch, npc localNpc1, npc localNpc2);
 
     //getters
+    std::string getName();
+
     shop getLocalShop();
 
     Church getLocalChurch();
@@ -82,6 +92,8 @@ public:
     npc getLocalNpc2();
 
     //setters
+    void setName(std::string name);
+
     void setLocalShop(shop& localShop);
 
     void setLocalChurch(Church& localChurch);

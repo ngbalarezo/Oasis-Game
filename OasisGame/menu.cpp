@@ -44,12 +44,13 @@ void testMenu::print() {//!FIXME: change main menu options
     std::cout << "3. Manage Inventory" << std::endl;
     std::cout << "4. Enter Shop" << std::endl;
     std::cout << "5. Talk to Someone" << std::endl;
-    std::cout << "6. Print map" << std::endl;
-    std::cout << "7. Quit Game" << std::endl;
+    std::cout << "6. Move location" << std::endl;
+    std::cout << "7. Print map" << std::endl;
+    std::cout << "9. Exit Dev Testing" << std::endl;
     //!FIXME: insert feature to choose option using cin and functions referencing other .h files
 }
 
-void testMenu::testLoop(int initialChoice, player& player, map& gameMenu) {
+void testMenu::testLoop(int initialChoice, player& player, map& testMenu) {
     PlaySound(MAKEINTRESOURCE(MISC_MUSIC_1), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
     //clear console
     system("CLS");
@@ -66,7 +67,7 @@ void testMenu::testLoop(int initialChoice, player& player, map& gameMenu) {
     armor chainmailArmor("Chainmail", 300, 25, false, 15);
     potion smallHealPotion("Small Heal Potion", 50, 0, 0, 100);
     item ruby("Ruby", 300, 0, false);
-    shop testShop("Test Shop", testNpc, woodenSword, woodenAxe, chainmailArmor, smallHealPotion, ruby);
+    shop testShop("Test Shop", "test shop", testNpc, woodenSword, woodenAxe, chainmailArmor, smallHealPotion, ruby);
 
     //loops test start menu
     while (sentinel != 1) {
@@ -98,12 +99,14 @@ void testMenu::testLoop(int initialChoice, player& player, map& gameMenu) {
             //shopKeeper.getDialogueTree()->initiateDialogue();
             std::cout << "null" << std::endl;
         }
-        else if (userChoice == 6) { //PRINT MAP
-            gameMenu.display();
+        else if (userChoice == 6) {
+            testMenu.moveLocation(player);
         }
-        else if (userChoice == 7) {
-            system("CLS");
-            std::cout << "GOODBYE." << std::endl;
+        else if (userChoice == 7) { //PRINT MAP
+            testMenu.display();
+        }
+        else if (userChoice == 9) {
+            //system("CLS");
             sentinel = 1;
         }
         else { //NULL
@@ -113,5 +116,43 @@ void testMenu::testLoop(int initialChoice, player& player, map& gameMenu) {
     }
 }
 
-//PAUSE MENU DEFINITIONS
+//PLAYER MENU DEFINITIONS
+void playerMenu::print(player& player, map& gameMap) {
+    int sentinel = 0;
+    while (sentinel != 4) {
+        std::cout << "[1] Inventory" << std::endl;
+        std::cout << "[2] Player Stats" << std::endl;
+        std::cout << "[3] Check Map" << std::endl;
+        std::cout << "[4] Exit" << std::endl;
+        std::cout << "Choice: ";
+        std::cin >> sentinel;
+        if (sentinel == 1) {
+            system("CLS");
+            inventory.display();
+            system("PAUSE");
+            system("CLS");
+        }
+        else if (sentinel == 2) {
+            system("CLS");
+            player.printStats();
+            system("PAUSE");
+            system("CLS");
+        }
+        else if (sentinel == 3) {
+            system("CLS");
+            gameMap.display();
+            system("PAUSE");
+            system("CLS");
+        }
+        else if (sentinel == 4) {
+            system("CLS");
+        }
+        else {
+            system("CLS");
+            std::cout << "This is not an option!" << std::endl << std::endl;
+            system("PAUSE");
+            system("CLS");
+        }
+    }
+}
 

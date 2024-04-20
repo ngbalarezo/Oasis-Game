@@ -20,6 +20,7 @@ class shop {
 private:
     //each shop will sell 3 weapons, 1 armor, and 1 potion, 
     std::string shopName;
+    std::string shopType;
     npc shopKeeper;
     weapon shopWeaponSlot1;
     weapon shopWeaponSlot2;
@@ -35,13 +36,15 @@ public:
     //constructors
     shop();
 
-    shop(std::string shopName, npc shopKeeper, weapon shopWeaponSlot1, weapon shopWeaponSlot2, armor shopArmorSlot, potion shopPotionSlot, item shopItemSlot);
+    shop(std::string shopName, std::string shopType, npc shopKeeper, weapon shopWeaponSlot1, weapon shopWeaponSlot2, armor shopArmorSlot, potion shopPotionSlot, item shopItemSlot);
 
-    shop(std::string shopName, npc shopKeeper, weapon shopWeaponSlot1, weapon shopWeaponSlot2, armor shopArmorSlot,
+    shop(std::string shopName, std::string shopType, npc shopKeeper, weapon shopWeaponSlot1, weapon shopWeaponSlot2, armor shopArmorSlot,
         potion shopPotionSlot, item shopItemSlot, bool isEmpty, int shopLevel, bool wasVisited);
 
     //getters
     std::string getShopName();
+
+    std::string getShopType();
 
     npc getShopKeeper();
 
@@ -63,6 +66,8 @@ public:
 
     //setters
     void setShopName(std::string shopName);
+
+    void setShopType(std::string shopType);
 
     void setShopKeeper(npc shopKeeper);
 
@@ -96,6 +101,7 @@ public:
 class Church {
 private:
     std::string churchName;
+    std::string churchType;
     int hpToHeal;
 
 public:
@@ -103,16 +109,20 @@ public:
     //constructers
     Church();
 
-    Church(std::string churchName, int hpToHeal);
+    Church(std::string churchName, std::string churchType, int hpToHeal);
 
     //getters
     std::string getChurchName();
+
+    std::string getChurchType();
 
     int getHpToHeal();
 
 
     //setters
     void setChurchName(std::string churchName);
+
+    void setChurchType(std::string churchType);
 
     void setHpToHeal(int hpToHeal);
 
