@@ -134,6 +134,14 @@ void npc::setNpcName(std::string npcName) { this->npcName = npcName; }
 void npc::setDialogueTree(dialogueTree dialogue) { dialogue = dialogue; }
 
 //methods
+void npc::initiateDialogue() {
+	//clear console
+	system("CLS");
+	//!FIXME: ADD INITIATE DIALOGUE FUNCTIONALITY
+	//! TEST MESSAGE
+	std::cout << "TEST: Dialogue initiated." << std::endl << std::endl;
+	system("PAUSE");
+}
 
 //ENEMY CLASS DEFINITIONS
 

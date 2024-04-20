@@ -92,6 +92,7 @@ int main() {
 
     //MAIN GAME: GENERATE MENUS
     startMenu startScreen;
+    playerMenu playerMenu;
 
     //MAIN GAME: GENERATE MISC. VARIABLES
     int sentinel = 0;
@@ -126,7 +127,7 @@ int main() {
             player testPlayer("Dev", testInventory);
             map testMap(8);
             testMap.generateMap(WILDERNESS, VILLAGES, testPlayer);
-            test.testLoop(userChoice, testPlayer, testMap);
+            test.testLoop(userChoice, testPlayer, testMap, playerMenu);
         }
         //EXIT GAME FROM START MENU: 
         else if (userChoice == 4) {
@@ -154,7 +155,7 @@ int main() {
     gameMap.generateMap(WILDERNESS, VILLAGES, player);
 
     //MAIN GAME: INITIATE INTRO SEQUENCE AND MONOLOGUE
-    gameMap.execLocationDisplay();
+    gameMap.execLocation(player, playerMenu, gameMap);
 
     //MAIN GAME: MAIN GAME LOOP
     

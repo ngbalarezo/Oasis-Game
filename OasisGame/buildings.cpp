@@ -388,6 +388,16 @@ void Church::setChurchType(std::string churchType) { this->churchName = churchTy
 void Church::setHpToHeal(int hpToHeal) { this->hpToHeal = hpToHeal; }
 
 //methods
+void Church::enterChurch() {
+    //clear console
+    system("CLS");
+    //!FIXME: MODEL THIS AFTER ENTERSHOP() FUNCTION
+    //! TEST MESSAGE
+    std::cout << "TEST: Church entered." << std::endl << std::endl;
+    system("PAUSE");
+
+}
+
 void Church::churchWelcome(player& player) {
     int choice = 0;
     std::cout << "Welcome to the " << churchName << ". You feel the presence of grace." << std::endl;

@@ -128,6 +128,8 @@ public:
 
 
     //methods
+    void enterChurch();
+    
     void churchWelcome(player& player);
 
     void pray(player& player);

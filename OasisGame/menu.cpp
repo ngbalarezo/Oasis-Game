@@ -50,7 +50,7 @@ void testMenu::print() {//!FIXME: change main menu options
     //!FIXME: insert feature to choose option using cin and functions referencing other .h files
 }
 
-void testMenu::testLoop(int initialChoice, player& player, map& testMenu) {
+void testMenu::testLoop(int initialChoice, player& player, map& testMap, playerMenu& playerMenu) {
     PlaySound(MAKEINTRESOURCE(MISC_MUSIC_1), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
     //clear console
     system("CLS");
@@ -86,7 +86,7 @@ void testMenu::testLoop(int initialChoice, player& player, map& testMenu) {
         }
         else if (userChoice == 3) { //STANDARD INVENTORY DISPLAY
             system("CLS");
-            player.accessInventory();
+            playerMenu.print(player);
         }
         else if (userChoice == 4) { //NULL
             system("CLS");
@@ -100,10 +100,10 @@ void testMenu::testLoop(int initialChoice, player& player, map& testMenu) {
             std::cout << "null" << std::endl;
         }
         else if (userChoice == 6) {
-            testMenu.moveLocation(player);
+            testMap.moveLocation(player);
         }
         else if (userChoice == 7) { //PRINT MAP
-            testMenu.display();
+            testMap.display();
         }
         else if (userChoice == 9) {
             //system("CLS");
@@ -117,7 +117,7 @@ void testMenu::testLoop(int initialChoice, player& player, map& testMenu) {
 }
 
 //PLAYER MENU DEFINITIONS
-void playerMenu::print(player& player, map& gameMap) {
+int playerMenu::print(player& player) {
     int sentinel = 0;
     while (sentinel != 4) {
         std::cout << "[1] Inventory" << std::endl;
@@ -128,24 +128,24 @@ void playerMenu::print(player& player, map& gameMap) {
         std::cin >> sentinel;
         if (sentinel == 1) {
             system("CLS");
-            inventory.display();
+            player.getInventory()->display();
             system("PAUSE");
             system("CLS");
+            return 0;
         }
         else if (sentinel == 2) {
             system("CLS");
             player.printStats();
             system("PAUSE");
             system("CLS");
+            return 0;
         }
         else if (sentinel == 3) {
-            system("CLS");
-            gameMap.display();
-            system("PAUSE");
-            system("CLS");
+            return 1;
         }
         else if (sentinel == 4) {
             system("CLS");
+            return 0;
         }
         else {
             system("CLS");

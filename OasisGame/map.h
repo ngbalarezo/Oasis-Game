@@ -119,7 +119,11 @@ public:
 
 	void display();
 
+	void execLocation(player& player, playerMenu& playerMenu);
+
 	int execLocationDisplay();
+
+	void execChoice(int userChoice, player& player, playerMenu& playerMenu);
 
 	void moveLocation(player& player);
 

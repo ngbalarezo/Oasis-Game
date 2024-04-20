@@ -17,6 +17,7 @@
 #include "DialogueTree.h"
 #include "resource.h"
 
+//START MENU CLASS
 class startMenu {
 private:
 
@@ -26,6 +27,7 @@ public:
 	std::string promptPlayerName();
 };
 
+//TEST MENU CLASS
 class testMenu {
 private:
 
@@ -35,23 +37,16 @@ public:
 	//methods
 	void print();
 
-	void testLoop(int initialChoice, player& player, map& gameMenu);
+	void testLoop(int initialChoice, player& player, map& gameMenu, playerMenu& playerMenu);
 };
 
+//PLAYER MENU CLASS
 class playerMenu {
 private:
 
 public:
-	void print(player& player);
+	int print(player& player);
 };
-
-class pauseMenu {
-private:
-
-public:
-	void print();
-};
-
 
 
 #endif

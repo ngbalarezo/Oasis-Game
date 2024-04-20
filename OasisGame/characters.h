@@ -114,6 +114,9 @@ public:
 
 	void setDialogueTree(dialogueTree dialogue);
 
+	//methods
+	void initiateDialogue();
+
 };
 
 //ENEMY CLASS
