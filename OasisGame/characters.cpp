@@ -232,8 +232,8 @@ int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engi
 				damageDone = playerHeavyAttackRange(engine);
 				//!FIXME: ADD IN, calculates according to buff/nerf
 				totalDamageDone = damageDone * player.getInventory()->getWeapon().getBuffPercent();
-				//subtracts stamina points NOTE: WEIGHT = AMMOUT IT TAKES OFF FROM SP!!!
-				player.setSp(player.getSp() - player.getInventory()->getWeapon().getWeight() - 10);
+				//subtracts stamina points NOTE: WEIGHT = AMOUNT IT TAKES OFF FROM SP!!!
+				player.setSp(player.getSp() - player.getInventory()->getWeapon().getWeight() - 15);
 				//sets new enemy hp by subtracting damageDone from current enemy hp
 				this->setHp(this->getHp() - totalDamageDone);
 				//attack landed text, pauses on this screen and then resets screen back to stats menu
@@ -250,8 +250,8 @@ int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engi
 				damageDone = playerLightAttackRange(engine);
 				//!FIXME: ADD IN, calculates according to buff/nerf
 				totalDamageDone = damageDone * player.getInventory()->getWeapon().getBuffPercent();
-				//subtracts stamina points NOTE: WEIGHT = HALF THE AMMOUT IT TAKES OFF FROM SP!!!
-				player.setSp(player.getSp() - ((player.getInventory()->getWeapon().getWeight()) + ((player.getInventory()->getWeapon().getWeight()) / 2)) - 7);
+				//subtracts stamina points NOTE: WEIGHT = HALF THE AMOUNT IT TAKES OFF FROM SP!!!
+				player.setSp(player.getSp() - ((player.getInventory()->getWeapon().getWeight()) + ((player.getInventory()->getWeapon().getWeight()) / 2)) - 10);
 				//sets new enemy hp by subtracting damageDone from current enemy hp
 				this->setHp(this->getHp() - totalDamageDone);
 				//attack landed text, pauses on this screen and then resets screen back to stats menu

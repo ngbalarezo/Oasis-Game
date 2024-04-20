@@ -38,6 +38,7 @@ std::string startMenu::promptPlayerName() {
 
 //PLAYER MENU DEFINITIONS
 int playerMenu::print(player& player) {
+    system("CLS");
     int sentinel = 0;
     while (sentinel != 4) {
         std::cout << "[1] Inventory" << std::endl;
@@ -65,7 +66,7 @@ int playerMenu::print(player& player) {
         }
         else if (sentinel == 4) {
             system("CLS");
-            return 0;
+            return 2;
         }
         else {
             system("CLS");
@@ -90,7 +91,7 @@ void testMenu::print() {//!FIXME: change main menu options
     //!FIXME: insert feature to choose option using cin and functions referencing other .h files
 }
 
-void testMenu::testLoop(int initialChoice, player& player, map& testMap) {
+void testMenu::testLoop(int initialChoice, player& player, map& testMap, playerMenu& testMenu) {
     PlaySound(MAKEINTRESOURCE(MISC_MUSIC_1), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
     //clear console
     system("CLS");
@@ -98,6 +99,7 @@ void testMenu::testLoop(int initialChoice, player& player, map& testMap) {
     int sentinel = 0;
     bool played;
     int userChoice = initialChoice;
+    int mapInt = 0;
 
     //generate test items
     npc testNpc("Test Shop Keeper");
@@ -125,8 +127,15 @@ void testMenu::testLoop(int initialChoice, player& player, map& testMap) {
             testEnemy.battle(player);
         }
         else if (userChoice == 3) { //STANDARD INVENTORY DISPLAY
-            system("CLS");
-            //playerMenu.print(player); //!FIXME: BRING THIS BACK
+            while (sentinel != 2) {
+                mapInt = testMenu.print(player);
+                if (mapInt == 1) {
+                    testMap.display();
+                }
+                else if (mapInt == 2) {
+                    sentinel = 2;
+                }
+            }
         }
         else if (userChoice == 4) { //NULL
             system("CLS");

@@ -45,7 +45,7 @@ public:
 	//methods
 	void print();
 
-	void testLoop(int initialChoice, player& player, map& testMap);
+	void testLoop(int initialChoice, player& player, map& testMap, playerMenu& testMenu);
 
 };
 
