@@ -368,7 +368,23 @@ int map::execLocationDisplay() {
 }
 
 void map::execChoice(int userChoice, player& player) {
-	//FIXME: LEFT OFF HERE
+	//if current location is a village
+	if (currentMapNode->getIsVillage() == true) {
+		if (userChoice == 1) {
+
+		}
+		else if (userChoice == 2) {
+
+		}
+		else if (userChoice == 3) {
+
+		}
+		
+	}
+	//if current location is wilderness
+	else if (currentMapNode->getIsWilderness() == true) {
+
+	}
 }
 
 //!FIXME: EXECLOCATION FUNCTION PRINTS WILDERNESS/VILLAGE DISPLAY AND MENU OPTION FUNCTIONS

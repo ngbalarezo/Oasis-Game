@@ -374,4 +374,6 @@ void enemy::battle(player& player) {
 		system("PAUSE");
 		system("CLS");
 	}
+	//sets player stamina to 100 after battle is over
+	player.setSp(100);
 }
