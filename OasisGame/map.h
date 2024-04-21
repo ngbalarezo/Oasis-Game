@@ -122,9 +122,9 @@ public:
 
 	void execLocation(player& player);
 
-	int execLocationDisplay();
+	int locationDisplay();
 
-	void execChoice(int userChoice, player& player);
+	void execChoice(int& userChoice, player& player);
 
 	void moveLocation(player& player);
 

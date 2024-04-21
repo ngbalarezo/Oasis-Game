@@ -128,7 +128,7 @@ public:
 
 
     //methods
-    void enterChurch();
+    void enterChurch(player& player);
     
     void churchWelcome(player& player);
 

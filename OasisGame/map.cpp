@@ -228,14 +228,14 @@ void map::execLocation(player& player) {
 	//loop
 	
 	//display menu
-	userChoice = execLocationDisplay();
+	userChoice = locationDisplay();
 
 	//execute user choice
 	//execChoice(userChoice, player, playerMenu);
 
 }
 
-int map::execLocationDisplay() {
+int map::locationDisplay() {
 	//generate misc. variables
 	int userChoice;
 	int sentinel = 0;
@@ -353,9 +353,9 @@ int map::execLocationDisplay() {
 			//choice options
 			std::cout << "What would you like to do?" << std::endl;
 			//speak with npc, or battle enemies
-			std::cout << "[1] Speak with " << currentMapNode->getNodeVillage().getLocalShop().getShopType() << std::endl;
+			std::cout << "[1] Speak with " << currentMapNode->getNodeWilderness().getLocalNpc1().getName() << std::endl;
 			std::cout << "[2] Battle " << currentMapNode->getNodeWilderness().getLocalEnemy1().getName() << std::endl;
-			std::cout << "[3] Battle " << currentMapNode->getNodeWilderness().getLocalEnemy1().getName() << std::endl;
+			std::cout << "[3] Battle " << currentMapNode->getNodeWilderness().getLocalEnemy2().getName() << std::endl;
 			//player menu contains inventory, player stats, and map display
 			std::cout << "[4] Player Menu" << std::endl;
 			//executes moveLocation function
@@ -367,23 +367,35 @@ int map::execLocationDisplay() {
 	return userChoice;
 }
 
-void map::execChoice(int userChoice, player& player) {
+void map::execChoice(int& userChoice, player& player) {
 	//if current location is a village
 	if (currentMapNode->getIsVillage() == true) {
 		if (userChoice == 1) {
-
+			currentMapNode->getNodeVillage().getLocalShop().enterShop(player);
 		}
 		else if (userChoice == 2) {
-
+			currentMapNode->getNodeVillage().getLocalChurch().enterChurch(player);
 		}
 		else if (userChoice == 3) {
-
+			//!FIXME: ADD IN LOUNGE
+			//currentMapNode->getNodeVillage().getLocalLounge().enterLounge();
+			//!FIXME: remove test message after lounge is added
+			system("CLS");
+			std::cout << "LOUNGE ENTERED." << std::endl << std::endl;
+			system("PAUSE");
 		}
-		
+		else if (userChoice == 4) {
+			//!FIXME: add in playerMenu functionality
+		}
+		else if (userChoice == 5) {
+			//!FIXME: leave village functionality
+		}
 	}
 	//if current location is wilderness
 	else if (currentMapNode->getIsWilderness() == true) {
+		//boss battle wilderness
 
+		//regular wilderness
 	}
 }
 

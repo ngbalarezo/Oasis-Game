@@ -388,7 +388,7 @@ void Church::setChurchType(std::string churchType) { this->churchName = churchTy
 void Church::setHpToHeal(int hpToHeal) { this->hpToHeal = hpToHeal; }
 
 //methods
-void Church::enterChurch() {
+void Church::enterChurch(player& player) {
     //clear console
     system("CLS");
     //!FIXME: MODEL THIS AFTER ENTERSHOP() FUNCTION
