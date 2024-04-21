@@ -124,7 +124,7 @@ public:
 
 	int locationDisplay();
 
-	void execChoice(int& userChoice, player& player);
+	int execChoice(int& userChoice, player& player);
 
 	void moveLocation(player& player);
 

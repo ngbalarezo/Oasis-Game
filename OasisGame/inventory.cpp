@@ -89,9 +89,9 @@ void playerInventory::setPotionCount(int potionCount) { this->potionCount = poti
 
 void playerInventory::setItem1(item &itemSlot1) { this->itemSlot1 = itemSlot1; }
 
-void playerInventory::setItem2(item& itemSlot2) { this->itemSlot1 = itemSlot2; }
+void playerInventory::setItem2(item& itemSlot2) { this->itemSlot2 = itemSlot2; }
 
-void playerInventory::setItem3(item& itemSlot3) { this->itemSlot1 = itemSlot3; }
+void playerInventory::setItem3(item& itemSlot3) { this->itemSlot3 = itemSlot3; }
 
 void playerInventory::setCoinCount(int coinCount) { this->coinCount = coinCount; }
 

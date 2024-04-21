@@ -133,6 +133,8 @@ void shop::enterShop(player& player) {
 }
 
 void shop::displayShopItems() {
+    //clear console
+    system("CLS");
     //iomanip stream manipulations
     std::cout << std::setiosflags(std::ios::left); //left aligns setw()
     //display spacing header
@@ -241,9 +243,6 @@ int shop::displayBuyOptions(player& player) {
         case 6:
             system("CLS");
             player.getInventory()->display();
-            system("PAUSE");
-            system("CLS");
-            displayShopItems();
             break;
         case 7:
             system("CLS");

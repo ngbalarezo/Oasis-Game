@@ -151,6 +151,7 @@ enemy::enemy() {
 	atk = 10;
 	def = 2;
 	flees = false;
+	isSlain = false;
 }
 
 enemy::enemy(std::string inputName, int inputHp, int inputAtk, int inputDef, bool inputflees) {
@@ -159,6 +160,7 @@ enemy::enemy(std::string inputName, int inputHp, int inputAtk, int inputDef, boo
 	atk = inputAtk;
 	def = inputDef;
 	flees = inputflees;
+	isSlain = false;
 }
 
 //getters
@@ -324,8 +326,10 @@ void enemy::enemyAttackTurn(int playerDodges, int& damageDone, std::default_rand
 	}
 	//enemy dies after your attack
 	else {
+		//sets isSlain bool to true
+		isSlain = true;
 		system("CLS");
-		std::cout << name << "has been slain!" << std::endl << std::endl;
+		std::cout << name << " has been slain!" << std::endl << std::endl;
 		system("PAUSE");
 		system("CLS");
 	}
@@ -344,33 +348,47 @@ void enemy::battle(player& player) {
 	int playerDodges = 0;
 	std::default_random_engine engine{ static_cast<unsigned int>(time(0)) };
 	//while loop ends battle if enemy dies, player dies, or enemy flees
-	while ((player.getHp() > 0) && (this->getHp() > 0) && (this->getFlees() != true)) {
-		playerDodges = 0;
-		if (player.getSp() > 0) {
-			//print enemy and player battle stats respectively
-			printBattleStats(player);
-			//print battle options
-			input = printBattleOptions();
-			//player's turn executes based on user's choice
-			playerDodges = playerAttackTurn(input, damageDone, engine, player);
-		}
-		else if (player.getSp() <= 0) {
-			std::cout << "You are too tired to attack! You must skip a turn to catch your breath!" << std::endl;
-			system("PAUSE");
-			player.setSp(50);
-		}
-		
-		//enemy attack turn executes based on predefined enemy stats, but only if enemy is not already dead
-		if ((playerDodges == 3) && (player.getSp() > 0)) {
-			continue;
-		}
-		else {
-			enemyAttackTurn(playerDodges, damageDone, engine, player);
+	if (isSlain == true) {
+		PlaySound(NULL, GetModuleHandle(NULL), NULL); //STOPS ASYNCHRONOUS MUSIC
+		system("CLS");
+		std::cout << "You stand over a slain foe. The words of Wisdom echo in your mind." << std::endl << std::endl;
+		std::cout << "\"It is the same for all. There is one fate for the righteous and for the wicked;" << std::endl;
+		std::cout << "for the good, for the clean and the unclean; " << std::endl;
+		std::cout << "for the person who offers a sacrifice and for the one who does not sacrifice. " << std::endl;
+		std::cout << "As the good person is, so is the sinner;" << std::endl;
+		std::cout << "the one who swears an oath is just as the one who is afraid to swear an oath.\"" << std::endl;
+		std::cout << "(Ecclesiastes 9:2)" << std::endl << std::endl;
+		system("PAUSE");
+	}
+	else if (isSlain == false) {
+		while ((player.getHp() > 0) && (this->getHp() > 0) && (this->getFlees() != true)) {
+			playerDodges = 0;
+			if (player.getSp() > 0) {
+				//print enemy and player battle stats respectively
+				printBattleStats(player);
+				//print battle options
+				input = printBattleOptions();
+				//player's turn executes based on user's choice
+				playerDodges = playerAttackTurn(input, damageDone, engine, player);
+			}
+			else if (player.getSp() <= 0) {
+				std::cout << "You are too tired to attack! You must skip a turn to catch your breath!" << std::endl << std::endl;
+				system("PAUSE");
+				player.setSp(50);
+			}
+
+			//enemy attack turn executes based on predefined enemy stats, but only if enemy is not already dead
+			if ((playerDodges == 3) && (player.getSp() > 0)) {
+				continue;
+			}
+			else {
+				enemyAttackTurn(playerDodges, damageDone, engine, player);
+			}
 		}
 	}
 	if (player.getHp() == 0) {
 		system("CLS");
-		std::cout << "You have been slain..." << std::endl;
+		std::cout << "You have been slain..." << std::endl << std::endl;
 		system("PAUSE");
 		system("CLS");
 	}

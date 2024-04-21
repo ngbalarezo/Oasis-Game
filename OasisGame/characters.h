@@ -124,6 +124,7 @@ class enemy : public character {
 private:
 	//members
 	bool flees;
+	bool isSlain;
 
 public:
 	//constructors

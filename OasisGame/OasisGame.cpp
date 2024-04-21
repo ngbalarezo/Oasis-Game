@@ -123,7 +123,7 @@ int main() {
         else if (userChoice == 3) {
             //generate test menu and test player
             testMenu test;
-            playerInventory testInventory(noWeapon, noArmor, noPotion, 0, noItem, noItem, noItem, 100);
+            playerInventory testInventory(noWeapon, noArmor, noPotion, 0, noItem, noItem, noItem, 10000);
             player testPlayer("Dev", testInventory);
             map testMap(8);
             testMap.generateMap(WILDERNESS, VILLAGES, testPlayer);

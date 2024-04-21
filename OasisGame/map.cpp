@@ -225,13 +225,37 @@ void map::display() {
 
 void map::execLocation(player& player) {
 	int userChoice = 0;
-	//loop
-	
-	//display menu
-	userChoice = locationDisplay();
+	int sentinel = 0;
+	int mapDisplayChoice = 0;
+	playerMenu playerMenu;
+	//while loop to keep you in current location until you decide to leave
+	while (sentinel != 1) {
+		//display menu
+		userChoice = locationDisplay();
 
-	//execute user choice
-	//execChoice(userChoice, player, playerMenu);
+		//execute user choice
+		execChoice(userChoice, player);
+
+		//displays player menu
+		if (userChoice == 4) {
+			//uses userChoice to display map if user chooses map
+			while (mapDisplayChoice != 2) {
+				mapDisplayChoice = playerMenu.print(player);
+				if (mapDisplayChoice == 1) {
+					display();
+				}
+			}
+			mapDisplayChoice = 0;
+		}
+		//check if user chooses to leave the current location
+		else if (userChoice == 5) {
+			//!FIXME: LEFT OFF HERE!!!!!!!
+			moveLocation(player);
+			sentinel = 1;
+		}
+	}
+	//set start node to wasVisited so starting village message remains until user leaves the village.
+	startingMapNode->setWasVisited(true);
 
 }
 
@@ -286,8 +310,6 @@ int map::locationDisplay() {
 			std::cout << "and a [INSERT LOUNGE]." << std::endl;//!FIXME: FILLER LINE
 			if ((currentMapNode->getWasVisited() == false) && (currentMapNode == startingMapNode)) {
 				std::cout << "=============================" << std::endl << std::endl;
-				//sets start node to wasVisited so message never prints again
-				startingMapNode->setWasVisited(true);
 			}
 			else {
 				std::cout << "==============================" << std::endl << std::endl;
@@ -305,6 +327,15 @@ int map::locationDisplay() {
 			std::cout << "[5] Leave Village" << std::endl;
 			std::cout << "Choice: ";
 			std::cin >> userChoice;
+			//error proofing, cuts the loop if userChoice is valid
+			if ((userChoice < 1) || (userChoice > 5)) {
+				system("CLS");
+				std::cout << "This is not an option." << std::endl << std::endl;
+				system("PAUSE");
+			}
+			else if ((userChoice >= 1) || (userChoice <= 5)) {
+				sentinel = 1;
+			}
 		}
 
 		//if current location is wilderness
@@ -362,12 +393,21 @@ int map::locationDisplay() {
 			std::cout << "[5] Leave Village" << std::endl; 
 			std::cout << "Choice: ";
 			std::cin >> userChoice;
+			//error proofing, cuts the loop if userChoice is valid
+			if ((userChoice < 1) || (userChoice > 5)) {
+				system("CLS");
+				std::cout << "This is not an option." << std::endl << std::endl;
+				system("PAUSE");
+			}
+			else if ((userChoice >= 1) || (userChoice <= 5)) {
+				sentinel = 1;
+			}
 		}
 	}
 	return userChoice;
 }
 
-void map::execChoice(int& userChoice, player& player) {
+int map::execChoice(int& userChoice, player& player) {
 	//if current location is a village
 	if (currentMapNode->getIsVillage() == true) {
 		if (userChoice == 1) {
@@ -384,12 +424,6 @@ void map::execChoice(int& userChoice, player& player) {
 			std::cout << "LOUNGE ENTERED." << std::endl << std::endl;
 			system("PAUSE");
 		}
-		else if (userChoice == 4) {
-			//!FIXME: add in playerMenu functionality
-		}
-		else if (userChoice == 5) {
-			//!FIXME: leave village functionality
-		}
 	}
 	//if current location is wilderness
 	else if (currentMapNode->getIsWilderness() == true) {
@@ -397,6 +431,7 @@ void map::execChoice(int& userChoice, player& player) {
 
 		//regular wilderness
 	}
+	return userChoice;
 }
 
 //!FIXME: EXECLOCATION FUNCTION PRINTS WILDERNESS/VILLAGE DISPLAY AND MENU OPTION FUNCTIONS

@@ -41,10 +41,13 @@ int playerMenu::print(player& player) {
     system("CLS");
     int sentinel = 0;
     while (sentinel != 4) {
+        std::cout << "==============================" << std::endl;
+        std::cout << "Player Menu:" << std::endl << std::endl;
         std::cout << "[1] Inventory" << std::endl;
         std::cout << "[2] Player Stats" << std::endl;
         std::cout << "[3] Check Map" << std::endl;
         std::cout << "[4] Exit" << std::endl;
+        std::cout << "==============================" << std::endl << std::endl;
         std::cout << "Choice: ";
         std::cin >> sentinel;
         if (sentinel == 1) {
@@ -104,7 +107,7 @@ void testMenu::testLoop(int initialChoice, player& player, map& testMap, playerM
     //generate test items
     npc testNpc("Test Shop Keeper");
     enemy testEnemy("Test Zombie", 100, 40, 20, false);
-    weapon woodenSword("Wooden Sword", 150, 5, false, 10, 1);
+    weapon woodenSword("Wooden Sword", 150, 5, false, 2000, 1);
     weapon woodenAxe("Wooden Axe", 200, 5, false, 15, 1);
     armor chainmailArmor("Chainmail", 300, 25, false, 15);
     potion smallHealPotion("Small Heal Potion", 50, 0, 0, 100);
@@ -136,6 +139,7 @@ void testMenu::testLoop(int initialChoice, player& player, map& testMap, playerM
                     sentinel = 2;
                 }
             }
+            sentinel = 0;
         }
         else if (userChoice == 4) { //NULL
             system("CLS");
