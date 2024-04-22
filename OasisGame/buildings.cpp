@@ -164,6 +164,8 @@ void shop::enterShop(player& player) {
 }
 
 void shop::displayShopItems() {
+    //clear console
+    system("CLS");
     //iomanip stream manipulations
     std::cout << std::setiosflags(std::ios::left); //left aligns setw()
     //display spacing header
@@ -272,9 +274,6 @@ int shop::displayBuyOptions(player& player) {
         case 6:
             system("CLS");
             player.getInventory()->display();
-            system("PAUSE");
-            system("CLS");
-            displayShopItems();
             break;
         case 7:
             system("CLS");
@@ -419,7 +418,7 @@ void Church::setChurchType(std::string churchType) { this->churchName = churchTy
 void Church::setHpToHeal(int hpToHeal) { this->hpToHeal = hpToHeal; }
 
 //methods
-void Church::enterChurch() {
+void Church::enterChurch(player& player) {
     //clear console
     system("CLS");
     //!FIXME: MODEL THIS AFTER ENTERSHOP() FUNCTION

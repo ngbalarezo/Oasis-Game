@@ -27,6 +27,7 @@ int main() {
     item ITEMS[10] = {};
     //weapons
     weapon noWeapon;
+    weapon strongTestWeapon("STRONG TEST WEAPON", 1, 5, false, 20000, 1);
     weapon woodenSword("Wooden Sword", 150, 5, false, 10, 1);
     weapon woodenAxe("Wooden Axe", 200, 5, false, 15, 1);
     weapon ironSword("Iron Sword", 500, 8, false, 22, 1);
@@ -124,7 +125,7 @@ int main() {
         else if (userChoice == 3) {
             //generate test menu and test player
             testMenu test;
-            playerInventory testInventory(noWeapon, noArmor, noPotion, 0, noItem, noItem, noItem, 100);
+            playerInventory testInventory(noWeapon, noArmor, noPotion, 0, noItem, noItem, noItem, 10000);
             player testPlayer("Dev", testInventory);
             map testMap(8);
             testMap.generateMap(WILDERNESS_REALM1, VILLAGES_REALM1, testPlayer);
@@ -148,7 +149,7 @@ int main() {
     std::string playerName = startScreen.promptPlayerName();
 
     //MAIN GAME: GENERATE PLAYER AND INVENTORY
-    playerInventory playerInventory(noWeapon, noArmor, noPotion, 0, noItem, noItem, noItem, 100);
+    playerInventory playerInventory(strongTestWeapon, noArmor, noPotion, 0, noItem, noItem, noItem, 100); //!FIXME: REMOVE STRONG TEST WEAPON FOR FINAL PRODUCT
     player player(playerName, playerInventory);
 
     //MAIN GAME: GENERATE MAP
@@ -156,9 +157,14 @@ int main() {
     gameMap.generateMap(WILDERNESS_REALM1, VILLAGES_REALM1, player);
 
     //MAIN GAME: INITIATE INTRO SEQUENCE AND MONOLOGUE
-    gameMap.execLocation(player);
 
     //MAIN GAME: MAIN GAME LOOP
+    sentinel = 0;
+    while (sentinel != 1) {
+        //!FIXME: QUIT GAME FEATURE, ARE YOU SURE? RETURNS SENTINEL VALUE OF 1.
+        //!FIXME: IF CHARACTER FALLS THEY CAN EITHER GO BACK TO THE LAST CHURCH OR QUIT GAME
+        gameMap.execLocation(player);
+    }
     
     return 0;
 }

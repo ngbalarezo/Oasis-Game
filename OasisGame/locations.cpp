@@ -37,11 +37,11 @@ std::string wilderness::getName() { return name; }
 
 npc wilderness::getLocalNpc1() { return localNpc1; }
 
-enemy wilderness::getLocalEnemy1() { return localEnemy1; }
+enemy* wilderness::getLocalEnemy1() { return &localEnemy1; }
 
-enemy wilderness::getLocalEnemy2() { return localEnemy2; }
+enemy* wilderness::getLocalEnemy2() { return &localEnemy2; }
 
-enemy wilderness::getLocalBoss() { return localBoss; }
+enemy* wilderness::getLocalBoss() { return &localBoss; }
 
 bool wilderness::getIsBossBattleLocation() { return isBossBattleLocation; }
 
@@ -83,9 +83,9 @@ shop village::getLocalShop() { return localShop; }
 
 Church village::getLocalChurch() { return localChurch; }
 
-npc village::getLocalNpc1() { return localNpc1; }
+npc* village::getLocalNpc1() { return &localNpc1; }
 
-npc village::getLocalNpc2() { return localNpc2; }
+npc* village::getLocalNpc2() { return &localNpc2; }
 
 //setters
 void village::setName(std::string name) { this->name = name; }

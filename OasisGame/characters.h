@@ -124,6 +124,7 @@ class enemy : public character {
 private:
 	//members
 	bool flees;
+	bool isSlain;
 
 public:
 	//constructors
@@ -134,8 +135,12 @@ public:
 	//getters
 	bool getFlees();
 
+	bool getIsSlain();
+
 	//setters
 	void setFlees(bool flees);
+
+	void setIsSlain(bool isSlain);
 
 	//methods
 	void printBattleStats(player &player);
