@@ -384,6 +384,7 @@ int map::locationDisplay() {
 			//choice options
 			std::cout << "What would you like to do?" << std::endl;
 			//speak with npc, or battle enemies
+			//!FIXME: IMPLEMENT ISSLAIN FUNCTIONALITY...
 			std::cout << "[1] Speak with " << currentMapNode->getNodeWilderness().getLocalNpc1().getName() << std::endl;
 			std::cout << "[2] Battle " << currentMapNode->getNodeWilderness().getLocalEnemy1().getName() << std::endl;
 			std::cout << "[3] Battle " << currentMapNode->getNodeWilderness().getLocalEnemy2().getName() << std::endl;
@@ -470,6 +471,7 @@ void map::moveLocation(player& player) {
 			if (newY >= 0) {
 				currentMapNode = &mapGrid[newY][x];
 				player.setCoordinateY(newY);
+				sentinel = 1;
 			}
 			//if up movement does walk off map
 			else if (newY < 0) {
@@ -486,6 +488,7 @@ void map::moveLocation(player& player) {
 			if (newY >= 0) {
 				currentMapNode = &mapGrid[y][newX];
 				player.setCoordinateX(newX);
+				sentinel = 1;
 			}
 			//if up movement does walk off map
 			else if (newX < 0) {
@@ -501,6 +504,7 @@ void map::moveLocation(player& player) {
 			if (newY <= (gridSize - 1)) {
 				currentMapNode = &mapGrid[newY][x];
 				player.setCoordinateY(newY);
+				sentinel = 1;
 			}
 			//if up movement does walk off map
 			else if (newY > (gridSize - 1)) {

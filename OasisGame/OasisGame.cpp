@@ -155,9 +155,14 @@ int main() {
     gameMap.generateMap(WILDERNESS, VILLAGES, player);
 
     //MAIN GAME: INITIATE INTRO SEQUENCE AND MONOLOGUE
-    gameMap.execLocation(player);
 
     //MAIN GAME: MAIN GAME LOOP
+    sentinel = 0;
+    while (sentinel != 1) {
+        //!FIXME: QUIT GAME FEATURE, ARE YOU SURE? RETURNS SENTINEL VALUE OF 1.
+        //!FIXME: IF CHARACTER FALLS THEY CAN EITHER GO BACK TO THE LAST CHURCH OR QUIT GAME
+        gameMap.execLocation(player);
+    }
     
     return 0;
 }
