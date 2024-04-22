@@ -45,7 +45,7 @@ int main() {
     potion POTION[10] = {};
 
     //MAIN GAME: GENERATE DIALOGUES
-
+  
     //MAIN GAME: GENERATE CHARACTERS
     //npcs
     npc noNpc;
