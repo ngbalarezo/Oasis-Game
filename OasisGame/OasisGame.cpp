@@ -38,7 +38,7 @@ int main() {
     armor chainmailArmor("Chainmail", 300, 25, false, 15);
     armor ironArmor("Iron Armor", 800, 35, false, 20);
     armor RiotGear("Riot Gear", 9000, 50, false, 400);
-    armor ARMOR[10] = {};
+    armor ARMOR_REALM1[10] = {};
     //potions
     potion noPotion;
     potion smallHealPotion("Small Heal Potion", 50, 0, 0, 100);
@@ -80,7 +80,8 @@ int main() {
     wilderness valley;
     wilderness iceland;
     wilderness jungle;
-    wilderness WILDERNESS[5] = {forest, desert, valley, iceland, jungle};
+    wilderness WILDERNESS_REALM1[5] = {forest, desert, valley, iceland, jungle};
+    wilderness WILDERNESS_REALM2 = {};
 
     //villages
     village village1;
@@ -88,7 +89,7 @@ int main() {
     village village3;
     village village4;
     village village5;
-    village VILLAGES[5] = {village1, village2, village3, village4, village5};
+    village VILLAGES_REALM1[5] = {village1, village2, village3, village4, village5};
 
     //MAIN GAME: GENERATE MENUS
     startMenu startScreen;
@@ -126,7 +127,7 @@ int main() {
             playerInventory testInventory(noWeapon, noArmor, noPotion, 0, noItem, noItem, noItem, 100);
             player testPlayer("Dev", testInventory);
             map testMap(8);
-            testMap.generateMap(WILDERNESS, VILLAGES, testPlayer);
+            testMap.generateMap(WILDERNESS_REALM1, VILLAGES_REALM1, testPlayer);
             test.testLoop(userChoice, testPlayer, testMap, playerMenu);
         }
         //EXIT GAME FROM START MENU: 
@@ -152,7 +153,7 @@ int main() {
 
     //MAIN GAME: GENERATE MAP
     map gameMap(5);
-    gameMap.generateMap(WILDERNESS, VILLAGES, player);
+    gameMap.generateMap(WILDERNESS_REALM1, VILLAGES_REALM1, player);
 
     //MAIN GAME: INITIATE INTRO SEQUENCE AND MONOLOGUE
     gameMap.execLocation(player);

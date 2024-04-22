@@ -117,19 +117,50 @@ void shop::setWasVisited(bool wasVisited) { this->wasVisited = wasVisited; }
 void shop::enterShop(player& player) {
     //declare variables
     int playerChoice;
+    int sentinel = 0;
+    //error proofing while loop
+    while (sentinel != 1) {
+        //print enter shop menu
+        system("CLS");
+        std::cout << "Welcome to my shop stranger! What can I do for ya!" << std::endl<<std::endl;
+        std::cout << "[1] Talk with shopkeeper" << std::endl;
+        std::cout << "[2] Check out shop items" << std::endl;
+        std::cout << "[3] Exit" << std::endl;
+        std::cout << "Choice: ";
+        std::cin >> playerChoice;
+        //if user chooses to talk with the shop keeper
+        if (playerChoice == 1) {
+            system("CLS");
+            std::cout << "BEGIN DIALOGUE" << std::endl << std::endl;
+            system("PAUSE");
+        }
+        //if user chooses to check out the shop items
+        else if (playerChoice == 2) {
+            //!FIXME: ADD SELL ITEMS FEATURE
+            //clear console
+            system("CLS");
+            //display shop items
+            displayShopItems();
 
-    //!FIXME: add in dialogue tree and display shop items if player chooses to take a look at the shelves "I would like to take a look at your shelves."
+            //display choice options so that the player can buy, etc.
+            playerChoice = displayBuyOptions(player);
 
-    //add buy/sell options for npc dialogue tree
-
-    //display shop items
-    displayShopItems();
-
-    //display choice options so that the player can buy, etc.
-    playerChoice = displayBuyOptions(player);
-
-    //run sellTo menu
-    sellTo(player, playerChoice);
+            //run sellTo menu
+            sellTo(player, playerChoice);
+        }
+        //if user chooses to exit shop
+        else if (playerChoice == 3) {
+            system("CLS");
+            std::cout << "Thanks for stopping by!" << std::endl << std::endl;
+            system("PAUSE");
+            sentinel = 1;
+        }
+        else {
+            system("CLS");
+            std::cout << "That is not an option." << std::endl << std::endl;
+            system("PAUSE");
+        }
+    } 
 }
 
 void shop::displayShopItems() {
