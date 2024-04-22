@@ -388,7 +388,7 @@ int map::locationDisplay() {
 			//slain enemy options menu
 			//if local enemy 1 is slain
 			if (currentMapNode->getNodeWilderness().getLocalEnemy1()->getIsSlain() == true) {
-				std::cout << "[2] Inspect slain " << currentMapNode->getNodeWilderness().getLocalEnemy1()->getName() << std::endl;
+				std::cout << "[2] Inspect slain " << currentMapNode->getNodeWilderness().getLocalEnemy1()->getName() << std::endl; //!FIXME: LEFT OFF HERE, ENEMY IS SLAIN DOES NOT WORK!!!!!
 			}
 			//if local enemy 1 is not slain
 			else if (currentMapNode->getNodeWilderness().getLocalEnemy1()->getIsSlain() == false) {
