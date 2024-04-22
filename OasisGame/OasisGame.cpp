@@ -27,6 +27,7 @@ int main() {
     item ITEMS[10] = {};
     //weapons
     weapon noWeapon;
+    weapon strongTestWeapon("STRONG TEST WEAPON", 1, 5, false, 20000, 1);
     weapon woodenSword("Wooden Sword", 150, 5, false, 10, 1);
     weapon woodenAxe("Wooden Axe", 200, 5, false, 15, 1);
     weapon ironSword("Iron Sword", 500, 8, false, 22, 1);
@@ -147,7 +148,7 @@ int main() {
     std::string playerName = startScreen.promptPlayerName();
 
     //MAIN GAME: GENERATE PLAYER AND INVENTORY
-    playerInventory playerInventory(noWeapon, noArmor, noPotion, 0, noItem, noItem, noItem, 100);
+    playerInventory playerInventory(strongTestWeapon, noArmor, noPotion, 0, noItem, noItem, noItem, 100); //!FIXME: REMOVE STRONG TEST WEAPON FOR FINAL PRODUCT
     player player(playerName, playerInventory);
 
     //MAIN GAME: GENERATE MAP

@@ -144,12 +144,12 @@ void npc::initiateDialogue() {
 }
 
 //ENEMY CLASS DEFINITIONS
-
-//constructor
+//constructors
 enemy::enemy() {
-	hp = 20;
+	name = "Null enemy";
+	hp = 100;
 	atk = 10;
-	def = 2;
+	def = 10;
 	flees = false;
 	isSlain = false;
 }
@@ -166,8 +166,12 @@ enemy::enemy(std::string inputName, int inputHp, int inputAtk, int inputDef, boo
 //getters
 bool enemy::getFlees() { return flees; }
 
+bool enemy::getIsSlain() { return isSlain; }
+
 //setters
 void enemy::setFlees(bool flees) { this->flees = flees; }
+
+void enemy::setIsSlain(bool isSlain) { this->isSlain = isSlain; }
 
 //methods
 
@@ -290,6 +294,10 @@ int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engi
 void enemy::enemyAttackTurn(int playerDodges, int& damageDone, std::default_random_engine& engine, player& player) {
 	//declare variables
 	unsigned int atkUnsigned = atk;
+	//prevent enemyAttackRange lower bound from going below 1
+	if (atkUnsigned < 20) {
+		atkUnsigned = 21;
+	}
 	std::uniform_int_distribution<unsigned int> enemyAttackRange{ (atkUnsigned - 20), atkUnsigned };
 	std::uniform_int_distribution<unsigned int> enemyMissChance{ 1,12 };
 	//enemy is still alive after your attack
@@ -325,9 +333,9 @@ void enemy::enemyAttackTurn(int playerDodges, int& damageDone, std::default_rand
 		}
 	}
 	//enemy dies after your attack
-	else {
+	else if (this->getHp() <= 0) {
 		//sets isSlain bool to true
-		isSlain = true;
+		this->setIsSlain(true);
 		system("CLS");
 		std::cout << name << " has been slain!" << std::endl << std::endl;
 		system("PAUSE");
@@ -361,6 +369,8 @@ void enemy::battle(player& player) {
 		system("PAUSE");
 	}
 	else if (isSlain == false) {
+		system("CLS");
+		PlaySound(MAKEINTRESOURCE(BATTLE_MUSIC_1), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
 		while ((player.getHp() > 0) && (this->getHp() > 0) && (this->getFlees() != true)) {
 			playerDodges = 0;
 			if (player.getSp() > 0) {

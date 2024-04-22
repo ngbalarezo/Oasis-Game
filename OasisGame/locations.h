@@ -40,11 +40,11 @@ public:
 
     npc getLocalNpc1();
 
-    enemy getLocalEnemy1();
+    enemy* getLocalEnemy1();
 
-    enemy getLocalEnemy2();
+    enemy* getLocalEnemy2();
 
-    enemy getLocalBoss();
+    enemy* getLocalBoss();
 
     bool getIsBossBattleLocation();
 
@@ -87,9 +87,9 @@ public:
 
     Church getLocalChurch();
 
-    npc getLocalNpc1();
+    npc* getLocalNpc1();
 
-    npc getLocalNpc2();
+    npc* getLocalNpc2();
 
     //setters
     void setName(std::string name);

@@ -125,8 +125,6 @@ void testMenu::testLoop(int initialChoice, player& player, map& testMap, playerM
         }
         else if (userChoice == 2) { //BATTLE TEST
             system("CLS");
-            played = PlaySound(MAKEINTRESOURCE(BATTLE_MUSIC_1), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
-            //played = PlaySound(NULL, GetModuleHandle(NULL), NULL); //STOPS ASYNCHRONOUS MUSIC
             testEnemy.battle(player);
         }
         else if (userChoice == 3) { //STANDARD INVENTORY DISPLAY

@@ -135,8 +135,12 @@ public:
 	//getters
 	bool getFlees();
 
+	bool getIsSlain();
+
 	//setters
 	void setFlees(bool flees);
+
+	void setIsSlain(bool isSlain);
 
 	//methods
 	void printBattleStats(player &player);
