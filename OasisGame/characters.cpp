@@ -96,7 +96,7 @@ void player::setCoordinateY(int coordinateY) { this->coordinateY = coordinateY; 
 
 //methods
 void player::printStats() {
-	std::cout << name << " Stats: " << std::endl;
+	std::cout << name << "\'s Stats: " << std::endl;
 	std::cout << "====================" << std::endl;
 	std::cout << "HP: " << hp << std::endl;
 	std::cout << "SP: " << sp << std::endl;

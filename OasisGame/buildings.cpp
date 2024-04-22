@@ -122,7 +122,7 @@ void shop::enterShop(player& player) {
     while (sentinel != 1) {
         //print enter shop menu
         system("CLS");
-        std::cout << "Welcome to my shop stranger! What can I do for ya!" << std::endl<<std::endl;
+        std::cout << "Welcome to " << shopName << " stranger! What can I do for ya!" << std::endl << std::endl;
         std::cout << "[1] Talk with shopkeeper" << std::endl;
         std::cout << "[2] Check out shop items" << std::endl;
         std::cout << "[3] Exit" << std::endl;
@@ -396,7 +396,7 @@ Church::Church() {
 }
 
 //initialize object with all custom parameters
-Church::Church(std::string churchName, std::string churchType,int hpToHeal) {
+Church::Church(std::string churchName, std::string churchType, int hpToHeal) {
     this->churchName = churchName;
     this->churchType = churchType;
     this->hpToHeal = hpToHeal;
