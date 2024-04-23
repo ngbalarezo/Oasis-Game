@@ -97,9 +97,13 @@ void playerInventory::setCoinCount(int coinCount) { this->coinCount = coinCount;
 
 //methods
 void playerInventory::display() {
+	//!FIXME: ADD ATTACK STATS
+	//clear console
+	system("CLS");
 	//iomanip stream manipulations
 	std::cout << std::setiosflags(std::ios::left); //left aligns setw()
 	//display spacing header for inventory
+	std::cout<<"Inventory:" <<std::endl<<std::endl;
 	std::cout << std::setw(15) << "Slot" << std::setw(25) << "Item Name" << std::setw(15) << "Coin Value" << std::setw(6) << "Weight" << std::endl;
 	std::cout << "================================================================" << std::endl << std::endl;
 	//display inventory items in order
@@ -110,7 +114,7 @@ void playerInventory::display() {
 	std::cout << std::setw(15) << "Item Slot 2: " << std::setw(25) << itemSlot2.getName() << std::setw(15) << itemSlot2.getCoinValue() << std::setw(6) << itemSlot2.getWeight() << std::endl << std::endl;
 	std::cout << std::setw(15) << "Item Slot 3: " << std::setw(25) << itemSlot3.getName() << std::setw(15) << itemSlot3.getCoinValue() << std::setw(6) << itemSlot3.getWeight() << std::endl << std::endl;
 	std::cout << "================================================================" << std::endl << std::endl;
-	std::cout << std::endl;
+
 }
 
 void playerInventory::battleDisplay() {
@@ -128,9 +132,6 @@ void playerInventory::battleDisplay() {
 	std::cout << std::setw(15) << "Item Slot 2: " << std::setw(25) << itemSlot2.getName() << std::endl << std::endl;
 	std::cout << std::setw(15) << "Item Slot 3: " << std::setw(25) << itemSlot3.getName() << std::endl << std::endl;
 	std::cout << std::setw(45) << "=====================================================" << std::endl << std::endl;
-	std::cout << std::endl;
-
-
 }
 
 //!FIXME: add in return type, choice menu, etc, seperate function?

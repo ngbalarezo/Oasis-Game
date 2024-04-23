@@ -92,9 +92,13 @@ public:
 
     void displayShopItems();
 
+    void displayShopOptions(player& player);
+
     int displayBuyOptions(player& player);
 
     void sellTo(player& player, int playerChoice);
+
+    void buyFrom(player& player);
 
 };
 
