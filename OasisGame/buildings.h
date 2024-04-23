@@ -88,17 +88,30 @@ public:
     void setWasVisited(bool wasVisited);
 
     //methods
-    void enterShop(player& player);
+    void enterShop(player& player); //enter shop
+
+    //initial menus below
+    int execShopLobbyMenu(player& player, int& playerChoice);
+
+    void execShopMenu(player& player, int& playerChoice);
+
+    //buy menu methods below
+    void execBuyMenu(player& player, int& playerChoice);
 
     void displayShopItems();
 
-    void displayShopOptions(player& player);
+    int execBuyChoiceMenu(player& player, int& playerChoice);
 
-    int displayBuyOptions(player& player);
+    int checkChoice(player& player, int& playerChoice);
 
-    void sellTo(player& player, int playerChoice);
+    void sellTo(player& player, int& playerChoice);
 
-    void buyFrom(player& player);
+    //sell menu methods below
+    void execSellMenu(); 
+
+    void execSellChoice();
+
+    void buyFrom(player& player, int& playerChoice);
 
 };
 
