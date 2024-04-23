@@ -334,12 +334,12 @@ void enemy::enemyAttackTurn(int playerDodges, int& damageDone, std::default_rand
 	}
 	//enemy dies after your attack
 	else if (this->getHp() <= 0) {
-		//sets isSlain bool to true
-		this->setIsSlain(true);
 		system("CLS");
 		std::cout << name << " has been slain!" << std::endl << std::endl;
 		system("PAUSE");
 		system("CLS");
+		//sets isSlain bool to true
+		isSlain = true;
 	}
 }
 

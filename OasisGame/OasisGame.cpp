@@ -98,6 +98,9 @@ int main() {
 
     //MAIN GAME: GENERATE MISC. VARIABLES
     int sentinel = 0;
+    int rand = 0;
+    std::default_random_engine engine{ static_cast<unsigned int>(time(0)) };
+    std::uniform_int_distribution<unsigned int> randomVilalgeMusic{ 1,3 };
 
     //MAIN GAME: START MENU LOOP
     
@@ -163,6 +166,19 @@ int main() {
     while (sentinel != 1) {
         //!FIXME: QUIT GAME FEATURE, ARE YOU SURE? RETURNS SENTINEL VALUE OF 1.
         //!FIXME: IF CHARACTER FALLS THEY CAN EITHER GO BACK TO THE LAST CHURCH OR QUIT GAME
+        //!FIXME: ADD IF STATEMENTS TO ADD MUSIC ACCORDINGLY TO VILLAGE OR WILDERNESS
+        if (gameMap.getCurrentMapNode()->getIsVillage() == true) {
+            rand = randomVilalgeMusic(engine);
+            if (rand == 1) {
+                PlaySound(MAKEINTRESOURCE(VILLAGE_MUSIC_1), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
+            }
+            else if (rand == 2) {
+                PlaySound(MAKEINTRESOURCE(VILLAGE_MUSIC_2), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
+            }
+            else if (rand == 3) {
+                PlaySound(MAKEINTRESOURCE(VILLAGE_MUSIC_3), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
+            }
+        }
         gameMap.execLocation(player);
     }
     
@@ -177,6 +193,7 @@ int main() {
 * CHECK DEFAULT CONSTRUCTORS, MAY NOT HAVE TO INITALIZE WEAPONS IN INVENTORY... THEY DEFUALT TO EMPTY!
 * GRAPHICS DISPLAY FOR ENTERING A NEW VILLAGE OR WILDERNESS
 * REVAMP BATTLE SEQUENCE TO LOOK MORE APPEALING, SEE IF YOU CAN ADD SOUND EFFECTS
+* ADD IN RUINS WHERE THE BOSSES ARE OR REALM GATES TO BRING PLAYERS TO NEW REALMS.
 * Fix documentation, make the game easier to understand with comments
 * Make the battle screen look nicer!!!
 * Change the name of focus stat of weapon class to better capture the essence of the stat (difficulty requries more focus, precision?)

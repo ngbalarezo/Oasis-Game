@@ -40,9 +40,9 @@ public:
 	mapNode(wilderness nodeWilderness);
 
 	//getters
-	village getNodeVillage();
+	village* getNodeVillage();
 
-	wilderness getNodeWilderness();
+	wilderness* getNodeWilderness();
 
 	bool getIsVillage();
 

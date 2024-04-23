@@ -277,7 +277,7 @@ int shop::displayBuyOptions(player& player) {
             break;
         case 7:
             system("CLS");
-            std::cout << "Dusty shelves beat angry Elves I suppose..." << std::endl;
+            std::cout << "Dusty shelves beat angry Elves I suppose..." << std::endl<<std::endl;
             sentinel = 1;
             break;
         default:

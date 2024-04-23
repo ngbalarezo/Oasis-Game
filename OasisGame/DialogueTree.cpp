@@ -41,6 +41,8 @@ void dialogueTree::printDialogue() {
 		std::cout << "Choice: ";
 		std::cin >> userChoice;
 		//if user chooses option 1
+		//!FIXME: ADD SHORT BRANCH CAPABILITIES
+		//!		  USING left index *2 -1^n somehow
 		if (userChoice == 1) {
 			index = (2 * index) + 1;
 		}
