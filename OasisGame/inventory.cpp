@@ -114,7 +114,7 @@ void playerInventory::display() {
 	std::cout << std::setw(15) << "Item Slot 2: " << std::setw(25) << itemSlot2.getName() << std::setw(15) << itemSlot2.getCoinValue() << std::setw(6) << itemSlot2.getWeight() << std::endl << std::endl;
 	std::cout << std::setw(15) << "Item Slot 3: " << std::setw(25) << itemSlot3.getName() << std::setw(15) << itemSlot3.getCoinValue() << std::setw(6) << itemSlot3.getWeight() << std::endl << std::endl;
 	std::cout << "================================================================" << std::endl << std::endl;
-
+	system("PAUSE");
 }
 
 void playerInventory::battleDisplay() {
