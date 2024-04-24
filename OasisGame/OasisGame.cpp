@@ -19,7 +19,7 @@
 
 //#pragma comment(lib, "winmm.lib")
 
-int main() {
+int main() { //!FIXME: HOW TO INCREASE PROGRAM STACK/HEAP SIZE IN VISUAL STUDIO, C++
     //MAIN GAME: GENERATE ITEMS
     //items
     item noItem;
