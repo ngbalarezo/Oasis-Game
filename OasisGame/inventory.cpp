@@ -58,7 +58,7 @@ std::string playerInventory::getArmorDefenseString() {
 	return "Def: " + std::to_string(armorSlot.getDef());
 }
 
-potion playerInventory::getPotion() { return potionSlot; }
+potion* playerInventory::getPotion() { return &potionSlot; }
 
 int playerInventory::getPotionCount() { return potionCount; }
 

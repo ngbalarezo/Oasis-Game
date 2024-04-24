@@ -381,9 +381,6 @@ int shop::checkBuyChoice(player& player, int& playerChoice) {
         }
         //if the slot is not empty
         else {
-            system("CLS");
-            std::cout << "Comin' right up!" << std::endl << std::endl;
-            system("PAUSE");
             //returns player choice
             return playerChoice;
         }
@@ -460,7 +457,8 @@ void shop::sellTo(player& player, int& playerChoice) {
         //replace players weapon with shop weapon of choice
         //ask player which item slot they would like to use to store item
         while (sentinel != 1) {
-            std::cout << "Choose an item slot to store this item." << std::endl;
+            system("CLS");
+            std::cout << "Great! Choose an item slot to store this item." << std::endl;
             std::cout << "[1] Item Slot 1" << std::endl;
             std::cout << "[2] Item Slot 2" << std::endl;
             std::cout << "[3] Item Slot 3" << std::endl;
@@ -518,14 +516,14 @@ int shop::displaySellChoices(player& player, int& playerChoice) {
     playerChoice = 0;
     //error-proofing while loop
     while ((playerChoice < 1) || (playerChoice > 7)) {
-        std::cout << "What would you like to sell?" << std::endl << std::endl;
+        std::cout << "What would you like to sell? You\'ve got " << player.getInventory()->getCointCount() << " coins right now." << std::endl << std::endl;
         std::cout << "================================================================" << std::endl << std::endl; //!FIXME: LEFT OFF HERE
         std::cout << "[1] " << std::setw(25) << player.getInventory()->getWeapon().getName();
         std::cout << "(" << player.getInventory()->getWeapon().getCoinValue() << " coins)" << std::endl;
         std::cout << "[2] " << std::setw(25) << player.getInventory()->getArmor().getName();
         std::cout << "(" << player.getInventory()->getArmor().getCoinValue() << " coins)" << std::endl;
         std::cout << "[3] " << std::setw(25) << player.getInventory()->getPotionDisplayString();
-        std::cout << "(" << player.getInventory()->getPotion().getCoinValue() << " coins)" << std::endl;
+        std::cout << "(" << player.getInventory()->getPotion()->getCoinValue() << " coins)" << std::endl;
         std::cout << "[4] " << std::setw(25) << player.getInventory()->getItemSlot1().getName();
         std::cout << "(" << player.getInventory()->getItemSlot1().getCoinValue() << " coins)" << std::endl;
         std::cout << "[5] " << std::setw(25) << player.getInventory()->getItemSlot2().getName();
@@ -593,7 +591,7 @@ int shop::checkSellChoice(player& player, int& playerChoice) {
     else if (playerChoice == 3) {
         //if the slot is empty
         //!FIXME: INSERT HOW MANY POTIONS YOU WANNA SELL? MENU!!!!!
-        if (player.getInventory()->getPotion().getName() == "empty") {
+        if (player.getInventory()->getPotion()->getName() == "empty") {
             system("CLS");
             player.getInventory()->display();
             std::cout << "This slot is empty!" << std::endl << std::endl;
@@ -685,7 +683,81 @@ int shop::checkSellChoice(player& player, int& playerChoice) {
 * 
 */
 void shop::buyFrom(player& player, int& playerChoice) {
-    //!FIXME: LEFT OFF HERE 04/23/2024 WRITE THIS AND YOU'RE DONE!!!
+    weapon noWeapon;
+    armor noArmor;
+    potion noPotion;
+    item noItem;
+
+    //player chooses to sell their weapon
+    if (playerChoice == 1) {
+        //increase player gold by weapon gold value
+        player.getInventory()->setCoinCount(player.getInventory()->getCointCount() + player.getInventory()->getWeapon().getCoinValue());
+        //set player inventory weapon to noWeapon
+        player.getInventory()->setWeapon(noWeapon);
+    }
+    //player chooses to sell their armor
+    else if (playerChoice == 2) {
+        //increase player gold by weapon gold value
+        player.getInventory()->setCoinCount(player.getInventory()->getCointCount() + player.getInventory()->getArmor().getCoinValue());
+        //set player inventory weapon to noWeapon
+        player.getInventory()->setArmor(noArmor);
+    }
+    //player chooses to sell their potion
+    else if (playerChoice == 3) {
+        //increase player gold by weapon gold value
+        player.getInventory()->setCoinCount(player.getInventory()->getCointCount() + player.getInventory()->getPotion()->getCoinValue());
+        //set player inventory weapon to noWeapon
+        player.getInventory()->setPotion(noPotion);
+    }
+    //player chooses to sell item 1
+    else if (playerChoice == 4) {
+        //if item 1 is a quest item
+        if (player.getInventory()->getItemSlot1().getIsQuestItem() == true) {
+            system("CLS");
+            std::cout << "You can't sell that! It is a quest item." << std::endl << std::endl;
+            system("PAUSE");
+        }
+        //if item 1 is not a quest item
+        else if (player.getInventory()->getItemSlot1().getIsQuestItem() == false) {
+            //increase player gold by weapon gold value
+            player.getInventory()->setCoinCount(player.getInventory()->getCointCount() + player.getInventory()->getItemSlot1().getCoinValue());
+            //set player inventory weapon to noWeapon
+            player.getInventory()->setItem1(noItem);
+        }
+    }
+    //player chooses to sell item 2
+    else if (playerChoice == 5) {
+        //if item 2 is a quest item
+        if (player.getInventory()->getItemSlot2().getIsQuestItem() == true) {
+            system("CLS");
+            std::cout << "You can't sell that! It is a quest item." << std::endl << std::endl;
+            system("PAUSE");
+        }
+        //if item 2 is not a quest item
+        else if (player.getInventory()->getItemSlot2().getIsQuestItem() == false) {
+            //increase player gold by weapon gold value
+            player.getInventory()->setCoinCount(player.getInventory()->getCointCount() + player.getInventory()->getItemSlot2().getCoinValue());
+            //set player inventory weapon to noWeapon
+            player.getInventory()->setItem2(noItem);
+        }
+    }
+    //player chooses to sell item 3
+    else if (playerChoice == 6) {
+        //if item 3 is a quest item
+        if (player.getInventory()->getItemSlot3().getIsQuestItem() == true) {
+            system("CLS");
+            std::cout << "You can't sell that! It is a quest item." << std::endl << std::endl;
+            system("PAUSE");
+        }
+        //if item 3 is not a quest item
+        else if (player.getInventory()->getItemSlot3().getIsQuestItem() == false) {
+            //increase player gold by weapon gold value
+            player.getInventory()->setCoinCount(player.getInventory()->getCointCount() + player.getInventory()->getItemSlot3().getCoinValue());
+            //set player inventory weapon to noWeapon
+            player.getInventory()->setItem3(noItem);
+        }
+    }
+
     //!FIXME: FIND ALL PLACES WHERE INVENTORY MENU IS PAUSED (I THINK I ALREADY DID THIS)...
     //!FIXME: ADD IN POTION FUNCTIONALITY NEXT
 }
@@ -745,7 +817,6 @@ void Church::churchWelcome(player& player) {
     else if (choice==2) {
         //!FIXME: ADD CONTENT
     }
-
 }
 
 void Church::pray(player& player) {

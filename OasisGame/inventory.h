@@ -50,7 +50,7 @@ public:
 
 	std::string getArmorDefenseString();
 
-	potion getPotion();
+	potion* getPotion();
 
 	int getPotionCount();
 
