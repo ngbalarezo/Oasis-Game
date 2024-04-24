@@ -8,175 +8,233 @@
 #include "items.h"
 #include "DialogueTree.h"
 
-
-
-
-
 /*
-//if current location is village
-if (currentMapNode->getIsVillage() == true) {
-	if (userChoice == 1) {
-		currentMapNode->getNodeVillage().getLocalShop().enterShop(player);
-	}
-	else if (userChoice == 2) {
-		currentMapNode->getNodeVillage().getLocalChurch().enterChurch();
-	}
-	else if (userChoice == 3) {
-		//!FIXME: ADD IN LOUNGE
-		//currentMapNode->getNodeVillage().getLocalLounge().enterLounge();
-	}
-}
-//if current location is wilderness
-else if (currentMapNode->getIsWilderness() == true) {
-	//if the wilderness location is a boss location
-	if (currentMapNode->getNodeWilderness().getIsBossBattleLocation() == true) {
-		//!FIXME: LEFT OFF HERE, ADD IN BOSS BATTLE FUNCTIONALITY
-	}
-	//if the wilderness location is not a boss location
-	else if (currentMapNode->getNodeWilderness().getIsBossBattleLocation() == false) {
-		if (userChoice == 1) {
-			currentMapNode->getNodeWilderness().getLocalNpc1().initiateDialogue();
-		}
-		else if (userChoice == 2) {
-			currentMapNode->getNodeWilderness().getLocalEnemy1().battle(player);
-		}
-		else if (userChoice == 3) {
-			currentMapNode->getNodeWilderness().getLocalEnemy2().battle(player);
-		}
-	}
-}
-//execute playerMenu
-if (userChoice == 4) {
-	//print player menu, returns 1 if user chooses to print menu
-	userChoice = playerMenu.print(player);
-	//display map if user chose this option
-	if (userChoice == 1) {
-		display();
-	}
-}
-//execute move location function
-else if (userChoice == 5) {
-	moveLocation(player);
-}
-*/
-//=================================
-/*
-//menu options
-void returnToOverworld() {
-    std::cout << "Returned to Overworld." << std::endl;
-}
-void enterBattle() {
-    std::cout << "Entered Battle." << std::endl;
-}
-void manageInventory() {
-    std::cout << "Inventory Opened." << std::endl;
-}
-void enterShop() {
-    std::cout << "Entered Shop." << std::endl;
-}
-void chat() {
-    std::cout << "You chat with an NPC." << std::endl;
-}
-void quitGame() {
-    std::cout << "Game Quit." << std::endl;
-}
-
-//main menu
-void menu() {
-    int userInput;
-    std::cout << "1. Return to Game" << std::endl;
-    std::cout << "2. Enter Battle" << std::endl;
-    std::cout << "3. Manage Inventory" << std::endl;
-    std::cout << "4. Enter Shop" << std::endl;
-    std::cout << "5. Talk to Someone" << std::endl;
-    std::cout << "6. Quit Game" << std::endl;
-
-    std::cin >> userInput;
-    switch (userInput) {
-    case 1:
-        returnToOverworld();
-        break;
-    case 2:
-        enterBattle();
-        break;
-    case 3:
-        manageInventory();
-        break;
-    case 4:
-        enterShop();
-        break;
-    case 5:
-        chat();
-        break;
-    case 6:
-        quitGame();
-        break;
-    default:
-        std::cout << "Not an option." << std::endl;
-    }
-}
-
-
-//LINKED LIST MAP GRID
-
-//declare temporary mapNode pointers
-mapNode* newNode;
-mapNode* newLeft;
-mapNode* newRight;
-mapNode* leftTemp = currentMapNode;
-mapNode* rightTemp = currentMapNode;
-//create start node
-newNode = new mapNode; //!FIXME: ADD START VILLAGE HERE IN CONSTRUCTOR 
-//set newNode to be start node
-startingMapNode = newNode;
-//for loop generates middle column of grid above starting location
-for (int i = 0; i < n; i++) {
-	//!FIXME: CONSIDER PREPROGRAMMING VILLAGE/WILDERNESS USING RANDOMIZER AND IF STATEMENTS, CONTAINING A
-	//!CALL FOR DIFFERENT CONSTRUCTOR BASED ON STATS -> 30%/70% village:wilderness constructor, using village and wilderness array
-	//create a new mapNode 
-	newNode = new mapNode;
-	//set current mapNode up to newNode
-	currentMapNode->setUpMapNode(newNode);
-	//current set to new upNode
-	currentMapNode = currentMapNode->getUpMapNode();
-}
-//set current back to first node above starting location
-currentMapNode = startingMapNode->getUpMapNode();
-
-//generate rows and row connections first, while there are still rows to be generated
-while (currentMapNode->getUpMapNode() != nullptr) {
-	//generate left and right sides of map using leftTemp and rightTemp pointers
-	for (int i = 0; i < (n / 2); ) {
-		//create new left and right node
-		newLeft = new mapNode;
-		newRight = new mapNode;
-		//set left and right mapNodes to newLeft and newRight respectively
-		leftTemp->setLeftMapNode(newLeft);
-		rightTemp->setRightMapNode(newRight);
-		//set newLeft and newRight left and right 
-		newLeft->setRightMapNode(leftTemp);
-		newRight->setLeftMapNode(rightTemp);
-		//move left temp left and right temp right
-		leftTemp = newLeft;
-		rightTemp = newRight;
-		//checks if the loop has reached corner
-		if (i = (n / 2) - 1) {
-			//stores cornerNode
-			cornerNode = leftTemp;
+//reset playerChoice so that error-proofing loop may begin
+	playerChoice = 0;
+	//error-proofing while loop
+	while ((playerChoice < 1) || (playerChoice > 7)) {
+		std::cout << "Which item would you like to drop?" << std::endl << std::endl;
+		std::cout << "================================================================" << std::endl << std::endl; //!FIXME: LEFT OFF HERE
+		std::cout << "[1] " << std::setw(25) << player.getInventory()->getWeapon().getName();
+		std::cout << "(" << player.getInventory()->getWeapon().getCoinValue() << " coins)" << std::endl;
+		std::cout << "[2] " << std::setw(25) << player.getInventory()->getArmor().getName();
+		std::cout << "(" << player.getInventory()->getArmor().getCoinValue() << " coins)" << std::endl;
+		std::cout << "[3] " << std::setw(25) << player.getInventory()->getPotionDisplayString();
+		std::cout << "(" << player.getInventory()->getPotion()->getCoinValue() << " coins)" << std::endl;
+		std::cout << "[4] " << std::setw(25) << player.getInventory()->getItemSlot1().getName();
+		std::cout << "(" << player.getInventory()->getItemSlot1().getCoinValue() << " coins)" << std::endl;
+		std::cout << "[5] " << std::setw(25) << player.getInventory()->getItemSlot2().getName();
+		std::cout << "(" << player.getInventory()->getItemSlot2().getCoinValue() << " coins)" << std::endl;
+		std::cout << "[6] " << std::setw(25) << player.getInventory()->getItemSlot3().getName();
+		std::cout << "(" << player.getInventory()->getItemSlot3().getCoinValue() << " coins)" << std::endl;
+		std::cout << "[7] Exit" << std::endl << std::endl;
+		std::cout << "Choice: ";
+		std::cin >> playerChoice;
+		//erroneous choice message
+		if ((playerChoice < 1) || (playerChoice > 7)) {
+			system("CLS");
+			std::cout << "This is not an option." << std::endl << std::endl;
+			system("PAUSE");
+			//reprint inventory drop options
+			display();
 		}
 	}
-	//set current to next up to generate next row
-	currentMapNode = currentMapNode->getUpMapNode();
-	//set right and left temp pointers to current
-	leftTemp = currentMapNode;
-	rightTemp = currentMapNode;
-}
-
-//generate up and down connections for all rows
-mapNode* prevRowCenter;
-
+	if (playerChoice != 7) {
+		//check drop choie to see if the slot is empty
+		playerChoice = checkDropChoice(player, playerChoice);
+		//dropItem if choice is valid
+		if (playerChoice > 0) {
+			dropItem(player, playerChoice);
+		}
+	}
 */
 
+/*
+//branch to check player choices and determine outcome
+	//if player chooses to drop their weapon
+	if (playerChoice == 1) {
+		//if the slot is empty
+		if (player.getInventory()->getWeapon().getName() == "empty") {
+			system("CLS");
+			player.getInventory()->display();
+			std::cout << "This slot is empty!" << std::endl << std::endl;
+			std::cout << "================================================================" << std::endl << std::endl;
+			system("PAUSE");
+			return 0;
+		}
+		//if the slot is not empty
+		else {
+			system("CLS");
+			std::cout << "The item has been removed from your inventory." << std::endl << std::endl;
+			system("PAUSE");
+			//returns player choice
+			return playerChoice;
+		}
+	}
+	//if player chooses to drop their armor
+	else if (playerChoice == 2) {
+		//if the slot is empty
+		if (player.getInventory()->getArmor().getName() == "empty") {
+			system("CLS");
+			player.getInventory()->display();
+			std::cout << "This slot is empty!" << std::endl << std::endl;
+			std::cout << "================================================================" << std::endl << std::endl;
+			system("PAUSE");
+			return 0;
+		}
+		//if the slot is not empty
+		else {
+			system("CLS");
+			std::cout << "The item has been removed from your inventory." << std::endl << std::endl;
+			system("PAUSE");
+			//returns player choice
+			return playerChoice;
+		}
+	}
+	//if player chooses to drop their potion(s)
+	else if (playerChoice == 3) {
+		//if the slot is empty
+		//!FIXME: INSERT HOW MANY POTIONS YOU WANNA SELL? MENU!!!!!
+		if (player.getInventory()->getPotion()->getName() == "empty") {
+			system("CLS");
+			player.getInventory()->display();
+			std::cout << "This slot is empty!" << std::endl << std::endl;
+			std::cout << "================================================================" << std::endl << std::endl;
+			system("PAUSE");
+			return 0;
+		}
+		//if the slot is not empty
+		else {
+			system("CLS");
+			std::cout << "The item has been removed from your inventory." << std::endl << std::endl;
+			system("PAUSE");
+			//returns player choice
+			return playerChoice;
+		}
+	}
+	//if player chooses to drop item 1
+	else if (playerChoice == 4) {
+		//if the slot is empty
+		if (player.getInventory()->getItemSlot1().getName() == "empty") {
+			system("CLS");
+			player.getInventory()->display();
+			std::cout << "This slot is empty!" << std::endl << std::endl;
+			std::cout << "================================================================" << std::endl << std::endl;
+			system("PAUSE");
+			return 0;
+		}
+		//if the slot is not empty
+		else {
+			system("CLS");
+			std::cout << "The item has been removed from your inventory." << std::endl << std::endl;
+			system("PAUSE");
+			//returns player choice
+			return playerChoice;
+		}
+	}
+	//if player chooses to drop item 2
+	else if (playerChoice == 5) {
+		//if the slot is empty
+		if (player.getInventory()->getItemSlot2().getName() == "empty") {
+			system("CLS");
+			player.getInventory()->display();
+			std::cout << "This slot is empty!" << std::endl << std::endl;
+			std::cout << "================================================================" << std::endl << std::endl;
+			system("PAUSE");
+			return 0;
+		}
+		//if the slot is not empty
+		else {
+			system("CLS");
+			std::cout << "The item has been removed from your inventory." << std::endl << std::endl;
+			system("PAUSE");
+			//returns player choice
+			return playerChoice;
+		}
+	}
+	//if player chooses to drop item 3
+	else if (playerChoice == 6) {
+		//if the slot is empty
+		if (player.getInventory()->getItemSlot3().getName() == "empty") {
+			system("CLS");
+			player.getInventory()->display();
+			std::cout << "This slot is empty!" << std::endl << std::endl;
+			std::cout << "================================================================" << std::endl << std::endl;
+			system("PAUSE");
+			return 0;
+		}
+		//if the slot is not empty
+		else {
+			system("CLS");
+			std::cout << "The item has been removed from your inventory." << std::endl << std::endl;
+			system("PAUSE");
+			//returns player choice
+			return playerChoice;
+		}
+	}
+*/
 
+/*
+weapon noWeapon;
+	armor noArmor;
+	potion noPotion;
+	item noItem;
 
-
+	//player chooses to drop their weapon
+	if (playerChoice == 1) {
+		//set player inventory weapon to noWeapon
+		player.getInventory()->setWeapon(noWeapon);
+	}
+	//player chooses to drop their armor
+	else if (playerChoice == 2) {
+		//set player inventory weapon to noWeapon
+		player.getInventory()->setArmor(noArmor);
+	}
+	//player chooses to drop their potion
+	else if (playerChoice == 3) {
+		//set player inventory weapon to noWeapon
+		player.getInventory()->setPotion(noPotion);
+	}
+	//player chooses to drop item 1
+	else if (playerChoice == 4) {
+		//if item 1 is a quest item
+		if (player.getInventory()->getItemSlot1().getIsQuestItem() == true) {
+			system("CLS");
+			std::cout << "You can't drop that! It is a quest item." << std::endl << std::endl;
+			system("PAUSE");
+		}
+		//if item 1 is not a quest item
+		else if (player.getInventory()->getItemSlot1().getIsQuestItem() == false) {
+			//set player inventory weapon to noWeapon
+			player.getInventory()->setItem1(noItem);
+		}
+	}
+	//player chooses to drop item 2
+	else if (playerChoice == 5) {
+		//if item 2 is a quest item
+		if (player.getInventory()->getItemSlot2().getIsQuestItem() == true) {
+			system("CLS");
+			std::cout << "You can't drop that! It is a quest item." << std::endl << std::endl;
+			system("PAUSE");
+		}
+		//if item 2 is not a quest item
+		else if (player.getInventory()->getItemSlot2().getIsQuestItem() == false) {
+			//set player inventory weapon to noWeapon
+			player.getInventory()->setItem2(noItem);
+		}
+	}
+	//player chooses to drop item 3
+	else if (playerChoice == 6) {
+		//if item 3 is a quest item
+		if (player.getInventory()->getItemSlot3().getIsQuestItem() == true) {
+			system("CLS");
+			std::cout << "You can't drop that! It is a quest item." << std::endl << std::endl;
+			system("PAUSE");
+		}
+		//if item 3 is not a quest item
+		else if (player.getInventory()->getItemSlot3().getIsQuestItem() == false) {
+			//set player inventory weapon to noWeapon
+			player.getInventory()->setItem3(noItem);
+		}
+	}
+*/

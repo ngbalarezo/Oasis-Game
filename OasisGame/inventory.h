@@ -83,13 +83,15 @@ public:
 
 	void battleDisplay();
 
-	int inventoryChoiceMenu(player& player, int& playerChoice);
+	void inventoryChoiceMenu();
 
-	int execInventoryChoice(player& player, int& playerChoice);
+	int execInventoryChoice(int& playerChoice);
 
-	void dropItemMenu(player& player, int& playerChoice);
+	void dropItemMenu();
 
-	void dropItem(player& player, int& playerChoice);
+	int checkDropChoice();
+
+	void dropItem();
 };
 
 #endif
