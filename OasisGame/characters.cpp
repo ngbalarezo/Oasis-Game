@@ -123,7 +123,7 @@ void player::usePotion() {
 		hp = fp + (inventory.getPotion()->getFocusValue());
 		//print heal message
 		system("CLS");
-		std::cout << "You drink a potion. How refreshing!" << std::endl << std::endl;
+		std::cout << "You drink a potion. How refreshing!" << std::endl << std::endl; //!FIXME: DISPLAY INCREASED STATS
 		system("PAUSE");
 		//subtract one from potion count
 		inventory.getPotion()->setPotionCount(inventory.getPotion()->getPotionCount() - 1);
