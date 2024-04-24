@@ -148,32 +148,39 @@ void npc::initiateDialogue() {
 	for (int i = 0; i < 5; i++) {
 		//print dialogue
 		system("CLS");
-		std::cout << dialogueVector[index][0] << std::endl << std::endl;
-		std::cout << "[1]" << dialogueVector[index][1] << std::endl;
-		std::cout << "[2]" << dialogueVector[index][2] << std::endl;
-		std::cout << "[3] Exit" << std::endl << std::endl;
-		//prompt user for choice
-		std::cout << "Choice: ";
-		std::cin >> userChoice;
-		//if user chooses option 1
-		if (userChoice == 1) {
-			index = (2 * index) + 1;
+		//if current quotation has two responses
+		if (i < 5) {
+			std::cout << dialogueVector[index][0] << std::endl << std::endl;
+			std::cout << "[1]" << dialogueVector[index][1] << std::endl;
+			std::cout << "[2]" << dialogueVector[index][2] << std::endl;
+			std::cout << "[3] Exit" << std::endl << std::endl;
+			//prompt user for choice
+			std::cout << "Choice: ";
+			std::cin >> userChoice;
+			//if user chooses option 1
+			if (userChoice == 1) {
+				index = (2 * index) + 1;
+			}
+			//if user chooses option 2
+			else if (userChoice == 2) {
+				index = (2 * index) + 2;
+			}
+			//if user chooses to exit dialogue
+			else if (userChoice == 3) {
+				//!FIXME: print randomized goodbye message
+				std::cout << "That's a funny way to treat a stranger. Goodbye." << std::endl;
+			}
+			//if user chooses an invalid option
+			else {
+				//print error message
+				std::cout << "This is not an option!";
+				//for loop is set back one loop if the user does not input a valid number
+				i--;
+			}
 		}
-		//if user chooses option 2
-		else if (userChoice == 2) {
-			index = (2 * index) + 2;
-		}
-		//if user chooses to exit dialogue
-		else if (userChoice == 3) {
-			//!FIXME: print randomized goodbye message
-			std::cout << "That's a funny way to treat a stranger. Goodbye." << std::endl;
-		}
-		//if user chooses an invalid option
-		else {
-			//print error message
-			std::cout << "This is not an option!";
-			//for loop is set back one loop if the user does not input a valid number
-			i--;
+		else if (i = 5) {
+			std::cout << dialogueVector[index][0] << std::endl << std::endl;
+			system("Pause");
 		}
 	}
 }
