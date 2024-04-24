@@ -95,8 +95,7 @@ void testMenu::print() {//!FIXME: change main menu options
 }
 
 void testMenu::testLoop(int initialChoice, player& player, map& testMap, playerMenu& testMenu, std::vector<std::vector<std::string>>& testShadowyManDialogue) {
-    dialogueTree testShadowyManDialogueTree(testShadowyManDialogue);
-    npc testShadowyMan("Shadowy man", testShadowyManDialogueTree);
+    npc testShadowyMan("Shadowy man", testShadowyManDialogue);
     PlaySound(MAKEINTRESOURCE(MISC_MUSIC_1), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
     //clear console
     system("CLS");
@@ -148,7 +147,7 @@ void testMenu::testLoop(int initialChoice, player& player, map& testMap, playerM
         }
         else if (userChoice == 5) { //NULL
             system("CLS");
-            testShadowyMan.getDialogueTree()->printDialogue();
+            testShadowyMan.initiateDialogue();
             std::cout << "null" << std::endl;
         }
         else if (userChoice == 6) {
