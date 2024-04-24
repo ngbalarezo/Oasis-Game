@@ -149,7 +149,7 @@ void npc::initiateDialogue() {
 		//print dialogue
 		system("CLS");
 		//if current quotation has two responses
-		if (i < 5) {
+		if (i < 4) {
 			std::cout << dialogueVector[index][0] << std::endl << std::endl;
 			std::cout << "[1]" << dialogueVector[index][1] << std::endl;
 			std::cout << "[2]" << dialogueVector[index][2] << std::endl;
@@ -178,7 +178,7 @@ void npc::initiateDialogue() {
 				i--;
 			}
 		}
-		else if (i = 5) {
+		else if (i == 4) {
 			std::cout << dialogueVector[index][0] << std::endl << std::endl;
 			system("Pause");
 		}
