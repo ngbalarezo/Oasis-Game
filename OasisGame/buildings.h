@@ -113,8 +113,6 @@ public:
 
     int checkSellChoice(player& player, int& playerChoice);
 
-    void execSellChoice();
-
     void buyFrom(player& player, int& playerChoice);
 
 };
