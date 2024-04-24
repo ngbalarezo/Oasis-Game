@@ -96,13 +96,15 @@ public:
 class npc : public character {
 private:
 	std::string npcName;
-	dialogueTree dialogue;
+	dialogueTree* dialogue;
 
 public:
 	//constructors
 	npc();
 
 	npc(std::string npcName);
+
+	npc(std::string npcName, dialogueTree& dialogue);
 
 	//getters
 	std::string getNpcName();

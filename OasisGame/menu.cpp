@@ -94,7 +94,9 @@ void testMenu::print() {//!FIXME: change main menu options
     //!FIXME: insert feature to choose option using cin and functions referencing other .h files
 }
 
-void testMenu::testLoop(int initialChoice, player& player, map& testMap, playerMenu& testMenu) {
+void testMenu::testLoop(int initialChoice, player& player, map& testMap, playerMenu& testMenu, std::vector<std::vector<std::string>>& testShadowyManDialogue) {
+    dialogueTree testShadowyManDialogueTree(testShadowyManDialogue);
+    npc testShadowyMan("Shadowy man", testShadowyManDialogueTree);
     PlaySound(MAKEINTRESOURCE(MISC_MUSIC_1), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
     //clear console
     system("CLS");
@@ -146,8 +148,7 @@ void testMenu::testLoop(int initialChoice, player& player, map& testMap, playerM
         }
         else if (userChoice == 5) { //NULL
             system("CLS");
-            //npc shopKeeper;
-            //shopKeeper.getDialogueTree()->initiateDialogue();
+            testShadowyMan.getDialogueTree()->printDialogue();
             std::cout << "null" << std::endl;
         }
         else if (userChoice == 6) {

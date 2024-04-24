@@ -31,12 +31,14 @@ void dialogueTree::printDialogue() {
 	int userChoice;
 	int index = 0;
 	//for loop iterates number of levels for possible responses
-	for (int i = 0; i < 4; i++) {
+	//!FIXME: IMPLEMENT TREE LEVEL ALGORITHM
+	for (int i = 0; i < 5; i++) {
 		//print dialogue
-		std::cout << dialogueVector[index][0] << std::endl;
+		system("CLS");
+		std::cout << dialogueVector[index][0] << std::endl << std::endl;
 		std::cout << "[1]" << dialogueVector[index][1] << std::endl;
 		std::cout << "[2]" << dialogueVector[index][2] << std::endl;
-		std::cout << "[3] Exit" << std::endl;
+		std::cout << "[3] Exit" << std::endl << std::endl;
 		//prompt user for choice
 		std::cout << "Choice: ";
 		std::cin >> userChoice;

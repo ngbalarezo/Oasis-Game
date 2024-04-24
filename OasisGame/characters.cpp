@@ -123,10 +123,15 @@ npc::npc(std::string npcName) {
 	this->npcName = npcName;
 }
 
+npc::npc(std::string npcName, dialogueTree& dialogue) {
+	this->npcName = npcName;
+	this->dialogue = &dialogue;
+}
+
 //getters
 std::string npc::getNpcName() { return npcName; }
 
-dialogueTree* npc::getDialogueTree() { return &dialogue; }
+dialogueTree* npc::getDialogueTree() { return dialogue; }
 
 //setters
 void npc::setNpcName(std::string npcName) { this->npcName = npcName; }
