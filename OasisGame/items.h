@@ -109,6 +109,7 @@ public:
 class potion {
 private:
 	std::string potionName;
+	int potionCount;
 	int healValue;
 	int staminaValue;
 	int focusValue;
@@ -118,13 +119,15 @@ public:
 	//constructors
 	potion();
 
-	potion(std::string potionName, int healValue, int staminaValue, int focusValue, int coinValue);
+	potion(std::string potionName, int potionCount, int healValue, int staminaValue, int focusValue, int coinValue);
 
 	//destructor
 	~potion() = default;
 
 	//getters
 	std::string getName();
+
+	int getPotionCount();
 	
 	int getHealValue();
 
@@ -137,6 +140,8 @@ public:
 
 	//setters
 	void setName(std::string potionName);
+
+	void setPotionCount(int potionCount);
 
 	void setHealValue(int healValue);
 

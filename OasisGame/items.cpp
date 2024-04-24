@@ -127,14 +127,16 @@ void armor::setDef(int def) { this->def = def; }
 //constructor
 potion::potion() {
 	potionName = "empty";
+	potionCount = 0;
 	healValue = 0;
 	staminaValue = 0;
 	focusValue = 0;
 	coinValue = 0;
 }
 
-potion::potion(std::string potionName, int healValue, int staminaValue, int focusValue, int coinValue) {
+potion::potion(std::string potionName, int potionCount, int healValue, int staminaValue, int focusValue, int coinValue) {
 	this->potionName = potionName;
+	this->potionCount = potionCount;
 	this->healValue = healValue;
 	this->staminaValue = staminaValue;
 	this->focusValue = focusValue;
@@ -143,6 +145,8 @@ potion::potion(std::string potionName, int healValue, int staminaValue, int focu
 
 //getters
 std::string potion::getName() { return potionName; }
+
+int potion::getPotionCount() { return potionCount; }
 
 int potion::getHealValue() { return healValue; }
 
@@ -154,6 +158,8 @@ int potion::getCoinValue() { return coinValue; }
 
 //setters
 void potion::setName(std::string potionName) { this->potionName = potionName; }
+
+void potion::setPotionCount(int potionCount) { this->potionCount = potionCount; }
 
 void potion::setHealValue(int healValue) { this->healValue = healValue; }
 

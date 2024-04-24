@@ -27,18 +27,16 @@ playerInventory::playerInventory() {
 	weaponSlot = noWeapon;
 	armorSlot = noArmor;
 	potionSlot = noPotion;
-	potionCount = 0;
 	itemSlot1 = noItem;
 	itemSlot2 = noItem;
 	itemSlot3 = noItem;
 	coinCount = 0;
 }
 
-playerInventory::playerInventory(weapon weaponSlot, armor armorSlot, potion potionSlot, int potionCount, item itemSlot1, item itemSlot2, item itemSlot3, int coinCount) {
+playerInventory::playerInventory(weapon weaponSlot, armor armorSlot, potion potionSlot, item itemSlot1, item itemSlot2, item itemSlot3, int coinCount) {
 	this->weaponSlot = weaponSlot;
 	this->armorSlot = armorSlot;
 	this->potionSlot = potionSlot;
-	this->potionCount = potionCount;
 	this->itemSlot1 = itemSlot1;
 	this->itemSlot2 = itemSlot2;
 	this->itemSlot3 = itemSlot3;
@@ -60,10 +58,16 @@ std::string playerInventory::getArmorDefenseString() {
 
 potion* playerInventory::getPotion() { return &potionSlot; }
 
-int playerInventory::getPotionCount() { return potionCount; }
-
 std::string playerInventory::getPotionDisplayString() { 
-	return potionSlot.getName() + " x" + std::to_string(potionCount);
+	//return only potion name if the potionSlot is empty
+	if (potionSlot.getPotionCount() == 0) {
+		//will return "empty"
+		return potionSlot.getName(); //!FIXME: MAKE SURE THAT IF POTION COUNT IS 0 THEN NAME CHANGES TO EMPTY/NOPOTION BECOMES POTIONSLOT
+	}
+	//return 
+	else if (potionSlot.getPotionCount() > 0) {
+		return potionSlot.getName() + " x" + std::to_string(potionSlot.getPotionCount());
+	}
 }
 
 std::string playerInventory::getPotionStatString() {
@@ -84,8 +88,6 @@ void playerInventory::setWeapon(weapon &weaponSlot) { this->weaponSlot = weaponS
 void playerInventory::setArmor(armor &armorSlot) { this->armorSlot = armorSlot; }
 
 void playerInventory::setPotion(potion &potionSlot) { this->potionSlot = potionSlot; }
-
-void playerInventory::setPotionCount(int potionCount) { this->potionCount = potionCount; }
 
 void playerInventory::setItem1(item &itemSlot1) { this->itemSlot1 = itemSlot1; }
 

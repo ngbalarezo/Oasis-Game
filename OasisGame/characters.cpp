@@ -108,8 +108,33 @@ void player::printStats() {
 	std::cout << "====================" << std::endl << std::endl;
 }
 
-void player::accessPlayerMenu(){
-	
+void player::usePotion() {
+	//check if player potion slot is empty
+	if (inventory.getPotion()->getPotionCount() == 0) {
+		system("CLS");
+		std::cout << "You have no potions to use!" << std::endl << std::endl;
+		system("PAUSE");
+	}
+	//if player potion slot is not empty
+	else if (inventory.getPotion()->getPotionCount() > 0) {
+		//heal all player stats
+		hp = hp + (inventory.getPotion()->getHealValue());
+		sp = sp + (inventory.getPotion()->getStaminaValue());
+		hp = fp + (inventory.getPotion()->getFocusValue());
+		//print heal message
+		system("CLS");
+		std::cout << "You drink a potion. How refreshing!" << std::endl << std::endl;
+		system("PAUSE");
+		//subtract one from potion count
+		inventory.getPotion()->setPotionCount(inventory.getPotion()->getPotionCount() - 1);
+	}
+	//check if potion count is zero
+	if (inventory.getPotion()->getPotionCount() == 0) {
+		//create an empty potionItem to replace potionSlot
+		potion noPotion;
+		//set potionSlot to noPotion empty slot item
+		inventory.setPotion(noPotion);
+	}
 }
 
 //NPC CLASS DEFINITIONS

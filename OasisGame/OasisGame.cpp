@@ -42,7 +42,7 @@ int main() {
     armor ARMOR_REALM1[10] = {};
     //potions
     potion noPotion;
-    potion smallHealPotion("Small Heal Potion", 50, 0, 0, 100);
+    potion smallHealPotion("Small Heal Potion", 5, 50, 0, 0, 100);
     potion POTION[10] = {};
 
     //MAIN GAME: GENERATE DIALOGUES
@@ -128,7 +128,7 @@ int main() {
         else if (userChoice == 3) {
             //generate test menu and test player
             testMenu test;
-            playerInventory testInventory(strongTestWeapon, noArmor, noPotion, 0, noItem, noItem, noItem, 10000);
+            playerInventory testInventory(strongTestWeapon, noArmor, noPotion, noItem, noItem, noItem, 10000);
             player testPlayer("Dev", testInventory);
             map testMap(8);
             testMap.generateMap(WILDERNESS_REALM1, VILLAGES_REALM1, testPlayer);
@@ -152,7 +152,7 @@ int main() {
     std::string playerName = startScreen.promptPlayerName();
 
     //MAIN GAME: GENERATE PLAYER AND INVENTORY
-    playerInventory playerInventory(strongTestWeapon, noArmor, noPotion, 0, noItem, noItem, noItem, 100); //!FIXME: REMOVE STRONG TEST WEAPON FOR FINAL PRODUCT
+    playerInventory playerInventory(strongTestWeapon, noArmor, noPotion, noItem, noItem, noItem, 100); //!FIXME: REMOVE STRONG TEST WEAPON FOR FINAL PRODUCT
     player player(playerName, playerInventory);
 
     //MAIN GAME: GENERATE MAP

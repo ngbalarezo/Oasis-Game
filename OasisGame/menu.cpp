@@ -109,7 +109,7 @@ void testMenu::testLoop(int initialChoice, player& player, map& testMap, playerM
     weapon woodenSword("Wooden Sword", 150, 5, false, 2000, 1);
     weapon woodenAxe("Wooden Axe", 200, 5, false, 15, 1);
     armor chainmailArmor("Chainmail", 300, 25, false, 15);
-    potion smallHealPotion("Small Heal Potion", 50, 0, 0, 100);
+    potion smallHealPotion("Small Heal Potion", 5, 50, 0, 0, 100);
     item ruby("Ruby", 300, 0, false);
     shop testShop("Test Shop", "test shop", testNpc, woodenSword, woodenAxe, chainmailArmor, smallHealPotion, ruby);
 
