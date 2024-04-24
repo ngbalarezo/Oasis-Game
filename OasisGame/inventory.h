@@ -3,7 +3,11 @@
 #define INVENTORY_H
 
 #include <iostream>
+#include <array>
+#include <vector>
 #include <string>
+#include <windows.h>
+#include <stdlib.h>
 #include "menu.h"
 #include "map.h"
 #include "locations.h"
@@ -12,6 +16,7 @@
 #include "inventory.h"
 #include "items.h"
 #include "DialogueTree.h"
+#include "resource.h"
 
 class inventory {
 protected:
@@ -87,11 +92,11 @@ public:
 
 	int execInventoryChoice(int& playerChoice);
 
-	void dropItemMenu();
+	void dropItemMenu(int& playerChoice);
 
-	int checkDropChoice();
+	int checkDropChoice(int& playerChoice);
 
-	void dropItem();
+	void dropItem(int& playerChoice);
 };
 
 #endif

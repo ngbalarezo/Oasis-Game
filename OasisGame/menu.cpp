@@ -52,8 +52,7 @@ int playerMenu::print(player& player) {
         std::cin >> sentinel;
         if (sentinel == 1) {
             system("CLS");
-            player.getInventory()->display();
-            system("PAUSE");
+            player.getInventory()->inventoryChoiceMenu();
             return 0;
         }
         else if (sentinel == 2) {

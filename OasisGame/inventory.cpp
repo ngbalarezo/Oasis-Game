@@ -137,17 +137,17 @@ void playerInventory::battleDisplay() {
 
 void playerInventory::inventoryChoiceMenu() {
 	int playerChoice = 0;
-	while ((playerChoice < 1) || (playerChoice > 3)) {
-		int playerChoice;
+	while ((playerChoice < 1) || (playerChoice > 2)) {
+		system("CLS");
+		display();
 		//print and reprint inventory choices
 		std::cout << "Would you like to do anything with your items?" << std::endl << std::endl;
 		std::cout << "================================================================" << std::endl << std::endl;
 		std::cout << "[1] Drop Item" << std::endl;
-		std::cout << "[2] Use Potion" << std::endl;
-		std::cout << "[3] Exit" << std::endl << std::endl;
+		std::cout << "[2] Exit" << std::endl << std::endl;
 		std::cin >> playerChoice;
 		//erroneous choice message
-		if ((playerChoice < 1) || (playerChoice > 3)) {
+		if ((playerChoice < 1) || (playerChoice > 2)) {
 			system("CLS");
 			std::cout << "This is not an option." << std::endl << std::endl;
 			system("PAUSE");
@@ -164,31 +164,263 @@ int playerInventory::execInventoryChoice(int& playerChoice) {
 	//if player chooses to drop an item
 	if (playerChoice == 1) {
 		display();
-		//dropItemMenu(player, playerChoice);
+		dropItemMenu(playerChoice);
 		return -1;
 	}
-	//if player chooses to 
+	////if player chooses to use a potion !FIXME: THIS IS BROKEN FOR SOME REASON AND I DON'T KNOW HOW TO FIX THIS!!! 
+	
+	//!FIXME:LEFT OFF HERE/STAT MENU 04/24, 7:13PM
+	//!FIXME: CONSIDER MOVING THINGS INTO PLAYER MENU AND PASSING THIS AS A CLASS OBJECT TO STORE ALL MENU MANIPULATIONS AS POINTERS, player* player gets updated accordingly...
+	
+	//else if (playerChoice == 2) {
+	//	//player.usePotion();
+	//	//return -1 to continue main loop inventoryChoiceMenu loop
+	//	return -1;
+	//}
+	//if u player chooses to exit
 	else if (playerChoice == 2) {
-		//player.usePotion();
-		//return -1 to continue main loop inventoryChoiceMenu loop
-		return -1;
-	}
-	else if (playerChoice == 3) {
 		//return 1 to quit inventory main loop inventoryChoiceMenu loop
 		return 1;
 	}
 }
 
-void playerInventory::dropItemMenu() {
-	
+void playerInventory::dropItemMenu(int& playerChoice) {
+	//reset playerChoice so that error-proofing loop may begin
+	playerChoice = 0;
+	//error-proofing while loop
+	while ((playerChoice < 1) || (playerChoice > 7)) {
+		system("CLS");
+		display();
+		std::cout << "Which item would you like to drop?" << std::endl << std::endl;
+		std::cout << "================================================================" << std::endl << std::endl; //!FIXME: LEFT OFF HERE
+		std::cout << "[1] " << std::setw(25) << getWeapon().getName();
+		std::cout << "(" << getWeapon().getCoinValue() << " coins)" << std::endl;
+		std::cout << "[2] " << std::setw(25) << getArmor().getName();
+		std::cout << "(" << getArmor().getCoinValue() << " coins)" << std::endl;
+		std::cout << "[3] " << std::setw(25) << getPotionDisplayString();
+		std::cout << "(" << getPotion()->getCoinValue() << " coins)" << std::endl;
+		std::cout << "[4] " << std::setw(25) << getItemSlot1().getName();
+		std::cout << "(" << getItemSlot1().getCoinValue() << " coins)" << std::endl;
+		std::cout << "[5] " << std::setw(25) << getItemSlot2().getName();
+		std::cout << "(" << getItemSlot2().getCoinValue() << " coins)" << std::endl;
+		std::cout << "[6] " << std::setw(25) << getItemSlot3().getName();
+		std::cout << "(" << getItemSlot3().getCoinValue() << " coins)" << std::endl;
+		std::cout << "[7] Exit" << std::endl << std::endl;
+		std::cout << "Choice: ";
+		std::cin >> playerChoice;
+		//erroneous choice message
+		if ((playerChoice < 1) || (playerChoice > 7)) {
+			system("CLS");
+			std::cout << "This is not an option." << std::endl << std::endl;
+			system("PAUSE");
+			//reprint inventory drop options
+			display();
+		}
+		//if player choice is not erroneous
+		else {
+			//if player does not choose to exit, otherwise loop will end
+			if (playerChoice != 7) {
+				//check drop choie to see if the slot is empty
+				playerChoice = checkDropChoice(playerChoice);
+				//dropItem if choice is valid
+				if (playerChoice > 0) {
+					dropItem(playerChoice);
+					//continues loop and maintains drop menu until player decides to exit
+					playerChoice = -1;
+				}
+			}
+		}
+	}
 }
 
-int playerInventory::checkDropChoice() {
-	return 0;
+int playerInventory::checkDropChoice(int& playerChoice) {
+	//branch to check player choices and determine outcome
+	//if player chooses to drop their weapon
+	if (playerChoice == 1) {
+		//if the slot is empty
+		if (getWeapon().getName() == "empty") {
+			system("CLS");
+			display();
+			std::cout << "This slot is empty!" << std::endl << std::endl;
+			std::cout << "================================================================" << std::endl << std::endl;
+			system("PAUSE");
+			return 0;
+		}
+		//if the slot is not empty
+		else {
+			system("CLS");
+			std::cout << "The item has been removed from your inventory." << std::endl << std::endl;
+			system("PAUSE");
+			//returns player choice
+			return playerChoice;
+		}
+	}
+	//if player chooses to drop their armor
+	else if (playerChoice == 2) {
+		//if the slot is empty
+		if (getArmor().getName() == "empty") {
+			system("CLS");
+			display();
+			std::cout << "This slot is empty!" << std::endl << std::endl;
+			std::cout << "================================================================" << std::endl << std::endl;
+			system("PAUSE");
+			return 0;
+		}
+		//if the slot is not empty
+		else {
+			system("CLS");
+			std::cout << "The item has been removed from your inventory." << std::endl << std::endl;
+			system("PAUSE");
+			//returns player choice
+			return playerChoice;
+		}
+	}
+	//if player chooses to drop their potion(s)
+	else if (playerChoice == 3) {
+		//if the slot is empty
+		//!FIXME: INSERT HOW MANY POTIONS YOU WANNA SELL? MENU!!!!!
+		if (getPotion()->getName() == "empty") {
+			system("CLS");
+			display();
+			std::cout << "This slot is empty!" << std::endl << std::endl;
+			std::cout << "================================================================" << std::endl << std::endl;
+			system("PAUSE");
+			return 0;
+		}
+		//if the slot is not empty
+		else {
+			system("CLS");
+			std::cout << "The item has been removed from your inventory." << std::endl << std::endl;
+			system("PAUSE");
+			//returns player choice
+			return playerChoice;
+		}
+	}
+	//if player chooses to drop item 1
+	else if (playerChoice == 4) {
+		//if the slot is empty
+		if (getItemSlot1().getName() == "empty") {
+			system("CLS");
+			display();
+			std::cout << "This slot is empty!" << std::endl << std::endl;
+			std::cout << "================================================================" << std::endl << std::endl;
+			system("PAUSE");
+			return 0;
+		}
+		//if the slot is not empty
+		else {
+			system("CLS");
+			std::cout << "The item has been removed from your inventory." << std::endl << std::endl;
+			system("PAUSE");
+			//returns player choice
+			return playerChoice;
+		}
+	}
+	//if player chooses to drop item 2
+	else if (playerChoice == 5) {
+		//if the slot is empty
+		if (getItemSlot2().getName() == "empty") {
+			system("CLS");
+			display();
+			std::cout << "This slot is empty!" << std::endl << std::endl;
+			std::cout << "================================================================" << std::endl << std::endl;
+			system("PAUSE");
+			return 0;
+		}
+		//if the slot is not empty
+		else {
+			system("CLS");
+			std::cout << "The item has been removed from your inventory." << std::endl << std::endl;
+			system("PAUSE");
+			//returns player choice
+			return playerChoice;
+		}
+	}
+	//if player chooses to drop item 3
+	else if (playerChoice == 6) {
+		//if the slot is empty
+		if (getItemSlot3().getName() == "empty") {
+			system("CLS");
+			display();
+			std::cout << "This slot is empty!" << std::endl << std::endl;
+			std::cout << "================================================================" << std::endl << std::endl;
+			system("PAUSE");
+			return 0;
+		}
+		//if the slot is not empty
+		else {
+			system("CLS");
+			std::cout << "The item has been removed from your inventory." << std::endl << std::endl;
+			system("PAUSE");
+			//returns player choice
+			return playerChoice;
+		}
+	}
 }
 
-void playerInventory::dropItem() {
-	
+void playerInventory::dropItem(int& playerChoice) {
+	weapon noWeapon;
+	armor noArmor;
+	potion noPotion;
+	item noItem;
+
+	//player chooses to drop their weapon
+	if (playerChoice == 1) {
+		//set player inventory weapon to noWeapon
+		setWeapon(noWeapon);
+	}
+	//player chooses to drop their armor
+	else if (playerChoice == 2) {
+		//set player inventory weapon to noWeapon
+		setArmor(noArmor);
+	}
+	//player chooses to drop their potion
+	else if (playerChoice == 3) {
+		//set player inventory weapon to noWeapon
+		setPotion(noPotion);
+	}
+	//player chooses to drop item 1
+	else if (playerChoice == 4) {
+		//if item 1 is a quest item
+		if (getItemSlot1().getIsQuestItem() == true) {
+			system("CLS");
+			std::cout << "You can't drop that! It is a quest item." << std::endl << std::endl;
+			system("PAUSE");
+		}
+		//if item 1 is not a quest item
+		else if (getItemSlot1().getIsQuestItem() == false) {
+			//set player inventory weapon to noWeapon
+			setItem1(noItem);
+		}
+	}
+	//player chooses to drop item 2
+	else if (playerChoice == 5) {
+		//if item 2 is a quest item
+		if (getItemSlot2().getIsQuestItem() == true) {
+			system("CLS");
+			std::cout << "You can't drop that! It is a quest item." << std::endl << std::endl;
+			system("PAUSE");
+		}
+		//if item 2 is not a quest item
+		else if (getItemSlot2().getIsQuestItem() == false) {
+			//set player inventory weapon to noWeapon
+			setItem2(noItem);
+		}
+	}
+	//player chooses to drop item 3
+	else if (playerChoice == 6) {
+		//if item 3 is a quest item
+		if (getItemSlot3().getIsQuestItem() == true) {
+			system("CLS");
+			std::cout << "You can't drop that! It is a quest item." << std::endl << std::endl;
+			system("PAUSE");
+		}
+		//if item 3 is not a quest item
+		else if (getItemSlot3().getIsQuestItem() == false) {
+			//set player inventory weapon to noWeapon
+			setItem3(noItem);
+		}
+	}
 }
 
 //!FIXME: add in return type, choice menu, etc, seperate function?
