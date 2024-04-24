@@ -93,21 +93,25 @@ public:
     //initial menus below
     int execShopLobbyMenu(player& player, int& playerChoice);
 
-    void execShopMenu(player& player, int& playerChoice);
+    void execShopExchangeMenu(player& player, int& playerChoice);
 
     //buy menu methods below
-    void execBuyMenu(player& player, int& playerChoice);
+    int execBuyMenu(player& player, int& playerChoice);
 
     void displayShopItems();
 
-    int execBuyChoiceMenu(player& player, int& playerChoice);
+    int displayBuyChoices(player& player, int& playerChoice);
 
-    int checkChoice(player& player, int& playerChoice);
+    int checkBuyChoice(player& player, int& playerChoice);
 
     void sellTo(player& player, int& playerChoice);
 
     //sell menu methods below
-    void execSellMenu(); 
+    int execSellMenu(player& player, int& playerChoice);
+
+    int displaySellChoices(player& player, int& playerChoice);
+
+    int checkSellChoice(player& player, int& playerChoice);
 
     void execSellChoice();
 

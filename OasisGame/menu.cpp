@@ -53,6 +53,7 @@ int playerMenu::print(player& player) {
         if (sentinel == 1) {
             system("CLS");
             player.getInventory()->display();
+            system("PAUSE");
             return 0;
         }
         else if (sentinel == 2) {
