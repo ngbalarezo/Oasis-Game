@@ -227,7 +227,7 @@ void map::execLocation(player& player) {
 	int userChoice = 0;
 	int sentinel = 0;
 	int mapDisplayChoice = 0;
-	playerMenu playerMenu;
+	mapPlayerMenu mapPlayerMenu;
 	//while loop to keep you in current location until you decide to leave
 	while (sentinel != 1) {
 		//display menu
@@ -240,7 +240,7 @@ void map::execLocation(player& player) {
 		if (userChoice == 4) {
 			//uses userChoice to display map if user chooses map
 			while (mapDisplayChoice != 2) {
-				mapDisplayChoice = playerMenu.print(player);
+				mapDisplayChoice = mapPlayerMenu.print(player);
 				if (mapDisplayChoice == 1) {
 					display();
 				}
@@ -249,8 +249,7 @@ void map::execLocation(player& player) {
 		}
 		//check if user chooses to leave the current location
 		else if (userChoice == 5) {
-			moveLocation(player);
-			sentinel = 1;
+			sentinel = moveLocation(player);
 		}
 	}
 	//set start node to wasVisited so starting village message remains until user leaves the village.
@@ -468,7 +467,7 @@ int map::execChoice(int& userChoice, player& player) {
 //!FIXME: ERROR PROOF CHURCH AND ADD NEW FUNCTION(S)
 
 //Moves player to a new node in the map. Player can travel North, East, South, and West
-void map::moveLocation(player& player) {
+int map::moveLocation(player& player) {
 	//declare variables
 	int userChoice;
 	int sentinel = 0;
@@ -499,6 +498,8 @@ void map::moveLocation(player& player) {
 				currentMapNode = &mapGrid[newY][x];
 				player.setCoordinateY(newY);
 				sentinel = 1;
+				//return 1 to signify that user actually moved location
+				return 1;
 			}
 			//if up movement does walk off map
 			else if (newY < 0) {
@@ -516,6 +517,8 @@ void map::moveLocation(player& player) {
 				currentMapNode = &mapGrid[y][newX];
 				player.setCoordinateX(newX);
 				sentinel = 1;
+				//return 1 to signify that user actually moved location
+				return 1;
 			}
 			//if up movement does walk off map
 			else if (newX < 0) {
@@ -532,6 +535,8 @@ void map::moveLocation(player& player) {
 				currentMapNode = &mapGrid[newY][x];
 				player.setCoordinateY(newY);
 				sentinel = 1;
+				//return 1 to signify that user actually moved location
+				return 1;
 			}
 			//if up movement does walk off map
 			else if (newY > (gridSize - 1)) {
@@ -548,6 +553,8 @@ void map::moveLocation(player& player) {
 				currentMapNode = &mapGrid[y][newX];
 				player.setCoordinateX(newX);
 				sentinel = 1;
+				//return 1 to signify that user actually moved location
+				return 1;
 			}
 			//if up movement does walk off map
 			else if (newX > (gridSize - 1)) {
@@ -558,10 +565,9 @@ void map::moveLocation(player& player) {
 		}
 		//exit menu
 		else if (userChoice == 5) {
-			system("CLS");
-			std::cout << "GOODBYE." << std::endl << std::endl;
-			system("PAUSE");
 			sentinel = 1;
+			//return 0 so loop outer loop of execLocation doesn't break
+			return 0;
 		}
 		else {
 			system("CLS");

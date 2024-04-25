@@ -96,6 +96,7 @@ void player::setCoordinateY(int coordinateY) { this->coordinateY = coordinateY; 
 
 //methods
 void player::printStats() {
+	system("CLS");
 	std::cout << name << "\'s Stats: " << std::endl;
 	std::cout << "====================" << std::endl;
 	std::cout << "HP: " << hp << std::endl;
@@ -106,6 +107,7 @@ void player::printStats() {
 	std::cout << "Weight: " << weight << std::endl;
 	std::cout << "Coin: " << inventory.getCointCount() << std::endl;
 	std::cout << "====================" << std::endl << std::endl;
+	system("PAUSE");
 }
 
 void player::usePotion() {
