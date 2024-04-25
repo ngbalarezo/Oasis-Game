@@ -1,6 +1,10 @@
 #include <iostream>
-#include <iomanip>
-#include <random>
+#include <array>
+#include <vector>
+#include <string>
+#include <cmath>
+#include <windows.h>
+#include <stdlib.h>
 #include "menu.h"
 #include "map.h"
 #include "locations.h"
@@ -9,6 +13,7 @@
 #include "inventory.h"
 #include "items.h"
 #include "DialogueTree.h"
+#include "resource.h"
 
 //CHARACTER CLASS DEFINITIONS
 
@@ -143,13 +148,15 @@ void npc::initiateDialogue() {
 	//declare variables
 	int userChoice;
 	int index = 0;
+	//determine levels in dialogue
+	int dialogueLevels = (log2(dialogueVector.size() + 1));
 	//for loop iterates number of levels for possible responses
 	//!FIXME: IMPLEMENT TREE LEVEL ALGORITHM
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < dialogueLevels; i++) {
 		//print dialogue
 		system("CLS");
 		//if current quotation has two responses
-		if (i < 4) {
+		if (i < (dialogueLevels - 1)) {
 			std::cout << dialogueVector[index][0] << std::endl << std::endl;
 			std::cout << "[1]" << dialogueVector[index][1] << std::endl;
 			std::cout << "[2]" << dialogueVector[index][2] << std::endl;
@@ -178,7 +185,7 @@ void npc::initiateDialogue() {
 				i--;
 			}
 		}
-		else if (i == 4) {
+		else if (i == (dialogueLevels - 1)) {
 			std::cout << dialogueVector[index][0] << std::endl << std::endl;
 			system("Pause");
 		}

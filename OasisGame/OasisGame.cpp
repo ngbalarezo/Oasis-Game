@@ -5,6 +5,7 @@
 #include <array>
 #include <vector>
 #include <string>
+#include <cmath>
 #include <windows.h>
 #include <stdlib.h>
 #include "menu.h"
