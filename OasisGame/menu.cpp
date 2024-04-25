@@ -40,6 +40,7 @@ std::string startMenu::promptPlayerName() {
 void playerMenu::print(player& player, map& currentMap) {
     int playerChoice = 0;
     int sentinel = 0;
+    int potionUse = 0;
     while (sentinel != 1) {
         system("CLS");
         std::cout << "==============================" << std::endl;
@@ -52,7 +53,16 @@ void playerMenu::print(player& player, map& currentMap) {
         std::cout << "Choice: ";
         std::cin >> playerChoice;
         if (playerChoice == 1) {
-            player.getInventory()->inventoryChoiceMenu();
+            while (potionUse != 2) {
+                system("CLS");
+                //sets potion use to 1 or 2 depending on if the user chooses to use a potion or exit the menu respectively
+                potionUse = player.getInventory()->inventoryChoiceMenu();
+                //if potionUse returns as 1 then user uses a potion
+                if (potionUse == 1) {
+                    player.usePotion();
+                }
+                //if potionUse returns as 2 then mini loop breaks;
+            }
         }
         //if player chooses to check their stats
         else if (playerChoice == 2) {
@@ -83,6 +93,7 @@ void playerMenu::print(player& player, map& currentMap) {
 int mapPlayerMenu::print(player& player) {
     system("CLS");
     int sentinel = 0;
+    int potionUse = 0;
     while (sentinel != 4) {
         std::cout << "==============================" << std::endl;
         std::cout << "Player Menu:" << std::endl << std::endl;
@@ -94,8 +105,16 @@ int mapPlayerMenu::print(player& player) {
         std::cout << "Choice: ";
         std::cin >> sentinel;
         if (sentinel == 1) {
-            system("CLS");
-            player.getInventory()->inventoryChoiceMenu();
+            while (potionUse != 2) {
+                system("CLS");
+                //sets potion use to 1 or 2 depending on if the user chooses to use a potion or exit the menu respectively
+                potionUse = player.getInventory()->inventoryChoiceMenu();
+                //if potionUse returns as 1 then user uses a potion
+                if (potionUse == 1) {
+                    player.usePotion();
+                }
+                //if potionUse returns as 2 then mini loop breaks;
+            }
             return 0;
         }
         else if (sentinel == 2) {
@@ -168,7 +187,6 @@ void testMenu::testLoop(int initialChoice, player& player, map& testMap, playerM
         }
         else if (userChoice == 3) { //STANDARD INVENTORY DISPLAY
             testMenu.print(player, testMap);
-            sentinel = 1;
         }
         else if (userChoice == 4) { //NULL
             system("CLS");

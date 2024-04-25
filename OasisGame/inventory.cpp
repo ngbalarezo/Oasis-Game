@@ -135,29 +135,31 @@ void playerInventory::battleDisplay() {
 	std::cout << std::setw(45) << "=====================================================" << std::endl << std::endl;
 }
 
-void playerInventory::inventoryChoiceMenu() {
+int playerInventory::inventoryChoiceMenu() {
 	int playerChoice = 0;
-	while ((playerChoice < 1) || (playerChoice > 2)) {
+	while ((playerChoice < 1) || (playerChoice > 3)) {
 		system("CLS");
 		display();
 		//print and reprint inventory choices
 		std::cout << "Would you like to do anything with your items?" << std::endl << std::endl;
 		std::cout << "================================================================" << std::endl << std::endl;
 		std::cout << "[1] Drop Item" << std::endl;
-		std::cout << "[2] Exit" << std::endl << std::endl;
+		std::cout << "[2] Use Potion" << std::endl;
+		std::cout << "[3] Exit" << std::endl << std::endl;
 		std::cin >> playerChoice;
 		//erroneous choice message
-		if ((playerChoice < 1) || (playerChoice > 2)) {
+		if ((playerChoice < 1) || (playerChoice > 3)) {
 			system("CLS");
 			std::cout << "This is not an option." << std::endl << std::endl;
 			system("PAUSE");
 			display();
 		}
 		else {
-			//if user chooses to exit then execInventoryChoice returns 1 to break this menu's while loop
+			//if user chooses to exit then execInventoryChoice returns 1 or 2 to break this menu's while loop; 1 calls use potion in playerMenu
 			playerChoice = execInventoryChoice(playerChoice);
 		}
 	}
+	return playerChoice;
 }
 
 int playerInventory::execInventoryChoice(int& playerChoice) {
@@ -167,20 +169,14 @@ int playerInventory::execInventoryChoice(int& playerChoice) {
 		dropItemMenu(playerChoice);
 		return -1;
 	}
-	////if player chooses to use a potion !FIXME: THIS IS BROKEN FOR SOME REASON AND I DON'T KNOW HOW TO FIX THIS!!! 
-	
-	//!FIXME:LEFT OFF HERE/STAT MENU 04/24, 7:13PM
-	//!FIXME: CONSIDER MOVING THINGS INTO PLAYER MENU AND PASSING THIS AS A CLASS OBJECT TO STORE ALL MENU MANIPULATIONS AS POINTERS, player* player gets updated accordingly...
-	
-	//else if (playerChoice == 2) {
-	//	//player.usePotion();
-	//	//return -1 to continue main loop inventoryChoiceMenu loop
-	//	return -1;
-	//}
-	//if u player chooses to exit
 	else if (playerChoice == 2) {
-		//return 1 to quit inventory main loop inventoryChoiceMenu loop
+		//returns 1 for potion use
 		return 1;
+	}
+	//if u player chooses to exit
+	else if (playerChoice == 3) {
+		//return 2 to quit inventory main loop inventoryChoiceMenu loop
+		return 2;
 	}
 }
 

@@ -386,7 +386,7 @@ int map::locationDisplay() {
 			//slain enemy options menu
 			//if local enemy 1 is slain
 			if (currentMapNode->getNodeWilderness()->getLocalEnemy1()->getIsSlain() == true) {
-				std::cout << "[2] Inspect slain " << currentMapNode->getNodeWilderness()->getLocalEnemy1()->getName() << std::endl; //!FIXME: LEFT OFF HERE, ENEMY IS SLAIN DOES NOT WORK!!!!!
+				std::cout << "[2] Inspect slain " << currentMapNode->getNodeWilderness()->getLocalEnemy1()->getName() << std::endl;
 			}
 			//if local enemy 1 is not slain
 			else if (currentMapNode->getNodeWilderness()->getLocalEnemy1()->getIsSlain() == false) {
@@ -460,11 +460,6 @@ int map::execChoice(int& userChoice, player& player) {
 	}
 	return userChoice;
 }
-
-//!FIXME: EXECLOCATION FUNCTION PRINTS WILDERNESS/VILLAGE DISPLAY AND MENU OPTION FUNCTIONS
-//!FIXME: ADD IN RANDOMLY GENERATED SHOPS AND RANDOMLY GENERATED WILDERNESS AREAS OF HARD DIFFICULTIES ON TOP TO EASIER ON BOTTOM
-//!FIXME: ADD IN LOUNGE AND LOUNGE TYPE
-//!FIXME: ERROR PROOF CHURCH AND ADD NEW FUNCTION(S)
 
 //Moves player to a new node in the map. Player can travel North, East, South, and West
 int map::moveLocation(player& player) {
@@ -577,10 +572,6 @@ int map::moveLocation(player& player) {
 		}
 	}
 }
-
-//!FIXME: NOTES
-//! WALK FUNCTIONALITY IN VILLAGE MENU CLASS
-//! CONSIDER WHERE TO STORE PREVIOUSLY VISITED CHURCH NODE
 
 
 

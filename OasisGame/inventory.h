@@ -88,7 +88,7 @@ public:
 
 	void battleDisplay();
 
-	void inventoryChoiceMenu();
+	int inventoryChoiceMenu();
 
 	int execInventoryChoice(int& playerChoice);
 
