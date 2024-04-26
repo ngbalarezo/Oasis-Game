@@ -62,9 +62,28 @@ player::player() {
 
 player::player(std::string name, playerInventory inventory) {
 	this->name = name;
-	hp = 100;
-	fp = 10;
-	sp = 100;
+	maxHealth = 100;
+	maxFocus = 10;
+	maxStamina = 100;
+	hp = maxHealth;
+	fp = maxFocus;
+	sp = maxStamina;
+	atk = 0;
+	def = 0;
+	weight = 0;
+	this->inventory = inventory;
+	coordinateX = 0;
+	coordinateY = 0;
+}
+
+player::player(std::string name, playerInventory inventory, int maxHealth, int maxFocus, int maxStamina) {
+	this->name = name;
+	this->maxHealth = maxHealth;
+	this->maxFocus = maxFocus;
+	this->maxStamina = maxStamina;
+	hp = maxHealth;
+	fp = maxFocus;
+	sp = maxStamina;
 	atk = 0;
 	def = 0;
 	weight = 0;
@@ -75,6 +94,10 @@ player::player(std::string name, playerInventory inventory) {
 
 //getters
 int player::getMaxHealth() { return maxHealth; }
+
+int player::getMaxFocus() { return maxFocus; }
+
+int player::getMaxStamina() { return maxStamina; }
 
 int player::getFp() { return fp; }
 
@@ -90,6 +113,10 @@ int player::getCoordinateY() { return coordinateY; }
 
 //setters
 void player::setMaxHealth(int maxHealth) { this->maxHealth = maxHealth; }
+
+void player::setMaxFocus(int maxFocus) { this->maxFocus = maxFocus; }
+
+void player::setMaxHealth(int maxStamina) { this->maxStamina = maxStamina; }
 
 void player::setFp(int fp) { this->fp = fp; }
 
@@ -128,10 +155,31 @@ void player::usePotion() {
 	}
 	//if player potion slot is not empty
 	else if (inventory.getPotion()->getPotionCount() > 0) {
-		//heal all player stats
-		hp = hp + (inventory.getPotion()->getHealValue());
-		sp = sp + (inventory.getPotion()->getStaminaValue());
-		hp = fp + (inventory.getPotion()->getFocusValue());
+		//heal all player stats, maxHealth limiter
+		//if potion heals more than max health
+		if ((hp + (inventory.getPotion()->getHealValue())) > maxHealth) {
+			hp = maxHealth;
+		}
+		//if potion heals to or less than max health
+		else if ((hp + (inventory.getPotion()->getHealValue())) <= maxHealth) {
+			hp = hp + (inventory.getPotion()->getHealValue());
+		}
+		//if potion heals more than max focus
+		if ((fp + (inventory.getPotion()->getFocusValue())) > maxFocus) {
+			fp = maxFocus;
+		}
+		//if potion heals to or less than max focus
+		else if ((fp + (inventory.getPotion()->getFocusValue())) <= maxFocus) {
+			fp = fp + (inventory.getPotion()->getFocusValue());
+		}
+		//if potion heals more than max stamina
+		if ((sp + (inventory.getPotion()->getStaminaValue())) > maxStamina) {
+			sp = maxStamina;
+		}
+		//if potion heals to or less than max stamina
+		else if ((sp + (inventory.getPotion()->getStaminaValue())) <= maxStamina) {
+			sp = sp + (inventory.getPotion()->getStaminaValue());
+		}
 		//print heal message
 		system("CLS");
 		std::cout << "You drink a potion. How refreshing!" << std::endl << std::endl; //!FIXME: DISPLAY INCREASED STATS
