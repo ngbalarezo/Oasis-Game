@@ -88,7 +88,7 @@ public:
 	//methods
 	void printStats();
 
-	void accessPlayerMenu();
+	void usePotion();
 
 };
 

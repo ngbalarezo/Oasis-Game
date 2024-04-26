@@ -101,7 +101,8 @@ void player::setCoordinateY(int coordinateY) { this->coordinateY = coordinateY; 
 
 //methods
 void player::printStats() {
-	std::cout << name << " Stats: " << std::endl;
+	system("CLS");
+	std::cout << name << "\'s Stats: " << std::endl;
 	std::cout << "====================" << std::endl;
 	std::cout << "HP: " << hp << std::endl;
 	std::cout << "SP: " << sp << std::endl;
@@ -111,10 +112,38 @@ void player::printStats() {
 	std::cout << "Weight: " << weight << std::endl;
 	std::cout << "Coin: " << inventory.getCointCount() << std::endl;
 	std::cout << "====================" << std::endl << std::endl;
+	system("PAUSE");
 }
 
-void player::accessPlayerMenu(){
-	
+void player::usePotion() {
+	//check if player potion slot is empty
+	if (inventory.getPotion()->getPotionCount() == 0) {
+		system("CLS");
+		std::cout << "You have no potions to use!" << std::endl << std::endl;
+		system("PAUSE");
+	}
+	//if player potion slot is not empty
+	else if (inventory.getPotion()->getPotionCount() > 0) {
+		//heal all player stats
+		hp = hp + (inventory.getPotion()->getHealValue());
+		sp = sp + (inventory.getPotion()->getStaminaValue());
+		hp = fp + (inventory.getPotion()->getFocusValue());
+		//print heal message
+		system("CLS");
+		std::cout << "You drink a potion. How refreshing!" << std::endl << std::endl; //!FIXME: DISPLAY INCREASED STATS
+		system("PAUSE");
+		//subtract one potions worth of coin from potion value and subtract one potion
+		inventory.getPotion()->setCoinValue((inventory.getPotion()->getCoinValue()) - ((inventory.getPotion()->getCoinValue()) / (inventory.getPotion()->getPotionCount())));
+		inventory.getPotion()->setPotionCount(inventory.getPotion()->getPotionCount() - 1);
+		
+	}
+	//check if potion count is zero
+	if (inventory.getPotion()->getPotionCount() == 0) {
+		//create an empty potionItem to replace potionSlot
+		potion noPotion;
+		//set potionSlot to noPotion empty slot item
+		inventory.setPotion(noPotion);
+	}
 }
 
 //NPC CLASS DEFINITIONS
@@ -383,12 +412,12 @@ void enemy::enemyAttackTurn(int playerDodges, int& damageDone, std::default_rand
 	}
 	//enemy dies after your attack
 	else if (this->getHp() <= 0) {
-		//sets isSlain bool to true
-		this->setIsSlain(true);
 		system("CLS");
 		std::cout << name << " has been slain!" << std::endl << std::endl;
 		system("PAUSE");
 		system("CLS");
+		//sets isSlain bool to true
+		isSlain = true;
 	}
 }
 

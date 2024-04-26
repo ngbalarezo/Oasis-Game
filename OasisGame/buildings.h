@@ -56,6 +56,8 @@ public:
 
     potion getShopPotionSlot();
 
+    std::string getPotionDisplayString();
+
     item getShopItemSlot();
 
     bool getIsEmpty();
@@ -88,13 +90,32 @@ public:
     void setWasVisited(bool wasVisited);
 
     //methods
-    void enterShop(player& player);
+    void enterShop(player& player); //enter shop
+
+    //initial menus below
+    int execShopLobbyMenu(player& player, int& playerChoice);
+
+    void execShopExchangeMenu(player& player, int& playerChoice);
+
+    //buy menu methods below
+    int execBuyMenu(player& player, int& playerChoice);
 
     void displayShopItems();
 
-    int displayBuyOptions(player& player);
+    int displayBuyChoices(player& player, int& playerChoice);
 
-    void sellTo(player& player, int playerChoice);
+    int checkBuyChoice(player& player, int& playerChoice);
+
+    void sellTo(player& player, int& playerChoice);
+
+    //sell menu methods below
+    int execSellMenu(player& player, int& playerChoice);
+
+    int displaySellChoices(player& player, int& playerChoice);
+
+    int checkSellChoice(player& player, int& playerChoice);
+
+    void buyFrom(player& player, int& playerChoice);
 
 };
 

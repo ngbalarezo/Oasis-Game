@@ -7,171 +7,86 @@
 #include "inventory.h"
 #include "items.h"
 #include "DialogueTree.h"
-/*
-//if current location is village
-if (currentMapNode->getIsVillage() == true) {
-	if (userChoice == 1) {
-		currentMapNode->getNodeVillage().getLocalShop().enterShop(player);
-	}
-	else if (userChoice == 2) {
-		currentMapNode->getNodeVillage().getLocalChurch().enterChurch();
-	}
-	else if (userChoice == 3) {
-		//!FIXME: ADD IN LOUNGE
-		//currentMapNode->getNodeVillage().getLocalLounge().enterLounge();
-	}
-}
-//if current location is wilderness
-else if (currentMapNode->getIsWilderness() == true) {
-	//if the wilderness location is a boss location
-	if (currentMapNode->getNodeWilderness().getIsBossBattleLocation() == true) {
-		//!FIXME: LEFT OFF HERE, ADD IN BOSS BATTLE FUNCTIONALITY
-	}
-	//if the wilderness location is not a boss location
-	else if (currentMapNode->getNodeWilderness().getIsBossBattleLocation() == false) {
-		if (userChoice == 1) {
-			currentMapNode->getNodeWilderness().getLocalNpc1().initiateDialogue();
-		}
-		else if (userChoice == 2) {
-			currentMapNode->getNodeWilderness().getLocalEnemy1().battle(player);
-		}
-		else if (userChoice == 3) {
-			currentMapNode->getNodeWilderness().getLocalEnemy2().battle(player);
-		}
-	}
-}
-//execute playerMenu
-if (userChoice == 4) {
-	//print player menu, returns 1 if user chooses to print menu
-	userChoice = playerMenu.print(player);
-	//display map if user chose this option
-	if (userChoice == 1) {
-		display();
-	}
-}
-//execute move location function
-else if (userChoice == 5) {
-	moveLocation(player);
-}
-*/
-//=================================
-/*
-//menu options
-void returnToOverworld() {
-    std::cout << "Returned to Overworld." << std::endl;
-}
-void enterBattle() {
-    std::cout << "Entered Battle." << std::endl;
-}
-void manageInventory() {
-    std::cout << "Inventory Opened." << std::endl;
-}
-void enterShop() {
-    std::cout << "Entered Shop." << std::endl;
-}
-void chat() {
-    std::cout << "You chat with an NPC." << std::endl;
-}
-void quitGame() {
-    std::cout << "Game Quit." << std::endl;
-}
 
-//main menu
-void menu() {
-    int userInput;
-    std::cout << "1. Return to Game" << std::endl;
-    std::cout << "2. Enter Battle" << std::endl;
-    std::cout << "3. Manage Inventory" << std::endl;
-    std::cout << "4. Enter Shop" << std::endl;
-    std::cout << "5. Talk to Someone" << std::endl;
-    std::cout << "6. Quit Game" << std::endl;
-
-    std::cin >> userInput;
-    switch (userInput) {
-    case 1:
-        returnToOverworld();
-        break;
-    case 2:
-        enterBattle();
-        break;
-    case 3:
-        manageInventory();
-        break;
-    case 4:
-        enterShop();
-        break;
-    case 5:
-        chat();
-        break;
-    case 6:
-        quitGame();
-        break;
-    default:
-        std::cout << "Not an option." << std::endl;
+/* EMPTY SLOT
+system("CLS");
+    int playerChoice = 0;
+    while ((playerChoice < 1) || (playerChoice > 4)) {
+        std::cout << "==============================" << std::endl;
+        std::cout << "Player Menu:" << std::endl << std::endl;
+        std::cout << "[1] Inventory" << std::endl;
+        std::cout << "[2] Player Stats" << std::endl;
+        std::cout << "[3] Check Map" << std::endl;
+        std::cout << "[4] Exit" << std::endl;
+        std::cout << "==============================" << std::endl << std::endl;
+        std::cout << "Choice: ";
+        std::cin >> playerChoice;
+        if (playerChoice == 1) {
+            player.getInventory()->inventoryChoiceMenu();
+            //reset playerChoice to continue loop unless player chooses to exit
+            playerChoice = -1;
+        }
+        //if player chooses to check their stats
+        else if (playerChoice == 2) {
+            player.printStats();
+            //reset playerChoice to continue loop unless player chooses to exit
+            playerChoice = -1;
+        }
+        else if (playerChoice == 3) {
+            currentMap.display();
+            //reset playerChoice to continue loop unless player chooses to exit
+            playerChoice = -1;
+        }
+        if ((playerChoice < 1) || (playerChoice > 4)) {
+            system("CLS");
+            std::cout << "This is not an option!" << std::endl << std::endl;
+            system("PAUSE");
+            system("CLS");
+        }
     }
-}
-
-
-//LINKED LIST MAP GRID
-
-//declare temporary mapNode pointers
-mapNode* newNode;
-mapNode* newLeft;
-mapNode* newRight;
-mapNode* leftTemp = currentMapNode;
-mapNode* rightTemp = currentMapNode;
-//create start node
-newNode = new mapNode; //!FIXME: ADD START VILLAGE HERE IN CONSTRUCTOR 
-//set newNode to be start node
-startingMapNode = newNode;
-//for loop generates middle column of grid above starting location
-for (int i = 0; i < n; i++) {
-	//!FIXME: CONSIDER PREPROGRAMMING VILLAGE/WILDERNESS USING RANDOMIZER AND IF STATEMENTS, CONTAINING A
-	//!CALL FOR DIFFERENT CONSTRUCTOR BASED ON STATS -> 30%/70% village:wilderness constructor, using village and wilderness array
-	//create a new mapNode 
-	newNode = new mapNode;
-	//set current mapNode up to newNode
-	currentMapNode->setUpMapNode(newNode);
-	//current set to new upNode
-	currentMapNode = currentMapNode->getUpMapNode();
-}
-//set current back to first node above starting location
-currentMapNode = startingMapNode->getUpMapNode();
-
-//generate rows and row connections first, while there are still rows to be generated
-while (currentMapNode->getUpMapNode() != nullptr) {
-	//generate left and right sides of map using leftTemp and rightTemp pointers
-	for (int i = 0; i < (n / 2); ) {
-		//create new left and right node
-		newLeft = new mapNode;
-		newRight = new mapNode;
-		//set left and right mapNodes to newLeft and newRight respectively
-		leftTemp->setLeftMapNode(newLeft);
-		rightTemp->setRightMapNode(newRight);
-		//set newLeft and newRight left and right 
-		newLeft->setRightMapNode(leftTemp);
-		newRight->setLeftMapNode(rightTemp);
-		//move left temp left and right temp right
-		leftTemp = newLeft;
-		rightTemp = newRight;
-		//checks if the loop has reached corner
-		if (i = (n / 2) - 1) {
-			//stores cornerNode
-			cornerNode = leftTemp;
-		}
-	}
-	//set current to next up to generate next row
-	currentMapNode = currentMapNode->getUpMapNode();
-	//set right and left temp pointers to current
-	leftTemp = currentMapNode;
-	rightTemp = currentMapNode;
-}
-
-//generate up and down connections for all rows
-mapNode* prevRowCenter;
-
 */
 
+/* EMPTY SLOT
+    system("CLS");
+    int sentinel = 0;
+    while (sentinel != 4) {
+        std::cout << "==============================" << std::endl;
+        std::cout << "Player Menu:" << std::endl << std::endl;
+        std::cout << "[1] Inventory" << std::endl;
+        std::cout << "[2] Player Stats" << std::endl;
+        std::cout << "[3] Check Map" << std::endl;
+        std::cout << "[4] Exit" << std::endl;
+        std::cout << "==============================" << std::endl << std::endl;
+        std::cout << "Choice: ";
+        std::cin >> sentinel;
+        if (sentinel == 1) {
+            system("CLS");
+            player.getInventory()->inventoryChoiceMenu();
+            return 0;
+        }
+        else if (sentinel == 2) {
+            system("CLS");
+            player.printStats();
+            system("PAUSE");
+            system("CLS");
+            return 0;
+        }
+        else if (sentinel == 3) {
+            return 1;
+        }
+        else if (sentinel == 4) {
+            system("CLS");
+            return 2;
+        }
+        else {
+            system("CLS");
+            std::cout << "This is not an option!" << std::endl << std::endl;
+            system("PAUSE");
+            system("CLS");
+        }
+    }
+*/
 
+/* EMPTY SLOT
 
-
+*/

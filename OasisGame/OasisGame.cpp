@@ -20,7 +20,7 @@
 
 //#pragma comment(lib, "winmm.lib")
 
-int main() {
+int main() { //!FIXME: HOW TO INCREASE PROGRAM STACK/HEAP SIZE IN VISUAL STUDIO, C++
     //MAIN GAME: GENERATE ITEMS
     //items
     item noItem;
@@ -43,7 +43,7 @@ int main() {
     armor ARMOR_REALM1[10] = {};
     //potions
     potion noPotion;
-    potion smallHealPotion("Small Heal Potion", 50, 0, 0, 100);
+    potion smallHealPotion("Small Heal Potion", 5, 50, 0, 0, 100);
     potion POTION[10] = {};
 
     //MAIN GAME: GENERATE DIALOGUES
@@ -245,6 +245,9 @@ int main() {
 
     //MAIN GAME: GENERATE MISC. VARIABLES
     int sentinel = 0;
+    int rand = 0;
+    std::default_random_engine engine{ static_cast<unsigned int>(time(0)) };
+    std::uniform_int_distribution<unsigned int> randomVilalgeMusic{ 1,3 };
 
     //MAIN GAME: START MENU LOOP
     
@@ -272,7 +275,7 @@ int main() {
         else if (userChoice == 3) {
             //generate test menu and test player
             testMenu test;
-            playerInventory testInventory(noWeapon, noArmor, noPotion, 0, noItem, noItem, noItem, 10000);
+            playerInventory testInventory(strongTestWeapon, noArmor, noPotion, noItem, noItem, noItem, 10000);
             player testPlayer("Dev", testInventory);
             map testMap(8);
             testMap.generateMap(WILDERNESS_REALM1, VILLAGES_REALM1, testPlayer);
@@ -296,7 +299,7 @@ int main() {
     std::string playerName = startScreen.promptPlayerName();
 
     //MAIN GAME: GENERATE PLAYER AND INVENTORY
-    playerInventory playerInventory(strongTestWeapon, noArmor, noPotion, 0, noItem, noItem, noItem, 100); //!FIXME: REMOVE STRONG TEST WEAPON FOR FINAL PRODUCT
+    playerInventory playerInventory(strongTestWeapon, noArmor, noPotion, noItem, noItem, noItem, 100); //!FIXME: REMOVE STRONG TEST WEAPON FOR FINAL PRODUCT
     player player(playerName, playerInventory);
 
     //MAIN GAME: GENERATE MAP
@@ -310,7 +313,20 @@ int main() {
     while (sentinel != 1) {
         //!FIXME: QUIT GAME FEATURE, ARE YOU SURE? RETURNS SENTINEL VALUE OF 1.
         //!FIXME: IF CHARACTER FALLS THEY CAN EITHER GO BACK TO THE LAST CHURCH OR QUIT GAME
-        gameMap.execLocation(player);
+        //!FIXME: ADD IF STATEMENTS TO ADD MUSIC ACCORDINGLY TO VILLAGE OR WILDERNESS
+        if (gameMap.getCurrentMapNode()->getIsVillage() == true) {
+            rand = randomVilalgeMusic(engine);
+            if (rand == 1) {
+                PlaySound(MAKEINTRESOURCE(VILLAGE_MUSIC_1), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
+            }
+            else if (rand == 2) {
+                PlaySound(MAKEINTRESOURCE(VILLAGE_MUSIC_2), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
+            }
+            else if (rand == 3) {
+                PlaySound(MAKEINTRESOURCE(VILLAGE_MUSIC_3), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
+            }
+        }
+        gameMap.execLocation(player); //!FIXME: ADD IN BASIC PLAYER FALL FEATURE
     }
     
     return 0;
@@ -324,6 +340,7 @@ int main() {
 * CHECK DEFAULT CONSTRUCTORS, MAY NOT HAVE TO INITALIZE WEAPONS IN INVENTORY... THEY DEFUALT TO EMPTY!
 * GRAPHICS DISPLAY FOR ENTERING A NEW VILLAGE OR WILDERNESS
 * REVAMP BATTLE SEQUENCE TO LOOK MORE APPEALING, SEE IF YOU CAN ADD SOUND EFFECTS
+* ADD IN RUINS WHERE THE BOSSES ARE OR REALM GATES TO BRING PLAYERS TO NEW REALMS.
 * Fix documentation, make the game easier to understand with comments
 * Make the battle screen look nicer!!!
 * Change the name of focus stat of weapon class to better capture the essence of the stat (difficulty requries more focus, precision?)

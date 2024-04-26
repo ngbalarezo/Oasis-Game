@@ -40,9 +40,9 @@ public:
 	mapNode(wilderness nodeWilderness);
 
 	//getters
-	village getNodeVillage();
+	village* getNodeVillage();
 
-	wilderness getNodeWilderness();
+	wilderness* getNodeWilderness();
 
 	bool getIsVillage();
 
@@ -126,7 +126,7 @@ public:
 
 	int execChoice(int& userChoice, player& player);
 
-	void moveLocation(player& player);
+	int moveLocation(player& player);
 
 };
 
