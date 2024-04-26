@@ -49,6 +49,7 @@ public:
 class player : public character {
 private:
 	//player-specific stats
+	int maxHealth;
 	int fp;
 	int sp;
 	int weight;
@@ -65,6 +66,8 @@ public:
 	player(std::string name, playerInventory inventory);
 
 	//getters
+	int getMaxHealth();
+
 	int getFp();
 
 	int getSp();
@@ -78,6 +81,8 @@ public:
 	int getCoordinateY();
 
 	//setters
+	void setMaxHealth(int maxHealth);
+	
 	void setFp(int fp);
 
 	void setSp(int sp);

@@ -74,6 +74,8 @@ player::player(std::string name, playerInventory inventory) {
 }
 
 //getters
+int player::getMaxHealth() { return maxHealth; }
+
 int player::getFp() { return fp; }
 
 int player::getSp() { return sp; }
@@ -87,6 +89,8 @@ int player::getCoordinateX() { return coordinateX; }
 int player::getCoordinateY() { return coordinateY; }
 
 //setters
+void player::setMaxHealth(int maxHealth) { this->maxHealth = maxHealth; }
+
 void player::setFp(int fp) { this->fp = fp; }
 
 void player::setSp(int sp) { this->sp = sp; }
