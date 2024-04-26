@@ -924,21 +924,45 @@ void Church::churchWelcome(player& player) {
     int choice = 0;
     std::cout << "Welcome to the " << churchName << ". You feel the presence of grace." << std::endl;
     std::cout << "[1] Pray" << std::endl;
-    std::cout << "[2] Leave" << std::endl;
+    std::cout << "[2] Offer Weapon" << std::endl;
+    std::cout << "[3] Leave" << std::endl;
     std::cin >> choice;
     if (choice == 1) {
         pray(player);
     }
     else if (choice==2) {
-        //!FIXME: ADD CONTENT
+        offerWeapon(player);
     }
 }
 
 void Church::pray(player& player) {
     system("CLS");
     std::cout << "Your prayers have been answered and you feel at peace with the help of grace." << std::endl;
-    std::cout << hpToHeal << " has been added. HP: " << player.getHp() + hpToHeal;
+    std::cout << hpToHeal << " has been added. HP: " << player.getHp() + hpToHeal << std::endl << std::endl;
     player.setHp(player.getHp() + hpToHeal);
+    system("PAUSE");
+    system("CLS");
 }
+
+void Church::offerWeapon(player& player) {
+    int playerChoice = 0;
+    system("CLS");
+    player.getInventory()->churchDisplay();
+    std::cout << "What item would you like to offer?";
+    std::cin >> playerChoice;
+    std::cout << std::endl << std::endl;
+    system("CLS");
+    if (playerChoice == 1) {
+        player.getInventory()->getWeapon().setAtk((player.getInventory()->getWeapon().getAtk()) + 5);
+    }
+    if (playerChoice == 2) {
+        player.getInventory()->getArmor().setDef((player.getInventory()->getArmor().getDef()) + 5);
+    }
+    player.getInventory()->churchDisplay();
+    system("PAUSE");
+    system("CLS");
+    
+}
+
 
 //LOUNGE CLASS DEFINITIONS

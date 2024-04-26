@@ -89,6 +89,8 @@ public:
 
 	void battleDisplay();
 
+	void churchDisplay();
+
 	int inventoryChoiceMenu();
 
 	int execInventoryChoice(int& playerChoice);
@@ -98,6 +100,7 @@ public:
 	int checkDropChoice(int& playerChoice);
 
 	void dropItem(int& playerChoice);
+  
 };
 
 #endif

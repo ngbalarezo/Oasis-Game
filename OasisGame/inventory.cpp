@@ -140,6 +140,20 @@ void playerInventory::battleDisplay() {
 	std::cout << std::setw(45) << "=====================================================" << std::endl << std::endl;
 }
 
+void playerInventory::churchDisplay() {
+	//iomanip stream manipulations
+	std::cout << std::setiosflags(std::ios::left); //left aligns setw()
+	//display spacing header
+	//!FIXME: see if you can middle align titles
+	std::cout << std::setw(15) << "Slot" << std::setw(25) << "Item Name" << std::setw(15) << "Stats" << std::endl;
+	std::cout << std::setw(45) << "=====================================================" << std::endl << std::endl;
+	//display items in order
+	std::cout << std::setw(15) << "Weapon Slot: " << std::setw(25) << weaponSlot.getName() << std::setw(15) << getWeaponAttackString() << std::endl << std::endl;
+	std::cout << std::setw(15) << "Armor Slot: " << std::setw(25) << armorSlot.getName() << std::setw(15) << getArmorDefenseString() << std::endl << std::endl;
+	std::cout << std::setw(45) << "=====================================================" << std::endl << std::endl;
+	std::cout << std::endl;
+}
+
 int playerInventory::inventoryChoiceMenu() {
 	int playerChoice = 0;
 	while ((playerChoice < 1) || (playerChoice > 3)) {

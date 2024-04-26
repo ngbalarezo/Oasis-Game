@@ -150,7 +150,9 @@ void testMenu::print() {//!FIXME: change main menu options
     std::cout << "5. Talk to Someone" << std::endl;
     std::cout << "6. Move location" << std::endl;
     std::cout << "7. Print map" << std::endl;
+    std::cout << "8. Visit Church" << std::endl;
     std::cout << "9. Exit Dev Testing" << std::endl;
+
     //!FIXME: insert feature to choose option using cin and functions referencing other .h files
 }
 
@@ -174,6 +176,7 @@ void testMenu::testLoop(int initialChoice, player& player, map& testMap, playerM
     potion smallHealPotion("Small Heal Potion", 5, 50, 0, 0, 100);
     item ruby("Ruby", 300, 0, false);
     shop testShop("Test Shop", "test shop", testNpc, woodenSword, woodenAxe, chainmailArmor, smallHealPotion, ruby);
+    Church testChurch("Test Church", 2);
 
     //loops test start menu
     while (sentinel != 1) {
@@ -210,6 +213,10 @@ void testMenu::testLoop(int initialChoice, player& player, map& testMap, playerM
         else if (userChoice == 9) {
             //system("CLS");
             sentinel = 1;
+        }
+        else if (userChoice == 8) {
+            system("CLS");
+            testChurch.churchWelcome(player);
         }
         else { //NULL
             system("CLS");
