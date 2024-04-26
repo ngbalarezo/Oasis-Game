@@ -32,6 +32,14 @@ class playerMenu {
 private:
 
 public:
+	void print(player& player, map& currentMap);
+};
+
+//MAP PLAYER MENU CLASS
+class mapPlayerMenu {
+private:
+
+public:
 	int print(player& player);
 };
 

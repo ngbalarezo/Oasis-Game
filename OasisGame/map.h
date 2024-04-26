@@ -126,7 +126,7 @@ public:
 
 	int execChoice(int& userChoice, player& player);
 
-	void moveLocation(player& player);
+	int moveLocation(player& player);
 
 };
 

@@ -56,6 +56,8 @@ public:
 
     potion getShopPotionSlot();
 
+    std::string getPotionDisplayString();
+
     item getShopItemSlot();
 
     bool getIsEmpty();
