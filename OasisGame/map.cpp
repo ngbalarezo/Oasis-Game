@@ -449,7 +449,7 @@ int map::execChoice(int& userChoice, player& player) {
 		//regular wilderness
 		if (userChoice == 1) {
 			//!FIXME: FINISH PLAYER PRINT DIALOGUE/MAYBE MOVE THIS TO A NPC VECTOR INSTEAD OF AN ENTIRE DIALOGUE TREE 
-			currentMapNode->getNodeWilderness()->getLocalNpc1().getDialogueTree()->printDialogue();
+			currentMapNode->getNodeWilderness().getLocalNpc1().initiateDialogue();
 		}
 		else if (userChoice == 2) {
 			currentMapNode->getNodeWilderness()->getLocalEnemy1()->battle(player);

@@ -96,7 +96,7 @@ public:
 class npc : public character {
 private:
 	std::string npcName;
-	dialogueTree dialogue;
+	std::vector<std::vector<std::string>> dialogueVector;
 
 public:
 	//constructors
@@ -104,15 +104,17 @@ public:
 
 	npc(std::string npcName);
 
+	npc(std::string npcName, std::vector<std::vector<std::string>> dialogueVector);
+
 	//getters
 	std::string getNpcName();
 
-	dialogueTree* getDialogueTree();
+	std::vector<std::vector<std::string>> getDialogueVector();
 
 	//setters
 	void setNpcName(std::string npcName);
 
-	void setDialogueTree(dialogueTree dialogue);
+	void setDialogueVector(std::vector<std::vector<std::string>>& dialogueVector);
 
 	//methods
 	void initiateDialogue();

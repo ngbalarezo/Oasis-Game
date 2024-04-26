@@ -1,6 +1,10 @@
 #include <iostream>
-#include <iomanip>
-#include <random>
+#include <array>
+#include <vector>
+#include <string>
+#include <cmath>
+#include <windows.h>
+#include <stdlib.h>
 #include "menu.h"
 #include "map.h"
 #include "locations.h"
@@ -9,6 +13,7 @@
 #include "inventory.h"
 #include "items.h"
 #include "DialogueTree.h"
+#include "resource.h"
 
 //CHARACTER CLASS DEFINITIONS
 
@@ -152,24 +157,68 @@ npc::npc(std::string npcName) {
 	this->npcName = npcName;
 }
 
+npc::npc(std::string npcName, std::vector<std::vector<std::string>> dialogueVector) {
+	this->npcName = npcName;
+	this->dialogueVector = dialogueVector;
+}
+
 //getters
 std::string npc::getNpcName() { return npcName; }
 
-dialogueTree* npc::getDialogueTree() { return &dialogue; }
+std::vector<std::vector<std::string>> npc::getDialogueVector() { return dialogueVector; }
 
 //setters
 void npc::setNpcName(std::string npcName) { this->npcName = npcName; }
 
-void npc::setDialogueTree(dialogueTree dialogue) { dialogue = dialogue; }
+void npc::setDialogueVector(std::vector<std::vector<std::string>>& dialogueVector) { this->dialogueVector = dialogueVector; }
 
 //methods
 void npc::initiateDialogue() {
-	//clear console
-	system("CLS");
-	//!FIXME: ADD INITIATE DIALOGUE FUNCTIONALITY
-	//! TEST MESSAGE
-	std::cout << "TEST: Dialogue initiated." << std::endl << std::endl;
-	system("PAUSE");
+	//declare variables
+	int userChoice;
+	int index = 0;
+	//determine levels in dialogue
+	int dialogueLevels = (log2(dialogueVector.size() + 1));
+	//for loop iterates number of levels for possible responses
+	//!FIXME: IMPLEMENT TREE LEVEL ALGORITHM
+	for (int i = 0; i < dialogueLevels; i++) {
+		//print dialogue
+		system("CLS");
+		//if current quotation has two responses
+		if (i < (dialogueLevels - 1)) {
+			std::cout << dialogueVector[index][0] << std::endl << std::endl;
+			std::cout << "[1]" << dialogueVector[index][1] << std::endl;
+			std::cout << "[2]" << dialogueVector[index][2] << std::endl;
+			std::cout << "[3] Exit" << std::endl << std::endl;
+			//prompt user for choice
+			std::cout << "Choice: ";
+			std::cin >> userChoice;
+			//if user chooses option 1
+			if (userChoice == 1) {
+				index = (2 * index) + 1;
+			}
+			//if user chooses option 2
+			else if (userChoice == 2) {
+				index = (2 * index) + 2;
+			}
+			//if user chooses to exit dialogue
+			else if (userChoice == 3) {
+				//!FIXME: print randomized goodbye message
+				std::cout << "That's a funny way to treat a stranger. Goodbye." << std::endl;
+			}
+			//if user chooses an invalid option
+			else {
+				//print error message
+				std::cout << "This is not an option!";
+				//for loop is set back one loop if the user does not input a valid number
+				i--;
+			}
+		}
+		else if (i == (dialogueLevels - 1)) {
+			std::cout << dialogueVector[index][0] << std::endl << std::endl;
+			system("Pause");
+		}
+	}
 }
 
 //ENEMY CLASS DEFINITIONS

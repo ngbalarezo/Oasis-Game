@@ -53,7 +53,7 @@ public:
 	//methods
 	void print();
 
-	void testLoop(int initialChoice, player& player, map& testMap, playerMenu& testMenu);
+	void testLoop(int initialChoice, player& player, map& testMap, playerMenu& testMenu, std::vector<std::vector<std::string>>& testShadowyManDialogue);
 
 };
 
