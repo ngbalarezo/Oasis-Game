@@ -3,7 +3,13 @@
 #define INVENTORY_H
 
 #include <iostream>
+#include <iomanip>
+#include <array>
+#include <vector>
 #include <string>
+#include <random>
+#include <windows.h>
+#include <stdlib.h>
 #include "menu.h"
 #include "map.h"
 #include "locations.h"
@@ -11,7 +17,7 @@
 #include "characters.h"
 #include "inventory.h"
 #include "items.h"
-#include "DialogueTree.h"
+#include "resource.h"
 
 class inventory {
 protected:
@@ -27,7 +33,6 @@ private:
 	armor armorSlot;
 	//each player inventory has 1 potion slot with a potion count
 	potion potionSlot;
-	int potionCount;
 	//each player inventory has 3 miscellaneous item slots
 	item itemSlot1;
 	item itemSlot2;
@@ -39,7 +44,7 @@ public:
 	//constructors
 	playerInventory();
 
-	playerInventory(weapon weaponSlot, armor armorSlot, potion potionSlot, int potionCount, item itemSlot1, item itemSlot2, item itemSlot3, int coinCount);
+	playerInventory(weapon weaponSlot, armor armorSlot, potion potionSlot, item itemSlot1, item itemSlot2, item itemSlot3, int coinCount);
 
 	//getters
 	weapon getWeapon();
@@ -50,9 +55,7 @@ public:
 
 	std::string getArmorDefenseString();
 
-	potion getPotion();
-
-	int getPotionCount();
+	potion* getPotion();
 
 	std::string getPotionDisplayString();
 
@@ -73,8 +76,6 @@ public:
 
 	void setPotion(potion &newPotion);
 
-	void setPotionCount(int potionCount);
-
 	void setItem1(item &newItem);
 
 	void setItem2(item &newItem);
@@ -89,6 +90,17 @@ public:
 	void battleDisplay();
 
 	void churchDisplay();
+
+	int inventoryChoiceMenu();
+
+	int execInventoryChoice(int& playerChoice);
+
+	void dropItemMenu(int& playerChoice);
+
+	int checkDropChoice(int& playerChoice);
+
+	void dropItem(int& playerChoice);
+  
 };
 
 #endif

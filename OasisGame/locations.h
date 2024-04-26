@@ -7,6 +7,9 @@
 #include <array>
 #include <vector>
 #include <string>
+#include <random>
+#include <windows.h>
+#include <stdlib.h>
 #include "menu.h"
 #include "map.h"
 #include "locations.h"
@@ -14,7 +17,7 @@
 #include "characters.h"
 #include "inventory.h"
 #include "items.h"
-#include "DialogueTree.h"
+#include "resource.h"
 
 class wilderness {
 private:
@@ -30,21 +33,27 @@ public:
     wilderness(); //default constructor
 
     //initialize wilderness with custom members, non-boss location
-    wilderness(std::string name, npc localNpc1, enemy localEnemy1, enemy localEnemy2);
+    wilderness(std::string name, npc& localNpc1, enemy& localEnemy1, enemy& localEnemy2);
 
     //initialize wilderness with custom members, boss battle location
-    wilderness(npc localNpc1, enemy localEnemy1, enemy localEnemy2, enemy localBoss, bool isBossBattleLocation);
+    wilderness(enemy& localBoss, bool isBossBattleLocation);
     
     //getters
+    std::string getName();
+
     npc getLocalNpc1();
 
-    enemy getLocalEnemy1();
+    enemy* getLocalEnemy1();
 
-    enemy getLocalEnemy2();
+    enemy* getLocalEnemy2();
 
-    enemy getLocalBoss();
+    enemy* getLocalBoss();
+
+    bool getIsBossBattleLocation();
 
     //setters
+    void setName(std::string name);
+    
     void setLocalNpc1(npc& localNpc1);
 
     void setLocalEnemy1(enemy& localEnemy1);
@@ -52,6 +61,8 @@ public:
     void setLocalEnemy2(enemy& localEnemy2);
 
     void setLocalBoss(enemy& localBoss);
+
+    void setIsBossBattleLocation(bool isBossBattleLocation);
 
     //methods
 };
@@ -73,15 +84,19 @@ public:
     village(std::string name, shop localShop, Church localChurch, npc localNpc1, npc localNpc2);
 
     //getters
+    std::string getName();
+
     shop getLocalShop();
 
     Church getLocalChurch();
 
-    npc getLocalNpc1();
+    npc* getLocalNpc1();
 
-    npc getLocalNpc2();
+    npc* getLocalNpc2();
 
     //setters
+    void setName(std::string name);
+
     void setLocalShop(shop& localShop);
 
     void setLocalChurch(Church& localChurch);

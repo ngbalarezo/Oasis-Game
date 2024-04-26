@@ -3,8 +3,13 @@
 #define CHARACTERS_H
 
 #include <iostream>
+#include <iomanip>
+#include <array>
+#include <vector>
 #include <string>
 #include <random>
+#include <windows.h>
+#include <stdlib.h>
 #include "menu.h"
 #include "map.h"
 #include "locations.h"
@@ -12,7 +17,7 @@
 #include "characters.h"
 #include "inventory.h"
 #include "items.h"
-#include "DialogueTree.h"
+#include "resource.h"
 
 //PARENT CLASS: character
 class character {
@@ -49,6 +54,9 @@ private:
 	int weight;
 	//player inventory
 	playerInventory inventory;
+	//coordinates
+	int coordinateX;
+	int coordinateY;
 
 public:
 	//constructor
@@ -65,6 +73,10 @@ public:
 
 	playerInventory* getInventory();
 
+	int getCoordinateX();
+
+	int getCoordinateY();
+
 	//setters
 	void setFp(int fp);
 
@@ -74,10 +86,14 @@ public:
 
 	void setInventory(playerInventory inventory);
 
+	void setCoordinateX(int coordinateX);
+
+	void setCoordinateY(int coordinateY);
+
 	//methods
 	void printStats();
 
-	void accessInventory();
+	void usePotion();
 
 };
 
@@ -85,7 +101,7 @@ public:
 class npc : public character {
 private:
 	std::string npcName;
-	dialogueTree dialogue;
+	std::vector<std::vector<std::string>> dialogueVector;
 
 public:
 	//constructors
@@ -93,15 +109,20 @@ public:
 
 	npc(std::string npcName);
 
+	npc(std::string npcName, std::vector<std::vector<std::string>> dialogueVector);
+
 	//getters
 	std::string getNpcName();
 
-	dialogueTree* getDialogueTree();
+	std::vector<std::vector<std::string>> getDialogueVector();
 
 	//setters
 	void setNpcName(std::string npcName);
 
-	void setDialogueTree(dialogueTree dialogue);
+	void setDialogueVector(std::vector<std::vector<std::string>>& dialogueVector);
+
+	//methods
+	void initiateDialogue();
 
 };
 
@@ -110,6 +131,7 @@ class enemy : public character {
 private:
 	//members
 	bool flees;
+	bool isSlain;
 
 public:
 	//constructors
@@ -120,8 +142,12 @@ public:
 	//getters
 	bool getFlees();
 
+	bool getIsSlain();
+
 	//setters
 	void setFlees(bool flees);
+
+	void setIsSlain(bool isSlain);
 
 	//methods
 	void printBattleStats(player &player);

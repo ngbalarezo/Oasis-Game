@@ -7,6 +7,9 @@
 #include <array>
 #include <vector>
 #include <string>
+#include <random>
+#include <windows.h>
+#include <stdlib.h>
 #include "menu.h"
 #include "map.h"
 #include "locations.h"
@@ -14,12 +17,13 @@
 #include "characters.h"
 #include "inventory.h"
 #include "items.h"
-#include "DialogueTree.h"
+#include "resource.h"
 
 class shop {
 private:
     //each shop will sell 3 weapons, 1 armor, and 1 potion, 
     std::string shopName;
+    std::string shopType;
     npc shopKeeper;
     weapon shopWeaponSlot1;
     weapon shopWeaponSlot2;
@@ -35,13 +39,15 @@ public:
     //constructors
     shop();
 
-    shop(std::string shopName, npc shopKeeper, weapon shopWeaponSlot1, weapon shopWeaponSlot2, armor shopArmorSlot, potion shopPotionSlot, item shopItemSlot);
+    shop(std::string shopName, std::string shopType, npc shopKeeper, weapon shopWeaponSlot1, weapon shopWeaponSlot2, armor shopArmorSlot, potion shopPotionSlot, item shopItemSlot);
 
-    shop(std::string shopName, npc shopKeeper, weapon shopWeaponSlot1, weapon shopWeaponSlot2, armor shopArmorSlot,
+    shop(std::string shopName, std::string shopType, npc shopKeeper, weapon shopWeaponSlot1, weapon shopWeaponSlot2, armor shopArmorSlot,
         potion shopPotionSlot, item shopItemSlot, bool isEmpty, int shopLevel, bool wasVisited);
 
     //getters
     std::string getShopName();
+
+    std::string getShopType();
 
     npc getShopKeeper();
 
@@ -53,6 +59,8 @@ public:
 
     potion getShopPotionSlot();
 
+    std::string getPotionDisplayString();
+
     item getShopItemSlot();
 
     bool getIsEmpty();
@@ -63,6 +71,8 @@ public:
 
     //setters
     void setShopName(std::string shopName);
+
+    void setShopType(std::string shopType);
 
     void setShopKeeper(npc shopKeeper);
 
@@ -83,19 +93,39 @@ public:
     void setWasVisited(bool wasVisited);
 
     //methods
-    void enterShop(player& player);
+    void enterShop(player& player); //enter shop
+
+    //initial menus below
+    int execShopLobbyMenu(player& player, int& playerChoice);
+
+    void execShopExchangeMenu(player& player, int& playerChoice);
+
+    //buy menu methods below
+    int execBuyMenu(player& player, int& playerChoice);
 
     void displayShopItems();
 
-    int displayBuyOptions(player& player);
+    int displayBuyChoices(player& player, int& playerChoice);
 
-    void sellTo(player& player, int playerChoice);
+    int checkBuyChoice(player& player, int& playerChoice);
+
+    void sellTo(player& player, int& playerChoice);
+
+    //sell menu methods below
+    int execSellMenu(player& player, int& playerChoice);
+
+    int displaySellChoices(player& player, int& playerChoice);
+
+    int checkSellChoice(player& player, int& playerChoice);
+
+    void buyFrom(player& player, int& playerChoice);
 
 };
 
 class Church {
 private:
     std::string churchName;
+    std::string churchType;
     int hpToHeal;
 
 public:
@@ -103,10 +133,12 @@ public:
     //constructers
     Church();
 
-    Church(std::string churchName, int hpToHeal);
+    Church(std::string churchName, std::string churchType, int hpToHeal);
 
     //getters
     std::string getChurchName();
+
+    std::string getChurchType();
 
     int getHpToHeal();
 
@@ -114,10 +146,14 @@ public:
     //setters
     void setChurchName(std::string churchName);
 
+    void setChurchType(std::string churchType);
+
     void setHpToHeal(int hpToHeal);
 
 
     //methods
+    void enterChurch(player& player);
+    
     void churchWelcome(player& player);
 
     void pray(player& player);

@@ -3,7 +3,13 @@
 #define ITEMS_H
 
 #include <iostream>
+#include <iomanip>
+#include <array>
+#include <vector>
 #include <string>
+#include <random>
+#include <windows.h>
+#include <stdlib.h>
 #include "menu.h"
 #include "map.h"
 #include "locations.h"
@@ -11,7 +17,7 @@
 #include "characters.h"
 #include "inventory.h"
 #include "items.h"
-#include "DialogueTree.h"
+#include "resource.h"
 
 //PARENT CLASS
 //ITEM CLASS
@@ -109,6 +115,7 @@ public:
 class potion {
 private:
 	std::string potionName;
+	int potionCount;
 	int healValue;
 	int staminaValue;
 	int focusValue;
@@ -118,13 +125,15 @@ public:
 	//constructors
 	potion();
 
-	potion(std::string potionName, int healValue, int staminaValue, int focusValue, int coinValue);
+	potion(std::string potionName, int potionCount, int healValue, int staminaValue, int focusValue, int coinValue);
 
 	//destructor
 	~potion() = default;
 
 	//getters
 	std::string getName();
+
+	int getPotionCount();
 	
 	int getHealValue();
 
@@ -137,6 +146,8 @@ public:
 
 	//setters
 	void setName(std::string potionName);
+
+	void setPotionCount(int potionCount);
 
 	void setHealValue(int healValue);
 

@@ -1,5 +1,11 @@
 #include <iostream>
 #include <iomanip>
+#include <array>
+#include <vector>
+#include <string>
+#include <random>
+#include <windows.h>
+#include <stdlib.h>
 #include "menu.h"
 #include "map.h"
 #include "locations.h"
@@ -7,7 +13,7 @@
 #include "characters.h"
 #include "inventory.h"
 #include "items.h"
-#include "DialogueTree.h"
+#include "resource.h"
 
 //SHOP CLASS DEFINITIONS
 
@@ -20,7 +26,8 @@ shop::shop() {
     potion noPotion;
     item noItem;
     //set defaults to null objects
-    shopName = "null";
+    shopName = "Null Shop";
+    shopType = "null shop";
     shopKeeper = noShopKeeper;
     shopWeaponSlot1 = noWeapon;
     shopWeaponSlot2 = noWeapon;
@@ -32,13 +39,14 @@ shop::shop() {
     wasVisited = false;
 }
 
-shop::shop(std::string shopName, npc shopKeeper, weapon shopWeaponSlot1, weapon shopWeaponSlot2, armor shopArmorSlot, potion shopPotionSlot, item shopItemSlot) {
+shop::shop(std::string shopName, std::string shopType, npc shopKeeper, weapon shopWeaponSlot1, weapon shopWeaponSlot2, armor shopArmorSlot, potion shopPotionSlot, item shopItemSlot) {
     //create null item objects
     weapon noWeapon;
     armor noArmor;
     potion noPotion;
     //set defaults
     this->shopName = shopName;
+    this->shopType = shopType;
     this->shopKeeper = shopKeeper;
     this->shopWeaponSlot1 = shopWeaponSlot1;
     this->shopWeaponSlot2 = shopWeaponSlot2;
@@ -51,8 +59,9 @@ shop::shop(std::string shopName, npc shopKeeper, weapon shopWeaponSlot1, weapon 
     wasVisited = false;
 }
 
-shop::shop(std::string shopName, npc shopKeeper, weapon shopWeaponSlot1, weapon shopWeaponSlot2, armor shopArmorSlot, potion shopPotionSlot, item shopItemSlot, bool isEmpty, int shopLevel, bool wasVisited) {
+shop::shop(std::string shopName, std::string shopType, npc shopKeeper, weapon shopWeaponSlot1, weapon shopWeaponSlot2, armor shopArmorSlot, potion shopPotionSlot, item shopItemSlot, bool isEmpty, int shopLevel, bool wasVisited) {
     this->shopName = shopName;
+    this->shopType = shopType;
     this->shopKeeper = shopKeeper;
     this->shopWeaponSlot1 = shopWeaponSlot1;
     this->shopWeaponSlot2 = shopWeaponSlot2;
@@ -66,6 +75,8 @@ shop::shop(std::string shopName, npc shopKeeper, weapon shopWeaponSlot1, weapon 
 
 //getters
 std::string shop::getShopName() { return shopName; }
+
+std::string shop::getShopType() { return shopType; }
 
 npc shop::getShopKeeper() { return shopKeeper; }
 
@@ -88,6 +99,8 @@ bool shop::getWasVisited() { return wasVisited; }
 //setters
 void shop::setShopName(std::string shopName) { this->shopName = shopName; }
 
+void shop::setShopType(std::string shopName) { this->shopType = shopType; }
+
 void shop::setShopKeeper(npc shopKeeper) { this->shopKeeper = shopKeeper; }
 
 void shop::setShopWeaponSlot1(weapon shopWeaponSlot1) { this->shopWeaponSlot1 = shopWeaponSlot1; }
@@ -97,6 +110,18 @@ void shop::setShopWeaponSlot2(weapon shopWeaponSlot2) { this->shopWeaponSlot2 = 
 void shop::setShopArmorSlot(armor shopArmorSlot) { this->shopArmorSlot = shopArmorSlot; }
 
 void shop::setShopPotionSlot(potion shopPotionSlot) { this->shopPotionSlot = shopPotionSlot; }
+
+std::string shop::getPotionDisplayString() {
+    //return only potion name if the potionSlot is empty
+    if (shopPotionSlot.getPotionCount() == 0) {
+        //will return "empty"
+        return shopPotionSlot.getName(); //!FIXME: MAKE SURE THAT IF POTION COUNT IS 0 THEN NAME CHANGES TO EMPTY/NOPOTION BECOMES POTIONSLOT
+    }
+    //return 
+    else if (shopPotionSlot.getPotionCount() > 0) {
+        return shopPotionSlot.getName() + " x" + std::to_string(shopPotionSlot.getPotionCount());
+    }
+}
 
 void shop::setShopItemSlot(item shopItemSlot) { this->shopItemSlot = shopItemSlot; }
 
@@ -109,23 +134,121 @@ void shop::setWasVisited(bool wasVisited) { this->wasVisited = wasVisited; }
 //methods
 void shop::enterShop(player& player) {
     //declare variables
-    int playerChoice;
+    int playerChoice = 0;
+    int sentinel = 0;
+    //error proofing while loop
+    while (sentinel != 1) {
+        //execute shop lobby message, returns player's choice in the lobby
+        playerChoice = execShopLobbyMenu(player, playerChoice);
+        //if-else if branches determine which menu to print depending on player's lobby choice
+        //if player chooses to talk with the shop keeper
+        if (playerChoice == 1) {
+            system("CLS"); //!FIXME: REMOVE THIS, STORE IT IN THE DIALOGUE MENU, ADD DIALOGUE MENU AND DOCUMENTATION
+            std::cout << "BEGIN DIALOGUE" << std::endl << std::endl;
+            system("PAUSE");
+        }
+        //if player chooses to check out the shop items
+        else if (playerChoice == 2) {
+            execShopExchangeMenu(player, playerChoice);
+        }
+        //if player chooses to exit shop
+        else if (playerChoice == 3) {
+            system("CLS");
+            std::cout << "Thanks for stopping by!" << std::endl << std::endl;
+            system("PAUSE");
+            sentinel = 1;
+        }
+        else {
+            system("CLS");
+            std::cout << "That is not an option." << std::endl << std::endl;
+            system("PAUSE");
+        }
+    } 
+}
 
-    //!FIXME: add in dialogue tree and display shop items if player chooses to take a look at the shelves "I would like to take a look at your shelves."
+int shop::execShopLobbyMenu(player& player, int& playerChoice) {
+    //reset playerChoice so that error-proofing loop may begin
+    playerChoice = 0;
+    //error-proofing while loop
+    while ((playerChoice < 1) || (playerChoice > 3)) {
+        //print enter shop menu
+        system("CLS");
+        std::cout << "Welcome to " << shopName << " stranger! What can I do for ya!" << std::endl << std::endl;
+        std::cout << "[1] Talk with shopkeeper" << std::endl;
+        std::cout << "[2] Look around the shop" << std::endl;
+        std::cout << "[3] Exit" << std::endl << std::endl;
+        std::cout << "Choice: ";
+        std::cin >> playerChoice;
+        //erroneous choice message
+        if ((playerChoice < 1) && (playerChoice > 3)) {
+            system("CLS");
+            std::cout << "This is not an option." << std::endl << std::endl;
+            system("PAUSE");
+        }
+    }
+    return playerChoice;
+}
 
-    //add buy/sell options for npc dialogue tree
+void shop::execShopExchangeMenu(player& player, int& playerChoice) {
+    //reset playerChoice so that error-proofing loop may begin
+    playerChoice = 0;
+    //sentinel prevents this menu from closing until uses
+    int sentinel = 0;
+    //error-proofing while loop
+    while (((playerChoice < 1) || (playerChoice > 3)) && (sentinel != 1)) {
+        //print enter shop menu
+        system("CLS");
+        std::cout << "What would you like to do?" << std::endl << std::endl;
+        std::cout << "[1] Buy" << std::endl;
+        std::cout << "[2] Sell" << std::endl;
+        std::cout << "[3] Exit" << std::endl << std::endl;
+        std::cout << "Choice: ";
+        std::cin >> playerChoice;
+        //if-else if branches determine which menu to print depending on player's shop menu choice
+        //if player chooses to open shop buy menu
+        if (playerChoice == 1) {
+            playerChoice = execBuyMenu(player, playerChoice);
+        }
+        //if player chooses to open shop sell menu
+        else if (playerChoice == 2) {
+            playerChoice = execSellMenu(player, playerChoice);
+        }
+        //if player chooses to exit shop menu
+        else if (playerChoice == 3) {
+            system("CLS");
+            std::cout << "Thanks for inquirin'!" << std::endl << std::endl;
+            system("PAUSE");
+            sentinel = 1;
+        }
+        //erroneous choice message
+        else if ((playerChoice < 1) && (playerChoice > 3)) {
+            system("CLS");
+            std::cout << "This is not an option." << std::endl << std::endl;
+            system("PAUSE");
+        }
+    }
+}
 
-    //display shop items
-    displayShopItems();
-
-    //display choice options so that the player can buy, etc.
-    playerChoice = displayBuyOptions(player);
-
-    //run sellTo menu
-    sellTo(player, playerChoice);
+int shop::execBuyMenu(player& player, int& playerChoice) {
+    //while the user does not want to exit the buy menu
+    while (playerChoice != -1) {
+        //display shop items
+        displayShopItems();
+        //display player options
+        playerChoice = displayBuyChoices(player, playerChoice);
+        //check player choice
+        playerChoice = checkBuyChoice(player, playerChoice);
+        //sell to player unless they choose to exit or choose to look at their inventory
+        if (playerChoice > 0) {
+            sellTo(player, playerChoice);
+        }
+    }
+    return playerChoice;
 }
 
 void shop::displayShopItems() {
+    //clear console
+    system("CLS");
     //iomanip stream manipulations
     std::cout << std::setiosflags(std::ios::left); //left aligns setw()
     //display spacing header
@@ -138,129 +261,217 @@ void shop::displayShopItems() {
     std::cout << "Atk: " << shopWeaponSlot2.getAtk() << std::endl << std::endl;
     std::cout << std::setw(15) << "Armor: " << std::setw(25) << shopArmorSlot.getName() << std::setw(15) << shopArmorSlot.getWeight() << std::setw(15) << shopArmorSlot.getCoinValue();
     std::cout << "Def: " << shopArmorSlot.getDef() << std::endl << std::endl;
-    std::cout << std::setw(15) << "Potion: " << std::setw(25) << shopPotionSlot.getName() << std::setw(15) << "n/a" << std::setw(15) << shopPotionSlot.getCoinValue();
+    std::cout << std::setw(15) << "Potion: " << std::setw(25) << getPotionDisplayString() << std::setw(15) << "n/a" << std::setw(15) << shopPotionSlot.getCoinValue();
     std::cout << "HP +" << shopPotionSlot.getHealValue() << "/SP +" << shopPotionSlot.getStaminaValue() << std::endl << std::endl;
     std::cout << std::setw(15) << "Item: " << std::setw(25) << shopItemSlot.getName() << std::setw(15) << shopItemSlot.getWeight() << std::setw(15) << shopItemSlot.getCoinValue() << std::endl << std::endl;
     std::cout << std::setw(64) << "====================================================================================" << std::endl << std::endl;
 }
 
-int shop::displayBuyOptions(player& player) {
-    //declare/intialize variables
-    int playerChoice;
-    int sentinel = 0;
-    //while loop prevents erroneous choice
-    while (sentinel != 1) {
-        //print options and prompt user for input
+int shop::displayBuyChoices(player& player, int& playerChoice) {
+    //reset playerChoice so that error-proofing loop may begin
+    playerChoice = 0;
+    //error-proofing while loop
+    while ((playerChoice < 1) || (playerChoice > 7)) {
+        //print player options
         std::cout << "You have " << player.getInventory()->getCointCount() << " coins! " << "What would you like to buy?" << std::endl << std::endl;
         std::cout << std::setw(64) << "====================================================================================" << std::endl << std::endl;
         std::cout << "[1] " << shopWeaponSlot1.getName() << std::endl;
         std::cout << "[2] " << shopWeaponSlot2.getName() << std::endl;
         std::cout << "[3] " << shopArmorSlot.getName() << std::endl;
+        //!FIXME: FIX POTION COUNT FUNCTIONALITY!!!!!!
         std::cout << "[4] " << shopPotionSlot.getName() << std::endl;
         std::cout << "[5] " << shopItemSlot.getName() << std::endl;
-        std::cout << "[6] Let me check my inventory." << std::endl;
-        std::cout << "[7] I'm done shopping." << std::endl << std::endl;
+        std::cout << "[6] Check Inventory" << std::endl;
+        std::cout << "[7] Exit" << std::endl << std::endl;
         std::cout << "Choice: ";
         std::cin >> playerChoice;
-        //switch handles error proofing for empty slots and non-menu choices, maintains menu screen until user picks a valid option.
-        switch (playerChoice)
-        {
-            //Weapon Slot 1 
-        case 1:
-            if (shopWeaponSlot1.getName() == "empty") {
-                system("CLS");
-                displayShopItems();
-                std::cout << "This slot is empty!" << std::endl;
-            }
-            else {
-                system("CLS");
-                std::cout << "Comin' right up!" << std::endl;
-                sentinel = 1;
-            }
-            break;
-            //Weapon Slot 2 
-        case 2:
-            if (shopWeaponSlot2.getName() == "empty") {
-                system("CLS");
-                displayShopItems();
-                std::cout << "This slot is empty!" << std::endl;
-            }
-            else {
-                system("CLS");
-                std::cout << "Comin' right up!" << std::endl;
-                sentinel = 1;
-            }
-            break;
-            //Armor Slot
-        case 3:
-            if (shopArmorSlot.getName() == "empty") {
-                system("CLS");
-                displayShopItems();
-                std::cout << "This slot is empty!" << std::endl;
-            }
-            else {
-                system("CLS");
-                std::cout << "Comin' right up!" << std::endl;
-                sentinel = 1;
-            }
-            break;
-            //Potion Slot
-        case 4:
-            if (shopPotionSlot.getName() == "empty") {
-                system("CLS");
-                displayShopItems();
-                std::cout << "This slot is empty!" << std::endl;
-            }
-            else {
-                system("CLS");
-                std::cout << "Comin' right up!" << std::endl;
-                sentinel = 1;
-            }
-            break;
-            //Item Slot
-        case 5:
-            if (shopItemSlot.getName() == "empty") {
-                system("CLS");
-                displayShopItems();
-                std::cout << "This slot is empty!" << std::endl;
-            }
-            else {
-                system("CLS");
-                std::cout << "Comin' right up!" << std::endl;
-                sentinel = 1;
-            }
-            break;
-            //Check inventory
-        case 6:
+        //erroneous choice message
+        if ((playerChoice < 1) || (playerChoice > 7)) {
             system("CLS");
-            player.getInventory()->display();
+            std::cout << "This is not an option." << std::endl << std::endl;
             system("PAUSE");
-            system("CLS");
-            displayShopItems();
-            break;
-        case 7:
-            system("CLS");
-            std::cout << "Dusty shelves beat angry Elves I suppose..." << std::endl;
-            sentinel = 1;
-            break;
-        default:
-            system("CLS");
-            displayShopItems();
-            std::cout << "This is not an option!" << std::endl;
-            break;
-        }
-        //prevents menu from printing again after use buys item, menu displays only if sentinel is not 1 yet
-        system("PAUSE");
-        system("CLS");
-        if (sentinel == 0) {
+            //reprint shop items
             displayShopItems();
         }
     }
-    //returns user choice
     return playerChoice;
 }
 
-void shop::sellTo(player& player, int playerChoice) {
+/*
+*Name: checkBuyChoice(int& player, playerChoice& player)
+*Description: Function checks if the player is trying to buy an item from an empty slot and returns this value.
+*             Function returns 0 if player chooses an option other than to buy or the slot they are buying from is empty.
+*             Function returns -1 if player decides to exit the buy menu.
+*/
+int shop::checkBuyChoice(player& player, int& playerChoice) {
+    //branch to check player choices and determine outcome
+    //if player chooses shop weapon slot 1
+    if (playerChoice == 1) {
+        //if the slot is empty
+        if (shopWeaponSlot1.getName() == "empty") {
+            system("CLS");
+            displayShopItems();
+            std::cout << "This slot is empty!" << std::endl << std::endl;
+            std::cout << std::setw(64) << "====================================================================================" << std::endl << std::endl;
+            system("PAUSE");
+            return 0;
+        }
+        //if the slot is not empty
+        else {
+            //player coin check to validate if the user has enough coin for something
+            //if user does not have enough coin
+            if (shopWeaponSlot1.getCoinValue() > player.getInventory()->getCointCount()) {
+                system("CLS");
+                displayShopItems();
+                std::cout << "You do not have enough coin for that." << std::endl << std::endl;
+                std::cout << std::setw(64) << "====================================================================================" << std::endl << std::endl;
+                system("PAUSE");
+                return 0;
+            }
+            //if user has enough or more than enough coin
+            else if (shopWeaponSlot1.getCoinValue() <= player.getInventory()->getCointCount()) {
+                system("CLS");
+                std::cout << "Comin' right up!" << std::endl << std::endl;
+                system("PAUSE");
+                //returns player choice
+                return playerChoice;
+            }
+        }
+    }
+    //if player chooses shop weapon slot 2
+    else if (playerChoice == 2) {
+        //if the slot is empty
+        if (shopWeaponSlot2.getName() == "empty") {
+            system("CLS");
+            displayShopItems();
+            std::cout << "This slot is empty!" << std::endl << std::endl;
+            std::cout << std::setw(64) << "====================================================================================" << std::endl << std::endl;
+            system("PAUSE");
+            return 0;
+        }
+        //if the slot is not empty
+        else {
+            //player coin check to validate if the user has enough coin for something
+            //if user does not have enough coin
+            if (shopWeaponSlot2.getCoinValue() > player.getInventory()->getCointCount()) {
+                system("CLS");
+                displayShopItems();
+                std::cout << "You do not have enough coin for that." << std::endl << std::endl;
+                std::cout << std::setw(64) << "====================================================================================" << std::endl << std::endl;
+                system("PAUSE");
+                return 0;
+            }
+            //if user has enough or more than enough coin
+            else if (shopWeaponSlot2.getCoinValue() <= player.getInventory()->getCointCount()) {
+                system("CLS");
+                std::cout << "Comin' right up!" << std::endl << std::endl;
+                system("PAUSE");
+                //returns player choice
+                return playerChoice;
+            }
+        }
+    }
+    //if player chooses shop armor slot
+    else if (playerChoice == 3) {
+        //if the slot is empty
+        if (shopArmorSlot.getName() == "empty") {
+            system("CLS");
+            displayShopItems();
+            std::cout << "This slot is empty!" << std::endl << std::endl;
+            std::cout << std::setw(64) << "====================================================================================" << std::endl << std::endl;
+            system("PAUSE");
+            return 0;
+        }
+        //if the slot is not empty
+        else {
+            //player coin check to validate if the user has enough coin for something
+            //if user does not have enough coin
+            if (shopArmorSlot.getCoinValue() > player.getInventory()->getCointCount()) {
+                system("CLS");
+                displayShopItems();
+                std::cout << "You do not have enough coin for that." << std::endl << std::endl;
+                std::cout << std::setw(64) << "====================================================================================" << std::endl << std::endl;
+                system("PAUSE");
+                return 0;
+            }
+            //if user has enough or more than enough coin
+            else if (shopArmorSlot.getCoinValue() <= player.getInventory()->getCointCount()) {
+                system("CLS");
+                std::cout << "Comin' right up!" << std::endl << std::endl;
+                system("PAUSE");
+                //returns player choice
+                return playerChoice;
+            }
+        }
+    }
+    //if player chooses shop potion slot
+    else if (playerChoice == 4) {
+        //if the slot is empty
+        if (shopPotionSlot.getName() == "empty") {
+            system("CLS");
+            displayShopItems();
+            std::cout << "This slot is empty!" << std::endl << std::endl;
+            std::cout << std::setw(64) << "====================================================================================" << std::endl << std::endl;
+            system("PAUSE");
+            return 0;
+        }
+        //if the slot is not empty
+        else {
+            //enters secondary potion menu in sellTo function
+            return playerChoice;
+        }
+    }
+    //if player chooses shop item slot
+    else if (playerChoice == 5) {
+        //if the slot is empty
+        if (shopItemSlot.getName() == "empty") {
+            system("CLS");
+            displayShopItems();
+            std::cout << "This slot is empty!" << std::endl << std::endl;
+            std::cout << std::setw(64) << "====================================================================================" << std::endl << std::endl;
+            system("PAUSE");
+            return 0;
+        }
+        //if the slot is not empty
+        else {
+            //player coin check to validate if the user has enough coin for something
+            //if user does not have enough coin
+            if (shopItemSlot.getCoinValue() > player.getInventory()->getCointCount()) {
+                system("CLS");
+                displayShopItems();
+                std::cout << "You do not have enough coin for that." << std::endl << std::endl;
+                std::cout << std::setw(64) << "====================================================================================" << std::endl << std::endl;
+                system("PAUSE");
+                return 0;
+            }
+            //if user has enough or more than enough coin
+            else if (shopItemSlot.getCoinValue() <= player.getInventory()->getCointCount()) {
+                //returns player choice for later menu in sellTo which asks which item slot the player wants to store their item in
+                return playerChoice;
+            }
+        }
+    }
+    //if player chooses to check their inventory
+    else if (playerChoice == 6) {
+        player.getInventory()->display();
+        system("PAUSE");
+        return 0;
+    }
+    //if player chooses to leave the shop buy menu
+    else if (playerChoice == 7) {
+        system("CLS");
+        std::cout << "Dusty shelves beat angry Elves I suppose..." << std::endl << std::endl;
+        system("PAUSE");
+        return -1;
+    }
+}
+
+/*
+* Name: sellTo(player& player, int& playerChoice)
+*Description: Function replaces validated shop item that the user chose to purchase with an empty item of its type.
+*             Function places validated purchased item into respective player inventory item slot for use.
+*/
+void shop::sellTo(player& player, int& playerChoice) {
     //!FIXME: potentially create empty weapons to switch out shop weapons
     weapon noWeapon;
     armor noArmor;
@@ -268,51 +479,101 @@ void shop::sellTo(player& player, int playerChoice) {
     item noItem;
     int sentinel = 0;
 
-    //user chooses shopWeaponSlot1
+    //player chooses shopWeaponSlot1
     if (playerChoice == 1) {
         //subtracts gold according to weapon price from player inventory
         player.getInventory()->setCoinCount(player.getInventory()->getCointCount() - shopWeaponSlot1.getCoinValue());
         //replace players weapon with shop weapon of choice
         player.getInventory()->setWeapon(shopWeaponSlot1);
-        //!FIXME: MESS WITH CONSTRUCTORS FOR THIS STEP, changes weapon to empty slot and info
+        //changes weapon to empty slot and info
         setShopWeaponSlot1(noWeapon);
     }
-    //user chooses shopWeaponSlot2
+    //player chooses shopWeaponSlot2
     else if (playerChoice == 2) {
         //subtracts gold according to weapon price from player inventory
         player.getInventory()->setCoinCount(player.getInventory()->getCointCount() - shopWeaponSlot2.getCoinValue());
         //replace players weapon with shop weapon of choice
         player.getInventory()->setWeapon(shopWeaponSlot2);
-        //!FIXME: MESS WITH CONSTRUCTORS FOR THIS STEP, changes weapon to empty slot and info
+        //changes weapon to empty slot and info
         setShopWeaponSlot2(noWeapon);
     }
-    //user chooses shopArmorSlot
+    //player chooses shopArmorSlot
     else if (playerChoice == 3) {
-        //subtracts gold according to weapon price from player inventory
+        //subtracts gold according to armor price from player inventory
         player.getInventory()->setCoinCount(player.getInventory()->getCointCount() - shopArmorSlot.getCoinValue());
-        //replace players weapon with shop weapon of choice
+        //replace players armor with shop armor of choice
         player.getInventory()->setArmor(shopArmorSlot);
-        //!FIXME: MESS WITH CONSTRUCTORS FOR THIS STEP, changes weapon to empty slot and info
+        //changes armor to empty slot and info
         setShopArmorSlot(noArmor);
     }
-    //user chooses shopPotionSlot
-    //!FIXME deal with potion counts
+    //player chooses shopPotionSlot
     else if (playerChoice == 4) {
-        //subtracts gold according to weapon price from player inventory
-        player.getInventory()->setCoinCount(player.getInventory()->getCointCount() - shopPotionSlot.getCoinValue());
-        //replace players weapon with shop weapon of choice
-        player.getInventory()->setPotion(shopPotionSlot);
-        //!FIXME: MESS WITH CONSTRUCTORS FOR THIS STEP, changes weapon to empty slot and info
-        setShopPotionSlot(noPotion);
+        int sentinel = 0;
+        int desiredPotionCount = 0;
+        //calculate and store potion individual price as determined by object constructor passed value
+        int potionIndividualPrice = shopPotionSlot.getCoinValue() / shopPotionSlot.getPotionCount();
+        //prompt user to decide how many potions they'd like to buy
+        while (sentinel != 1) {
+            system("CLS");
+            displayShopItems();
+            std::cout << "How many potions would you like to buy? We've got " << shopPotionSlot.getPotionCount() << "!" << std::endl << std::endl;
+            std::cout << std::setw(64) << "====================================================================================" << std::endl << std::endl;
+            std::cout << "Insert count: ";
+            std::cin >> desiredPotionCount;
+            //prints error menu if choice is erroneous
+            if ((desiredPotionCount < 1) || (desiredPotionCount > shopPotionSlot.getPotionCount())) {
+                system("CLS");
+                std::cout << "This is not an option!" << std::endl << std::endl;
+                system("PAUSE");
+                system("CLS");
+            }
+            else if ((desiredPotionCount >= 1) && (desiredPotionCount <= shopPotionSlot.getPotionCount())) {
+                sentinel = 1;
+            }
+        }
+        //player coin check to validate if the user has enough coin for something, take desired count and multiply by the potionIndividual price for validation boundaries
+        //if user does not have enough coin
+        if ((potionIndividualPrice * desiredPotionCount) > (player.getInventory()->getCointCount())) {
+            system("CLS");
+            displayShopItems();
+            std::cout << "You do not have enough coin for that." << std::endl << std::endl;
+            std::cout << std::setw(64) << "====================================================================================" << std::endl << std::endl;
+            system("PAUSE");
+        }
+        //if user has enough or more than enough coin
+        else if ((potionIndividualPrice * desiredPotionCount) <= (player.getInventory()->getCointCount())) {
+            //success message
+            system("CLS");
+            std::cout << "Comin' right up!" << std::endl << std::endl;
+            system("PAUSE");
+            //subtracts gold according to potion price from player inventory
+            player.getInventory()->setCoinCount(player.getInventory()->getCointCount() - (potionIndividualPrice * desiredPotionCount));
+            //replace players potion with shop potion of choice
+            player.getInventory()->setPotion(shopPotionSlot);
+            //set proper potion count and value in player inventory
+            player.getInventory()->getPotion()->setPotionCount(desiredPotionCount);
+            player.getInventory()->getPotion()->setCoinValue((potionIndividualPrice * desiredPotionCount));
+            //if the player does not buy all the potions in the shop
+            if (desiredPotionCount < shopPotionSlot.getPotionCount()) {
+                //set the number and value of potions in the shop appropriately
+                shopPotionSlot.setPotionCount(shopPotionSlot.getPotionCount() - desiredPotionCount);
+                shopPotionSlot.setCoinValue(shopPotionSlot.getPotionCount() * potionIndividualPrice);
+            }
+            else if (desiredPotionCount == shopPotionSlot.getPotionCount()) {
+                //changes potion to empty slot and info
+                setShopPotionSlot(noPotion);
+            }
+        }
     }
-    //user chooses shopArmorSlot
+    //player chooses shopArmorSlot
     else if (playerChoice == 5) {
         //subtracts gold according to weapon price from player inventory
         player.getInventory()->setCoinCount(player.getInventory()->getCointCount() - shopItemSlot.getCoinValue());
         //replace players weapon with shop weapon of choice
-        //ask user which item slot they would like to use to store item
+        //ask player which item slot they would like to use to store item
         while (sentinel != 1) {
-            std::cout << "Choose an item slot to store this item." << std::endl;
+            system("CLS");
+            std::cout << "Great! Choose an item slot to store this item." << std::endl;
             std::cout << "[1] Item Slot 1" << std::endl;
             std::cout << "[2] Item Slot 2" << std::endl;
             std::cout << "[3] Item Slot 3" << std::endl;
@@ -321,7 +582,7 @@ void shop::sellTo(player& player, int playerChoice) {
             //prints error menu if choice is erroneous
             if ((playerChoice < 1) || (playerChoice > 3)) {
                 system("CLS");
-                std::cout << "This is not an option!" << std::endl;
+                std::cout << "This is not an option!" << std::endl << std::endl;
                 system("PAUSE");
                 system("CLS");
             }
@@ -329,42 +590,314 @@ void shop::sellTo(player& player, int playerChoice) {
                 sentinel = 1;
             }
         }
-        //places shop item that was purchased into the respective item slot of the inventory that the user chooses
+        //places shop item that was purchased into the respective item slot of the inventory that the player chooses
         if (playerChoice == 1) {
             player.getInventory()->setItem1(shopItemSlot);
-            //!FIXME: MESS WITH CONSTRUCTORS FOR THIS STEP, changes weapon to empty slot and info
+            //changes item to empty slot and info
             setShopItemSlot(noItem);
         }
         else if (playerChoice == 2) {
             player.getInventory()->setItem2(shopItemSlot);
-            //!FIXME: MESS WITH CONSTRUCTORS FOR THIS STEP, changes weapon to empty slot and info
+            //changes item to empty slot and info
             setShopItemSlot(noItem);
         }
         else if (playerChoice == 3) {
             player.getInventory()->setItem3(shopItemSlot);
-            //!FIXME: MESS WITH CONSTRUCTORS FOR THIS STEP, changes weapon to empty slot and info
+            //changes item to empty slot and info
             setShopItemSlot(noItem);
         }
     }
+}
+
+int shop::execSellMenu(player& player, int& playerChoice) {
+    //while the user does not want to exit the buy menu
+    while (playerChoice != -1) {
+        //print inventory sell options
+        player.getInventory()->display();
+        //display sell options
+        displaySellChoices(player, playerChoice);
+        //check player choice
+        playerChoice = checkSellChoice(player, playerChoice);
+        //sell to player unless they choose to exit or choose to look at their inventory
+        if (playerChoice > 0) {
+            buyFrom(player, playerChoice);
+        }
+    }
+    return playerChoice;
+}
+
+int shop::displaySellChoices(player& player, int& playerChoice) {
+    //reset playerChoice so that error-proofing loop may begin
+    playerChoice = 0;
+    //error-proofing while loop
+    while ((playerChoice < 1) || (playerChoice > 7)) {
+        std::cout << "What would you like to sell? You\'ve got " << player.getInventory()->getCointCount() << " coins right now." << std::endl << std::endl;
+        std::cout << "================================================================" << std::endl << std::endl; //!FIXME: LEFT OFF HERE
+        std::cout << "[1] " << std::setw(25) << player.getInventory()->getWeapon().getName();
+        std::cout << "(" << player.getInventory()->getWeapon().getCoinValue() << " coins)" << std::endl;
+        std::cout << "[2] " << std::setw(25) << player.getInventory()->getArmor().getName();
+        std::cout << "(" << player.getInventory()->getArmor().getCoinValue() << " coins)" << std::endl;
+        std::cout << "[3] " << std::setw(25) << player.getInventory()->getPotionDisplayString();
+        std::cout << "(" << player.getInventory()->getPotion()->getCoinValue() << " coins)" << std::endl;
+        std::cout << "[4] " << std::setw(25) << player.getInventory()->getItemSlot1().getName();
+        std::cout << "(" << player.getInventory()->getItemSlot1().getCoinValue() << " coins)" << std::endl;
+        std::cout << "[5] " << std::setw(25) << player.getInventory()->getItemSlot2().getName();
+        std::cout << "(" << player.getInventory()->getItemSlot2().getCoinValue() << " coins)" << std::endl;
+        std::cout << "[6] " << std::setw(25) << player.getInventory()->getItemSlot3().getName();
+        std::cout << "(" << player.getInventory()->getItemSlot3().getCoinValue() << " coins)" << std::endl;
+        std::cout << "[7] Exit" << std::endl << std::endl;
+        std::cout << "Choice: ";
+        std::cin >> playerChoice;
+        //erroneous choice message
+        if ((playerChoice < 1) || (playerChoice > 7)) {
+            system("CLS");
+            std::cout << "This is not an option." << std::endl << std::endl;
+            system("PAUSE");
+            //reprint inventory sell options
+            player.getInventory()->display();
+        }
+    }
+    return playerChoice;
+}
+
+int shop::checkSellChoice(player& player, int& playerChoice) {
+    //branch to check player choices and determine outcome
+    //if player chooses to sell their weapon
+    if (playerChoice == 1) {
+        //if the slot is empty
+        if (player.getInventory()->getWeapon().getName() == "empty") {
+            system("CLS");
+            player.getInventory()->display();
+            std::cout << "This slot is empty!" << std::endl << std::endl;
+            std::cout << "================================================================" << std::endl << std::endl;
+            system("PAUSE");
+            return 0;
+        }
+        //if the slot is not empty
+        else {
+            system("CLS");
+            std::cout << "Great! Here's your coin!" << std::endl << std::endl;
+            system("PAUSE");
+            //returns player choice
+            return playerChoice;
+        }
+    }
+    //if player chooses to sell their armor
+    else if (playerChoice == 2) {
+        //if the slot is empty
+        if (player.getInventory()->getArmor().getName() == "empty") {
+            system("CLS");
+            player.getInventory()->display();
+            std::cout << "This slot is empty!" << std::endl << std::endl;
+            std::cout << "================================================================" << std::endl << std::endl;
+            system("PAUSE");
+            return 0;
+        }
+        //if the slot is not empty
+        else {
+            system("CLS");
+            std::cout << "Great! Here's your coin!" << std::endl << std::endl;
+            system("PAUSE");
+            //returns player choice
+            return playerChoice;
+        }
+    }
+    //if player chooses to sell their potion(s)
+    else if (playerChoice == 3) {
+        //if the slot is empty
+        //!FIXME: INSERT HOW MANY POTIONS YOU WANNA SELL? MENU!!!!!
+        if (player.getInventory()->getPotion()->getName() == "empty") {
+            system("CLS");
+            player.getInventory()->display();
+            std::cout << "This slot is empty!" << std::endl << std::endl;
+            std::cout << "================================================================" << std::endl << std::endl;
+            system("PAUSE");
+            return 0;
+        }
+        //if the slot is not empty
+        else {
+            system("CLS");
+            std::cout << "Great! Here's your coin!" << std::endl << std::endl;
+            system("PAUSE");
+            //returns player choice
+            return playerChoice;
+        }
+    }
+    //if player chooses to sell item 1
+    else if (playerChoice == 4) {
+        //if the slot is empty
+        if (player.getInventory()->getItemSlot1().getName() == "empty") {
+            system("CLS");
+            player.getInventory()->display();
+            std::cout << "This slot is empty!" << std::endl << std::endl;
+            std::cout << "================================================================" << std::endl << std::endl;
+            system("PAUSE");
+            return 0;
+        }
+        //if the slot is not empty
+        else {
+            system("CLS");
+            std::cout << "Great! Here's your coin!" << std::endl << std::endl;
+            system("PAUSE");
+            //returns player choice
+            return playerChoice;
+        }
+    }
+    //if player chooses to sell item 2
+    else if (playerChoice == 5) {
+        //if the slot is empty
+        if (player.getInventory()->getItemSlot2().getName() == "empty") {
+            system("CLS");
+            player.getInventory()->display();
+            std::cout << "This slot is empty!" << std::endl << std::endl;
+            std::cout << "================================================================" << std::endl << std::endl;
+            system("PAUSE");
+            return 0;
+        }
+        //if the slot is not empty
+        else {
+            system("CLS");
+            std::cout << "Great! Here's your coin!" << std::endl << std::endl;
+            system("PAUSE");
+            //returns player choice
+            return playerChoice;
+        }
+    }
+    //if player chooses to sell item 3
+    else if (playerChoice == 6) {
+        //if the slot is empty
+        if (player.getInventory()->getItemSlot3().getName() == "empty") {
+            system("CLS");
+            player.getInventory()->display();
+            std::cout << "This slot is empty!" << std::endl << std::endl;
+            std::cout << "================================================================" << std::endl << std::endl;
+            system("PAUSE");
+            return 0;
+        }
+        //if the slot is not empty
+        else {
+            system("CLS");
+            std::cout << "Great! Here's your coin!" << std::endl << std::endl;
+            system("PAUSE");
+            //returns player choice
+            return playerChoice;
+        }
+    }
+    //if player chooses to leave the shop buy menu
+    else if (playerChoice == 7) {
+        system("CLS");
+        std::cout << "More coin for me!" << std::endl << std::endl;
+        system("PAUSE");
+        return -1;
+    }
+}
+
+/*
+* Name: buyFrom(player& player, int& playerChoice)
+* Description:
+* 
+*/
+void shop::buyFrom(player& player, int& playerChoice) {
+    weapon noWeapon;
+    armor noArmor;
+    potion noPotion;
+    item noItem;
+
+    //player chooses to sell their weapon
+    if (playerChoice == 1) {
+        //increase player gold by weapon gold value
+        player.getInventory()->setCoinCount(player.getInventory()->getCointCount() + player.getInventory()->getWeapon().getCoinValue());
+        //set player inventory weapon to noWeapon
+        player.getInventory()->setWeapon(noWeapon);
+    }
+    //player chooses to sell their armor
+    else if (playerChoice == 2) {
+        //increase player gold by weapon gold value
+        player.getInventory()->setCoinCount(player.getInventory()->getCointCount() + player.getInventory()->getArmor().getCoinValue());
+        //set player inventory weapon to noWeapon
+        player.getInventory()->setArmor(noArmor);
+    }
+    //player chooses to sell their potion
+    else if (playerChoice == 3) {
+        //increase player gold by weapon gold value
+        player.getInventory()->setCoinCount(player.getInventory()->getCointCount() + player.getInventory()->getPotion()->getCoinValue());
+        //set player inventory weapon to noWeapon
+        player.getInventory()->setPotion(noPotion);
+    }
+    //player chooses to sell item 1
+    else if (playerChoice == 4) {
+        //if item 1 is a quest item
+        if (player.getInventory()->getItemSlot1().getIsQuestItem() == true) {
+            system("CLS");
+            std::cout << "You can't sell that! It is a quest item." << std::endl << std::endl;
+            system("PAUSE");
+        }
+        //if item 1 is not a quest item
+        else if (player.getInventory()->getItemSlot1().getIsQuestItem() == false) {
+            //increase player gold by weapon gold value
+            player.getInventory()->setCoinCount(player.getInventory()->getCointCount() + player.getInventory()->getItemSlot1().getCoinValue());
+            //set player inventory weapon to noWeapon
+            player.getInventory()->setItem1(noItem);
+        }
+    }
+    //player chooses to sell item 2
+    else if (playerChoice == 5) {
+        //if item 2 is a quest item
+        if (player.getInventory()->getItemSlot2().getIsQuestItem() == true) {
+            system("CLS");
+            std::cout << "You can't sell that! It is a quest item." << std::endl << std::endl;
+            system("PAUSE");
+        }
+        //if item 2 is not a quest item
+        else if (player.getInventory()->getItemSlot2().getIsQuestItem() == false) {
+            //increase player gold by weapon gold value
+            player.getInventory()->setCoinCount(player.getInventory()->getCointCount() + player.getInventory()->getItemSlot2().getCoinValue());
+            //set player inventory weapon to noWeapon
+            player.getInventory()->setItem2(noItem);
+        }
+    }
+    //player chooses to sell item 3
+    else if (playerChoice == 6) {
+        //if item 3 is a quest item
+        if (player.getInventory()->getItemSlot3().getIsQuestItem() == true) {
+            system("CLS");
+            std::cout << "You can't sell that! It is a quest item." << std::endl << std::endl;
+            system("PAUSE");
+        }
+        //if item 3 is not a quest item
+        else if (player.getInventory()->getItemSlot3().getIsQuestItem() == false) {
+            //increase player gold by weapon gold value
+            player.getInventory()->setCoinCount(player.getInventory()->getCointCount() + player.getInventory()->getItemSlot3().getCoinValue());
+            //set player inventory weapon to noWeapon
+            player.getInventory()->setItem3(noItem);
+        }
+    }
+
+    //!FIXME: LEFT OFF HERE 04/24/2024 , ADD POTION FUNCTIONALITY WITH POTION.USE(), SET POTION COUNT, MOVE POTION COUNT TO POTION CLASS, SHOP MENU "HOW MANY POTIONS YOU WANNA BUY?"
+
 }
 
 //CHURCH CLASS DEFINITIONS
 //constructers
 //default constructor
 Church::Church() {
-    churchName = "";
+    churchName = "Null Church";
+    churchType = "Null Church";
     hpToHeal = 0;
     //!FIXME: ADD NPC PRIEST AND OPTIONS TO SPEAK WITH PRIEST, OFFER SACRIFICE ON THE ALTAR, ETC.
 }
 
 //initialize object with all custom parameters
-Church::Church(std::string churchName, int hpToHeal) {
+Church::Church(std::string churchName, std::string churchType, int hpToHeal) {
     this->churchName = churchName;
+    this->churchType = churchType;
     this->hpToHeal = hpToHeal;
 }
 
 //getters
 std::string Church::getChurchName() { return churchName; }
+
+std::string Church::getChurchType() { return churchType; }
 
 int Church::getHpToHeal() { return hpToHeal; }
 
@@ -372,9 +905,21 @@ int Church::getHpToHeal() { return hpToHeal; }
 //setters
 void Church::setChurchName(std::string churchName) { this->churchName = churchName; }
 
+void Church::setChurchType(std::string churchType) { this->churchName = churchType; }
+
 void Church::setHpToHeal(int hpToHeal) { this->hpToHeal = hpToHeal; }
 
 //methods
+void Church::enterChurch(player& player) {
+    //clear console
+    system("CLS");
+    //!FIXME: MODEL THIS AFTER ENTERSHOP() FUNCTION
+    //! TEST MESSAGE
+    std::cout << "TEST: Church entered." << std::endl << std::endl;
+    system("PAUSE");
+
+}
+
 void Church::churchWelcome(player& player) {
     int choice = 0;
     std::cout << "Welcome to the " << churchName << ". You feel the presence of grace." << std::endl;

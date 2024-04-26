@@ -1,6 +1,11 @@
 #include <iostream>
 #include <iomanip>
+#include <array>
+#include <vector>
+#include <string>
 #include <random>
+#include <windows.h>
+#include <stdlib.h>
 #include "menu.h"
 #include "map.h"
 #include "locations.h"
@@ -8,7 +13,7 @@
 #include "characters.h"
 #include "inventory.h"
 #include "items.h"
-#include "DialogueTree.h"
+#include "resource.h"
 
 //CHARACTER CLASS DEFINITIONS
 
@@ -51,6 +56,8 @@ player::player() {
 	def = 0;
 	weight = 0;
 	inventory = emptyInventory;
+	coordinateX = 0;
+	coordinateY = 0;
 }
 
 player::player(std::string name, playerInventory inventory) {
@@ -62,6 +69,8 @@ player::player(std::string name, playerInventory inventory) {
 	def = 0;
 	weight = 0;
 	this->inventory = inventory;
+	coordinateX = 0;
+	coordinateY = 0;
 }
 
 //getters
@@ -73,6 +82,10 @@ int player::getWeight() { return weight; }
 
 playerInventory* player::getInventory() { return &inventory; }
 
+int player::getCoordinateX() { return coordinateX; }
+
+int player::getCoordinateY() { return coordinateY; }
+
 //setters
 void player::setFp(int fp) { this->fp = fp; }
 
@@ -82,9 +95,14 @@ void player::setWeight(int weight) { this->weight = weight; }
 
 void player::setInventory(playerInventory inventory) { this->inventory = inventory; }
 
+void player::setCoordinateX(int coordinateX) { this->coordinateX = coordinateX; }
+
+void player::setCoordinateY(int coordinateY) { this->coordinateY = coordinateY; }
+
 //methods
 void player::printStats() {
-	std::cout << name << " Stats: " << std::endl;
+	system("CLS");
+	std::cout << name << "\'s Stats: " << std::endl;
 	std::cout << "====================" << std::endl;
 	std::cout << "HP: " << hp << std::endl;
 	std::cout << "SP: " << sp << std::endl;
@@ -94,37 +112,37 @@ void player::printStats() {
 	std::cout << "Weight: " << weight << std::endl;
 	std::cout << "Coin: " << inventory.getCointCount() << std::endl;
 	std::cout << "====================" << std::endl << std::endl;
+	system("PAUSE");
 }
 
-void player::accessInventory(){
-	int sentinel = 0;
-	while (sentinel != 3) {
-		std::cout << "[1] Inventory" << std::endl;
-		std::cout << "[2] Player Stats" << std::endl;
-		std::cout << "[3] Exit" << std::endl;
-		std::cout << "Choice: ";
-		std::cin >> sentinel;
-		if (sentinel == 1) {
-			system("CLS");
-			inventory.display();
-			system("PAUSE");
-			system("CLS");
-		}
-		else if (sentinel == 2) {
-			system("CLS");
-			printStats();
-			system("PAUSE");
-			system("CLS");
-		}
-		else if (sentinel == 3) {
-			system("CLS");
-		}
-		else {
-			system("CLS");
-			std::cout << "This is not an option!" << std::endl << std::endl;
-			system("PAUSE");
-			system("CLS");
-		}
+void player::usePotion() {
+	//check if player potion slot is empty
+	if (inventory.getPotion()->getPotionCount() == 0) {
+		system("CLS");
+		std::cout << "You have no potions to use!" << std::endl << std::endl;
+		system("PAUSE");
+	}
+	//if player potion slot is not empty
+	else if (inventory.getPotion()->getPotionCount() > 0) {
+		//heal all player stats
+		hp = hp + (inventory.getPotion()->getHealValue());
+		sp = sp + (inventory.getPotion()->getStaminaValue());
+		hp = fp + (inventory.getPotion()->getFocusValue());
+		//print heal message
+		system("CLS");
+		std::cout << "You drink a potion. How refreshing!" << std::endl << std::endl; //!FIXME: DISPLAY INCREASED STATS
+		system("PAUSE");
+		//subtract one potions worth of coin from potion value and subtract one potion
+		inventory.getPotion()->setCoinValue((inventory.getPotion()->getCoinValue()) - ((inventory.getPotion()->getCoinValue()) / (inventory.getPotion()->getPotionCount())));
+		inventory.getPotion()->setPotionCount(inventory.getPotion()->getPotionCount() - 1);
+		
+	}
+	//check if potion count is zero
+	if (inventory.getPotion()->getPotionCount() == 0) {
+		//create an empty potionItem to replace potionSlot
+		potion noPotion;
+		//set potionSlot to noPotion empty slot item
+		inventory.setPotion(noPotion);
 	}
 }
 
@@ -139,26 +157,79 @@ npc::npc(std::string npcName) {
 	this->npcName = npcName;
 }
 
+npc::npc(std::string npcName, std::vector<std::vector<std::string>> dialogueVector) {
+	this->npcName = npcName;
+	this->dialogueVector = dialogueVector;
+}
+
 //getters
 std::string npc::getNpcName() { return npcName; }
 
-dialogueTree* npc::getDialogueTree() { return &dialogue; }
+std::vector<std::vector<std::string>> npc::getDialogueVector() { return dialogueVector; }
 
 //setters
 void npc::setNpcName(std::string npcName) { this->npcName = npcName; }
 
-void npc::setDialogueTree(dialogueTree dialogue) { dialogue = dialogue; }
+void npc::setDialogueVector(std::vector<std::vector<std::string>>& dialogueVector) { this->dialogueVector = dialogueVector; }
 
 //methods
+void npc::initiateDialogue() {
+	//declare variables
+	int userChoice;
+	int index = 0;
+	//determine levels in dialogue
+	int dialogueLevels = (log2(dialogueVector.size() + 1));
+	//for loop iterates number of levels for possible responses
+	//!FIXME: IMPLEMENT TREE LEVEL ALGORITHM
+	for (int i = 0; i < dialogueLevels; i++) {
+		//print dialogue
+		system("CLS");
+		//if current quotation has two responses
+		if (i < (dialogueLevels - 1)) {
+			std::cout << dialogueVector[index][0] << std::endl << std::endl;
+			std::cout << "[1]" << dialogueVector[index][1] << std::endl;
+			std::cout << "[2]" << dialogueVector[index][2] << std::endl;
+			std::cout << "[3] Exit" << std::endl << std::endl;
+			//prompt user for choice
+			std::cout << "Choice: ";
+			std::cin >> userChoice;
+			//if user chooses option 1
+			if (userChoice == 1) {
+				index = (2 * index) + 1;
+			}
+			//if user chooses option 2
+			else if (userChoice == 2) {
+				index = (2 * index) + 2;
+			}
+			//if user chooses to exit dialogue
+			else if (userChoice == 3) {
+				//!FIXME: print randomized goodbye message
+				std::cout << "That's a funny way to treat a stranger. Goodbye." << std::endl;
+			}
+			//if user chooses an invalid option
+			else {
+				//print error message
+				std::cout << "This is not an option!";
+				//for loop is set back one loop if the user does not input a valid number
+				i--;
+			}
+		}
+		else if (i == (dialogueLevels - 1)) {
+			std::cout << dialogueVector[index][0] << std::endl << std::endl;
+			system("Pause");
+		}
+	}
+}
 
 //ENEMY CLASS DEFINITIONS
-
-//constructor
+//constructors
 enemy::enemy() {
-	hp = 20;
+	name = "Null enemy";
+	hp = 100;
 	atk = 10;
-	def = 2;
+	def = 10;
 	flees = false;
+	isSlain = false;
 }
 
 enemy::enemy(std::string inputName, int inputHp, int inputAtk, int inputDef, bool inputflees) {
@@ -167,13 +238,18 @@ enemy::enemy(std::string inputName, int inputHp, int inputAtk, int inputDef, boo
 	atk = inputAtk;
 	def = inputDef;
 	flees = inputflees;
+	isSlain = false;
 }
 
 //getters
 bool enemy::getFlees() { return flees; }
 
+bool enemy::getIsSlain() { return isSlain; }
+
 //setters
 void enemy::setFlees(bool flees) { this->flees = flees; }
+
+void enemy::setIsSlain(bool isSlain) { this->isSlain = isSlain; }
 
 //methods
 
@@ -228,7 +304,7 @@ int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engi
 		if (enemyDodgeChance(engine) == 6) {
 			//print enemy dodged your attack menu
 			system("CLS");
-			std::cout << "You lunge forward but the enemy dodges... " << std::endl;
+			std::cout << "You lunge forward but the enemy dodges... " << std::endl << std::endl;
 			system("PAUSE");
 			system("CLS");
 		}
@@ -238,15 +314,15 @@ int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engi
 			if (input == 1) {
 				//calculates random damage amount
 				damageDone = playerHeavyAttackRange(engine);
-				//!FIXME: ADD IN, calculates according to buff/nerf
+				//calculate damage buff using weapon atk stat
 				totalDamageDone = damageDone * player.getInventory()->getWeapon().getBuffPercent();
-				//subtracts stamina points NOTE: WEIGHT = AMMOUT IT TAKES OFF FROM SP!!!
-				player.setSp(player.getSp() - player.getInventory()->getWeapon().getWeight());
+				//subtracts stamina points NOTE: WEIGHT = AMOUNT IT TAKES OFF FROM SP!!!
+				player.setSp(player.getSp() - player.getInventory()->getWeapon().getWeight() - 15);
 				//sets new enemy hp by subtracting damageDone from current enemy hp
 				this->setHp(this->getHp() - totalDamageDone);
 				//attack landed text, pauses on this screen and then resets screen back to stats menu
 				system("CLS");
-				std::cout << "You strike with a heavy blow! " << totalDamageDone << " damage done!" << std::endl;
+				std::cout << "You strike with a heavy blow! " << totalDamageDone << " damage done!" << std::endl << std::endl;
 				system("PAUSE");
 				system("CLS");
 			}
@@ -256,15 +332,15 @@ int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engi
 				playerDodges = playerLightAttackDodgeChance(engine);
 				//calculates random damage amount
 				damageDone = playerLightAttackRange(engine);
-				//!FIXME: ADD IN, calculates according to buff/nerf
+				//calculate damage buff according to weapon atk stat
 				totalDamageDone = damageDone * player.getInventory()->getWeapon().getBuffPercent();
-				//subtracts stamina points NOTE: WEIGHT = HALF THE AMMOUT IT TAKES OFF FROM SP!!!
-				player.setSp(player.getSp() - ((player.getInventory()->getWeapon().getWeight()) + ((player.getInventory()->getWeapon().getWeight()) / 2)));
+				//subtracts stamina points NOTE: WEIGHT = HALF THE AMOUNT IT TAKES OFF FROM SP!!!
+				player.setSp(player.getSp() - ((player.getInventory()->getWeapon().getWeight()) + ((player.getInventory()->getWeapon().getWeight()) / 2)) - 10);
 				//sets new enemy hp by subtracting damageDone from current enemy hp
 				this->setHp(this->getHp() - totalDamageDone);
 				//attack landed text, pauses on this screen and then resets screen back to stats menu
 				system("CLS");
-				std::cout << "You strike with a heavy blow! " << totalDamageDone << " damage done!" << std::endl;
+				std::cout << "You lunge forward quickly and fiercly. You pierce the enemy like lightning. " << totalDamageDone << " damage done!" << std::endl << std::endl;
 				system("PAUSE");
 				system("CLS");
 			}
@@ -281,9 +357,8 @@ int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engi
 		playerDodges = 3;
 	}
 	else {
-		//!FIXME: why do letters break it?
 		system("CLS");
-		std::cout << "This is not an option. Choose again." << std::endl;
+		std::cout << "This is not an option. Choose again." << std::endl << std::endl;
 		system("PAUSE");
 		system("CLS");
 		//sets playerDodges to 3 as return value to prevent enemy from attacking if user picks null option
@@ -297,6 +372,10 @@ int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engi
 void enemy::enemyAttackTurn(int playerDodges, int& damageDone, std::default_random_engine& engine, player& player) {
 	//declare variables
 	unsigned int atkUnsigned = atk;
+	//prevent enemyAttackRange lower bound from going below 1
+	if (atkUnsigned < 20) {
+		atkUnsigned = 21;
+	}
 	std::uniform_int_distribution<unsigned int> enemyAttackRange{ (atkUnsigned - 20), atkUnsigned };
 	std::uniform_int_distribution<unsigned int> enemyMissChance{ 1,12 };
 	//enemy is still alive after your attack
@@ -305,7 +384,7 @@ void enemy::enemyAttackTurn(int playerDodges, int& damageDone, std::default_rand
 		//player dodges
 		if (playerDodges == 1) {
 			system("CLS");
-			std::cout << "Swiftly you dodge the enemy!" << std::endl;
+			std::cout << "Your light attack is quick and the enemy is stunned! Swiftly, you dodge their attack." << std::endl << std::endl;
 			system("PAUSE");
 			system("CLS");
 		}
@@ -314,8 +393,7 @@ void enemy::enemyAttackTurn(int playerDodges, int& damageDone, std::default_rand
 			//determines if the enemy attack misses or not
 			if (enemyMissChance(engine) == 6) {
 				system("CLS");
-				//!FIXME: ENEMY NAME FEATURE
-				std::cout << "[Insert enemy name] " << " slashes wildly and misses its attack!" << std::endl;
+				std::cout << name << " slashes wildly and misses its attack!" << std::endl << std::endl;
 				system("PAUSE");
 				system("CLS");
 			}
@@ -326,18 +404,20 @@ void enemy::enemyAttackTurn(int playerDodges, int& damageDone, std::default_rand
 				player.setHp(player.getHp() - damageDone);
 				//enemy attack landed text, pauses on this screen and then resets screen back to stats menu
 				system("CLS");
-				std::cout << name << "slashes you with sharp claws! " << totalEnemyDamage << " damage done!" << std::endl;
+				std::cout << name << " slashes you with sharp claws! " << totalEnemyDamage << " damage done!" << std::endl << std::endl;
 				system("PAUSE");
 				system("CLS");
 			}
 		}
 	}
 	//enemy dies after your attack
-	else {
+	else if (this->getHp() <= 0) {
 		system("CLS");
-		std::cout << "[Insert enemy name] " << "has been slain!" << std::endl;
+		std::cout << name << " has been slain!" << std::endl << std::endl;
 		system("PAUSE");
 		system("CLS");
+		//sets isSlain bool to true
+		isSlain = true;
 	}
 }
 
@@ -354,26 +434,52 @@ void enemy::battle(player& player) {
 	int playerDodges = 0;
 	std::default_random_engine engine{ static_cast<unsigned int>(time(0)) };
 	//while loop ends battle if enemy dies, player dies, or enemy flees
-	while ((player.getHp() > 0) && (this->getHp() > 0) && (this->getFlees() != true)) {
-		playerDodges = 0;
-		//print enemy and player battle stats respectively
-		printBattleStats(player);
-		//print battle options
-		input = printBattleOptions();
-		//player's turn executes based on user's choice
-		playerDodges = playerAttackTurn(input, damageDone, engine, player);
-		//enemy attack turn executes based on predefined enemy stats, but only if enemy is not already dead
-		if (playerDodges == 3) {
-			continue;
-		}
-		else {
-			enemyAttackTurn(playerDodges, damageDone, engine, player);
+	if (isSlain == true) {
+		PlaySound(NULL, GetModuleHandle(NULL), NULL); //STOPS ASYNCHRONOUS MUSIC
+		system("CLS");
+		std::cout << "You stand over a slain foe. The words of Wisdom echo in your mind." << std::endl << std::endl;
+		std::cout << "\"It is the same for all. There is one fate for the righteous and for the wicked;" << std::endl;
+		std::cout << "for the good, for the clean and the unclean; " << std::endl;
+		std::cout << "for the person who offers a sacrifice and for the one who does not sacrifice. " << std::endl;
+		std::cout << "As the good person is, so is the sinner;" << std::endl;
+		std::cout << "the one who swears an oath is just as the one who is afraid to swear an oath.\"" << std::endl;
+		std::cout << "(Ecclesiastes 9:2)" << std::endl << std::endl;
+		system("PAUSE");
+	}
+	else if (isSlain == false) {
+		system("CLS");
+		PlaySound(MAKEINTRESOURCE(BATTLE_MUSIC_1), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
+		while ((player.getHp() > 0) && (this->getHp() > 0) && (this->getFlees() != true)) {
+			playerDodges = 0;
+			if (player.getSp() > 0) {
+				//print enemy and player battle stats respectively
+				printBattleStats(player);
+				//print battle options
+				input = printBattleOptions();
+				//player's turn executes based on user's choice
+				playerDodges = playerAttackTurn(input, damageDone, engine, player);
+			}
+			else if (player.getSp() <= 0) {
+				std::cout << "You are too tired to attack! You must skip a turn to catch your breath!" << std::endl << std::endl;
+				system("PAUSE");
+				player.setSp(50);
+			}
+
+			//enemy attack turn executes based on predefined enemy stats, but only if enemy is not already dead
+			if ((playerDodges == 3) && (player.getSp() > 0)) {
+				continue;
+			}
+			else {
+				enemyAttackTurn(playerDodges, damageDone, engine, player);
+			}
 		}
 	}
 	if (player.getHp() == 0) {
 		system("CLS");
-		std::cout << "You have been slain..." << std::endl;
+		std::cout << "You have been slain..." << std::endl << std::endl;
 		system("PAUSE");
 		system("CLS");
 	}
+	//sets player stamina to 100 after battle is over
+	player.setSp(100);
 }

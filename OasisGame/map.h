@@ -3,10 +3,13 @@
 #define MAP_H
 
 #include <iostream>
+#include <iomanip>
 #include <array>
 #include <vector>
 #include <string>
+#include <random>
 #include <windows.h>
+#include <stdlib.h>
 #include "menu.h"
 #include "map.h"
 #include "locations.h"
@@ -14,7 +17,6 @@
 #include "characters.h"
 #include "inventory.h"
 #include "items.h"
-#include "DialogueTree.h"
 #include "resource.h"
 
 class mapNode {
@@ -25,6 +27,7 @@ private:
 	//bool to distinguish what location is in the node
 	bool isVillage;
 	bool isWilderness;
+	bool wasVisited;
 
 public:
 	//constructors
@@ -38,13 +41,15 @@ public:
 	mapNode(wilderness nodeWilderness);
 
 	//getters
-	village getNodeVillage();
+	village* getNodeVillage();
 
-	wilderness getNodeWilderness();
+	wilderness* getNodeWilderness();
 
 	bool getIsVillage();
 
 	bool getIsWilderness();
+
+	bool getWasVisited();
 
 	//setters 
 	void setNodeVillage(village& nodeVillage);
@@ -54,6 +59,8 @@ public:
 	void setIsVillage(bool isVillage);
 
 	void setIsWilderness(bool isWilderness);
+
+	void setWasVisited(bool wasVisited);
 
 	//methods
 
@@ -110,9 +117,17 @@ public:
 
 	//methods
 	//generates a grid of mapNodes of size nxn
-	void generateMap(wilderness WILDERNESS[5], village VILLAGES[5]);
+	void generateMap(wilderness WILDERNESS[5], village VILLAGES[5], player& player);
 
 	void display();
+
+	void execLocation(player& player);
+
+	int locationDisplay();
+
+	int execChoice(int& userChoice, player& player);
+
+	int moveLocation(player& player);
 
 };
 
