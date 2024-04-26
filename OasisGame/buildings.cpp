@@ -300,11 +300,24 @@ int shop::checkBuyChoice(player& player, int& playerChoice) {
         }
         //if the slot is not empty
         else {
-            system("CLS");
-            std::cout << "Comin' right up!" << std::endl << std::endl;
-            system("PAUSE");
-            //returns player choice
-            return playerChoice;
+            //player coin check to validate if the user has enough coin for something
+            //if user does not have enough coin
+            if (shopWeaponSlot1.getCoinValue() > player.getInventory()->getCointCount()) {
+                system("CLS");
+                displayShopItems();
+                std::cout << "You do not have enough coin for that." << std::endl << std::endl;
+                std::cout << std::setw(64) << "====================================================================================" << std::endl << std::endl;
+                system("PAUSE");
+                return 0;
+            }
+            //if user has enough or more than enough coin
+            else if (shopWeaponSlot1.getCoinValue() <= player.getInventory()->getCointCount()) {
+                system("CLS");
+                std::cout << "Comin' right up!" << std::endl << std::endl;
+                system("PAUSE");
+                //returns player choice
+                return playerChoice;
+            }
         }
     }
     //if player chooses shop weapon slot 2
@@ -320,11 +333,24 @@ int shop::checkBuyChoice(player& player, int& playerChoice) {
         }
         //if the slot is not empty
         else {
-            system("CLS");
-            std::cout << "Comin' right up!" << std::endl << std::endl;
-            system("PAUSE");
-            //returns player choice
-            return playerChoice;
+            //player coin check to validate if the user has enough coin for something
+            //if user does not have enough coin
+            if (shopWeaponSlot2.getCoinValue() > player.getInventory()->getCointCount()) {
+                system("CLS");
+                displayShopItems();
+                std::cout << "You do not have enough coin for that." << std::endl << std::endl;
+                std::cout << std::setw(64) << "====================================================================================" << std::endl << std::endl;
+                system("PAUSE");
+                return 0;
+            }
+            //if user has enough or more than enough coin
+            else if (shopWeaponSlot2.getCoinValue() <= player.getInventory()->getCointCount()) {
+                system("CLS");
+                std::cout << "Comin' right up!" << std::endl << std::endl;
+                system("PAUSE");
+                //returns player choice
+                return playerChoice;
+            }
         }
     }
     //if player chooses shop armor slot
@@ -340,11 +366,24 @@ int shop::checkBuyChoice(player& player, int& playerChoice) {
         }
         //if the slot is not empty
         else {
-            system("CLS");
-            std::cout << "Comin' right up!" << std::endl << std::endl;
-            system("PAUSE");
-            //returns player choice
-            return playerChoice;
+            //player coin check to validate if the user has enough coin for something
+            //if user does not have enough coin
+            if (shopArmorSlot.getCoinValue() > player.getInventory()->getCointCount()) {
+                system("CLS");
+                displayShopItems();
+                std::cout << "You do not have enough coin for that." << std::endl << std::endl;
+                std::cout << std::setw(64) << "====================================================================================" << std::endl << std::endl;
+                system("PAUSE");
+                return 0;
+            }
+            //if user has enough or more than enough coin
+            else if (shopArmorSlot.getCoinValue() <= player.getInventory()->getCointCount()) {
+                system("CLS");
+                std::cout << "Comin' right up!" << std::endl << std::endl;
+                system("PAUSE");
+                //returns player choice
+                return playerChoice;
+            }
         }
     }
     //if player chooses shop potion slot
@@ -360,12 +399,25 @@ int shop::checkBuyChoice(player& player, int& playerChoice) {
         }
         //if the slot is not empty
         else {
-            system("CLS");
-            //!FIXME: INSERT HOW MANY POTIONS YOU WANNA BUY? MENU!!!!!
-            std::cout << "Comin' right up!" << std::endl << std::endl;
-            system("PAUSE");
-            //returns player choice
-            return playerChoice;
+            //player coin check to validate if the user has enough coin for something
+            //if user does not have enough coin
+            if (shopPotionSlot.getCoinValue() > player.getInventory()->getCointCount()) {
+                system("CLS");
+                displayShopItems();
+                std::cout << "You do not have enough coin for that." << std::endl << std::endl;
+                std::cout << std::setw(64) << "====================================================================================" << std::endl << std::endl;
+                system("PAUSE");
+                return 0;
+            }
+            //if user has enough or more than enough coin
+            else if (shopPotionSlot.getCoinValue() <= player.getInventory()->getCointCount()) {
+                //!FIXME: INSERT HOW MANY POTIONS YOU WANNA BUY? MENU!!!!!
+                system("CLS");
+                std::cout << "Comin' right up!" << std::endl << std::endl;
+                system("PAUSE");
+                //returns player choice
+                return playerChoice;
+            }
         }
     }
     //if player chooses shop item slot
@@ -381,8 +433,21 @@ int shop::checkBuyChoice(player& player, int& playerChoice) {
         }
         //if the slot is not empty
         else {
-            //returns player choice
-            return playerChoice;
+            //player coin check to validate if the user has enough coin for something
+            //if user does not have enough coin
+            if (shopItemSlot.getCoinValue() > player.getInventory()->getCointCount()) {
+                system("CLS");
+                displayShopItems();
+                std::cout << "You do not have enough coin for that." << std::endl << std::endl;
+                std::cout << std::setw(64) << "====================================================================================" << std::endl << std::endl;
+                system("PAUSE");
+                return 0;
+            }
+            //if user has enough or more than enough coin
+            else if (shopItemSlot.getCoinValue() <= player.getInventory()->getCointCount()) {
+                //returns player choice for later menu in sellTo which asks which item slot the player wants to store their item in
+                return playerChoice;
+            }
         }
     }
     //if player chooses to check their inventory
