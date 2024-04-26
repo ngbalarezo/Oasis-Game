@@ -419,4 +419,5 @@ void Church::offerWeapon(player& player) {
     
 }
 
+
 //LOUNGE CLASS DEFINITIONS
