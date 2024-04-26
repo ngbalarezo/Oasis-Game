@@ -61,6 +61,7 @@ int main() { //!FIXME: HOW TO INCREASE PROGRAM STACK/HEAP SIZE IN VISUAL STUDIO,
     */
 
     //MAIN GAME: GENERATE DIALOGUES
+    //shadowy man dialogue
     std::vector<std::vector<std::string>> shadowyManDialogue = {
         //node 0
         {"Shadowy Man: Hello young lad, what brings you here?", "Hi there sir. Where am I?", "Hey there, sir. Do you have any wisdom that can help me ? "},
@@ -126,8 +127,7 @@ int main() { //!FIXME: HOW TO INCREASE PROGRAM STACK/HEAP SIZE IN VISUAL STUDIO,
         {"I have already revealed more than intended. The last thing I shall say is go to the church. You must go there and purify yourself before advancing on this quest. Go on, for your quest is of great importance to not only yourself, but for the safety of the entire universe.","",""}
         
     };
-
-    //OLD MAN DIALOGUE
+    //old man dialogue
     std::vector<std::vector<std::string>> oldManDialogue = {
         //node0
         {"Ahh, greetings, young traveler. I've been expecting you","Do you even know where I come from?","Who are you?"},
