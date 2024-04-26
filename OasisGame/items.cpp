@@ -140,7 +140,7 @@ potion::potion(std::string potionName, int potionCount, int healValue, int stami
 	this->healValue = healValue;
 	this->staminaValue = staminaValue;
 	this->focusValue = focusValue;
-	this->coinValue = coinValue;
+	this->coinValue = coinValue * potionCount;
 }
 
 //getters
@@ -167,6 +167,6 @@ void potion::setStaminaValue(int staminValue) { this->staminaValue = staminValue
 
 void potion::setFocusValue(int focusValue) { this->focusValue = focusValue; }
 
-void potion::setCoinValue(int setCoinValue) { this->coinValue = coinValue; }
+void potion::setCoinValue(int coinValue) { this->coinValue = coinValue; }
 
 

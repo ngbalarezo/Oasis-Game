@@ -127,8 +127,10 @@ void player::usePotion() {
 		system("CLS");
 		std::cout << "You drink a potion. How refreshing!" << std::endl << std::endl; //!FIXME: DISPLAY INCREASED STATS
 		system("PAUSE");
-		//subtract one from potion count
+		//subtract one potions worth of coin from potion value and subtract one potion
+		inventory.getPotion()->setCoinValue((inventory.getPotion()->getCoinValue()) - ((inventory.getPotion()->getCoinValue())/(inventory.getPotion()->getPotionCount())));
 		inventory.getPotion()->setPotionCount(inventory.getPotion()->getPotionCount() - 1);
+		
 	}
 	//check if potion count is zero
 	if (inventory.getPotion()->getPotionCount() == 0) {
