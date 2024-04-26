@@ -3,9 +3,11 @@
 #define INVENTORY_H
 
 #include <iostream>
+#include <iomanip>
 #include <array>
 #include <vector>
 #include <string>
+#include <random>
 #include <windows.h>
 #include <stdlib.h>
 #include "menu.h"
@@ -15,7 +17,6 @@
 #include "characters.h"
 #include "inventory.h"
 #include "items.h"
-#include "DialogueTree.h"
 #include "resource.h"
 
 class inventory {

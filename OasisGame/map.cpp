@@ -1,7 +1,9 @@
 #include <iostream>
+#include <iomanip>
 #include <array>
 #include <vector>
 #include <string>
+#include <random>
 #include <windows.h>
 #include <stdlib.h>
 #include "menu.h"
@@ -11,7 +13,6 @@
 #include "characters.h"
 #include "inventory.h"
 #include "items.h"
-#include "DialogueTree.h"
 #include "resource.h"
 
 //MAPNODE CLASS DEFINITIONS
@@ -449,7 +450,7 @@ int map::execChoice(int& userChoice, player& player) {
 		//regular wilderness
 		if (userChoice == 1) {
 			//!FIXME: FINISH PLAYER PRINT DIALOGUE/MAYBE MOVE THIS TO A NPC VECTOR INSTEAD OF AN ENTIRE DIALOGUE TREE 
-			currentMapNode->getNodeWilderness().getLocalNpc1().initiateDialogue();
+			currentMapNode->getNodeWilderness()->getLocalNpc1().initiateDialogue();
 		}
 		else if (userChoice == 2) {
 			currentMapNode->getNodeWilderness()->getLocalEnemy1()->battle(player);
