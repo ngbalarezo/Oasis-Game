@@ -176,7 +176,7 @@ void testMenu::testLoop(int initialChoice, player& player, map& testMap, playerM
     potion smallHealPotion("Small Heal Potion", 5, 50, 0, 0, 100);
     item ruby("Ruby", 300, 0, false);
     shop testShop("Test Shop", "test shop", testNpc, woodenSword, woodenAxe, chainmailArmor, smallHealPotion, ruby);
-    Church testChurch("Test Church", 2);
+    Church testChurch("Test Church", "Test Church", 2);
 
     //loops test start menu
     while (sentinel != 1) {

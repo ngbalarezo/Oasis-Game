@@ -116,7 +116,7 @@ void player::setMaxHealth(int maxHealth) { this->maxHealth = maxHealth; }
 
 void player::setMaxFocus(int maxFocus) { this->maxFocus = maxFocus; }
 
-void player::setMaxHealth(int maxStamina) { this->maxStamina = maxStamina; }
+void player::setMaxStamina(int maxStamina) { this->maxStamina = maxStamina; }
 
 void player::setFp(int fp) { this->fp = fp; }
 
