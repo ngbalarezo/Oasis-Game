@@ -961,8 +961,467 @@ void Church::offerWeapon(player& player) {
     player.getInventory()->churchDisplay();
     system("PAUSE");
     system("CLS");
-    
-}
+
+};
 
 
 //LOUNGE CLASS DEFINITIONS
+//constructers
+//default constructor
+lounge::lounge() {
+    
+    //create objects
+    npc noBartender;
+    npc noPlotDriver;
+    npc noWisdomDriver;
+    drink noDrink;
+    
+    
+    
+
+    //create null item objects
+    loungeName = "Null lounge";
+    loungeType = "Null lounge";
+    bartender = noBartender;
+    wisdomDriver = noWisdomDriver;
+    plotDriver = noPlotDriver;
+    drinkSlot1 = noDrink;
+    drinkSlot2 = noDrink;
+   
+    
+    //!FIXME: ADD NPC PRIEST AND OPTIONS TO SPEAK WITH PRIEST, OFFER SACRIFICE ON THE ALTAR, ETC.
+}
+
+//initialize object with all custom parameters
+lounge::lounge(std::string loungeName, std::string loungeType, npc bartender, npc plotDriver, npc wisdomDriver, drink drinkSlot1, drink drinkkSlot2) {
+    this->loungeName = loungeName;
+    this->loungeType = loungeType;
+    this->bartender = bartender;
+    this->plotDriver = plotDriver;
+    this->wisdomDriver = wisdomDriver;
+    this->drinkSlot1 = drinkSlot1;
+    this->drinkSlot2 = drinkSlot2;
+}
+
+//getters
+std::string lounge::getLoungeName() { return loungeName; }
+
+std::string lounge::getLoungeType() { return loungeType; }
+
+npc lounge::getBartender() { return bartender; }
+
+npc lounge::getWisdomDriver() { return wisdomDriver; }
+
+npc lounge::getPlotDriver() { return plotDriver; }
+
+drink lounge::getDrinkSlot1() { return drinkSlot1; }
+
+drink lounge::getDrinkSlot2() { return drinkSlot2; }
+
+std::string lounge::getDrinkDisplayString() {
+    //return only drink name if the drinkSlot is empty
+    if (drinkSlot1.getDrinkCount() == 0) {
+        //will return "empty"
+        return drinkSlot1.getDrinkName(); //!FIXME: MAKE SURE THAT IF POTION COUNT IS 0 THEN NAME CHANGES TO EMPTY/NOPOTION BECOMES POTIONSLOT
+    }
+    //return 
+    else if (drinkSlot1.getDrinkCount() > 0) {
+        return drinkSlot1.getDrinkName() + " x" + std::to_string(drinkSlot1.getDrinkCount());
+    }
+}
+
+
+
+
+//setters
+void lounge::setLoungeName(std::string churchName) { this->loungeName = loungeName; }
+
+void lounge::setLoungeType(std::string loungeType) { this->loungeType = loungeType; }
+
+void lounge::setBartender(npc bartender) { this->bartender = bartender; }
+
+void lounge::setWisdomDriver(npc wisdomDriver) { this->wisdomDriver = wisdomDriver; }
+
+void lounge::setPlotDriver(npc plotDriver) { this->plotDriver = plotDriver; }
+
+void lounge::setDrinkSlot1(drink drinkSlot1) { this->drinkSlot1 = drinkSlot1; }
+
+void lounge::setDrinkSlot2(drink drinkSlot2) { this->drinkSlot2 = drinkSlot2; }
+
+//methods
+
+void lounge::enterLounge(player& player) {
+    
+    //declare variables
+    int playerChoice = 0;
+    int sentinel = 0;
+    //error proofing while loop
+    while (sentinel != 1) {
+        //execute lounge lobby message, returns player's choice in the lobby
+        playerChoice = execLoungeLobbyMenu(player, playerChoice);
+
+        //if-else if branches determine which menu to print depending on player's lobby choice
+        
+        //if player chooses to talk to shadowy man
+        if (playerChoice == 1) {
+            system("CLS"); //!FIXME: REMOVE THIS, STORE IT IN THE DIALOGUE MENU, ADD DIALOGUE MENU AND DOCUMENTATION
+            std::vector<std::vector<std::string>> shadowyManDialogue = {
+                //node 0
+                {"Shadowy Man: Hello young lad, what brings you here?", "Hi there sir. Where am I?", "Hey there, sir. Do you have any wisdom that can help me ? "},
+                //node 1
+                {"Ah, you find yourself in a realm where the echoes of the past linger in every shadow.", "How do I uncover these echoes of the past?", "Are these echoes tied to a specific event or legend?"},
+                //node 2
+                {"To find your way in this world, you must listen to the echoes of the past, which linger in every shadow.", "How can I reveal the echoes from the past ?","Do these echoes have a connection to a particular event or legend?"},
+                //node3
+                {"To uncover the echos of past, seek the forgotten places. They hold the keys to ancient truths.","Keys to ancient truths?","Forgotten places?"},
+                //node4
+                {"Indeed, they are echoes of a long-forgotten tale, a saga of valor and betrayal woven into the very fabric of our history.","Valor and betrayal?","Could you share more details about this tale?"},
+                //node5
+                {"To uncover the past, seek the forgotten places. They hold the keys to ancient truths.","Keys to ancient truths?","Forgotten places?"},
+                //node6
+                {"Certainly, they echo a tale lost to time, a narrative of courage and deceit entwined within our historical tapestry.","Valor and betrayal?"," Could you share more details about this tale?"},
+                //node7
+                {"To unravel the keys of ancient truths, one must tread the paths of knowledge and virtue. I suggest seeking wisdom in the church or delving into the ancient tomes within the library. Only through understanding and purity of heart can the secrets of the past be revealed.","Secrets of the past?","Keys of ancient truths?"},
+                //node8
+                {"Ah, yes. The forgotten places are not merely physical locations but gateways to worlds beyond our own. The unseen forgotten places can only be unveiled through the exploration of the seen forgotten places. They are intertwined, each holding a piece of the puzzle to unlock the truths you seek.", "Worlds beyond our own?","What is the truth?"},
+                //node9
+                {"Centuries ago, when this realm was but a fledgling land, there lived a mighty sorcerer known for his mastery of the arcane arts. He sought to protect the realm from dark forces by creating a powerful gemstone infused with the essence of pure magic. This gemstone, was said to possess the ability to unlock paths to realms beyond, a safeguard against the encroaching darkness. However, as the relic's creation neared completion, whispers of greed and ambition crept into the hearts of those entrusted with its safekeeping. One among them, a trusted guardian turned traitor, sought to claim the gem's power for selfish gain.In a desperate act of betrayal, he stole the gem.It's power however, can only be utilized by those of pure heart and intention. Angered by this, the traitor hid the gem so that the passage to the new world would become forever blocked. Only those who prove themselves worthy and pure of heart can uncover it and  harness its power.","How can I prove myself worthy?","What is this next world you speak of?"},
+                //node10
+                {"Centuries ago, in the early days of this realm's existence, a formidable sorcerer renowned for his mastery of magic dwelled within these lands. Recognizing the looming threat of dark forces, he dedicated himself to crafting a potent gemstone infused with pure magical essence. This gem, hidden deep within the ancient ruins, possessed the extraordinary ability to unlock pathways to distant realms, serving as a bulwark against encroaching darkness. Yet, as the sorcerer's work neared completion, whispers of greed and ambition infiltrated the hearts of those tasked with safeguarding the gem.Among them, a once - loyal guardian succumbed to temptation, betraying his trust and stealing the gem for selfish gain.It's power however, can only be utilized by those of pure heart and intention.In an act of desperation, he concealed the gem within a maze of deceptive illusions, ensuring that only those of genuine virtue and purity could unveil its secrets and wield its formidable power.","How do I navigate the maze of deceptive illusions","What is the truth?"},
+                //node11
+                {"To unravel the keys of ancient truths, one must tread the paths of knowledge and virtue. I suggest seeking wisdom in the church or delving into the ancient tomes within the library. Only through understanding and purity of heart can the secrets of the past be revealed.","Secrets of the past?","keys of ancient truths?"},
+                //node12
+                {"Ah, yes. The forgotten places are not merely physical locations but gateways to worlds beyond our own. The unseen forgotten places can only be unveiled through the exploration of the seen forgotten places. They are intertwined, each holding a piece of the puzzle to unlock the truths you seek.","Worlds beyond our own??","What is the truth?"},
+                //node13
+                {"Many centuries ago, in the early days of this realm's existence, there lived a renowned sorcerer skilled in the arcane arts. His aim was to shield our realm from looming darkness by crafting a potent gem infused with pure magical essence. This gem was rumored to unlock pathways to distant realms, a defense against encroaching threats. However, as the gem's completion drew near, whispers of greed and ambition tainted those entrusted with its safekeeping. A trusted guardian turned traitor, driven by selfish desires, stole the gem. Its power, however, can only be wielded by those with pure intentions. Enraged, the traitor concealed the gem, blocking the passage to the new world. Only those of genuine virtue can uncover it and harness its formidable power.", "How can I prove myself worthy?","What is within this next world?"},
+                //node14
+                {"Centuries ago, in the early days of this realm's existence, a formidable sorcerer renowned for his mastery of magic dwelled within these lands. Recognizing the looming threat of dark forces, he dedicated himself to crafting a potent gemstone infused with pure magical essence. This gem, hidden deep within the ancient ruins, possessed the extraordinary ability to unlock pathways to distant realms, serving as a bulwark against encroaching darkness. Yet, as the sorcerer's work neared completion, whispers of greed and ambition infiltrated the hearts of those tasked with safeguarding the gem. Among them, a once-loyal guardian succumbed to temptation, betraying his trust and stealing the gem for selfish gain. It's power however, can only be utilized by those of pure heart and intention.In an act of desperation, he concealed the gem within a maze of deceptive illusions, ensuring that only those of genuine virtue and purity could unveil its secrets and wield its formidable power.","How do I navigate the maze of deceptive illusions?","What is the truth?"},
+                //node15
+                {"I've already spoken more than I should. It's time for you to find your own path and uncover the truths that await you.","",""},
+                //node16
+                {"I have divulged more than intended. It is time for you to forge your path and discover the rest on your own.","",""},
+                //node17
+                {"Enough for now, young traveler. Some secrets are best unraveled in due time. You must seek wisdom elsewhere, for I have already shared more than intended.","",""},
+                //node18
+                {"The truth lies within the library.I have already revealed more than intended. Go on now young adventurer, for there is much more in store for you","",""},
+                //node19
+                {"I have already revealed more than intended. You will find more wisdom in the library. But more importantly, go to the church. To purify yourself will shelter you from the darkness ahead .Go on weary traveler, for your quest is but a great one.","",""},
+                //node20
+                {"I have already revealed more than intended. The last thing I shall say is go to the church. You must go there and purify yourself before advancing on this quest. Go on, for your quest is of great importance to not only yourself, but for the safety of the entire universe.","","" },
+                //node21
+                {"I have already revealed more than intended. You will find more wisdom in the library. But more importantly, go to the church. An unclean spirit will make it impossible for you to withstand the darkness that lies ahead. Go on weary traveler, for your quest is but a great one.","",""},
+                //node22
+                {"I have already revealed more than intended. The last thing I shall say is go to the church. You must go there and purify yourself before advancing on this quest. Go on, for your quest is of great importance to not only yourself, but for the safety of the entire universe.","",""},
+                //node23
+                {"I've already spoken more than I should. It's time for you to find your own path and uncover the truths that await you.","",""},
+                //node24
+                {"I have divulged more than intended. It is time for you to forge your path and discover the rest on your own.","",""},
+                //node25
+                {"Enough for now, young traveler. Some secrets are best unraveled in due time. You must wisdom elsewhere, for I have already shared more than intended.","",""},
+                //node26
+                {"The truth lies within the library. I have already revealed more than intended. Go on now young adventurer, for there is much more in store for you","",""},
+                //node27
+                {"I have already revealed more than intended. You will find more wisdom in the library. But more importantly, go to the church. To purify yourself will shelter you from the darkness ahead .Go on weary traveler, for your quest is but a great one.","",""},
+                //node28
+                { "I have already revealed more than intended. The last thing I shall say is go to the church. You must go there and purify yourself before advancing on this quest. Go on, for your quest is of great importance to not only yourself, but for the safety of the entire universe.","","" },
+                //node29
+                {"I have already revealed more than intended. You will find more wisdom in the library. But more importantly, go to the church. To purify yourself will shelter you from the darkness ahead .Go on weary traveler, for your quest is but a great one.","",""},
+                //node30
+                {"I have already revealed more than intended. The last thing I shall say is go to the church. You must go there and purify yourself before advancing on this quest. Go on, for your quest is of great importance to not only yourself, but for the safety of the entire universe.","",""}
+
+            };
+            int userChoice;
+            int index = 0;
+            //for loop iterates number of levels for possible responses
+            //!FIXME: IMPLEMENT TREE LEVEL ALGORITHM
+            for (int i = 0; i < 5; i++) {
+                //print dialogue
+                system("CLS");
+                //if current quotation has two responses
+                if (i < 5) {
+                    std::cout << shadowyManDialogue[index][0] << std::endl;
+                    std::cout << std::endl << std::endl;
+                    std::cout << "[1] " << shadowyManDialogue[index][1] << std::endl;
+                    std::cout << "[2] " << shadowyManDialogue[index][2] << std::endl;
+                    std::cout << "[3] Exit" << std::endl << std::endl;
+                    std::cout << "Choice: ";
+                    std::cin >> userChoice;
+
+                    //if user chooses option 1
+                    if (userChoice == 1) {
+                        index = (2 * index) + 1;
+                    }
+                    //if user chooses option 2
+                    else if (userChoice == 2) {
+                        index = (2 * index) + 2;
+                    }
+                    //if user chooses to exit dialogue
+                    else if (userChoice == 3) {
+                        std::cout << "\n\n      Goodbye." << std::endl;
+                    
+                        system("CLS");
+                        i = 4;
+                    }
+                    //if user chooses an invalid option
+                    else {
+                        //print error message
+                        std::cout << "This is not an option!";
+                        //for loop is set back one loop if the user does not input a valid number
+                        i--;
+                    }
+                }
+            }
+
+
+            system("PAUSE");
+        }
+
+        //if player chooses to talk to old man 
+        else if (playerChoice == 2) {
+            system("CLS"); //!FIXME: REMOVE THIS, STORE IT IN THE DIALOGUE MENU, ADD DIALOGUE MENU AND DOCUMENTATION
+            std::vector<std::vector<std::string>> oldManDialogue = {
+                //node0
+                {"Ahh, greetings, young traveler. I've been expecting you","Do you even know where I come from?","Who are you?"},
+                //node1
+                {"My dear traveler, I have known you for many years, though our paths have not crossed until now. You are from a different world. Though we come from two different worlds, we are but threads woven by the same divine hand, guided by the same celestial compass. I have have been watching over you.", "Where are you from?", "How do you know me?"},
+                //node2
+                {"I am but a humble observer of journeys, a keeper of tales. You, young traveler, are a part of a story yet untold","Why am I here?", "How do you know me?"},
+                //node3
+                {"We both existence within a singular realm, yet we traverse divergent paths. My world is distinguished by its outwardly supernatural manifestations which is merely a subtle divergence from the fabric of your own reality.","Why have I been brought here?", "Supernatural manifestations?"},
+                //node4
+                {"Though we reside in two distinct worlds, we are but threads woven by the same divine hand, guided by the same celestial compass. I have have been watching over you, protecting you from evil until it became to big a task. It was time for you to save yourself.","Evil? What kind of evil?", "Who is this divine hand?"},
+                //node5
+                {"You have been summoned to this realm due to the encroaching shadow of Evil that now engulfs your world, rendering it unsafe. Here, you are tasked with unlocking the pathways to successive universes until you locate her, the revered Queen of Heaven.", "What should I do now?", "Encroaching shadow of evil?"},
+                //node6
+                {"In our distinct worlds, we are threads woven by the same divine hand, guided by a celestial compass toward our destinies. I've been your guardian, warding off encroaching darkness until the weight became too much. Now, it's time for you to ascend and safeguard your own path.", "What should I do now?","Where am I being guided?"},
+                //node 7
+                {"You have been summoned to this realm due to the encroaching shadow of Evil that now engulfs your world, rendering it unsafe. Here, you are tasked with unlocking the pathways to successive universes until you locate her, the revered Queen of Heaven.", "What should I do now?", "Who is the queen of heaven?"},
+                //node 8
+                {"Yes. In the grand design of existence, characters within this universe serve as guardian angels to counterparts in your world. I, as your celestial guide, possess glimpses into realms beyond your current sight. Each of us has our own overseers, yet their identities remain shrouded in mystery.","Why am I here?","Where are you guiding me?"},
+                //node 9
+                {"The Evil that grips your world is not merely a force external but has insidiously crept into the souls of ordinary beings, corrupting their hearts and minds. It manifests in the form of greed, hatred, and the pursuit of power at the cost of virtue. The battle against this darkness is not just physical but spiritual, a test of faith and righteousness.","Why was I chosen to defeat this evil?","How do I win this battle?"},
+                //node 10
+                {"The divine hand I speak of is that of the Creator, the Almighty, who shapes destinies and guides souls along their paths. Follow your heart, for it is attuned to the whispers of divine guidance. The Queen of Heaven, representing the embodiment of grace and wisdom, is also your steadfast guide.","What should I do now?","Where am I being guided?"},
+                //node 11
+                {"To emerge victorious in this struggle, you must embark on a profound odyssey that transcends not just this realm but potentially extends through subsequent worlds, each reflecting the spiritual trials of humanity. Your mission is to discover the Queen of Heaven, embodying divine wisdom and grace. Look not only within but also beyond, engaging in dialogues with others, exploring the preserved knowledge in the library, and seeking solace and guidance at the church. Let your heart, guided by faith and righteousness, be your guiding light on this quest.","Thank You","Who is this Queen of Heaven?"},
+                //node 12
+                {"The Evil that grips your world is not merely a force external but has insidiously crept into the souls of ordinary beings, corrupting their hearts and minds. It manifests in the form of greed, hatred, and the pursuit of power at the cost of virtue. The battle against this darkness is not just physical but spiritual, a test of faith and righteousness.","Why was I chosen to defeat this evil?","How do I win this battle?"},
+                //node 13 (yep, wxactly the same as 12, some are the same)
+                {"The Evil that grips your world is not merely a force external but has insidiously crept into the souls of ordinary beings, corrupting their hearts and minds. It manifests in the form of greed, hatred, and the pursuit of power at the cost of virtue. The battle against this darkness is not just physical but spiritual, a test of faith and righteousness.","Why was I chosen to defeat this evil?","How do I win this battle?"},
+                //node 14
+                {"The divine hand I speak of is that of the Creator, the Almighty, who shapes destinies and guides souls along their paths. Follow your heart, for it is attuned to the whispers of divine guidance. The Queen of Heaven, representing the embodiment of grace and wisdom, is also your steadfast guide.","What should I do now?","Where am I being guided?"},
+                //node 15
+                {" OLD MAN:To emerge victorious in this struggle, you must embark on a profound odyssey that transcends not just this realm but potentially extends through subsequent worlds, each reflecting the spiritual trials of humanity. Your mission is to discover the Queen of Heaven, embodying divine wisdom and grace. Look not only within but also beyond, engaging in dialogues with others, exploring the preserved knowledge in the library, and seeking solace and guidance at the church. Let your heart, guided by faith and righteousness, be your guiding light on this quest. The Queen of Heaven awaits, her presence illuminating the path to triumph over darkness. Time is of the essence, young traveler. Hasten, for the fate of realms and souls hinges upon your virtuous endeavors.","",""},
+                //node16
+                {"I am but a speck of dust compared to her majesty. I will say you must find her to truly know all that she is. She is the epitome of divine wisdom and grace, and is forseeing your journey and arrival far more than I ever could. Go to her, for there isn't much time." },
+                //node17
+                {"You have been sent here to escape the Evil that engulfs your world. It is only the begining of your journey. You must embark on a profound journey, not just through this realm but potentially through subsequent worlds, which are a reflection of the spiritual challenges faced by humanity. Your quest is to find the Queen of Heaven, the embodiment of divine wisdom and grace.  Go on now, there isn't much time before its too late, the queen of heaven awaits your arrival.","",""},
+                //node18
+                {"I have only guided you here. After this, you must guide yourself. Your individual wisdom can show you things that I cannot. Engage in conversations beyond yourself, seek knowledge in the library, find solace at the church. Let faith and righteousness guide your heart; the Queen of Heaven awaits as your guiding light. Time is pressing, young traveler. The fate of realms and souls rests upon your righteous deeds. You must hurry.","",""},
+                //node19
+                {"You have been chosen because within you lies the potential for great virtue and strength of spirit. Your heart is pure, your intentions noble. The divine providence has deemed you worthy to embark on this sacred quest, for it is through your courage, faith, and righteousness that the tide of darkness may be turned. You are the beacon of hope in a world besieged by shadows, destined to bring forth the light of redemption and salvation. Go on now, there isn't much time before its too late, the queen of heaven awaits your arrival. ","",""},
+                //node20
+                {"To triumph in this battle, you must embark on a profound journey, not just through this realm but potentially through subsequent worlds, which are a reflection of the spiritual challenges faced by humanity. Your quest is to find the Queen of Heaven, the embodiment of divine wisdom and grace. Seek not only within yourself but also beyond, engaging in conversations with others, delving into the knowledge preserved in the library, and seeking solace and guidance at the church. Your heart, guided by faith and righteousness, is your beacon in this journey. The Queen of Heaven awaits, her presence a guiding light leading you to victory over darkness. Time is of the essence, young traveler. Hurry, for the destiny of realms and souls rests upon your righteous actions.","",""},
+                //node21
+                {"You have been sent here to escape the Evil that engulfs your world. It is only the begining of your journey. You must embark on a profound journey, not just through this realm but potentially through subsequent worlds, which are a reflection of the spiritual challenges faced by humanity. Your quest is to find the Queen of Heaven, the embodiment of divine wisdom and grace.  Go on now, there isn't much time before its too late, the queen of heaven awaits your arrival. ","",""},
+                //node22
+                {"I have only guided you here. After this, you must guide yourself. Your individual wisdom can show you things that I cannot. Engage in conversations beyond yourself, seek knowledge in the library, find solace at the church. Let faith and righteousness guide your heart; the Queen of Heaven awaits as your guiding light. Time is pressing, young traveler. The fate of realms and souls rests upon your righteous deeds. You must hurry.","",""},
+                //node23
+                {"It is my pleasure, courageous one. The Queen of Heaven awaits, her presence illuminating the path to triumph over darkness. Time is of the essence, young traveler. Hasten, for the fate of realms and souls hinges upon your virtuous endeavors.","",""},
+                //node24
+                {"I am but a speck of dust compared to her majesty. I will say you must find her to truly know all that she is. She is the epitome of divine wisdom and grace, and is forseeing your journey and arrival far more than I ever could. Go to her, for there isn't much time.","","" },
+                //node25
+                {"You have been chosen because within you lies the potential for great virtue and strength of spirit. Your heart is pure, your intentions noble. The divine providence has deemed you worthy to embark on this sacred quest, for it is through your courage, faith, and righteousness that the tide of darkness may be turned. You are the beacon of hope in a world besieged by shadows, destined to bring forth the light of redemption and salvation. Go on now, there isn't much time before its too late, the queen of heaven awaits your arrival. ","",""},
+                //node26
+                {"To triumph in this battle, you must embark on a profound journey, not just through this realm but potentially through subsequent worlds, which are a reflection of the spiritual challenges faced by humanity. Your quest is to find the Queen of Heaven, the embodiment of divine wisdom and grace. Seek not only within yourself but also beyond, engaging in conversations with others, delving into the knowledge preserved in the library, and seeking solace and guidance at the church. Your heart, guided by faith and righteousness, is your beacon in this journey. The Queen of Heaven awaits, her presence a guiding light leading you to victory over darkness. Time is of the essence, young traveler. Hurry, for the destiny of realms and souls rests upon your righteous actions.","",""},
+                //node27
+                {"You have been chosen because within you lies the potential for great virtue and strength of spirit. Your heart is pure, your intentions noble. The divine providence has deemed you worthy to embark on this sacred quest, for it is through your courage, faith, and righteousness that the tide of darkness may be turned. You are the beacon of hope in a world besieged by shadows, destined to bring forth the light of redemption and salvation. Go on now, there isn't much time before its too late, the queen of heaven awaits your arrival. ","",""},
+                //node28
+                {"To triumph in this battle, you must embark on a profound journey, not just through this realm but potentially through subsequent worlds, which are a reflection of the spiritual challenges faced by humanity. Your quest is to find the Queen of Heaven, the embodiment of divine wisdom and grace. Seek not only within yourself but also beyond, engaging in conversations with others, delving into the knowledge preserved in the library, and seeking solace and guidance at the church. Your heart, guided by faith and righteousness, is your beacon in this journey. The Queen of Heaven awaits, her presence a guiding light leading you to victory over darkness. Time is of the essence, young traveler. Hurry, for the destiny of realms and souls rests upon your righteous actions.","",""},
+                //node29
+                {"You have been sent here to escape the Evil that engulfs your world. It is only the begining of your journey. You must embark on a profound journey, not just through this realm but potentially through subsequent worlds, which are a reflection of the spiritual challenges faced by humanity. Your quest is to find the Queen of Heaven, the embodiment of divine wisdom and grace.  Go on now, there isn't much time before its too late, the queen of heaven awaits your arrival. ","",""},
+                //node30
+                {"I have only guided you here. After this, you must guide yourself. Your individual wisdom can show you things that I cannot. Engage in conversations beyond yourself, seek knowledge in the library, find solace at the church. Let faith and righteousness guide your heart; the Queen of Heaven awaits as your guiding light. Time is pressing, young traveler. The fate of realms and souls rests upon your righteous deeds. You must hurry.","",""},
+
+            };
+
+            int userChoice;
+            int index = 0;
+            //for loop iterates number of levels for possible responses
+            //!FIXME: IMPLEMENT TREE LEVEL ALGORITHM
+            for (int i = 0; i < 5; i++) {
+                //print dialogue
+                system("CLS");
+                //if current quotation has two responses
+                if (i < 5) {
+                    std::cout << oldManDialogue[index][0] << std::endl;
+                    std::cout << std::endl << std::endl;
+                    std::cout << "[1] " << oldManDialogue[index][1] << std::endl;
+                    std::cout << "[2] " << oldManDialogue[index][2] << std::endl;
+                    std::cout << "[3] Exit" << std::endl << std::endl;
+                    std::cout << "Choice: ";
+                    std::cin >> userChoice;
+
+                    //if user chooses option 1
+                    if (userChoice == 1) {
+                        index = (2 * index) + 1;
+                    }
+                    //if user chooses option 2
+                    else if (userChoice == 2) {
+                        index = (2 * index) + 2;
+                    }
+                    //if user chooses to exit dialogue
+                    else if (userChoice == 3) {
+                        std::cout << "\n\n      Goodbye." << std::endl;
+
+                        system("CLS");
+                        i = 4;
+                    }
+                    //if user chooses an invalid option
+                    else {
+                        //print error message
+                        std::cout << "This is not an option!";
+                        //for loop is set back one loop if the user does not input a valid number
+                        i--;
+                    }
+                }
+            }
+
+
+            system("PAUSE");
+            
+        }
+
+        //if player chooses to go to bar
+        else if (playerChoice == 3) {
+            execLoungeExchangeMenu(player, playerChoice);
+        }
+
+        //if player chooses to exit lounge
+        else if (playerChoice == 4) {
+            system("CLS");
+            std::cout << "Goodbye laddy!" << std::endl << std::endl;
+            system("PAUSE");
+            sentinel = 1;
+        }
+
+        else {
+            system("CLS");
+            std::cout << "That is not an option." << std::endl << std::endl;
+            system("PAUSE");
+        }
+    }
+};
+
+int lounge::execLoungeLobbyMenu(player& player, int& playerChoice) {
+    //reset playerChoice so that error-proofing loop may begin
+    playerChoice = 0;
+    //error-proofing while loop
+    while ((playerChoice < 1) || (playerChoice > 3)) {
+        //print enter shop menu
+        system("CLS");
+        std::cout << "Welcome to " << loungeName << " where tales and mysteries intertwine. " << std::endl << std::endl;
+        std::cout << "What would you like to do next?" << std::endl << std::endl;
+        std::cout << "[1] Talk to Strange Man" << std::endl;
+        std::cout << "[2] Talk to Old Man" << std::endl;
+        std::cout << "[3] Go to Bar" << std::endl;
+        std::cout << "[4] Exit" << std::endl << std::endl;
+        std::cout << "Choice: ";
+        std::cin >> playerChoice;
+        //erroneous choice message
+        if ((playerChoice < 1) && (playerChoice > 3)) {
+            system("CLS");
+            std::cout << "This is not an option." << std::endl << std::endl;
+            system("PAUSE");
+        }
+    }
+    return playerChoice;
+}
+
+void lounge::execLoungeExchangeMenu(player& player, int& playerChoice) {
+    //reset playerChoice so that error-proofing loop may begin
+    playerChoice = 0;
+    //sentinel prevents this menu from closing until uses
+    int sentinel = 0;
+    //error-proofing while loop
+    while (((playerChoice < 1) || (playerChoice > 3)) && (sentinel != 1)) {
+        //print enter shop menu
+        system("CLS");
+        std::cout << "Hello lad! What can I do you for?" << std::endl << std::endl;
+        std::cout << "[1] I'll take a beer" << std::endl;
+        std::cout << "[2] I'll grab some water" << std::endl;
+        std::cout << "[3] Exit" << std::endl << std::endl;
+        std::cout << "Choice: ";
+        std::cin >> playerChoice;
+        //if-else if branches determine which menu to print depending on player's shop menu choice
+        //if player chooses to buy beer
+        if (playerChoice == 1) {
+            system("CLS");
+            player.getInventory()->setCoinCount(player.getInventory()->getCointCount() - drinkSlot1.getDrinkCoinValue());
+            std::cout << "You purchased a beer. "<< std::endl;
+            std::cout << drinkSlot1.getDrinkCoinValue() << " subtracted from gold. " << std::endl;
+            std::cout << "Would You like to drink this beer?" << std::endl;
+            std::cout << "[1] Yes drink it now" << std::endl;
+            std::cout << "[2] No store in inventory" << std::endl;
+            std::cout << "Choice: ";
+            std::cin >> playerChoice;
+            system("CLS");
+            if (playerChoice == 1) {
+                player.setHp((player.getHp() - drinkSlot1.getDrinkHealValue()));
+                std::cout << "Whoops! These arent normal beers!" << std::endl;
+                std::cout << "Your Hp has decreased. Tour new Hp is " << player.getHp() << std::endl;
+            }
+            else if (playerChoice == 2) {
+                player.getInventory()->setDrink(drinkSlot1);
+            }
+
+            
+            
+       
+
+        }
+        //if player chooses to buy water
+        else if (playerChoice == 2) {
+            system("CLS");
+            player.getInventory()->setCoinCount(player.getInventory()->getCointCount() - drinkSlot1.getDrinkCoinValue());
+            std::cout << "You grabbed a water. " << std::endl;
+            std::cout << drinkSlot2.getDrinkCoinValue() << " subtracted from gold. " << std::endl;
+            std::cout << "Would You like to drink this water?" << std::endl;
+            std::cout << "[1] Yes drink it now" << std::endl;
+            std::cout << "[2] No store in inventory" << std::endl;
+            std::cout << "Choice: ";
+            std::cin >> playerChoice;
+            if (playerChoice == 1) {
+                system("CLS");
+                player.setHp((player.getHp() + drinkSlot2.getDrinkHealValue()));
+                std::cout << "That was Refleshing!" << player.getHp() << std::endl << std::endl;
+                std::cout << "Your new Hp is " << player.getHp() << std::endl;
+            }
+            else if (playerChoice == 2) {
+                player.getInventory()->setDrink(drinkSlot2);
+            }
+           
+        }
+        //if player chooses to exit shop menu
+        else if (playerChoice == 3) {
+            system("CLS");
+            std::cout << "Thanks for inquirin'!" << std::endl << std::endl;
+            system("PAUSE");
+            sentinel = 1;
+        }
+        //erroneous choice message
+        else if ((playerChoice < 1) && (playerChoice > 3)) {
+            system("CLS");
+            std::cout << "This is not an option." << std::endl << std::endl;
+            system("PAUSE");
+        }
+    }
+}
+
+
+
+
+
+
+
+

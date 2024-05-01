@@ -160,4 +160,42 @@ public:
 };
 
 
+//DRINK CLASS FOR BAR
+class drink: public item {
+protected:
+	std::string drinkName;
+	int drinkCount;
+	int drinkCoinValue;
+	int drinkHealValue;
+
+public:
+	//constructors
+	drink();
+	drink(std::string drinkName);
+	drink(std::string drinkName,int drinkCount,  int coinValue, int wisdomEffect);
+
+	
+
+	//getters
+	std::string getDrinkName();
+
+	int getDrinkCount();
+
+	int getDrinkCoinValue();
+
+	int getDrinkHealValue();
+
+	//setters
+	void setName(std::string drinkName);
+
+	void setDrinkCount(int drinkCount);
+
+	void setDrinkCoinValue(int drinkCoinValue);
+
+	void setDrinkHealValue(int drinkHealValue);
+
+
+};
+
+
 #endif

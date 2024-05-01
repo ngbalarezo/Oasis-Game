@@ -112,6 +112,8 @@ public:
 
 	void usePotion();
 
+	void takeDrink();
+
 };
 
 //NPC CLASS

@@ -164,6 +164,91 @@ public:
 };
 
 class lounge {
+private:
+
+    std::string loungeName;
+    std::string loungeType;
+    drink drinkSlot1;
+    drink drinkSlot2;
+    npc bartender;
+    npc plotDriver;
+    npc wisdomDriver;;
+
+
+public:
+
+    //constructers
+    lounge();
+
+    lounge(std::string loungeName, std::string loungeType, npc bartender, npc plotDriver, npc wisdomDriver, drink drinkSlot1, drink drinkSlot2);
+
+    //getters
+    std::string getLoungeName();
+
+    std::string getLoungeType();
+
+    npc getBartender();
+
+    npc getPlotDriver();
+
+    npc getWisdomDriver();
+
+    drink getDrinkSlot1();
+
+    drink getDrinkSlot2();
+
+    std::string getDrinkDisplayString();
+
+
+
+
+    //setters
+    void setLoungeName(std::string loungeName);
+
+    void setLoungeType(std::string loungeType);
+
+    void setBartender(npc bartender);
+
+    void setPlotDriver(npc plotDriver);
+
+    void setWisdomDriver(npc wisdomDriver);
+
+    void setDrinkSlot1(drink drinkSlot1);
+
+    void setDrinkSlot2(drink drinkSlot2);
+
+    //methods
+    //methods
+    void enterLounge(player& player); //enter shop
+
+    //initial menus below
+    int execLoungeLobbyMenu(player& player, int& playerChoice);
+
+    void execLoungeExchangeMenu(player& player, int& playerChoice);
+
+    //buy menu methods below
+
+
+
+
+
+
+    //int checkBarBuyChoice(player& player, int& playerChoice);
+
+
+
+    //sell menu methods below
+   // int execBarSellMenu(player& player, int& playerChoice);
+
+
+
+
+
+
+
+
+
+
 
 };
 

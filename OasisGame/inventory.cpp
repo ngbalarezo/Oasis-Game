@@ -25,6 +25,7 @@ playerInventory::playerInventory() {
 	weapon noWeapon;
 	armor noArmor;
 	potion noPotion;
+	drink noDrink;
 	item noItem;
 
 	//set default variables
@@ -32,16 +33,18 @@ playerInventory::playerInventory() {
 	weaponSlot = noWeapon;
 	armorSlot = noArmor;
 	potionSlot = noPotion;
+	drinkSlot = noDrink;
 	itemSlot1 = noItem;
 	itemSlot2 = noItem;
 	itemSlot3 = noItem;
 	coinCount = 0;
 }
 
-playerInventory::playerInventory(weapon weaponSlot, armor armorSlot, potion potionSlot, item itemSlot1, item itemSlot2, item itemSlot3, int coinCount) {
+playerInventory::playerInventory(weapon weaponSlot, armor armorSlot, potion potionSlot, drink drinkSlot, item itemSlot1, item itemSlot2, item itemSlot3, int coinCount) {
 	this->weaponSlot = weaponSlot;
 	this->armorSlot = armorSlot;
 	this->potionSlot = potionSlot;
+	this->drinkSlot = drinkSlot;
 	this->itemSlot1 = itemSlot1;
 	this->itemSlot2 = itemSlot2;
 	this->itemSlot3 = itemSlot3;
@@ -61,6 +64,7 @@ std::string playerInventory::getArmorDefenseString() {
 	return "Def: " + std::to_string(armorSlot.getDef());
 }
 
+//potion
 potion* playerInventory::getPotion() { return &potionSlot; }
 
 std::string playerInventory::getPotionDisplayString() { 
@@ -79,6 +83,23 @@ std::string playerInventory::getPotionStatString() {
 	return "HP +" + std::to_string(potionSlot.getHealValue()) + "/SP +" + std::to_string(potionSlot.getStaminaValue());
 }
 
+//drink
+drink* playerInventory::getDrink() { return &drinkSlot; }
+
+std::string playerInventory::getDrinkDisplayString() {
+	if (drinkSlot.getDrinkCount() == 0) {
+		return drinkSlot.getDrinkName();
+	}
+	else if (drinkSlot.getDrinkCount() > 0) {
+		return drinkSlot.getDrinkName() + " x" + std::to_string(drinkSlot.getDrinkCount());
+	}
+}
+
+std::string playerInventory::getDrinkStatString() {
+	return "HP + (" + std::to_string(drinkSlot.getDrinkHealValue())+")";
+}
+
+//items
 item playerInventory::getItemSlot1() { return itemSlot1; }
 
 item playerInventory::getItemSlot2() { return itemSlot2; }
@@ -93,6 +114,8 @@ void playerInventory::setWeapon(weapon &weaponSlot) { this->weaponSlot = weaponS
 void playerInventory::setArmor(armor &armorSlot) { this->armorSlot = armorSlot; }
 
 void playerInventory::setPotion(potion &potionSlot) { this->potionSlot = potionSlot; }
+
+void playerInventory::setDrink(drink& drinkSlot) { this->drinkSlot = drinkSlot; }
 
 void playerInventory::setItem1(item &itemSlot1) { this->itemSlot1 = itemSlot1; }
 

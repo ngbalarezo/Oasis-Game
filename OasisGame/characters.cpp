@@ -197,6 +197,9 @@ void player::usePotion() {
 		inventory.setPotion(noPotion);
 	}
 }
+void player::takeDrink() {
+	hp=getDrink
+}
 
 //NPC CLASS DEFINITIONS
 

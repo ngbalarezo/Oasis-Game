@@ -178,3 +178,45 @@ void potion::setFocusValue(int focusValue) { this->focusValue = focusValue; }
 void potion::setCoinValue(int coinValue) { this->coinValue = coinValue; }
 
 
+//DRINK CLASS DEFINITIONS
+
+//constructor
+drink::drink() {
+	drinkName = "empty";
+	drinkCount = 0;
+	drinkCoinValue = 0;
+	drinkHealValue = 0;
+
+	/*drinkCoinValue = 0;
+	drinkHealValue = 0;*/
+}
+drink::drink(std::string drinkName) {
+	this->drinkName = drinkName;
+}
+
+drink::drink(std::string drinkName, int drinkCount, int coinValue, int wisdomEffect) {
+	this->drinkName = drinkName;
+	this->drinkCount = drinkCount;
+	this->drinkCoinValue = coinValue;
+	this->drinkHealValue = drinkHealValue;
+}
+
+//getters
+std::string drink::getDrinkName() { return drinkName; }
+
+int drink::getDrinkCount() { return drinkCount; }
+
+int drink::getDrinkCoinValue() { return drinkCoinValue; }
+
+int drink::getDrinkHealValue() { return drinkHealValue; }
+
+//setters
+void drink::setName(std::string drinkName) { this->drinkName = drinkName; }
+
+void drink::setDrinkCount(int drinkCount) { this->drinkCount = drinkCount; };
+
+void drink::setDrinkCoinValue(int drinkCoinValue) { this->drinkCoinValue = drinkCoinValue; }
+
+void drink::setDrinkHealValue(int drinkHealValue) { this->drinkHealValue = drinkHealValue; }
+
+

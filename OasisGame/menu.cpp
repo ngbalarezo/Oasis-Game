@@ -22,11 +22,23 @@ int startMenu::print() {
     std::cout << "[1] Start Game" << std::endl;
     std::cout << "[2] Info" << std::endl;
     std::cout << "[3] Dev Testing" << std::endl;
+
     std::cout << "[4] Exit" << std::endl;
     std::cout << "Choice: ";
-    std:: cin >> userChoice;
+    std::cin >> userChoice;
     return userChoice;
 }
+//int startMenu::print() {
+//    int userChoice;
+//    std::cout << "OASIS" << std::endl << std::endl;
+//    std::cout << "[1] Start Game" << std::endl;
+//    std::cout << "[2] Info" << std::endl;
+//    std::cout << "[3] Dev Testing" << std::endl;
+//    std::cout << "[4] Exit" << std::endl;
+//    std::cout << "Choice: ";
+//    std:: cin >> userChoice;
+//    return userChoice;
+//}
 
 std::string startMenu::promptPlayerName() {
     std::string playerName;
@@ -155,6 +167,20 @@ void testMenu::print() {//!FIXME: change main menu options
 
     //!FIXME: insert feature to choose option using cin and functions referencing other .h files
 }
+//void testMenu::print() {//!FIXME: change main menu options
+//    system("CLS");
+//    std::cout << "1. Return to Game" << std::endl;
+//    std::cout << "2. Enter Battle" << std::endl;
+//    std::cout << "3. Manage Inventory" << std::endl;
+//    std::cout << "4. Enter Shop" << std::endl;
+//    std::cout << "5. Talk to Someone" << std::endl;
+//    std::cout << "6. Move location" << std::endl;
+//    std::cout << "7. Print map" << std::endl;
+//    std::cout << "8. Visit Church" << std::endl;
+//    std::cout << "9. Exit Dev Testing" << std::endl;
+//
+//    //!FIXME: insert feature to choose option using cin and functions referencing other .h files
+//}
 
 void testMenu::testLoop(int initialChoice, player& player, map& testMap, playerMenu& testMenu, std::vector<std::vector<std::string>>& testShadowyManDialogue) {
     npc testShadowyMan("Shadowy man", testShadowyManDialogue);

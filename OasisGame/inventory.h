@@ -33,6 +33,7 @@ private:
 	armor armorSlot;
 	//each player inventory has 1 potion slot with a potion count
 	potion potionSlot;
+	drink drinkSlot;
 	//each player inventory has 3 miscellaneous item slots
 	item itemSlot1;
 	item itemSlot2;
@@ -44,7 +45,7 @@ public:
 	//constructors
 	playerInventory();
 
-	playerInventory(weapon weaponSlot, armor armorSlot, potion potionSlot, item itemSlot1, item itemSlot2, item itemSlot3, int coinCount);
+	playerInventory(weapon weaponSlot, armor armorSlot, potion potionSlot, drink drinkSlot, item itemSlot1, item itemSlot2, item itemSlot3, int coinCount);
 
 	//getters
 	weapon getWeapon();
@@ -61,6 +62,12 @@ public:
 
 	std::string getPotionStatString();
 
+	drink* getDrink();
+
+	std::string getDrinkDisplayString();
+
+	std::string getDrinkStatString();
+
 	item getItemSlot1();
 
 	item getItemSlot2();
@@ -75,6 +82,8 @@ public:
 	void setArmor(armor &newArmor);
 
 	void setPotion(potion &newPotion);
+
+	void setDrink(drink& newDrink); 
 
 	void setItem1(item &newItem);
 

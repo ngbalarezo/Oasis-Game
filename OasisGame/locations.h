@@ -72,6 +72,7 @@ private:
     std::string name;
     shop localShop;
     Church localChurch;
+    lounge localLounge;
     npc localNpc1;
     npc localNpc2;
 
@@ -81,7 +82,7 @@ public:
     village();
 
     //initialize village with custom members
-    village(std::string name, shop localShop, Church localChurch, npc localNpc1, npc localNpc2);
+    village(std::string name, shop localShop, Church localChurch, lounge localLounge, npc localNpc1, npc localNpc2);
 
     //getters
     std::string getName();
@@ -89,6 +90,8 @@ public:
     shop getLocalShop();
 
     Church getLocalChurch();
+
+    lounge getlocalLounge();
 
     npc* getLocalNpc1();
 
@@ -101,12 +104,14 @@ public:
 
     void setLocalChurch(Church& localChurch);
 
+    void setlocalChurch(Church& localChurch);
+
     void setLocalNpc1(npc& localNpc1);
 
     void setLocalNpc2(npc& localNpc2);
 
     //methods
-
+    
 };
 
 
