@@ -224,33 +224,43 @@ void map::display() {
 	system("PAUSE");
 }
 
-void map::execLocation(player& player) {
+int map::execLocation(player& player) {
 	int userChoice = 0;
 	int sentinel = 0;
 	int mapDisplayChoice = 0;
 	mapPlayerMenu mapPlayerMenu;
 	//while loop to keep you in current location until you decide to leave
 	while (sentinel != 1) {
-		//display menu
-		userChoice = locationDisplay();
-
-		//execute user choice
-		execChoice(userChoice, player);
-
-		//displays player menu
-		if (userChoice == 4) {
-			//uses userChoice to display map if user chooses map
-			while (mapDisplayChoice != 2) {
-				mapDisplayChoice = mapPlayerMenu.print(player);
-				if (mapDisplayChoice == 1) {
-					display();
-				}
-			}
-			mapDisplayChoice = 0;
+		//if player is slain
+		if (player.getHp() <= 0) {
+			//break loop
+			sentinel = 1;
+			//return 1
+			return 1;
 		}
-		//check if user chooses to leave the current location
-		else if (userChoice == 5) {
-			sentinel = moveLocation(player);
+		//player is not slain
+		else {
+			//display menu
+			userChoice = locationDisplay();
+
+			//execute user choice
+			execChoice(userChoice, player);
+
+			//displays player menu
+			if (userChoice == 4) {
+				//uses userChoice to display map if user chooses map
+				while (mapDisplayChoice != 2) {
+					mapDisplayChoice = mapPlayerMenu.print(player);
+					if (mapDisplayChoice == 1) {
+						display();
+					}
+				}
+				mapDisplayChoice = 0;
+			}
+			//check if user chooses to leave the current location
+			else if (userChoice == 5) {
+				sentinel = moveLocation(player);
+			}
 		}
 	}
 	//set start node to wasVisited so starting village message remains until user leaves the village.

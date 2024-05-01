@@ -121,7 +121,7 @@ public:
 
 	void display();
 
-	void execLocation(player& player);
+	int execLocation(player& player);
 
 	int locationDisplay();
 

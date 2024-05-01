@@ -333,8 +333,14 @@ int main() { //!FIXME: HOW TO INCREASE PROGRAM STACK/HEAP SIZE IN VISUAL STUDIO,
                 }
             }
         }
-        gameMap.execLocation(player); //!FIXME: ADD IN BASIC PLAYER FALL FEATURE
+        int playerSlain = gameMap.execLocation(player); //!FIXME: ADD IN BASIC PLAYER FALL FEATURE
         introMusicCont = 0;
+        if (playerSlain == 1) {
+            system("CLS");
+            std::cout << "Game over." << std::endl << std::endl;
+            system("PAUSE");
+            sentinel = 1;
+        }
     }
     
     return 0;
