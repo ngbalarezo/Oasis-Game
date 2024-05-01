@@ -49,13 +49,13 @@ playerInventory::playerInventory(weapon weaponSlot, armor armorSlot, potion poti
 }
 
 //getters
-weapon playerInventory::getWeapon() { return weaponSlot; }
+weapon* playerInventory::getWeapon() { return &weaponSlot; }
 
 std::string playerInventory::getWeaponAttackString() {
 	return "Atk: " + std::to_string(weaponSlot.getAtk());
 }
 
-armor playerInventory::getArmor() { return armorSlot; }
+armor* playerInventory::getArmor() { return &armorSlot; }
 
 std::string playerInventory::getArmorDefenseString() {
 	return "Def: " + std::to_string(armorSlot.getDef());
@@ -79,11 +79,11 @@ std::string playerInventory::getPotionStatString() {
 	return "HP +" + std::to_string(potionSlot.getHealValue()) + "/SP +" + std::to_string(potionSlot.getStaminaValue());
 }
 
-item playerInventory::getItemSlot1() { return itemSlot1; }
+item* playerInventory::getItemSlot1() { return &itemSlot1; }
 
-item playerInventory::getItemSlot2() { return itemSlot2; }
+item* playerInventory::getItemSlot2() { return &itemSlot2; }
 
-item playerInventory::getItemSlot3() { return itemSlot3; }
+item* playerInventory::getItemSlot3() { return &itemSlot3; }
 
 int playerInventory::getCointCount() { return coinCount; }
 
@@ -208,18 +208,18 @@ void playerInventory::dropItemMenu(int& playerChoice) {
 		display();
 		std::cout << "Which item would you like to drop?" << std::endl << std::endl;
 		std::cout << "================================================================" << std::endl << std::endl; //!FIXME: LEFT OFF HERE
-		std::cout << "[1] " << std::setw(25) << getWeapon().getName();
-		std::cout << "(" << getWeapon().getCoinValue() << " coins)" << std::endl;
-		std::cout << "[2] " << std::setw(25) << getArmor().getName();
-		std::cout << "(" << getArmor().getCoinValue() << " coins)" << std::endl;
+		std::cout << "[1] " << std::setw(25) << getWeapon()->getName();
+		std::cout << "(" << getWeapon()->getCoinValue() << " coins)" << std::endl;
+		std::cout << "[2] " << std::setw(25) << getArmor()->getName();
+		std::cout << "(" << getArmor()->getCoinValue() << " coins)" << std::endl;
 		std::cout << "[3] " << std::setw(25) << getPotionDisplayString();
 		std::cout << "(" << getPotion()->getCoinValue() << " coins)" << std::endl;
-		std::cout << "[4] " << std::setw(25) << getItemSlot1().getName();
-		std::cout << "(" << getItemSlot1().getCoinValue() << " coins)" << std::endl;
-		std::cout << "[5] " << std::setw(25) << getItemSlot2().getName();
-		std::cout << "(" << getItemSlot2().getCoinValue() << " coins)" << std::endl;
-		std::cout << "[6] " << std::setw(25) << getItemSlot3().getName();
-		std::cout << "(" << getItemSlot3().getCoinValue() << " coins)" << std::endl;
+		std::cout << "[4] " << std::setw(25) << getItemSlot1()->getName();
+		std::cout << "(" << getItemSlot1()->getCoinValue() << " coins)" << std::endl;
+		std::cout << "[5] " << std::setw(25) << getItemSlot2()->getName();
+		std::cout << "(" << getItemSlot2()->getCoinValue() << " coins)" << std::endl;
+		std::cout << "[6] " << std::setw(25) << getItemSlot3()->getName();
+		std::cout << "(" << getItemSlot3()->getCoinValue() << " coins)" << std::endl;
 		std::cout << "[7] Exit" << std::endl << std::endl;
 		std::cout << "Choice: ";
 		std::cin >> playerChoice;
@@ -253,7 +253,7 @@ int playerInventory::checkDropChoice(int& playerChoice) {
 	//if player chooses to drop their weapon
 	if (playerChoice == 1) {
 		//if the slot is empty
-		if (getWeapon().getName() == "empty") {
+		if (getWeapon()->getName() == "empty") {
 			system("CLS");
 			display();
 			std::cout << "This slot is empty!" << std::endl << std::endl;
@@ -273,7 +273,7 @@ int playerInventory::checkDropChoice(int& playerChoice) {
 	//if player chooses to drop their armor
 	else if (playerChoice == 2) {
 		//if the slot is empty
-		if (getArmor().getName() == "empty") {
+		if (getArmor()->getName() == "empty") {
 			system("CLS");
 			display();
 			std::cout << "This slot is empty!" << std::endl << std::endl;
@@ -314,7 +314,7 @@ int playerInventory::checkDropChoice(int& playerChoice) {
 	//if player chooses to drop item 1
 	else if (playerChoice == 4) {
 		//if the slot is empty
-		if (getItemSlot1().getName() == "empty") {
+		if (getItemSlot1()->getName() == "empty") {
 			system("CLS");
 			display();
 			std::cout << "This slot is empty!" << std::endl << std::endl;
@@ -334,7 +334,7 @@ int playerInventory::checkDropChoice(int& playerChoice) {
 	//if player chooses to drop item 2
 	else if (playerChoice == 5) {
 		//if the slot is empty
-		if (getItemSlot2().getName() == "empty") {
+		if (getItemSlot2()->getName() == "empty") {
 			system("CLS");
 			display();
 			std::cout << "This slot is empty!" << std::endl << std::endl;
@@ -354,7 +354,7 @@ int playerInventory::checkDropChoice(int& playerChoice) {
 	//if player chooses to drop item 3
 	else if (playerChoice == 6) {
 		//if the slot is empty
-		if (getItemSlot3().getName() == "empty") {
+		if (getItemSlot3()->getName() == "empty") {
 			system("CLS");
 			display();
 			std::cout << "This slot is empty!" << std::endl << std::endl;
@@ -397,13 +397,13 @@ void playerInventory::dropItem(int& playerChoice) {
 	//player chooses to drop item 1
 	else if (playerChoice == 4) {
 		//if item 1 is a quest item
-		if (getItemSlot1().getIsQuestItem() == true) {
+		if (getItemSlot1()->getIsQuestItem() == true) {
 			system("CLS");
 			std::cout << "You can't drop that! It is a quest item." << std::endl << std::endl;
 			system("PAUSE");
 		}
 		//if item 1 is not a quest item
-		else if (getItemSlot1().getIsQuestItem() == false) {
+		else if (getItemSlot1()->getIsQuestItem() == false) {
 			//set player inventory weapon to noWeapon
 			setItem1(noItem);
 		}
@@ -411,13 +411,13 @@ void playerInventory::dropItem(int& playerChoice) {
 	//player chooses to drop item 2
 	else if (playerChoice == 5) {
 		//if item 2 is a quest item
-		if (getItemSlot2().getIsQuestItem() == true) {
+		if (getItemSlot2()->getIsQuestItem() == true) {
 			system("CLS");
 			std::cout << "You can't drop that! It is a quest item." << std::endl << std::endl;
 			system("PAUSE");
 		}
 		//if item 2 is not a quest item
-		else if (getItemSlot2().getIsQuestItem() == false) {
+		else if (getItemSlot2()->getIsQuestItem() == false) {
 			//set player inventory weapon to noWeapon
 			setItem2(noItem);
 		}
@@ -425,13 +425,13 @@ void playerInventory::dropItem(int& playerChoice) {
 	//player chooses to drop item 3
 	else if (playerChoice == 6) {
 		//if item 3 is a quest item
-		if (getItemSlot3().getIsQuestItem() == true) {
+		if (getItemSlot3()->getIsQuestItem() == true) {
 			system("CLS");
 			std::cout << "You can't drop that! It is a quest item." << std::endl << std::endl;
 			system("PAUSE");
 		}
 		//if item 3 is not a quest item
-		else if (getItemSlot3().getIsQuestItem() == false) {
+		else if (getItemSlot3()->getIsQuestItem() == false) {
 			//set player inventory weapon to noWeapon
 			setItem3(noItem);
 		}

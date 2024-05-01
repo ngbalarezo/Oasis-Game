@@ -7,6 +7,8 @@
 #include <vector>
 #include <string>
 #include <random>
+#include <chrono>
+#include <thread>
 #include <windows.h>
 #include <stdlib.h>
 #include "menu.h"
@@ -19,6 +21,7 @@
 #include "resource.h"
 
 //#pragma comment(lib, "winmm.lib")
+void printIntroMonologue();
 
 int main() { //!FIXME: HOW TO INCREASE PROGRAM STACK/HEAP SIZE IN VISUAL STUDIO, C++
     //MAIN GAME: GENERATE ITEMS
@@ -303,33 +306,67 @@ int main() { //!FIXME: HOW TO INCREASE PROGRAM STACK/HEAP SIZE IN VISUAL STUDIO,
     player player(playerName, playerInventory);
 
     //MAIN GAME: GENERATE MAP
-    map gameMap(5);
+    map gameMap(10);
     gameMap.generateMap(WILDERNESS_REALM1, VILLAGES_REALM1, player);
 
     //MAIN GAME: INITIATE INTRO SEQUENCE AND MONOLOGUE
+    printIntroMonologue();
 
     //MAIN GAME: MAIN GAME LOOP
     sentinel = 0;
+    int introMusicCont = 1;
     while (sentinel != 1) {
         //!FIXME: QUIT GAME FEATURE, ARE YOU SURE? RETURNS SENTINEL VALUE OF 1.
         //!FIXME: IF CHARACTER FALLS THEY CAN EITHER GO BACK TO THE LAST CHURCH OR QUIT GAME
         //!FIXME: ADD IF STATEMENTS TO ADD MUSIC ACCORDINGLY TO VILLAGE OR WILDERNESS
-        if (gameMap.getCurrentMapNode()->getIsVillage() == true) {
-            rand = randomVilalgeMusic(engine);
-            if (rand == 1) {
-                PlaySound(MAKEINTRESOURCE(VILLAGE_MUSIC_1), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
-            }
-            else if (rand == 2) {
-                PlaySound(MAKEINTRESOURCE(VILLAGE_MUSIC_2), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
-            }
-            else if (rand == 3) {
-                PlaySound(MAKEINTRESOURCE(VILLAGE_MUSIC_3), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
+        if (introMusicCont == 0) {
+            if (gameMap.getCurrentMapNode()->getIsVillage() == true) {
+                rand = randomVilalgeMusic(engine);
+                if (rand == 1) {
+                    PlaySound(MAKEINTRESOURCE(VILLAGE_MUSIC_1), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
+                }
+                else if (rand == 2) {
+                    PlaySound(MAKEINTRESOURCE(VILLAGE_MUSIC_2), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
+                }
+                else if (rand == 3) {
+                    PlaySound(MAKEINTRESOURCE(VILLAGE_MUSIC_3), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
+                }
             }
         }
         gameMap.execLocation(player); //!FIXME: ADD IN BASIC PLAYER FALL FEATURE
+        introMusicCont = 0;
     }
     
     return 0;
+}
+
+void printIntroMonologue() {
+    PlaySound(MAKEINTRESOURCE(STORYLINE_MUSIC_1), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
+    //begin monologue
+    system("CLS");
+    std::this_thread::sleep_for(std::chrono::seconds(5));
+    std::cout << "A beautiful woman appears to you in a dream, adorned in light and majesty." << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(5));
+
+    system("CLS");
+    std::cout << "She speaks with the authority of Heaven." << std::endl;
+    std::this_thread::sleep_for(std::chrono::milliseconds(7300));
+
+    system("CLS");
+    std::cout << "\"Young hero, the Oasis of Eternal Life has been closed off to all of humanity.\"" << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(8));
+
+    system("CLS");
+    std::cout << "\"Evil incarnate has disperesed his wicked minions to torment all of creation." << std::endl;
+    std::cout << "Corruption spreads and human life grows astray from our Savior." << std::endl;
+    std::cout << "Many have fallen and many more will perish because of their evil deeds.\"" << std::endl;
+    std::this_thread::sleep_for(std::chrono::milliseconds(20180));
+
+    system("CLS");
+    std::cout << "\"Will you take up the battle and fight for the salvation of all mankind from the perils of his destruction?\"" << std::endl << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(10));
+    system("PAUSE");
+
 }
 
 /*

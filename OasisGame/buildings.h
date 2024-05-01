@@ -127,6 +127,8 @@ private:
     std::string churchName;
     std::string churchType;
     int hpToHeal;
+    bool weaponWasBlessed;
+    bool armorWasBlessed;
 
 public:
 
@@ -159,7 +161,6 @@ public:
     void pray(player& player);
 
     void offerWeapon(player& player);
-
 
 };
 

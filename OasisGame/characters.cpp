@@ -367,9 +367,9 @@ int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engi
 				//calculates random damage amount
 				damageDone = playerHeavyAttackRange(engine);
 				//calculate damage buff using weapon atk stat
-				totalDamageDone = damageDone * player.getInventory()->getWeapon().getBuffPercent();
+				totalDamageDone = damageDone * player.getInventory()->getWeapon()->getBuffPercent();
 				//subtracts stamina points NOTE: WEIGHT = AMOUNT IT TAKES OFF FROM SP!!!
-				player.setSp(player.getSp() - player.getInventory()->getWeapon().getWeight() - 15);
+				player.setSp(player.getSp() - player.getInventory()->getWeapon()->getWeight() - 15);
 				//sets new enemy hp by subtracting damageDone from current enemy hp
 				this->setHp(this->getHp() - totalDamageDone);
 				//attack landed text, pauses on this screen and then resets screen back to stats menu
@@ -385,9 +385,9 @@ int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engi
 				//calculates random damage amount
 				damageDone = playerLightAttackRange(engine);
 				//calculate damage buff according to weapon atk stat
-				totalDamageDone = damageDone * player.getInventory()->getWeapon().getBuffPercent();
+				totalDamageDone = damageDone * player.getInventory()->getWeapon()->getBuffPercent();
 				//subtracts stamina points NOTE: WEIGHT = HALF THE AMOUNT IT TAKES OFF FROM SP!!!
-				player.setSp(player.getSp() - ((player.getInventory()->getWeapon().getWeight()) + ((player.getInventory()->getWeapon().getWeight()) / 2)) - 10);
+				player.setSp(player.getSp() - ((player.getInventory()->getWeapon()->getWeight()) + ((player.getInventory()->getWeapon()->getWeight()) / 2)) - 10);
 				//sets new enemy hp by subtracting damageDone from current enemy hp
 				this->setHp(this->getHp() - totalDamageDone);
 				//attack landed text, pauses on this screen and then resets screen back to stats menu
@@ -452,7 +452,7 @@ void enemy::enemyAttackTurn(int playerDodges, int& damageDone, std::default_rand
 			else if (enemyMissChance(engine) != 6) {
 				int totalEnemyDamage;
 				damageDone = enemyAttackRange(engine);
-				totalEnemyDamage = damageDone - player.getInventory()->getArmor().getDefPercent();
+				totalEnemyDamage = damageDone - player.getInventory()->getArmor()->getDefPercent();
 				player.setHp(player.getHp() - damageDone);
 				//enemy attack landed text, pauses on this screen and then resets screen back to stats menu
 				system("CLS");

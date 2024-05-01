@@ -47,11 +47,11 @@ public:
 	playerInventory(weapon weaponSlot, armor armorSlot, potion potionSlot, item itemSlot1, item itemSlot2, item itemSlot3, int coinCount);
 
 	//getters
-	weapon getWeapon();
+	weapon* getWeapon();
 
 	std::string getWeaponAttackString();
 
-	armor getArmor();
+	armor* getArmor();
 
 	std::string getArmorDefenseString();
 
@@ -61,11 +61,11 @@ public:
 
 	std::string getPotionStatString();
 
-	item getItemSlot1();
+	item* getItemSlot1();
 
-	item getItemSlot2();
+	item* getItemSlot2();
 
-	item getItemSlot3();
+	item* getItemSlot3();
 
 	int getCointCount();
 
