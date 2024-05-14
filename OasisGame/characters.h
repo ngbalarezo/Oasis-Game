@@ -168,6 +168,8 @@ public:
 
 	//methods
 	void printBattleStats(player &player);
+
+	int printBattleScreen(player& player);
 	
 	int printBattleOptions();
 	
@@ -176,6 +178,10 @@ public:
 	void enemyAttackTurn(int playerDodges, int& damageDone, std::default_random_engine& engine, player& player);
 	
 	void battle(player &player);
+
+	void printIsSlainScreen();
+
+	void battleLoop(player& player);
 
 };
 

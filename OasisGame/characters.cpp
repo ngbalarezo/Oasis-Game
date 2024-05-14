@@ -303,16 +303,15 @@ void enemy::setFlees(bool flees) { this->flees = flees; }
 
 void enemy::setIsSlain(bool isSlain) { this->isSlain = isSlain; }
 
-//methods
-
 /*
-*name: printBattleStats()
-*parameters: player &player
-*return: n/a
-*description:
+* 
+* 
+* 
 */
-void enemy::printBattleStats(player& player) {
-	//print battle stats screen
+int enemy::printBattleScreen(player& player) {
+	//instantiate variables
+	int playerChoice;
+	//print main battle screen with enemy and player stats
 	std::cout << "*****************************" << std::endl;
 	std::cout << "Enemy: " << name << std::endl;
 	std::cout << "HP: " << this->getHp() << std::endl;
@@ -324,24 +323,22 @@ void enemy::printBattleStats(player& player) {
 	std::cout << "SP: " << player.getSp() << std::endl;
 	std::cout << "*****************************" << std::endl;
 	std::cout << std::endl;
-}
-
-/*
-*/
-int enemy::printBattleOptions() {
-	int input;
-	//print battle options
+	//print battle choices for user
 	std::cout << "Choose a battle option!" << std::endl;
 	std::cout << "[1] Heavy Attack" << std::endl;
 	std::cout << "[2] Light Attack" << std::endl;
 	std::cout << "[3] Inventory" << std::endl;
-	//input and return choice
 	std::cout << "Choice: ";
-	std::cin >> input;
-	system("CLS");
-	return input;
+	//take input
+	std::cin >> playerChoice;
+	//return input
+	return playerChoice;
 }
+
 /*
+* 
+* 
+* 
 */
 int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engine& engine, player& player) {
 	//declare variables
@@ -350,6 +347,16 @@ int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engi
 	std::uniform_int_distribution<unsigned int> playerLightAttackRange{ 4,6 };
 	std::uniform_int_distribution<unsigned int> playerLightAttackDodgeChance{ 0,1 };
 	int playerDodges = 0;
+	//if user chooses inventory
+	if (input == 3) {
+		//display player inventory
+		player.getInventory()->battleDisplay();
+		//pauses and clears console
+		system("PAUSE");
+		system("CLS");
+		//sets playerDodges to 3 as return value to prevent enemy from attacking if user picks inventory
+		playerDodges = 3;
+	}
 	//if statement checks wheter user attacks or uses inventory
 	if ((input == 1) || (input == 2)) {
 		//if-else if tree checks if enemy dodges user attack or not
@@ -398,16 +405,6 @@ int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engi
 			}
 		}
 	}
-	//inventory
-	else if (input == 3) {
-		//display player inventory
-		player.getInventory()->battleDisplay();
-		//pauses and clears console
-		system("PAUSE");
-		system("CLS");
-		//sets playerDodges to 3 as return value to prevent enemy from attacking if user picks inventory
-		playerDodges = 3;
-	}
 	else {
 		system("CLS");
 		std::cout << "This is not an option. Choose again." << std::endl << std::endl;
@@ -420,6 +417,9 @@ int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engi
 }
 
 /*
+* 
+* 
+* 
 */
 void enemy::enemyAttackTurn(int playerDodges, int& damageDone, std::default_random_engine& engine, player& player) {
 	//declare variables
@@ -474,59 +474,27 @@ void enemy::enemyAttackTurn(int playerDodges, int& damageDone, std::default_rand
 }
 
 /*
-*name: battle()
-*parameters: player &player
-*return: n/a
-*description:
+* 
+* 
+* 
 */
 void enemy::battle(player& player) {
 	//declare variables
-	int input;
+	int playerChoice;
 	int damageDone;
 	int playerDodges = 0;
-	std::default_random_engine engine{ static_cast<unsigned int>(time(0)) };
+	
 	//while loop ends battle if enemy dies, player dies, or enemy flees
 	if (isSlain == true) {
-		PlaySound(NULL, GetModuleHandle(NULL), NULL); //STOPS ASYNCHRONOUS MUSIC
-		system("CLS");
-		std::cout << "You stand over a slain foe. The words of Wisdom echo in your mind." << std::endl << std::endl;
-		std::cout << "\"It is the same for all. There is one fate for the righteous and for the wicked;" << std::endl;
-		std::cout << "for the good, for the clean and the unclean; " << std::endl;
-		std::cout << "for the person who offers a sacrifice and for the one who does not sacrifice. " << std::endl;
-		std::cout << "As the good person is, so is the sinner;" << std::endl;
-		std::cout << "the one who swears an oath is just as the one who is afraid to swear an oath.\"" << std::endl;
-		std::cout << "(Ecclesiastes 9:2)" << std::endl << std::endl;
-		system("PAUSE");
+		printIsSlainScreen();
 	}
 	else if (isSlain == false) {
-		system("CLS");
+		//execute battle music
 		PlaySound(MAKEINTRESOURCE(BATTLE_MUSIC_1), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
-		while ((player.getHp() > 0) && (this->getHp() > 0) && (this->getFlees() != true)) {
-			playerDodges = 0;
-			if (player.getSp() > 0) {
-				//print enemy and player battle stats respectively
-				printBattleStats(player);
-				//print battle options
-				input = printBattleOptions();
-				//player's turn executes based on user's choice
-				playerDodges = playerAttackTurn(input, damageDone, engine, player);
-			}
-			else if (player.getSp() <= 0) {
-				std::cout << "You are too tired to attack! You must skip a turn to catch your breath!" << std::endl << std::endl;
-				system("PAUSE");
-				player.setSp(50);
-			}
+		//execute battle loop
 
-			//enemy attack turn executes based on predefined enemy stats, but only if enemy is not already dead
-			if ((playerDodges == 3) && (player.getSp() > 0)) {
-				continue;
-			}
-			else {
-				enemyAttackTurn(playerDodges, damageDone, engine, player);
-			}
-		}
 	}
-	if (player.getHp() == 0) {
+	if (player.getHp() <= 0) {
 		system("CLS");
 		std::cout << "You have been slain..." << std::endl << std::endl;
 		system("PAUSE");
@@ -534,4 +502,59 @@ void enemy::battle(player& player) {
 	}
 	//sets player stamina to 100 after battle is over
 	player.setSp(100);
+}
+
+/*
+* 
+* 
+* 
+*/
+void enemy::printIsSlainScreen() {
+	PlaySound(NULL, GetModuleHandle(NULL), NULL); //STOPS ASYNCHRONOUS MUSIC
+	system("CLS");
+	std::cout << "You stand over a slain foe. The words of Wisdom echo in your mind." << std::endl << std::endl;
+	std::cout << "\"It is the same for all. There is one fate for the righteous and for the wicked;" << std::endl;
+	std::cout << "for the good, for the clean and the unclean; " << std::endl;
+	std::cout << "for the person who offers a sacrifice and for the one who does not sacrifice. " << std::endl;
+	std::cout << "As the good person is, so is the sinner;" << std::endl;
+	std::cout << "the one who swears an oath is just as the one who is afraid to swear an oath.\"" << std::endl;
+	std::cout << "(Ecclesiastes 9:2)" << std::endl << std::endl;
+	system("PAUSE");
+}
+
+/*
+*
+*
+*
+*/
+void enemy::battleLoop(player& player) {
+	//instantiate variables
+	int playerDodges = 0;
+	int playerChoice = 0;
+	int damageDone = 0;
+	std::default_random_engine engine{ static_cast<unsigned int>(time(0)) };
+	//execute main battle loop, breaks if user or enemy hp goes below 0
+	while ((player.getHp() > 0) && (this->getHp() > 0)) {
+		//reset playerDodges
+		playerDodges = 0;
+		if (player.getSp() > 0) {
+			//print battle sequence menu screen, store playerChoice in input variable
+			playerChoice = printBattleScreen(player);
+			//player's turn executes based on user's choice
+			playerDodges = playerAttackTurn(playerChoice, damageDone, engine, player); //LEFT OFF HERE, REFACTORING PLAYERATTACKTURN TO MAKE IT NEATER AND LESS INDENTS...
+		}
+		else if (player.getSp() <= 0) {
+			std::cout << "You are too tired to attack! You must skip a turn to catch your breath!" << std::endl << std::endl;
+			system("PAUSE");
+			player.setSp(50);
+		}
+
+		//enemy attack turn executes based on predefined enemy stats, but only if enemy is not already dead
+		if ((playerDodges == 3) && (player.getSp() > 0)) {
+			continue;
+		}
+		else {
+			enemyAttackTurn(playerDodges, damageDone, engine, player);
+		}
+	}
 }
