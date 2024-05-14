@@ -357,55 +357,52 @@ int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engi
 		//sets playerDodges to 3 as return value to prevent enemy from attacking if user picks inventory
 		playerDodges = 3;
 	}
-	//if statement checks wheter user attacks or uses inventory
-	if ((input == 1) || (input == 2)) {
-		//if-else if tree checks if enemy dodges user attack or not
-		if (enemyDodgeChance(engine) == 6) {
-			//print enemy dodged your attack menu
+	//if the enemy dodges then the respective message will print as below
+	if (enemyDodgeChance(engine) == 6) {
+		system("CLS");
+		std::cout << "You lunge forward but the enemy dodges... " << std::endl << std::endl;
+		system("PAUSE");
+		system("CLS");
+	}
+	//if the enemy does not dodge then execute player attack based on which choice they make
+	else if (enemyDodgeChance(engine) != 6) {
+		//heavy attack: uses 30 sp, does 7-12 base damage
+		int totalDamageDone = 0; //the total amount of damage done (damage after the percentBuff)
+		if (input == 1) {
+			//calculates random damage amount
+			damageDone = playerHeavyAttackRange(engine);
+			//calculate damage buff using weapon atk stat
+			totalDamageDone = damageDone * player.getInventory()->getWeapon()->getBuffPercent();
+			//subtracts stamina points NOTE: WEIGHT = AMOUNT IT TAKES OFF FROM SP!!!
+			player.setSp(player.getSp() - player.getInventory()->getWeapon()->getWeight() - 15);
+			//sets new enemy hp by subtracting damageDone from current enemy hp
+			this->setHp(this->getHp() - totalDamageDone);
+			//attack landed text, pauses on this screen and then resets screen back to stats menu
 			system("CLS");
-			std::cout << "You lunge forward but the enemy dodges... " << std::endl << std::endl;
+			std::cout << "You strike with a heavy blow! " << totalDamageDone << " damage done!" << std::endl << std::endl;
 			system("PAUSE");
 			system("CLS");
 		}
-		else if (enemyDodgeChance(engine) != 6) {
-			//heavy attack: uses 30 sp, does 7-12 base damage
-			int totalDamageDone = 0; //the total amount of damage done (damage after the percentBuff)
-			if (input == 1) {
-				//calculates random damage amount
-				damageDone = playerHeavyAttackRange(engine);
-				//calculate damage buff using weapon atk stat
-				totalDamageDone = damageDone * player.getInventory()->getWeapon()->getBuffPercent();
-				//subtracts stamina points NOTE: WEIGHT = AMOUNT IT TAKES OFF FROM SP!!!
-				player.setSp(player.getSp() - player.getInventory()->getWeapon()->getWeight() - 15);
-				//sets new enemy hp by subtracting damageDone from current enemy hp
-				this->setHp(this->getHp() - totalDamageDone);
-				//attack landed text, pauses on this screen and then resets screen back to stats menu
-				system("CLS");
-				std::cout << "You strike with a heavy blow! " << totalDamageDone << " damage done!" << std::endl << std::endl;
-				system("PAUSE");
-				system("CLS");
-			}
-			//light attack
-			else if (input == 2) {
-				//calculates randomized 50/50 player dodge chance
-				playerDodges = playerLightAttackDodgeChance(engine);
-				//calculates random damage amount
-				damageDone = playerLightAttackRange(engine);
-				//calculate damage buff according to weapon atk stat
-				totalDamageDone = damageDone * player.getInventory()->getWeapon()->getBuffPercent();
-				//subtracts stamina points NOTE: WEIGHT = HALF THE AMOUNT IT TAKES OFF FROM SP!!!
-				player.setSp(player.getSp() - ((player.getInventory()->getWeapon()->getWeight()) + ((player.getInventory()->getWeapon()->getWeight()) / 2)) - 10);
-				//sets new enemy hp by subtracting damageDone from current enemy hp
-				this->setHp(this->getHp() - totalDamageDone);
-				//attack landed text, pauses on this screen and then resets screen back to stats menu
-				system("CLS");
-				std::cout << "You lunge forward quickly and fiercly. You pierce the enemy like lightning. " << totalDamageDone << " damage done!" << std::endl << std::endl;
-				system("PAUSE");
-				system("CLS");
-			}
+		//light attack
+		else if (input == 2) {
+			//calculates randomized 50/50 player dodge chance
+			playerDodges = playerLightAttackDodgeChance(engine);
+			//calculates random damage amount
+			damageDone = playerLightAttackRange(engine);
+			//calculate damage buff according to weapon atk stat
+			totalDamageDone = damageDone * player.getInventory()->getWeapon()->getBuffPercent();
+			//subtracts stamina points NOTE: WEIGHT = HALF THE AMOUNT IT TAKES OFF FROM SP!!!
+			player.setSp(player.getSp() - ((player.getInventory()->getWeapon()->getWeight()) + ((player.getInventory()->getWeapon()->getWeight()) / 2)) - 10);
+			//sets new enemy hp by subtracting damageDone from current enemy hp
+			this->setHp(this->getHp() - totalDamageDone);
+			//attack landed text, pauses on this screen and then resets screen back to stats menu
+			system("CLS");
+			std::cout << "You lunge forward quickly and fiercly. You pierce the enemy like lightning. " << totalDamageDone << " damage done!" << std::endl << std::endl;
+			system("PAUSE");
+			system("CLS");
 		}
 	}
-	else {
+	if ((input < 1) || (input > 3)) {
 		system("CLS");
 		std::cout << "This is not an option. Choose again." << std::endl << std::endl;
 		system("PAUSE");
@@ -413,6 +410,7 @@ int enemy::playerAttackTurn(int input, int& damageDone, std::default_random_engi
 		//sets playerDodges to 3 as return value to prevent enemy from attacking if user picks null option
 		playerDodges = 3;
 	}
+	//return player dodges
 	return playerDodges;
 }
 
@@ -492,7 +490,7 @@ void enemy::battle(player& player) {
 		//execute battle music
 		PlaySound(MAKEINTRESOURCE(BATTLE_MUSIC_1), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
 		//execute battle loop
-
+		execBattleSequenceLoop(player);
 	}
 	if (player.getHp() <= 0) {
 		system("CLS");
@@ -527,7 +525,7 @@ void enemy::printIsSlainScreen() {
 *
 *
 */
-void enemy::battleLoop(player& player) {
+void enemy::execBattleSequenceLoop(player& player) {
 	//instantiate variables
 	int playerDodges = 0;
 	int playerChoice = 0;
@@ -537,24 +535,27 @@ void enemy::battleLoop(player& player) {
 	while ((player.getHp() > 0) && (this->getHp() > 0)) {
 		//reset playerDodges
 		playerDodges = 0;
+		//if the player's stamina is not depleted then the player battle turn can execute
 		if (player.getSp() > 0) {
 			//print battle sequence menu screen, store playerChoice in input variable
 			playerChoice = printBattleScreen(player);
 			//player's turn executes based on user's choice
 			playerDodges = playerAttackTurn(playerChoice, damageDone, engine, player); //LEFT OFF HERE, REFACTORING PLAYERATTACKTURN TO MAKE IT NEATER AND LESS INDENTS...
 		}
+		//if the player's stamina is depleted then the player turn will skip
 		else if (player.getSp() <= 0) {
 			std::cout << "You are too tired to attack! You must skip a turn to catch your breath!" << std::endl << std::endl;
 			system("PAUSE");
 			player.setSp(50);
 		}
-
-		//enemy attack turn executes based on predefined enemy stats, but only if enemy is not already dead
+		//if the user chose the inventory menu and their stamina is not depleted
 		if ((playerDodges == 3) && (player.getSp() > 0)) {
 			continue;
 		}
+		//execute enemy turn if the above special cases do not apply
 		else {
 			enemyAttackTurn(playerDodges, damageDone, engine, player);
 		}
 	}
 }
+

@@ -167,11 +167,7 @@ public:
 	void setIsSlain(bool isSlain);
 
 	//methods
-	void printBattleStats(player &player);
-
 	int printBattleScreen(player& player);
-	
-	int printBattleOptions();
 	
 	int playerAttackTurn(int input, int& damageDone, std::default_random_engine& engine, player& player);
 	
@@ -181,7 +177,7 @@ public:
 
 	void printIsSlainScreen();
 
-	void battleLoop(player& player);
+	void execBattleSequenceLoop(player& player);
 
 };
 
