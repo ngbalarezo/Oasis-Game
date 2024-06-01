@@ -31,7 +31,7 @@ int main() { //!FIXME: HOW TO INCREASE PROGRAM STACK/HEAP SIZE IN VISUAL STUDIO,
     item ITEMS[10] = {};
     //weapons
     weapon noWeapon;
-    weapon strongTestWeapon("STRONG TEST WEAPON", 1, 5, false, 20000, 1);
+    weapon strongTestWeapon("STRONG TEST WEAPON", 1, 5, false, 2, 1);
     weapon woodenSword("Wooden Sword", 150, 5, false, 10, 1);
     weapon woodenAxe("Wooden Axe", 200, 5, false, 15, 1);
     weapon ironSword("Iron Sword", 500, 8, false, 22, 1);
@@ -48,20 +48,6 @@ int main() { //!FIXME: HOW TO INCREASE PROGRAM STACK/HEAP SIZE IN VISUAL STUDIO,
     potion noPotion;
     potion smallHealPotion("Small Heal Potion", 5, 50, 0, 0, 100);
     potion POTION[10] = {};
-
-    //MAIN GAME: GENERATE DIALOGUES
-    /*std::vector<std::vector<std::string>> MOCKshopKeeperDialogue1 = {
-        //node 0
-        {"GREETINGS", "Hello", "Don't talk to me"},
-        //node 1
-        {"WHAT CAN I DO FOR YA...", "Tell me sir, what is the town like!", "Please share your life story with me!"},
-        //node 2
-        {"WHY SIR? I thought you seemed nice!", "Well, IM NOT", "Pardon my rudeness, I have schizophrenia..."},
-        //node3
-        {}
-
-    };
-    */
 
     //MAIN GAME: GENERATE DIALOGUES
     //shadowy man dialogue
@@ -310,7 +296,7 @@ int main() { //!FIXME: HOW TO INCREASE PROGRAM STACK/HEAP SIZE IN VISUAL STUDIO,
     gameMap.generateMap(WILDERNESS_REALM1, VILLAGES_REALM1, player);
 
     //MAIN GAME: INITIATE INTRO SEQUENCE AND MONOLOGUE
-    printIntroMonologue();
+    //printIntroMonologue();
 
     //MAIN GAME: MAIN GAME LOOP
     sentinel = 0;
@@ -333,8 +319,15 @@ int main() { //!FIXME: HOW TO INCREASE PROGRAM STACK/HEAP SIZE IN VISUAL STUDIO,
                 }
             }
         }
-        gameMap.execLocation(player); //!FIXME: ADD IN BASIC PLAYER FALL FEATURE
+        //Game over screen in player is slain
+        int playerSlain = gameMap.execLocation(player); //!FIXME: ADD IN BASIC PLAYER FALL FEATURE
         introMusicCont = 0;
+        if (playerSlain == 1) {
+            system("CLS");
+            std::cout << "Game over." << std::endl << std::endl;
+            system("PAUSE");
+            sentinel = 1;
+        }
     }
     
     return 0;
