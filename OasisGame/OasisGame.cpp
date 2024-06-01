@@ -255,7 +255,12 @@ int main() { //!FIXME: HOW TO INCREASE PROGRAM STACK/HEAP SIZE IN VISUAL STUDIO,
         //INFO SECTION: tbd
         else if (userChoice == 2) { 
             system("CLS");
-            std::cout << "Info: null" << std::endl << std::endl;
+            std::cout << "Created by Nicholas Balarezo, Sophie Fromageot, and Matthew Suess." << std::endl;
+            std::cout << "Latest updated version: 05-31-2024." << std::endl << std::endl;
+            std::cout << "All main features are enclosed in the dev testing menu." << std::endl;
+            std::cout << "This game is structured functioanlly but lacks creative content. This is TBD." << std::endl << std::endl;
+            std::cout << "Thank you Dr. Tyler Brown for all of your help and teaching. You are deeply cherished." << std::endl;
+            std::cout << "This game is dedicated to The Blessed Virgin Mary and Jesus Christ." << std::endl << std::endl;
             system("PAUSE");
             
         }
