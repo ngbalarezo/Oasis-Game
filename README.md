@@ -1,1 +1,5 @@
-# OasisGame
+# Oasis: Text-Based RPG
+
+Oasis is a text-based RPG adventure game created for a college data structures class. As it stands the game is fully functional and modular in structure so that it can be fleshed out with creative content. Creative content includes fully customizeable wilderness and village locations for the map; Church, shop, and lounge buildings; NPCs and dialogues; weapons, armor, potions, and misc. items. The number of custom objects is limited only by your PC's processing power.
+
+## Features
