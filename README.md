@@ -4,4 +4,5 @@ Oasis is a text-based adventure RPG created for a college data structures class.
 
 ## Features
 - Custom modular dialogue tree system.
-- 
+- Randomized map creation and custom map scaling system.
+- Fully customizable town, buildings, NPCs, armor, potions, weapons, etc. 
